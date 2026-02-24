@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+
+    <title>RIYAS_OS | V28 Industrial</title>
+
+    <link rel="stylesheet" href="./style.css">
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <canvas id="stage"></canvas>
+
+
+    <div id="ui-layer">
+        
+        <div id="hud-header" class="hud-panel top-center">
+            <div class="hud-subtitle">SYSTEM // ONLINE</div>
+            <div id="hud-sector-title" class="glitch-text" data-text="SECTOR // VOID">SECTOR // VOID</div>
+        </div>
+
+        <div id="hud-footer" class="hud-panel bottom-center">
+            <div class="progress-track">
+                <div id="hud-progress-fill" class="progress-fill"></div>
+            </div>
+            <div class="footer-status">
+                <span id="coordinates">X: 00.00 Y: 00.00</span>
+                <span class="blink">_SYNCED</span>
+            </div>
+        </div>
+
+        <div id="interaction-hint" class="hint-overlay">
+            <div class="hint-icon">↔</div>
+            <div class="hint-text">DRAG TO ORBIT</div>
+        </div>
+
+    </div>
+
+
+    <div id="os-terminal" class="terminal-window hidden">
+        <div class="terminal-header">
+            <div class="terminal-title">:: DATA_LINK_ESTABLISHED</div>
+            <button id="terminal-close" class="btn-close">×</button>
+        </div>
+        <div id="terminal-content" class="terminal-body">
+            </div>
+    </div>
+
+
+    <div id="boot-screen" class="boot-overlay">
+        <div class="boot-terminal">
+            <div class="boot-log">> KERNEL_INIT... OK</div>
+            <div class="boot-log">> LOADING_ASSETS...</div>
+            <div class="boot-log">> MOUNTING_PLANETS...</div>
+            <div class="boot-log blink">> WAITING_FOR_USER...</div>
+        </div>
+        
+        <button id="btn-enter-system" class="btn-primary hidden">INITIALIZE SYSTEM</button>
+    </div>
+
+
+    <script type="module" src="./main.js"></script>
+
+</body>
+</html>
