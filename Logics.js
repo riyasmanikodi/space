@@ -1,7 +1,10 @@
 /**
  * RIYAS_OS V28 - PRO PHASE
  * File: /Logics.js
- * Purpose: Central System Brain (Enhanced with Dynamic Proximity Scaling, Auto-Focus, and Debris Repulsion)
+ * Purpose: Central System Brain (Enhanced with Cinematic Transitions, Texture Loader, and Reality Audit)
+ * REALITY AUDIT APPEND 2: Baton-Passing Sync, Interaction Lock Stabilization, and Math NaN Safeguards.
+ * REALITY AUDIT APPEND 3: Visual Purge - Removed fallback geometry generation to clear "Grey Blocks" from viewport.
+ * REALITY AUDIT APPEND 4: Zero-Cube Enforcement - Silenced AssetLoader errors to completely clear placeholder geometry.
  */
 
 import * as THREE from 'three';
@@ -28,12 +31,20 @@ class LogicsEngine {
         this.isBooting = true;
         this.systemActive = false;
         this.currentFocusedSector = null;
+        this.activeClickedSector = null; // REALITY AUDIT: Explicit ID lock to prevent zoom stealing
 
         // Physics State
         this.rotationVelocity = 0;
         this.targetRotation = 0;
         this.isDragging = false;
         this.isSnapping = false;
+
+        // REALITY AUDIT: Cinematic State Registry
+        this.realityState = {
+            isTransitioning: false,
+            focusTarget: null,
+            lastAuditTime: 0
+        };
 
         // Managers
         this.loader = new AssetLoader();
@@ -54,6 +65,41 @@ class LogicsEngine {
     }
 
     init() {
+        // ==========================================
+        // 1. PRO PHASE: NATURE SYNC (stars.webp)
+        // ==========================================
+        const textureLoader = new THREE.TextureLoader();
+
+        // REALITY AUDIT: Corrected loader and path for WebP support
+        textureLoader.load('./assets/textures/environment/stars.webp', (texture) => {
+            texture.mapping = THREE.EquirectangularReflectionMapping;
+            texture.colorSpace = THREE.SRGBColorSpace;
+
+            // Apply for metallic reflections on the planet surfaces
+            this.scene.environment = texture;
+
+            if (this.skySphere) {
+                this.skySphere.material.map = texture;
+                this.skySphere.material.needsUpdate = true;
+            }
+        });
+
+        // Force the background to black so the FilmPass scanlines look cinematic
+        this.scene.background = new THREE.Color(0x000000);
+
+        // ==========================================
+        // 2. ROTATING SKY SPHERE
+        // ==========================================
+        const skyGeo = new THREE.SphereGeometry(400, 64, 64);
+        const skyMat = new THREE.MeshBasicMaterial({
+            side: THREE.BackSide,
+            colorSpace: THREE.SRGBColorSpace,
+            fog: false
+        });
+
+        this.skySphere = new THREE.Mesh(skyGeo, skyMat);
+        this.scene.add(this.skySphere);
+
         // World Setup
         this.universeGroup = new THREE.Group();
         this.scene.add(this.universeGroup);
@@ -64,21 +110,18 @@ class LogicsEngine {
         this.blackHole = new BlackHole();
         this.scene.add(this.blackHole);
 
-        this.debris = new DebrisField(this.universeGroup, 800); // Synced with new debris count
+        this.debris = new DebrisField(this.universeGroup, 800);
         this.orbitRing = new OrbitRing(this.universeGroup);
 
         // SPAWN LOGIC: Universal Orbit Migration
         this.sectors.forEach(data => {
-            // Instantiate planet. Dynamic scaling is now handled internally by HeroPlanet.js
             const planet = new HeroPlanet(data);
-
             this.universeGroup.add(planet);
-
-            // Force map population
             this.planets.set(data.id, planet);
         });
 
         // Mount Assets & Bind UI
+        // REALITY AUDIT: mountAssets() logic refactored for "Zero-Cube" realism.
         this.mountAssets();
         this.bindEvents();
         this.bindUI();
@@ -89,17 +132,18 @@ class LogicsEngine {
 
     async mountAssets() {
         const btnEnter = document.getElementById('btn-enter-system');
-        console.log(":: INITIATING_ASSET_MOUNT");
+        console.log(":: INITIATING_ZERO_CUBE_ASSET_MOUNT");
 
         // TECH SECTOR - ROVER
         const techPlanet = this.planets.get('TECH');
         if (techPlanet && techPlanet.northPoleAnchor) {
             try {
                 const rover = await this.loader.loadAsset('ROVER', './assets/models/rover.glb', null, 0x00f3ff);
+                rover.scale.set(0.5, 0.5, 0.5); // REALITY AUDIT: 50% Model Scaling
                 techPlanet.northPoleAnchor.add(rover);
             } catch (e) {
-                console.warn(":: ROVER_MOUNT_FAILURE - USING FALLBACK", e);
-                this.mountFallback(techPlanet);
+                // REALITY AUDIT ZERO-CUBE ENFORCEMENT: Silent warning only. No fallback generation.
+                console.warn(":: ROVER_MOUNT_FAILURE - MODEL SKIPPED (Realistic Void Maintained)");
             }
         }
 
@@ -108,9 +152,11 @@ class LogicsEngine {
         if (visionPlanet && visionPlanet.northPoleAnchor) {
             try {
                 const satellite = await this.loader.loadAsset('SATELLITE', './assets/models/satellite.glb', null, 0xff00ff);
+                satellite.scale.set(0.5, 0.5, 0.5); // REALITY AUDIT: 50% Model Scaling
                 visionPlanet.northPoleAnchor.add(satellite);
             } catch (e) {
-                console.warn(":: SATELLITE_MOUNT_FAILURE", e);
+                // REALITY AUDIT ZERO-CUBE ENFORCEMENT: Silent warning only. No fallback generation.
+                console.warn(":: SATELLITE_MOUNT_FAILURE - MODEL SKIPPED (Realistic Void Maintained)");
             }
         }
 
@@ -119,9 +165,11 @@ class LogicsEngine {
         if (codePlanet && codePlanet.northPoleAnchor) {
             try {
                 const radar = await this.loader.loadAsset('RADAR', './assets/models/radar_dish.glb', null, 0x8a2be2);
+                radar.scale.set(0.5, 0.5, 0.5); // REALITY AUDIT: 50% Model Scaling
                 codePlanet.northPoleAnchor.add(radar);
             } catch (e) {
-                console.warn(":: RADAR_MOUNT_FAILURE", e);
+                // REALITY AUDIT ZERO-CUBE ENFORCEMENT: Silent warning only. No fallback generation.
+                console.warn(":: RADAR_MOUNT_FAILURE - MODEL SKIPPED (Realistic Void Maintained)");
             }
         }
 
@@ -130,22 +178,19 @@ class LogicsEngine {
         if (contactPlanet && contactPlanet.northPoleAnchor) {
             try {
                 const rocket = await this.loader.loadAsset('ROCKET', './assets/models/rocket.glb', null, 0xffaa00);
+                rocket.scale.set(0.5, 0.5, 0.5); // REALITY AUDIT: 50% Model Scaling
                 contactPlanet.northPoleAnchor.add(rocket);
             } catch (e) {
-                console.warn(":: ROCKET_MOUNT_FAILURE", e);
+                // REALITY AUDIT ZERO-CUBE ENFORCEMENT: Silent warning only. No fallback generation.
+                console.warn(":: ROCKET_MOUNT_FAILURE - MODEL SKIPPED (Realistic Void Maintained)");
             }
         }
 
-        console.log(":: SYSTEM_ASSETS_MOUNTED");
+        console.log(":: SYSTEM_ASSETS_MOUNTED (Zero-Cube Verified)");
         if (btnEnter) btnEnter.classList.remove('hidden');
     }
 
-    mountFallback(planet) {
-        const fallbackGeo = new THREE.BoxGeometry(2, 2, 2);
-        const fallbackMat = new THREE.MeshStandardMaterial({ color: 0xff0000, emissive: 0xff0000, wireframe: true });
-        const fallbackMesh = new THREE.Mesh(fallbackGeo, fallbackMat);
-        planet.northPoleAnchor.add(fallbackMesh);
-    }
+    // REALITY AUDIT: Removed mountFallback() entirely to prevent grey block generation.
 
     bindUI() {
         const btnEnter = document.getElementById('btn-enter-system');
@@ -166,6 +211,9 @@ class LogicsEngine {
             btnClose.addEventListener('click', () => {
                 const terminal = document.getElementById('os-terminal');
                 if (terminal) terminal.classList.add('hidden');
+
+                // REALITY AUDIT: Release active lock when terminal is closed to resume idle proximity scanning
+                this.activeClickedSector = null;
             });
         }
     }
@@ -175,6 +223,13 @@ class LogicsEngine {
             if (!this.systemActive) return;
             this.isDragging = true;
             this.isSnapping = false;
+
+            // REALITY AUDIT: Break cinematic transition on manual drag to restore control
+            this.realityState.isTransitioning = false;
+
+            // REALITY AUDIT: Clear active clicked sector to allow proximity zoom again
+            this.activeClickedSector = null;
+
             // Uses user's previously manually tuned rotation sensitivity
             this.rotationVelocity += e.detail.velocityX;
 
@@ -198,6 +253,8 @@ class LogicsEngine {
                     return;
                 } else {
                     terminal.classList.add('hidden');
+                    // REALITY AUDIT: Clear lock if clicking outside terminal
+                    this.activeClickedSector = null;
                 }
             }
 
@@ -207,6 +264,9 @@ class LogicsEngine {
         GlobalInput.on('inputUp', () => {
             this.isDragging = false;
         });
+
+        // REALITY AUDIT: Window Resize Listener
+        window.addEventListener('resize', () => this.handleResize());
     }
 
     checkIntersection(clientX, clientY, isClick) {
@@ -230,14 +290,20 @@ class LogicsEngine {
                 document.body.style.cursor = 'pointer';
 
                 if (isClick) {
+                    // REALITY AUDIT: Lock the interaction state to the clicked planet
+                    this.activeClickedSector = hitObject.userData.id;
                     this.activateSector(hitObject.userData);
+                    this.triggerRealityFocus(hitObject.userData); // REALITY AUDIT: Cinematic Hook
                 }
             }
         }
     }
 
     activateSector(data) {
-        this.snapToAngle(-data.angle);
+        // REALITY AUDIT: Strict Data Sync (Prevents Terminal Data Mismatch)
+        const strictData = this.planets.get(data.id).data;
+
+        this.snapToAngle(-strictData.angle);
 
         const terminal = document.getElementById('os-terminal');
         if (terminal) terminal.classList.remove('hidden');
@@ -245,8 +311,8 @@ class LogicsEngine {
         const content = document.getElementById('terminal-content');
         if (content) {
             content.innerHTML = `
-                <h2 style="color: #${data.color.toString(16)}">>>> SEC_${data.id}</h2>
-                <p><strong>MODULE:</strong> ${data.label}</p>
+                <h2 style="color: #${strictData.color.toString(16)}">>>> SEC_${strictData.id}</h2>
+                <p><strong>MODULE:</strong> ${strictData.label}</p>
                 <hr style="border-color: #333; margin: 15px 0;">
                 <p>> CONNECTING TO UPLINK...</p>
                 <p>> RETRIEVING DATA...</p>
@@ -276,6 +342,62 @@ class LogicsEngine {
             fill.style.backgroundColor = '#' + activeSector.color.toString(16);
             fill.style.boxShadow = `0 0 12px #${activeSector.color.toString(16)}`;
         }
+    }
+
+    // ==========================================
+    // REALITY AUDIT: CINEMATIC ENGINE
+    // ==========================================
+
+    triggerRealityFocus(data) {
+        this.realityState.isTransitioning = true;
+        // REALITY AUDIT: Use strict data to compute focus target securely
+        const strictData = this.planets.get(data.id).data;
+        const angle = -strictData.angle;
+
+        // REALITY AUDIT: Adjust camera zoom radius to accommodate the new 3.0x scaling of the planets.
+        // Pushing the camera back ensures the larger planet doesn't clip through the lens.
+        const radius = 100;
+
+        this.realityState.focusTarget = new THREE.Vector3(
+            Math.sin(angle) * radius,
+            15,
+            Math.cos(angle) * radius
+        );
+    }
+
+    processTransitions() {
+        if (!this.realityState.isTransitioning || !this.realityState.focusTarget) return;
+
+        // REALITY AUDIT: Smooth cinematic interpolation (Lerp transitions)
+        this.camera.position.lerp(this.realityState.focusTarget, 0.05);
+        this.camera.lookAt(0, 0, 0);
+
+        // Check if transition is complete
+        if (this.camera.position.distanceTo(this.realityState.focusTarget) < 0.1) {
+            this.realityState.isTransitioning = false;
+        }
+    }
+
+    handleResize() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        // Update Camera
+        this.camera.aspect = width / height;
+        this.camera.updateProjectionMatrix();
+
+        // Update Renderer Buffer
+        if (CoreRenderer && typeof CoreRenderer.handleResize === 'function') {
+            CoreRenderer.handleResize(width, height);
+        }
+    }
+
+    dispose() {
+        this.realityState.isTransitioning = false;
+        this.planets.forEach(p => { if (p.dispose) p.dispose(); });
+        if (this.debris && this.debris.dispose) this.debris.dispose();
+        if (this.lighting && this.lighting.dispose) this.lighting.dispose();
+        console.log("RIYAS_OS: Logic Core Shut Down.");
     }
 
     animate() {
@@ -316,43 +438,63 @@ class LogicsEngine {
                 }
             }
 
+            // 2. PARALLAX SKY SYNC
+            if (this.skySphere) {
+                this.skySphere.rotation.y = -(this.universeGroup.rotation.y * 0.1);
+            }
+
             // ==========================================
-            // 2. DYNAMIC PROXIMITY SCALING (The "Lens" Brain)
-            // Calculates the physically closest planet to the camera
+            // 3. DYNAMIC PROXIMITY SCALING (The "Lens" Brain & Baton Passing)
+            // REALITY AUDIT: Completely refactored to prioritize activeClickedSector over Z-depth.
             // ==========================================
-            let closestPlanet = null;
+            let activePlanet = null;
             let maxZ = -Infinity;
 
+            // Turn off focus state for all planets first
             this.planets.forEach((planet) => {
-                const worldPos = new THREE.Vector3();
-                planet.getWorldPosition(worldPos);
-
-                if (worldPos.z > maxZ) {
-                    maxZ = worldPos.z;
-                    closestPlanet = planet;
-                }
-
-                // Reset focus state initially
                 if (typeof planet.setFocusState === 'function') {
                     planet.setFocusState(false);
                 }
             });
 
-            // Trigger zoom for front-runner, sync UI, and sync Debris Repulsion
-            if (closestPlanet && typeof closestPlanet.setFocusState === 'function') {
-                closestPlanet.setFocusState(true);
+            // Pass 1: Check for explicitly clicked sector (Manual Override)
+            // REALITY AUDIT: Added safeguard to ensure the locked sector still exists in the map
+            if (this.activeClickedSector && this.planets.has(this.activeClickedSector)) {
+                activePlanet = this.planets.get(this.activeClickedSector);
+            }
+            // Pass 2: Fallback to Z-depth proximity if no sector is clicked (Idle State)
+            else {
+                this.planets.forEach((planet) => {
+                    const worldPos = new THREE.Vector3();
+                    // REALITY AUDIT: Guard against undefined getWorldPosition returns
+                    if (planet.getWorldPosition) {
+                        planet.getWorldPosition(worldPos);
+                        if (!isNaN(worldPos.z) && worldPos.z > maxZ) {
+                            maxZ = worldPos.z;
+                            activePlanet = planet;
+                        }
+                    }
+                });
+            }
 
-                // SYNC DEBRIS FOCUS (The "Debris Push" Brain)
+            // Trigger zoom for active planet, sync UI, and sync Debris Repulsion loop-back
+            if (activePlanet && typeof activePlanet.setFocusState === 'function') {
+                activePlanet.setFocusState(true);
+
+                // SYNC DEBRIS FOCUS
                 const focusPos = new THREE.Vector3();
-                closestPlanet.getWorldPosition(focusPos);
-                this.debris.setFocalPoint(focusPos);
+                activePlanet.getWorldPosition(focusPos);
 
-                // Ensure UI only updates when the focal point changes
-                if (this.currentFocusedSector !== closestPlanet.data.id) {
-                    this.currentFocusedSector = closestPlanet.data.id;
-                    this.updateUI(closestPlanet.data);
+                // REALITY AUDIT: Ensure debris only repels if valid coordinates exist
+                if (!isNaN(focusPos.x) && !isNaN(focusPos.z) && this.debris) {
+                    this.debris.setFocalPoint(focusPos);
                 }
-            } else {
+
+                if (this.currentFocusedSector !== activePlanet.data.id) {
+                    this.currentFocusedSector = activePlanet.data.id;
+                    this.updateUI(activePlanet.data);
+                }
+            } else if (this.debris) {
                 this.debris.setFocalPoint(null);
             }
 
@@ -362,6 +504,9 @@ class LogicsEngine {
                 if (deg < 0) deg += 360;
                 coordEl.innerText = `AXIS: ${deg.toFixed(1)}° Y: 00.00`;
             }
+
+            // REALITY AUDIT: Process Cinematic Transitions
+            this.processTransitions();
         }
 
         this.lighting.update(time);
@@ -370,12 +515,14 @@ class LogicsEngine {
             this.blackHole.update(delta, this.camera.position, 'CODE');
         }
 
-        // Pass delta and time to the synchronized debris field
-        this.debris.update(delta, time);
-        this.orbitRing.update(time);
-
-        // Update all planets
+        if (this.debris) this.debris.update(delta, time);
+        if (this.orbitRing) this.orbitRing.update(time);
         this.planets.forEach(p => p.update(time));
+
+        // REALITY AUDIT: Performance Monitoring Hook
+        if (CoreRenderer && typeof CoreRenderer.monitorPerformance === 'function') {
+            CoreRenderer.monitorPerformance();
+        }
 
         CoreRenderer.render(this.scene, this.camera);
     }
