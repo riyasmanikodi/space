@@ -1,7 +1,21 @@
 /**
  * RIYAS_OS V28 - PRO PHASE
  * File: /loaders/AssetLoader.js
- * Purpose: Advanced Normalization, Center-Snapping, and Emissive Material Injection
+ * Purpose: Advanced Normalization, Center-Snapping, and Material Softening
+ * * * * KRAYE LOG V28:
+ * - SYSTEM: Material pipeline recalibrated to neutralize environmental reflections.
+ * - SYSTEM: Swapped mirror-like finish for industrial matte to fix Earth Structure ghosting.
+ * * * * CULPRIT LOG V28:
+ * - FIXED [ID 601]: Earth Structure Ghosting. Increased roughness to 0.6 and lowered metalness to 0.4 to blur reflections of the background stars.webp.
+ * * * * OMISSION LOG V28:
+ * - Fixed: Adjusted MeshStandardMaterial defaults to prioritize sector colors over environment map data.
+ * * * * RIPPLE EFFECT V28:
+ * - RIPPLE: Machinery like the ROVER and SATELLITE now maintain their local industrial color without reflecting the deep-space environment map structures.
+ * * * * REALITY AUDIT V28:
+ * - APPEND 4: Reflection Diffusion - Roughness increased from 0.1 to 0.6 to prevent "Mirror Ghosting" of the galaxy assets.
+ * * * * MASTER LOG V28:
+ * - STATUS: PRO_PHASE_ASSET_LOADER_STABLE
+ * - LINE_COUNT: ~95 Lines.
  */
 
 import * as THREE from 'three';
@@ -40,11 +54,15 @@ export class AssetLoader {
 
                             // Force PBR Standard for light reaction
                             const oldMat = child.material;
+
+                            // REALITY AUDIT: The "Earth Structure" Purge
+                            // Increasing roughness and lowering metalness diffuses reflections
+                            // of the environment map (stars.webp), removing the "Earth ghost" look.
                             child.material = new THREE.MeshStandardMaterial({
                                 map: oldMat.map,
                                 color: oldMat.color,
-                                metalness: 0.9,
-                                roughness: 0.1,
+                                metalness: 0.4, // Lowered from 0.9
+                                roughness: 0.6, // Increased from 0.1
                                 emissive: new THREE.Color(sectorColor),
                                 emissiveIntensity: 0.2 // Subtle glow to ensure visibility
                             });

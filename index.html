@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#000000">
 
     <title>RIYAS_OS | V28 Industrial</title>
@@ -19,13 +21,15 @@
         }
     </script>
 </head>
+
 <body>
 
     <canvas id="stage"></canvas>
 
-
     <div id="ui-layer">
-        
+
+        <div id="hero-name-viewport" class="top-center"></div>
+
         <div id="hud-header" class="hud-panel top-center">
             <div class="hud-subtitle">SYSTEM // ONLINE</div>
             <div id="hud-sector-title" class="glitch-text" data-text="SECTOR // VOID">SECTOR // VOID</div>
@@ -48,16 +52,7 @@
 
     </div>
 
-
-    <div id="os-terminal" class="terminal-window hidden">
-        <div class="terminal-header">
-            <div class="terminal-title">:: DATA_LINK_ESTABLISHED</div>
-            <button id="terminal-close" class="btn-close">×</button>
-        </div>
-        <div id="terminal-content" class="terminal-body">
-            </div>
-    </div>
-
+    <div id="hologram-viewport" class="hidden"></div>
 
     <div id="boot-screen" class="boot-overlay">
         <div class="boot-terminal">
@@ -66,12 +61,12 @@
             <div class="boot-log">> MOUNTING_PLANETS...</div>
             <div class="boot-log blink">> WAITING_FOR_USER...</div>
         </div>
-        
+
         <button id="btn-enter-system" class="btn-primary hidden">INITIALIZE SYSTEM</button>
     </div>
-
 
     <script type="module" src="./main.js"></script>
 
 </body>
+
 </html>

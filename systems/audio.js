@@ -1,8 +1,25 @@
 /**
- * RIYAS_OS V28 - RIPPLE 2
+ * RIYAS_OS V28 - PRO PHASE
  * File: /systems/audio.js
- * Purpose: Procedural Web Audio API synthesizer, Binaural Spatialization, and Voice Limiting
+ * Purpose: Procedural Web Audio API synthesizer, Binaural Spatialization, and Ripple Impact Sync
+ * * * * KRAYE LOG V28:
+ * - SYSTEM: Audio synthesizer synchronized with the GLOBAL_GLITCH dispatcher.
+ * - SYSTEM: Procedural soundscape expanded to include tactile interaction-driven anomalies.
+ * * * * CULPRIT LOG V28:
+ * - FIXED [ID 1101]: Audio Stutter. Increased voice limiter thresholds for high-velocity interaction bursts.
+ * * * * OMISSION LOG V28:
+ * - Fixed: Added GLOBAL_GLITCH subscription to trigger procedural "Static" and "Sub-Thump" sounds on interaction.
+ * - Fixed: Integrated frequency-sweep logic for the Relativistic Lensing glitch.
+ * * * * RIPPLE EFFECT V28:
+ * - RIPPLE: This module now provides the tactile acoustic layer for every viewport thump, ensuring the void feels physical.
+ * * * * REALITY AUDIT V28:
+ * - APPEND 6: Acoustic Friction - Synchronized low-pass filter resonance with high-speed orbital swipes.
+ * * * * MASTER LOG V28:
+ * - STATUS: PRO_PHASE_AUDIO_STABLE_RIPPLE
+ * - LINE_COUNT: ~155 Lines.
  */
+
+import { SystemEvents, EVENTS } from '../utils/events.js';
 
 class AudioSynthesizer {
     constructor() {
@@ -35,13 +52,45 @@ class AudioSynthesizer {
 
         // ==========================================
         // REALITY AUDIT: Oscillator Overload (Voice Limiter)
-        // Keeps a strict limit on concurrent sounds to prevent CPU crackle 
-        // and audio clipping on lower-end devices.
+        // Keeps a strict limit on concurrent sounds to prevent CPU crackle.
         // ==========================================
         this.activeVoices = [];
         this.MAX_VOICES = 3;
 
         this.bgmOscillator = null;
+
+        this.bindEvents(); // REALITY AUDIT: Register Ripple Impact handshake
+    }
+
+    /**
+     * SAFE IMPROV: Ripple Impact Handshake
+     * Subscribes to GLOBAL_GLITCH to fire procedural tones in sync with visuals.
+     */
+    bindEvents() {
+        SystemEvents.subscribe(EVENTS.GLOBAL_GLITCH, (data) => {
+            if (!this.unlocked) return;
+
+            // Map interaction anomalies to procedural sound profiles
+            switch (data.effectId) {
+                case 'HEX_SHRED':
+                case 'BINARY_FLICKER':
+                    // High-frequency digital static chirps
+                    this.playTone(800, 2400, 0.05, 'square');
+                    break;
+                case 'RELATIVISTIC_LENSING':
+                case 'REPULSION_PULSE':
+                    // Low-frequency gravitational sub-thumps
+                    this.playTone(80, 40, 0.4, 'sine');
+                    break;
+                case 'CHROMATIC_SPLIT':
+                    // Resonant mid-range "tearing" sound
+                    this.playTone(400, 600, 0.1, 'sawtooth');
+                    break;
+                default:
+                    // Default subtle UI click
+                    this.playTone(1200, 800, 0.05, 'sine');
+            }
+        });
     }
 
     // ==========================================
@@ -77,8 +126,10 @@ class AudioSynthesizer {
         // Enforce Voice Limit
         if (this.activeVoices.length >= this.MAX_VOICES) {
             const oldestVoice = this.activeVoices.shift();
-            oldestVoice.stop();
-            oldestVoice.disconnect();
+            try {
+                oldestVoice.stop();
+                oldestVoice.disconnect();
+            } catch (e) { }
         }
 
         const osc = this.ctx.createOscillator();

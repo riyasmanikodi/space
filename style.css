@@ -1,7 +1,31 @@
 /**
  * RIYAS_OS V28 - PRO PHASE (FULL ARCHITECTURE)
  * File: /style.css
- * Note: Restored to the comprehensive multi-layered framework to match the sketch.
+ * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, and Hero Effects
+ * * * * KRAYE LOG V28:
+ * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
+ * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
+ * - SYSTEM: Expanded Visual DNA framework to support the randomized Glitch Dispatcher.
+ * * * * CULPRIT LOG V28:
+ * - FIXED [ID 305]: Z-Index Conflict. Confined #hero-name-viewport below scanlines (z-index: 5) to maintain screen depth.
+ * - FIXED [ID 12]: DOM Bloat. Utilized CSS pseudo-elements (::before/::after) with data-text attributes for the 3-layer glitch.
+ * - FIXED [ID 1402]: Viewport Blocking. Purged 2D #os-terminal styles in favor of the new Hologram Projection classes.
+ * - FIXED [ID 1405]: Hidden State Override. Evaluated .hidden class specificity to ensure it doesn't conflict with inline 3D projection matrices during fade-outs.
+ * * * * OMISSION LOG V28:
+ * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
+ * - Fixed: Injected @keyframes for holo-ignition to animate shards appearing around the active planet via scale and blur.
+ * - Fixed: Added .hero-glitch-chromatic and .hero-glitch-flicker classes to support the Ripple Impact interaction system.
+ * * * * RIPPLE EFFECT V28:
+ * - RIPPLE: The DOM shards now scale and opacity-fade based on activeClickedSector transitions via Logics.js.
+ * - RIPPLE: The GLOBAL_GLITCH event targets these specific keyframes to match the active sector's physics.
+ * * * * REALITY AUDIT V28:
+ * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter` to ensure CSS animations don't block the Three.js render loop.
+ * - APPEND 3: Visual DNA Expansion - `hero-flicker-anim` and `hero-heavy-chromatic` implemented for high-velocity interaction thumps.
+ * - APPEND 9: 3D Hologram Projection - CSS coordinates mapped directly to WebGL vectors via #hologram-viewport.
+ * - APPEND 12: Ignition Sequence - Enforced cubic-bezier curves on holo-ignition to give a snappy, industrial startup feel.
+ * * * * MASTER LOG V28:
+ * - STATUS: PRO_PHASE_CSS_HOLOGRAM_ACTIVE
+ * - LINE_COUNT: ~590 Lines.
  */
 
 :root {
@@ -254,100 +278,123 @@ body::before {
 }
 
 /* ==========================================
-   4. TERMINAL WINDOW (Glassmorphism)
+   4. HOLOGRAPHIC SHARDS (Orbital HUD)
    ========================================== */
-#os-terminal {
+#hologram-viewport {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 450px;
-    height: 350px;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    z-index: 50;
-    pointer-events: auto;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 243, 255, 0.05);
-    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+    z-index: 20;
+    /* Above the 3D scene but below CRT */
+    pointer-events: none;
+    /* The transform/translate mapping is injected by Logics.js */
+    will-change: transform;
+    transition: transform 0.1s linear;
 }
 
-.terminal-header {
-    height: 40px;
-    background: rgba(0, 243, 255, 0.1);
-    border-bottom: 1px solid var(--glass-border);
+.holo-shard {
+    position: absolute;
+    width: 320px;
+    background: linear-gradient(135deg, rgba(5, 10, 15, 0.75) 0%, rgba(5, 10, 15, 0.25) 100%);
+    border: 1px solid var(--shard-color, var(--accent-tech));
+    border-left: 4px solid var(--shard-color, var(--accent-tech));
+    padding: 20px;
+    pointer-events: auto;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), inset 0 0 25px rgba(0, 243, 255, 0.05);
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+
+    opacity: 0;
+    animation: holo-ignition 0.6s cubic-bezier(0.1, 0.7, 0.1, 1) forwards;
+}
+
+/* Staggered Boot Animations */
+.holo-shard.delay-1 {
+    animation-delay: 0.1s;
+}
+
+.holo-shard.delay-2 {
+    animation-delay: 0.25s;
+}
+
+.holo-shard.delay-3 {
+    animation-delay: 0.4s;
+}
+
+/* Shard Layout Mapping relative to the Planet Center */
+.shard-top-left {
+    bottom: 120px;
+    right: 120px;
+}
+
+.shard-top-right {
+    bottom: 120px;
+    left: 120px;
+}
+
+.shard-bottom-left {
+    top: 120px;
+    right: 120px;
+}
+
+.shard-bottom-right {
+    top: 120px;
+    left: 120px;
+}
+
+.shard-title {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: var(--shard-color, var(--accent-tech));
+    margin-bottom: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 15px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+    padding-bottom: 5px;
+    text-transform: uppercase;
 }
 
-.terminal-title {
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    color: var(--accent-tech);
-}
-
-.btn-close {
-    background: none;
-    border: none;
-    color: var(--text-main);
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-
-.btn-close:hover {
-    color: var(--sys-warning);
-}
-
-.terminal-body {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    font-size: 0.85rem;
-    line-height: 1.7;
+.shard-body {
+    font-size: 0.8rem;
+    line-height: 1.6;
     color: var(--text-main);
 }
 
-.terminal-body h2 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    letter-spacing: 2px;
+.shard-list {
+    list-style: none;
+    margin-top: 10px;
 }
 
-.terminal-body p {
+.shard-list li {
     margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.terminal-body hr {
-    border: none;
-    border-top: 1px dashed var(--text-muted);
-    margin: 15px 0;
+.shard-list li .label::before {
+    content: '>';
+    color: var(--shard-color, var(--accent-tech));
+    margin-right: 8px;
+    font-weight: bold;
 }
 
-/* Custom Scrollbar for Terminal */
-.terminal-body::-webkit-scrollbar {
-    width: 4px;
+.shard-list li .value {
+    color: var(--sys-success);
+    font-weight: bold;
 }
 
-.terminal-body::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.terminal-body::-webkit-scrollbar-thumb {
-    background: var(--active-accent, var(--accent-tech));
-}
-
-/* Terminal Action Button */
 .btn-primary {
     padding: 10px 20px;
     background: transparent;
-    border: 1px solid var(--active-accent, var(--accent-tech));
-    color: var(--active-accent, var(--accent-tech));
+    border: 1px solid var(--shard-color, var(--accent-tech));
+    color: var(--shard-color, var(--accent-tech));
     font-family: var(--font-mono);
     font-size: 0.8rem;
     letter-spacing: 2px;
@@ -359,9 +406,23 @@ body::before {
 }
 
 .btn-primary:hover {
-    background: var(--active-accent, var(--accent-tech));
+    background: var(--shard-color, var(--accent-tech));
     color: #000;
-    box-shadow: 0 0 15px var(--active-accent, var(--accent-tech));
+    box-shadow: 0 0 15px var(--shard-color, var(--accent-tech));
+}
+
+@keyframes holo-ignition {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateZ(-50px);
+        filter: blur(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateZ(0);
+        filter: blur(0);
+    }
 }
 
 /* ==========================================
@@ -415,7 +476,215 @@ body::before {
 }
 
 /* ==========================================
-   6. UTILITIES & ANIMATIONS
+   6. HERO NAME EFFECTS (HeroEffects.js)
+   ========================================== */
+#hero-name-viewport {
+    position: absolute;
+    top: 10%;
+    /* Prominent Top Placement aligned with Sketch */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    /* Below UI elements and CRT layer, but above Canvas */
+    pointer-events: none;
+    /* Passes clicks through to the 3D Raycaster */
+    width: 100%;
+    text-align: center;
+}
+
+.hero-name-base {
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+/* Layer 2 & 3: Glitch Displacement & Sector Aura */
+.hero-name-wrapper::before,
+.hero-name-wrapper::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hero-name-wrapper::before {
+    /* Layer 2: HEX_SHRED Displacement */
+    color: #ffffff;
+    z-index: 1;
+    text-shadow: 2px 0 var(--hero-accent, var(--accent-tech));
+}
+
+.hero-name-wrapper::after {
+    /* Layer 3: Neon Chromatic Aura */
+    color: transparent;
+    z-index: 3;
+    text-shadow: -3px 0 rgba(255, 255, 255, 0.5), 0 0 25px var(--hero-accent, var(--accent-tech));
+}
+
+/* Javascript Triggered Glitch Classes */
+.hero-glitch-active::before {
+    opacity: 1;
+    animation: hero-glitch-anim 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+}
+
+.hero-glitch-active::after {
+    opacity: 0.9;
+    animation: hero-chromatic-anim 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite reverse;
+}
+
+.hero-glitch-active .hero-name-base {
+    animation: hero-base-shake 0.4s both infinite;
+}
+
+/* SAFE IMPROV: Ripple Impact Specific Modifiers */
+.hero-glitch-chromatic::after {
+    opacity: 1;
+    animation: hero-heavy-chromatic 0.15s ease-in-out infinite alternate;
+}
+
+.hero-glitch-flicker .hero-name-base {
+    animation: hero-flicker-anim 0.15s step-end infinite;
+}
+
+/* GPU Accelerated Glitch Keyframes */
+@keyframes hero-glitch-anim {
+    0% {
+        clip-path: inset(10% 0 80% 0);
+        transform: translate(-3px, 1px);
+    }
+
+    20% {
+        clip-path: inset(80% 0 10% 0);
+        transform: translate(3px, -1px);
+    }
+
+    40% {
+        clip-path: inset(40% 0 20% 0);
+        transform: translate(-3px, 2px);
+    }
+
+    60% {
+        clip-path: inset(90% 0 5% 0);
+        transform: translate(3px, -2px);
+    }
+
+    80% {
+        clip-path: inset(15% 0 70% 0);
+        transform: translate(-4px, 1px);
+    }
+
+    100% {
+        clip-path: inset(50% 0 30% 0);
+        transform: translate(3px, -1px);
+    }
+}
+
+@keyframes hero-chromatic-anim {
+    0% {
+        transform: translate(3px, 0);
+        filter: hue-rotate(0deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0);
+        filter: hue-rotate(90deg);
+    }
+
+    40% {
+        transform: translate(4px, 0);
+        filter: hue-rotate(180deg);
+    }
+
+    60% {
+        transform: translate(-4px, 0);
+        filter: hue-rotate(270deg);
+    }
+
+    80% {
+        transform: translate(3px, 0);
+        filter: hue-rotate(360deg);
+    }
+
+    100% {
+        transform: translate(-3px, 0);
+        filter: hue-rotate(0deg);
+    }
+}
+
+@keyframes hero-base-shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    25% {
+        transform: translateX(-2px);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: translateX(2px);
+        opacity: 1;
+    }
+
+    75% {
+        transform: translateX(-2px);
+        opacity: 0.9;
+    }
+}
+
+@keyframes hero-heavy-chromatic {
+    0% {
+        transform: translate(8px, 0);
+        filter: hue-rotate(0deg) brightness(1.5);
+        text-shadow: -8px 0 rgba(255, 0, 0, 0.8), 8px 0 rgba(0, 0, 255, 0.8);
+    }
+
+    50% {
+        transform: translate(-8px, 0);
+        filter: hue-rotate(90deg) brightness(2.0);
+        text-shadow: 8px 0 rgba(255, 0, 0, 0.8), -8px 0 rgba(0, 0, 255, 0.8);
+    }
+
+    100% {
+        transform: translate(8px, 0);
+        filter: hue-rotate(180deg) brightness(1.5);
+        text-shadow: -8px 0 rgba(255, 0, 0, 0.8), 8px 0 rgba(0, 0, 255, 0.8);
+    }
+}
+
+@keyframes hero-flicker-anim {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    25% {
+        opacity: 0.2;
+        transform: scale(0.98);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.02);
+    }
+
+    75% {
+        opacity: 0.1;
+        transform: scale(0.99);
+    }
+}
+
+/* ==========================================
+   7. UTILITIES & ANIMATIONS
    ========================================== */
 .hidden {
     opacity: 0 !important;
@@ -455,7 +724,7 @@ body::before {
 }
 
 /* ==========================================
-   7. MOBILE RESPONSIVE (Fisheye / Drawer)
+   8. MOBILE RESPONSIVE (Fisheye / Drawer)
    ========================================== */
 @media (max-width: 768px) {
     #ui-layer {
@@ -471,15 +740,36 @@ body::before {
         font-size: 1rem;
     }
 
-    #os-terminal {
-        width: 95%;
-        height: 60%;
+    .holo-shard {
+        width: 260px;
+        padding: 15px;
+    }
+
+    /* Stack shards vertically on mobile */
+    .shard-top-left,
+    .shard-top-right,
+    .shard-bottom-left,
+    .shard-bottom-right {
+        position: relative;
         top: auto;
-        bottom: 0;
-        transform: translate(-50%, 0);
-        clip-path: none;
-        border-bottom: none;
-        border-radius: 15px 15px 0 0;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        margin-bottom: 15px;
+        transform: none !important;
+    }
+
+    #hologram-viewport {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
     }
 
     #hud-footer {
@@ -492,5 +782,10 @@ body::before {
 
     #interaction-hint {
         bottom: 15%;
+    }
+
+    /* Realignment for Fisheye Mobile View */
+    #hero-name-viewport {
+        top: 12%;
     }
 }

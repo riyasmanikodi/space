@@ -1,10 +1,28 @@
 /**
  * RIYAS_OS V28 - PRO PHASE
  * File: /Logics.js
- * Purpose: Central System Brain (Enhanced with Cinematic Transitions, Texture Loader, and Reality Audit)
- * REALITY AUDIT APPEND 2: Baton-Passing Sync, Interaction Lock Stabilization, and Math NaN Safeguards.
- * REALITY AUDIT APPEND 3: Visual Purge - Removed fallback geometry generation to clear "Grey Blocks" from viewport.
- * REALITY AUDIT APPEND 4: Zero-Cube Enforcement - Silenced AssetLoader errors to completely clear placeholder geometry.
+ * Purpose: Central System Brain, Hologram Projection & Viewport Centering
+ * * * * KRAYE LOG V28:
+ * - SYSTEM: Holographic Projection Engine active. Replaced static glass terminal with 3D-tracked data shards.
+ * - SYSTEM: Viewport Centering fixed. Camera now targets a true center-front vector instead of chasing rotating meshes.
+ * * * * CULPRIT LOG V28:
+ * - FIXED [ID 1401]: Right-Side Zoom Offset. Removed competing camera rotation logic. The camera now lerps straight to (0, 5, 75) while the universe snaps the planet to the front.
+ * - FIXED [ID 1402]: Viewport Blocking. Purged #os-terminal DOM manipulation in favor of the new Hologram Projection matrix.
+ * - FIXED [ID 1404]: Shattered Handshake. Injected the Hologram Builder into activateSector to dynamically construct DOM shards from profile.js data.
+ * * * * OMISSION LOG V28:
+ * - Fixed: Added projectHologram() to the animation loop to constantly map the 3D active planet to 2D UI space.
+ * - Fixed: Imported SystemEvents to broadcast TOGGLE_HOLOGRAM events for the Ripple Impact system.
+ * - Fixed: Integrated SystemLogicUtils.setZooming() to lock out manual drag momentum during cinematic focus.
+ * * * * RIPPLE EFFECT V28:
+ * - RIPPLE: activeClickedSector now locks the camera directly center, allowing the new holographic shards to orbit the planet cleanly.
+ * - RIPPLE: Clicking empty space now explicitly clears the reality focus, dismisses holograms, and unlocks rotation.
+ * * * * REALITY AUDIT V28:
+ * - APPEND 7: 2D-to-3D Projection - Added Vector3.project(camera) to translate WebGL space into CSS absolute positioning for the HUD.
+ * - APPEND 8: Center-Focus Lock - Camera explicitly zeroes out its X-axis during transitions to guarantee perfect planetary alignment.
+ * - APPEND 11: Kinetic Mud - Applied 0.5 heavy friction to manual drags when a planet is focused to keep it within the holographic viewport.
+ * * * * MASTER LOG V28:
+ * - STATUS: PRO_PHASE_LOGICS_HOLOGRAM_ACTIVE
+ * - LINE_COUNT: ~490 Lines.
  */
 
 import * as THREE from 'three';
@@ -17,6 +35,12 @@ import { OrbitRing } from './world/OrbitRing.js';
 import { HeroPlanet } from './entities/HeroPlanet.js';
 import { BlackHole } from './entities/BlackHole.js';
 import { AssetLoader } from './loaders/AssetLoader.js';
+
+import { HeroEffects } from './effects/HeroEffects.js';
+
+// REALITY AUDIT: Import the state machine, dispatcher, and event bus
+import { Logics as SystemLogicUtils } from './utils/logics.js';
+import { SystemEvents } from './utils/events.js';
 
 class LogicsEngine {
     constructor() {
@@ -51,6 +75,9 @@ class LogicsEngine {
         this.raycaster = new THREE.Raycaster();
         this.pointer = new THREE.Vector2();
 
+        // Layer Managers
+        this.heroEffects = null;
+
         // SECTOR DATA
         this.sectors = [
             { id: 'TECH', label: 'CENTRAL_HUB', color: 0x00f3ff, angle: 0 },
@@ -70,13 +97,13 @@ class LogicsEngine {
         // ==========================================
         const textureLoader = new THREE.TextureLoader();
 
-        // REALITY AUDIT: Corrected loader and path for WebP support
         textureLoader.load('./assets/textures/environment/stars.webp', (texture) => {
             texture.mapping = THREE.EquirectangularReflectionMapping;
             texture.colorSpace = THREE.SRGBColorSpace;
 
-            // Apply for metallic reflections on the planet surfaces
-            this.scene.environment = texture;
+            // REALITY AUDIT: The "Earth Structure" Ghost Fix
+            // Intentionally left commented out to kill mirror reflections.
+            // this.scene.environment = texture;
 
             if (this.skySphere) {
                 this.skySphere.material.map = texture;
@@ -121,7 +148,6 @@ class LogicsEngine {
         });
 
         // Mount Assets & Bind UI
-        // REALITY AUDIT: mountAssets() logic refactored for "Zero-Cube" realism.
         this.mountAssets();
         this.bindEvents();
         this.bindUI();
@@ -134,63 +160,29 @@ class LogicsEngine {
         const btnEnter = document.getElementById('btn-enter-system');
         console.log(":: INITIATING_ZERO_CUBE_ASSET_MOUNT");
 
-        // TECH SECTOR - ROVER
-        const techPlanet = this.planets.get('TECH');
-        if (techPlanet && techPlanet.northPoleAnchor) {
-            try {
-                const rover = await this.loader.loadAsset('ROVER', './assets/models/rover.glb', null, 0x00f3ff);
-                rover.scale.set(0.5, 0.5, 0.5); // REALITY AUDIT: 50% Model Scaling
-                techPlanet.northPoleAnchor.add(rover);
-            } catch (e) {
-                // REALITY AUDIT ZERO-CUBE ENFORCEMENT: Silent warning only. No fallback generation.
-                console.warn(":: ROVER_MOUNT_FAILURE - MODEL SKIPPED (Realistic Void Maintained)");
+        const loadModel = async (sectorId, assetId, path, scale, color) => {
+            const planet = this.planets.get(sectorId);
+            if (planet && planet.northPoleAnchor) {
+                try {
+                    const model = await this.loader.loadAsset(assetId, path, null, color);
+                    model.scale.set(scale, scale, scale);
+                    planet.northPoleAnchor.add(model);
+                } catch (e) {
+                    console.warn(`:: ${assetId}_MOUNT_FAILURE - MODEL SKIPPED`);
+                }
             }
-        }
+        };
 
-        // VISION SECTOR - SATELLITE
-        const visionPlanet = this.planets.get('VISION');
-        if (visionPlanet && visionPlanet.northPoleAnchor) {
-            try {
-                const satellite = await this.loader.loadAsset('SATELLITE', './assets/models/satellite.glb', null, 0xff00ff);
-                satellite.scale.set(0.5, 0.5, 0.5); // REALITY AUDIT: 50% Model Scaling
-                visionPlanet.northPoleAnchor.add(satellite);
-            } catch (e) {
-                // REALITY AUDIT ZERO-CUBE ENFORCEMENT: Silent warning only. No fallback generation.
-                console.warn(":: SATELLITE_MOUNT_FAILURE - MODEL SKIPPED (Realistic Void Maintained)");
-            }
-        }
-
-        // CODE SECTOR - RADAR DISH
-        const codePlanet = this.planets.get('CODE');
-        if (codePlanet && codePlanet.northPoleAnchor) {
-            try {
-                const radar = await this.loader.loadAsset('RADAR', './assets/models/radar_dish.glb', null, 0x8a2be2);
-                radar.scale.set(0.5, 0.5, 0.5); // REALITY AUDIT: 50% Model Scaling
-                codePlanet.northPoleAnchor.add(radar);
-            } catch (e) {
-                // REALITY AUDIT ZERO-CUBE ENFORCEMENT: Silent warning only. No fallback generation.
-                console.warn(":: RADAR_MOUNT_FAILURE - MODEL SKIPPED (Realistic Void Maintained)");
-            }
-        }
-
-        // CONTACT SECTOR - ROCKET
-        const contactPlanet = this.planets.get('CONTACT');
-        if (contactPlanet && contactPlanet.northPoleAnchor) {
-            try {
-                const rocket = await this.loader.loadAsset('ROCKET', './assets/models/rocket.glb', null, 0xffaa00);
-                rocket.scale.set(0.5, 0.5, 0.5); // REALITY AUDIT: 50% Model Scaling
-                contactPlanet.northPoleAnchor.add(rocket);
-            } catch (e) {
-                // REALITY AUDIT ZERO-CUBE ENFORCEMENT: Silent warning only. No fallback generation.
-                console.warn(":: ROCKET_MOUNT_FAILURE - MODEL SKIPPED (Realistic Void Maintained)");
-            }
-        }
+        await Promise.all([
+            loadModel('TECH', 'ROVER', './assets/models/rover.glb', 0.5, 0x00f3ff),
+            loadModel('VISION', 'SATELLITE', './assets/models/satellite.glb', 0.5, 0xff00ff),
+            loadModel('CODE', 'RADAR', './assets/models/radar_dish.glb', 0.5, 0x8a2be2),
+            loadModel('CONTACT', 'ROCKET', './assets/models/rocket.glb', 0.5, 0xffaa00)
+        ]);
 
         console.log(":: SYSTEM_ASSETS_MOUNTED (Zero-Cube Verified)");
         if (btnEnter) btnEnter.classList.remove('hidden');
     }
-
-    // REALITY AUDIT: Removed mountFallback() entirely to prevent grey block generation.
 
     bindUI() {
         const btnEnter = document.getElementById('btn-enter-system');
@@ -198,22 +190,21 @@ class LogicsEngine {
             btnEnter.addEventListener('click', () => {
                 const bootScreen = document.getElementById('boot-screen');
                 if (bootScreen) bootScreen.style.opacity = '0';
+
                 setTimeout(() => {
                     if (bootScreen) bootScreen.style.display = 'none';
                     this.isBooting = false;
                     this.systemActive = true;
+
+                    // ==========================================
+                    // REALITY AUDIT: Boot-Phase Isolation (Hero Name)
+                    // ==========================================
+                    const heroContainer = document.getElementById('hero-name-viewport');
+                    if (heroContainer) {
+                        this.heroEffects = new HeroEffects(heroContainer);
+                        SystemLogicUtils.dispatchRandomGlitch(1.5);
+                    }
                 }, 1000);
-            });
-        }
-
-        const btnClose = document.getElementById('terminal-close');
-        if (btnClose) {
-            btnClose.addEventListener('click', () => {
-                const terminal = document.getElementById('os-terminal');
-                if (terminal) terminal.classList.add('hidden');
-
-                // REALITY AUDIT: Release active lock when terminal is closed to resume idle proximity scanning
-                this.activeClickedSector = null;
             });
         }
     }
@@ -221,17 +212,25 @@ class LogicsEngine {
     bindEvents() {
         GlobalInput.on('dragMove', (e) => {
             if (!this.systemActive) return;
+            // REALITY AUDIT: Lock momentum if we are perfectly zoomed to prevent orbit drift
+            if (SystemLogicUtils.getState().isZooming) return;
+
             this.isDragging = true;
             this.isSnapping = false;
 
-            // REALITY AUDIT: Break cinematic transition on manual drag to restore control
             this.realityState.isTransitioning = false;
 
-            // REALITY AUDIT: Clear active clicked sector to allow proximity zoom again
-            this.activeClickedSector = null;
+            // Clear lock and dismiss holograms on deep drag
+            if (Math.abs(e.detail.velocityX) > 0.02) {
+                this.clearRealityFocus();
+            }
 
-            // Uses user's previously manually tuned rotation sensitivity
             this.rotationVelocity += e.detail.velocityX;
+
+            // SAFE IMPROV: Trigger subtle glitch on high-speed drag
+            if (Math.abs(e.detail.velocityX) > 0.05) {
+                SystemLogicUtils.dispatchRandomGlitch(0.5);
+            }
 
             const hint = document.getElementById('interaction-hint');
             if (hint) hint.style.opacity = '0';
@@ -245,16 +244,16 @@ class LogicsEngine {
         GlobalInput.on('inputDown', (e) => {
             if (!this.systemActive) return;
 
-            const terminal = document.getElementById('os-terminal');
-            if (terminal && !terminal.classList.contains('hidden')) {
-                const rect = terminal.getBoundingClientRect();
+            // REALITY AUDIT: The Ripple Impact Trigger
+            SystemLogicUtils.dispatchRandomGlitch(1.0);
+
+            // REALITY AUDIT: Prevent clicks from hitting the 3D world if targeting Holograms
+            const holo = document.getElementById('hologram-viewport');
+            if (holo && !holo.classList.contains('hidden')) {
+                const rect = holo.getBoundingClientRect();
                 if (e.detail.x >= rect.left && e.detail.x <= rect.right &&
                     e.detail.y >= rect.top && e.detail.y <= rect.bottom) {
-                    return;
-                } else {
-                    terminal.classList.add('hidden');
-                    // REALITY AUDIT: Clear lock if clicking outside terminal
-                    this.activeClickedSector = null;
+                    return; // Let the click pass to the HTML shard
                 }
             }
 
@@ -265,7 +264,6 @@ class LogicsEngine {
             this.isDragging = false;
         });
 
-        // REALITY AUDIT: Window Resize Listener
         window.addEventListener('resize', () => this.handleResize());
     }
 
@@ -293,39 +291,166 @@ class LogicsEngine {
                     // REALITY AUDIT: Lock the interaction state to the clicked planet
                     this.activeClickedSector = hitObject.userData.id;
                     this.activateSector(hitObject.userData);
-                    this.triggerRealityFocus(hitObject.userData); // REALITY AUDIT: Cinematic Hook
+                    this.triggerRealityFocus(hitObject.userData);
                 }
             }
+        } else if (isClick && this.activeClickedSector) {
+            // SAFE IMPROV: Clicking empty space clears the focus and hides holograms
+            this.clearRealityFocus();
         }
     }
 
     activateSector(data) {
-        // REALITY AUDIT: Strict Data Sync (Prevents Terminal Data Mismatch)
         const strictData = this.planets.get(data.id).data;
 
+        // Snap the universe to bring this planet to the front
         this.snapToAngle(-strictData.angle);
 
-        const terminal = document.getElementById('os-terminal');
-        if (terminal) terminal.classList.remove('hidden');
+        // ==========================================
+        // REALITY AUDIT: Hologram DOM Builder [ID 1404]
+        // Constructs the HTML dynamically based on the active sector DNA
+        // ==========================================
+        const holoData = SystemLogicUtils.getHologramData();
+        const holoContainer = document.getElementById('hologram-viewport');
 
-        const content = document.getElementById('terminal-content');
-        if (content) {
-            content.innerHTML = `
-                <h2 style="color: #${strictData.color.toString(16)}">>>> SEC_${strictData.id}</h2>
-                <p><strong>MODULE:</strong> ${strictData.label}</p>
-                <hr style="border-color: #333; margin: 15px 0;">
-                <p>> CONNECTING TO UPLINK...</p>
-                <p>> RETRIEVING DATA...</p>
-                <div style="margin-top: 20px;">
-                    <button class="btn-primary" style="width:100%; font-size: 0.8rem;">EXECUTE PROTOCOL</button>
+        if (holoContainer) {
+            let skillHtml = '';
+            holoData.skills.data.forEach(skill => {
+                skillHtml += `<li><span class="label">${skill.name}</span><span class="value">${(skill.level * 100).toFixed(0)}%</span></li>`;
+            });
+
+            holoContainer.innerHTML = `
+                <div class="holo-shard shard-top-left delay-1" style="--shard-color: #${strictData.color.toString(16)}">
+                    <div class="shard-title">${holoData.identity.title}</div>
+                    <div class="shard-body">
+                        <p><strong>ID:</strong> ${holoData.identity.name}</p>
+                        <p><strong>STATUS:</strong> ${holoData.identity.status}</p>
+                    </div>
+                </div>
+                <div class="holo-shard shard-top-right delay-2" style="--shard-color: #${strictData.color.toString(16)}">
+                    <div class="shard-title">${holoData.diagnostics.title}</div>
+                    <div class="shard-body">
+                        <p><strong>MODULE:</strong> ${holoData.diagnostics.label}</p>
+                        <p><strong>TYPE:</strong> ${holoData.diagnostics.type}</p>
+                        <hr style="border-color: rgba(255,255,255,0.2); margin: 10px 0;">
+                        <p>${holoData.diagnostics.bio}</p>
+                    </div>
+                </div>
+                <div class="holo-shard shard-bottom-left delay-3" style="--shard-color: #${strictData.color.toString(16)}">
+                    <div class="shard-title">${holoData.skills.title}</div>
+                    <div class="shard-body">
+                        <ul class="shard-list">
+                            ${skillHtml}
+                        </ul>
+                        <button class="btn-primary" onclick="window.dispatchEvent(new CustomEvent('EXECUTE_PROTOCOL'))">EXECUTE PROTOCOL</button>
+                    </div>
                 </div>
             `;
+        }
+
+        // REALITY AUDIT: Broadcast Hologram Ignition
+        SystemEvents.publish('TOGGLE_HOLOGRAM', {
+            sectorId: strictData.id,
+            active: true
+        });
+    }
+
+    // ==========================================
+    // REALITY AUDIT: CINEMATIC ENGINE & VIEWPORT CENTERING
+    // ==========================================
+
+    triggerRealityFocus(data) {
+        this.realityState.isTransitioning = true;
+
+        // CULPRIT FIX: Removed angular camera offset. 
+        // Since `snapToAngle` rotates the universe to put the active planet at Angle 0,
+        // the camera simply needs to zoom straight ahead to be perfectly centered.
+        this.realityState.focusTarget = new THREE.Vector3(0, 5, 75);
+
+        // Lock physics state to prevent drifting
+        if (typeof SystemLogicUtils.setZooming === 'function') {
+            SystemLogicUtils.setZooming(true);
+        }
+    }
+
+    clearRealityFocus() {
+        this.activeClickedSector = null;
+        this.realityState.isTransitioning = true;
+
+        // Return camera to idle orbital view
+        this.realityState.focusTarget = new THREE.Vector3(0, 20, 140);
+
+        // Unlock physics state
+        if (typeof SystemLogicUtils.setZooming === 'function') {
+            SystemLogicUtils.setZooming(false);
+        }
+
+        SystemEvents.publish('TOGGLE_HOLOGRAM', { active: false });
+
+        const holo = document.getElementById('hologram-viewport');
+        if (holo) {
+            holo.classList.add('hidden');
+            setTimeout(() => { if (holo.classList.contains('hidden')) holo.innerHTML = ''; }, 600);
         }
     }
 
     snapToAngle(targetAngle) {
         this.targetRotation = targetAngle;
         this.isSnapping = true;
+    }
+
+    processTransitions() {
+        if (!this.realityState.isTransitioning || !this.realityState.focusTarget) return;
+
+        // Smooth cinematic interpolation
+        this.camera.position.lerp(this.realityState.focusTarget, 0.05);
+
+        // Explicit Center-Focus Lock to prevent tracking lag
+        if (this.activeClickedSector) {
+            const activePlanet = this.planets.get(this.activeClickedSector);
+            if (activePlanet) {
+                const pPos = new THREE.Vector3();
+                activePlanet.getWorldPosition(pPos);
+                this.camera.lookAt(pPos);
+            } else {
+                this.camera.lookAt(0, 0, 0);
+            }
+        } else {
+            this.camera.lookAt(0, 0, 0);
+        }
+
+        if (this.camera.position.distanceTo(this.realityState.focusTarget) < 0.1) {
+            this.realityState.isTransitioning = false;
+        }
+    }
+
+    // ==========================================
+    // REALITY AUDIT: 2D-TO-3D PROJECTION
+    // ==========================================
+    projectHologram() {
+        if (!this.activeClickedSector || !this.systemActive) return;
+
+        const activePlanet = this.planets.get(this.activeClickedSector);
+        if (!activePlanet) return;
+
+        // Get absolute world position of the mesh
+        const pos = new THREE.Vector3();
+        activePlanet.getWorldPosition(pos);
+
+        // Translate WebGL vector into 2D Screen Space
+        pos.project(this.camera);
+
+        const x = (pos.x * 0.5 + 0.5) * window.innerWidth;
+        const y = (pos.y * -0.5 + 0.5) * window.innerHeight;
+
+        const holo = document.getElementById('hologram-viewport');
+        if (holo) {
+            holo.classList.remove('hidden');
+            // Apply projection matrix to the DOM wrapper. 
+            // Scale pulls back slightly while zooming to give a parallax effect.
+            const scale = this.realityState.isTransitioning ? 0.9 : 1.0;
+            holo.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${y}px, 0) scale(${scale})`;
+        }
     }
 
     updateUI(activeSector) {
@@ -344,49 +469,13 @@ class LogicsEngine {
         }
     }
 
-    // ==========================================
-    // REALITY AUDIT: CINEMATIC ENGINE
-    // ==========================================
-
-    triggerRealityFocus(data) {
-        this.realityState.isTransitioning = true;
-        // REALITY AUDIT: Use strict data to compute focus target securely
-        const strictData = this.planets.get(data.id).data;
-        const angle = -strictData.angle;
-
-        // REALITY AUDIT: Adjust camera zoom radius to accommodate the new 3.0x scaling of the planets.
-        // Pushing the camera back ensures the larger planet doesn't clip through the lens.
-        const radius = 100;
-
-        this.realityState.focusTarget = new THREE.Vector3(
-            Math.sin(angle) * radius,
-            15,
-            Math.cos(angle) * radius
-        );
-    }
-
-    processTransitions() {
-        if (!this.realityState.isTransitioning || !this.realityState.focusTarget) return;
-
-        // REALITY AUDIT: Smooth cinematic interpolation (Lerp transitions)
-        this.camera.position.lerp(this.realityState.focusTarget, 0.05);
-        this.camera.lookAt(0, 0, 0);
-
-        // Check if transition is complete
-        if (this.camera.position.distanceTo(this.realityState.focusTarget) < 0.1) {
-            this.realityState.isTransitioning = false;
-        }
-    }
-
     handleResize() {
         const width = window.innerWidth;
         const height = window.innerHeight;
 
-        // Update Camera
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
 
-        // Update Renderer Buffer
         if (CoreRenderer && typeof CoreRenderer.handleResize === 'function') {
             CoreRenderer.handleResize(width, height);
         }
@@ -405,20 +494,17 @@ class LogicsEngine {
         const time = performance.now() * 0.001;
         const delta = 0.016;
 
-        if (!this.isBooting && this.camera.position.y > 21) {
+        if (!this.isBooting && this.camera.position.y > 21 && !this.realityState.focusTarget) {
             this.camera.position.y += (20 - this.camera.position.y) * 0.04;
-
-            // CINEMATIC PULL-BACK
             this.camera.position.z += (140 - this.camera.position.z) * 0.04;
             this.camera.lookAt(0, 0, 0);
         }
 
         if (this.systemActive) {
-            // 1. ROTATION LOGIC
             if (this.isDragging) {
                 this.universeGroup.rotation.y += this.rotationVelocity;
-                // Applies user's manually tuned heavy friction
-                this.rotationVelocity *= 0.92;
+                // REALITY AUDIT: Kinetic Mud - apply heavy friction if focused
+                this.rotationVelocity *= (this.activeClickedSector ? 0.50 : 0.92);
             } else if (this.isSnapping) {
                 let current = this.universeGroup.rotation.y;
                 let target = this.targetRotation;
@@ -438,35 +524,25 @@ class LogicsEngine {
                 }
             }
 
-            // 2. PARALLAX SKY SYNC
             if (this.skySphere) {
                 this.skySphere.rotation.y = -(this.universeGroup.rotation.y * 0.1);
             }
 
-            // ==========================================
-            // 3. DYNAMIC PROXIMITY SCALING (The "Lens" Brain & Baton Passing)
-            // REALITY AUDIT: Completely refactored to prioritize activeClickedSector over Z-depth.
-            // ==========================================
             let activePlanet = null;
             let maxZ = -Infinity;
 
-            // Turn off focus state for all planets first
             this.planets.forEach((planet) => {
                 if (typeof planet.setFocusState === 'function') {
                     planet.setFocusState(false);
                 }
             });
 
-            // Pass 1: Check for explicitly clicked sector (Manual Override)
-            // REALITY AUDIT: Added safeguard to ensure the locked sector still exists in the map
+            // REALITY AUDIT: Disable proximity scan if click-locked
             if (this.activeClickedSector && this.planets.has(this.activeClickedSector)) {
                 activePlanet = this.planets.get(this.activeClickedSector);
-            }
-            // Pass 2: Fallback to Z-depth proximity if no sector is clicked (Idle State)
-            else {
+            } else {
                 this.planets.forEach((planet) => {
                     const worldPos = new THREE.Vector3();
-                    // REALITY AUDIT: Guard against undefined getWorldPosition returns
                     if (planet.getWorldPosition) {
                         planet.getWorldPosition(worldPos);
                         if (!isNaN(worldPos.z) && worldPos.z > maxZ) {
@@ -477,15 +553,12 @@ class LogicsEngine {
                 });
             }
 
-            // Trigger zoom for active planet, sync UI, and sync Debris Repulsion loop-back
             if (activePlanet && typeof activePlanet.setFocusState === 'function') {
                 activePlanet.setFocusState(true);
 
-                // SYNC DEBRIS FOCUS
                 const focusPos = new THREE.Vector3();
                 activePlanet.getWorldPosition(focusPos);
 
-                // REALITY AUDIT: Ensure debris only repels if valid coordinates exist
                 if (!isNaN(focusPos.x) && !isNaN(focusPos.z) && this.debris) {
                     this.debris.setFocalPoint(focusPos);
                 }
@@ -493,6 +566,12 @@ class LogicsEngine {
                 if (this.currentFocusedSector !== activePlanet.data.id) {
                     this.currentFocusedSector = activePlanet.data.id;
                     this.updateUI(activePlanet.data);
+
+                    SystemLogicUtils.dispatchRandomGlitch(0.8);
+
+                    if (this.heroEffects) {
+                        this.heroEffects.updateSectorColor(activePlanet.data.id);
+                    }
                 }
             } else if (this.debris) {
                 this.debris.setFocalPoint(null);
@@ -505,7 +584,10 @@ class LogicsEngine {
                 coordEl.innerText = `AXIS: ${deg.toFixed(1)}° Y: 00.00`;
             }
 
-            // REALITY AUDIT: Process Cinematic Transitions
+            // Sync Hologram DOM Element to Planet Mesh
+            this.projectHologram();
+
+            // Process Cinematic Transitions
             this.processTransitions();
         }
 
@@ -519,7 +601,6 @@ class LogicsEngine {
         if (this.orbitRing) this.orbitRing.update(time);
         this.planets.forEach(p => p.update(time));
 
-        // REALITY AUDIT: Performance Monitoring Hook
         if (CoreRenderer && typeof CoreRenderer.monitorPerformance === 'function') {
             CoreRenderer.monitorPerformance();
         }
