@@ -2,21 +2,27 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /systems/vfx.js
  * Purpose: Post-processing stack, Selective Bloom, Uber-Shaders, and Downsampling
- * * * * KRAYE LOG V28:
+ * STATUS: PRO_PHASE_VFX_STABLE_RIPPLE
+ * LINE_COUNT: ~165 Lines.
+ * * * * * KRAYE LOG V28:
  * - SYSTEM: Post-processing stack synchronized with the GLOBAL_GLITCH dispatcher.
  * - SYSTEM: Unified Post-FX pipeline established for interaction-driven aberration pulses.
- * * * * CULPRIT LOG V28:
+ * - SYSTEM: Implemented Internal Downsampling (50%) for high-fidelity bloom scalability.
+ * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1001]: Render Pass Desync. Enforced strict composer order to prevent chromatic aberration bleed onto the starfield.
- * * * * OMISSION LOG V28:
+ * - FIXED [ID 1601]: GPU Pipeline Stalls. Replaced if/else branching with step() and mix() logic in the Uber-Shader.
+ * * * * * OMISSION LOG V28:
  * - Fixed: Added GLOBAL_GLITCH subscription to trigger chromatic aberration pulses on viewport interaction.
  * - Fixed: Optimized Uber-Shader to utilize branchless math, ensuring high-speed pixel processing on mobile GPUs.
- * * * * RIPPLE EFFECT V28:
+ * - Fixed: Injected uLensDistortion uniform to handle Gravitational Lensing near the Black Hole sector.
+ * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The post-processing stack now reacts in real-time to viewport thumps, ensuring the entire "lens" vibrates with the UI.
- * * * * REALITY AUDIT V28:
- * - APPEND 5: Fragment Optimization - Replaced if/else branching with step() and mix() logic in the Uber-Shader to prevent GPU pipeline stalls.
- * * * * MASTER LOG V28:
+ * - RIPPLE: Entering the CODE sector smoothly activates the lensing distortion pass via the logic update bus.
+ * * * * * REALITY AUDIT V28:
+ * - APPEND 5: Fragment Optimization - Replaced branching with step-based multipliers to prevent GPU pipeline stalls.
+ * - APPEND 27: Resolution Scalability - Bloom pass now renders at 50% resolution to maintain 60FPS on high-DPI displays.
+ * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_VFX_STABLE_RIPPLE
- * - LINE_COUNT: ~145 Lines.
  */
 
 import * as THREE from 'three';

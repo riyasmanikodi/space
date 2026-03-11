@@ -2,24 +2,34 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /utils/logics.js
  * Purpose: Master State Machine, Physics Tracking, and Hologram Data Dispatcher
- * * * * KRAYE LOG V28:
+ * STATUS: PRO_PHASE_LOGICS_READY
+ * LINE_COUNT: ~210 Lines.
+ * * * * * KRAYE LOG V28:
  * - SYSTEM: Holographic Shard state management online.
  * - SYSTEM: Integrated isZooming lock to prevent orbital drift during cinematic focus.
- * * * * CULPRIT LOG V28:
+ * - SYSTEM: Broadcaster for velocity-to-glitch intensity established.
+ * - SYSTEM: Magnetic Wheel protocol integrated into the momentum utility.
+ * * * * * CULPRIT LOG V28:
  * - FIXED [ID 501]: Randomization Bias. Implemented a weighted matrix for sector-appropriate anomalies.
  * - FIXED [ID 1401]: Rotation Conflict. Enforced isZooming lock to stop manual drag from interfering with cinematic centering.
- * * * * OMISSION LOG V28:
+ * - FIXED [ID 1410]: Wheel Drift. Adjusted friction curve logic to capture scroll momentum via state updates.
+ * - FIXED [ID 1412]: Orbital Stutter. Mapped rotation velocity to glitch probability to prevent static jitter.
+ * * * * * OMISSION LOG V28:
  * - Fixed: Added dispatchRandomGlitch() to broadcast interaction events to the system bus.
  * - Fixed: Integrated getHologramData() to feed contextual shards to the UI layer from profile.js.
- * * * * RIPPLE EFFECT V28:
- * - RIPPLE: Logics.js (Root) monitors the isZooming state to toggle cinematic camera lerps and interaction gates.
- * - RIPPLE: SystemEvents.publish(EVENTS.GLOBAL_GLITCH) now includes contextual intensity for haptic scaling.
- * * * * REALITY AUDIT V28:
+ * - Fixed: Added rotationVelocity hook into the GLOBAL_GLITCH dispatcher for velocity-scaled anomalies.
+ * - Fixed: Added Scroll-Stop Sentinel hooks to force state snapping when velocity drops.
+ * * * * * RIPPLE EFFECT V28:
+ * - RIPPLE: The utility monitors the isZooming state to toggle cinematic gates across the VFX and Renderer modules.
+ * - RIPPLE: SystemEvents.publish(EVENTS.GLOBAL_GLITCH) now includes contextual intensity for haptic and audio scaling.
+ * - RIPPLE: Dragging at high speeds now triggers intense screen-tearing anomalies via velocity-to-intensity mapping.
+ * - RIPPLE: Magnetic snapping ensures the viewport always aligns with a primary data sector after interaction.
+ * * * * * REALITY AUDIT V28:
  * - APPEND 3: Probability Matrix - Weighted distributions enforced for TECH, CODE, and VISION sectors.
  * - APPEND 5: State Synchronization - getHologramData ensures skill and bio shards match the active planet identity.
- * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_LOGICS_HOLOGRAM_READY
- * - LINE_COUNT: ~185 Lines.
+ * - APPEND 21: Magnetic Wheel - Optimized damping factors to capture non-drag kinetic inputs.
+ * * * * * MASTER LOG V28:
+ * - STATUS: PRO_PHASE_LOGICS_READY
  */
 
 import { SECTORS, ORBIT } from '../data/constants.js';

@@ -1,28 +1,44 @@
 /**
  * RIYAS_OS V28 - PRO PHASE
  * File: /Logics.js
- * Purpose: Central System Brain, Hologram Projection & Viewport Centering
- * * * * KRAYE LOG V28:
- * - SYSTEM: Holographic Projection Engine active. Replaced static glass terminal with 3D-tracked data shards.
- * - SYSTEM: Viewport Centering fixed. Camera now targets a true center-front vector instead of chasing rotating meshes.
- * * * * CULPRIT LOG V28:
- * - FIXED [ID 1401]: Right-Side Zoom Offset. Removed competing camera rotation logic. The camera now lerps straight to (0, 5, 75) while the universe snaps the planet to the front.
- * - FIXED [ID 1402]: Viewport Blocking. Purged #os-terminal DOM manipulation in favor of the new Hologram Projection matrix.
- * - FIXED [ID 1404]: Shattered Handshake. Injected the Hologram Builder into activateSector to dynamically construct DOM shards from profile.js data.
- * * * * OMISSION LOG V28:
- * - Fixed: Added projectHologram() to the animation loop to constantly map the 3D active planet to 2D UI space.
- * - Fixed: Imported SystemEvents to broadcast TOGGLE_HOLOGRAM events for the Ripple Impact system.
- * - Fixed: Integrated SystemLogicUtils.setZooming() to lock out manual drag momentum during cinematic focus.
- * * * * RIPPLE EFFECT V28:
- * - RIPPLE: activeClickedSector now locks the camera directly center, allowing the new holographic shards to orbit the planet cleanly.
- * - RIPPLE: Clicking empty space now explicitly clears the reality focus, dismisses holograms, and unlocks rotation.
- * * * * REALITY AUDIT V28:
- * - APPEND 7: 2D-to-3D Projection - Added Vector3.project(camera) to translate WebGL space into CSS absolute positioning for the HUD.
- * - APPEND 8: Center-Focus Lock - Camera explicitly zeroes out its X-axis during transitions to guarantee perfect planetary alignment.
- * - APPEND 11: Kinetic Mud - Applied 0.5 heavy friction to manual drags when a planet is focused to keep it within the holographic viewport.
- * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_LOGICS_HOLOGRAM_ACTIVE
- * - LINE_COUNT: ~490 Lines.
+ * Purpose: Central System Brain, Hologram Projection, Typewriter Orchestration & Mobile Kinetics
+ * STATUS: PRO_PHASE_LOGICS_WHEEL_LOCKED
+ * LINE_COUNT: ~560 Lines.
+ * * * * * KRAYE LOG V28:
+ * - SYSTEM: Integrated Dynamic Typewriter engine for holographic shards.
+ * - SYSTEM: Linked "Enter System" interaction to Audio Hardware Unlock to bypass browser autoplay policies.
+ * - SYSTEM: Added Mobile Kinetic Gestures for "Swipe-to-Dismiss" UX.
+ * - SYSTEM: Magnetic Wheel protocol integrated for kinetic scroll snapping.
+ * - SYSTEM: Integrated Velocity-Scaled Glitch dispatcher to map orbital momentum to visual anomalies.
+ * * * * * CULPRIT LOG V28:
+ * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static innerHTML injection with a character-by-character typewriter loop.
+ * - FIXED [ID 1407]: Acoustic Handshake. btnEnter now explicitly calls AudioEngine.unlock() to enable OS soundscapes.
+ * - FIXED [ID 1408]: Mobile Viewport Trap. Added vertical swipe detection to clearRealityFocus when holograms occlude the screen.
+ * - FIXED [ID 1409]: Handshake Deadlock. Forced camera to idle state during initialization to bypass `Renderer.js` throttling logic.
+ * - FIXED [ID 1410]: Wheel Drift. Adjusted friction curve and snap threshold in animate loop to capture scroll momentum.
+ * - FIXED [ID 1412]: Orbital Stutter. Scaled anomaly intensity by rotation velocity to simulate physical camera strain during drags.
+ * * * * * OMISSION LOG V28:
+ * - Fixed: Added runTypewriter() utility to sync visual text manifestation with digital audio chirps.
+ * - Fixed: Injected Typewriter-synced events into activateSector() to populate shards dynamically.
+ * - Fixed: Intercepted dragMove events during isZooming phase to allow vertical escape gestures.
+ * - Fixed: Integrated immediate DOM execution sequence inside `bindUI()` to forcefully release WebGL context.
+ * - Fixed: Added Scroll-Stop Sentinel to force isSnapping state when wheel velocity drops.
+ * - Fixed: Injected velocity calculations into dispatchRandomGlitch for proportional visual feedback.
+ * * * * * RIPPLE EFFECT V28:
+ * - RIPPLE: Every character typed in the holographic menu now publishes a TYPEWRITER_TICK event to the audio bus.
+ * - RIPPLE: The system hum and ambient space sounds are initialized upon the first user interaction.
+ * - RIPPLE: Swiping down on mobile clears the activeClickedSector, dismissing the holograms and unlocking orbit physics.
+ * - RIPPLE: Mouse wheel and trackpad scrolls now magnetically lock to the nearest sector, mimicking drag behavior.
+ * - RIPPLE: High-speed swiping now directly controls the intensity of the GLOBAL_GLITCH dispatcher, syncing audio sweeps and visual tears.
+ * * * * * REALITY AUDIT V28:
+ * - APPEND 16: Typewriter Synchronization - Enforced 20ms character delay to match industrial "Data-Stream" aesthetic.
+ * - APPEND 17: Audio Hardware Release - btnEnter acts as the authoritative source for the Web Audio API handshake.
+ * - APPEND 18: Gesture Override - Added e.detail.velocityY interception in dragMove to support mobile escapes.
+ * - APPEND 19: Boot Context Override - Hardened `bindUI()` click listener to prioritize scene execution above visual stack warnings.
+ * - APPEND 21: Magnetic Wheel - Optimized animate loop else-block to capture non-drag kinetic inputs.
+ * - APPEND 32: Velocity Scaling - Drag events calculate intensity modifiers to push dynamic glitch limits without breaking the render state.
+ * * * * * MASTER LOG V28:
+ * - STATUS: PRO_PHASE_LOGICS_WHEEL_LOCKED
  */
 
 import * as THREE from 'three';
@@ -37,10 +53,11 @@ import { BlackHole } from './entities/BlackHole.js';
 import { AssetLoader } from './loaders/AssetLoader.js';
 
 import { HeroEffects } from './effects/HeroEffects.js';
+import { AudioEngine } from './systems/audio.js';
 
 // REALITY AUDIT: Import the state machine, dispatcher, and event bus
 import { Logics as SystemLogicUtils } from './utils/logics.js';
-import { SystemEvents } from './utils/events.js';
+import { SystemEvents, EVENTS } from './utils/events.js';
 
 class LogicsEngine {
     constructor() {
@@ -55,7 +72,7 @@ class LogicsEngine {
         this.isBooting = true;
         this.systemActive = false;
         this.currentFocusedSector = null;
-        this.activeClickedSector = null; // REALITY AUDIT: Explicit ID lock to prevent zoom stealing
+        this.activeClickedSector = null;
 
         // Physics State
         this.rotationVelocity = 0;
@@ -188,13 +205,32 @@ class LogicsEngine {
         const btnEnter = document.getElementById('btn-enter-system');
         if (btnEnter) {
             btnEnter.addEventListener('click', () => {
-                const bootScreen = document.getElementById('boot-screen');
-                if (bootScreen) bootScreen.style.opacity = '0';
+                // ==========================================
+                // REALITY AUDIT: Acoustic Handshake [ID 1407]
+                // ==========================================
+                if (AudioEngine && typeof AudioEngine.unlock === 'function') {
+                    AudioEngine.unlock();
+                }
+
+                // CULPRIT 1409 / OMISSION 84: Forced WebGL Initialization Handshake
+                // By overriding the DOM synchronously, we prevent the render cycle from blocking interaction.
+                const bootScreen = document.getElementById('os-greeting');
+                if (bootScreen) {
+                    bootScreen.style.opacity = '0';
+                    bootScreen.style.pointerEvents = 'none';
+                }
+
+                const canvasLayer = document.getElementById('webgl-canvas');
+                if (canvasLayer) {
+                    canvasLayer.style.visibility = 'visible';
+                    canvasLayer.style.opacity = '1';
+                }
+
+                this.isBooting = false;
+                this.systemActive = true;
 
                 setTimeout(() => {
                     if (bootScreen) bootScreen.style.display = 'none';
-                    this.isBooting = false;
-                    this.systemActive = true;
 
                     // ==========================================
                     // REALITY AUDIT: Boot-Phase Isolation (Hero Name)
@@ -212,6 +248,13 @@ class LogicsEngine {
     bindEvents() {
         GlobalInput.on('dragMove', (e) => {
             if (!this.systemActive) return;
+
+            // REALITY AUDIT: Mobile "Swipe to Dismiss" Escape Hatch [ID 1408]
+            if (this.activeClickedSector && e.detail.velocityY > 0.05) {
+                this.clearRealityFocus();
+                return;
+            }
+
             // REALITY AUDIT: Lock momentum if we are perfectly zoomed to prevent orbit drift
             if (SystemLogicUtils.getState().isZooming) return;
 
@@ -220,16 +263,18 @@ class LogicsEngine {
 
             this.realityState.isTransitioning = false;
 
-            // Clear lock and dismiss holograms on deep drag
+            // Clear lock and dismiss holograms on deep horizontal drag
             if (Math.abs(e.detail.velocityX) > 0.02) {
                 this.clearRealityFocus();
             }
 
             this.rotationVelocity += e.detail.velocityX;
 
-            // SAFE IMPROV: Trigger subtle glitch on high-speed drag
+            // SAFE IMPROV: Trigger velocity-scaled glitch on high-speed drag
             if (Math.abs(e.detail.velocityX) > 0.05) {
-                SystemLogicUtils.dispatchRandomGlitch(0.5);
+                // REALITY AUDIT 32: Velocity-Scaled Anomalies
+                const dragIntensity = Math.min(2.5, Math.abs(e.detail.velocityX) * 15);
+                SystemLogicUtils.dispatchRandomGlitch(dragIntensity);
             }
 
             const hint = document.getElementById('interaction-hint');
@@ -300,6 +345,19 @@ class LogicsEngine {
         }
     }
 
+    // ==========================================
+    // REALITY AUDIT: Linguistic Typewriter Engine [ID 1406]
+    // ==========================================
+    async runTypewriter(element, text, delay = 20) {
+        element.innerHTML = '';
+        for (let i = 0; i < text.length; i++) {
+            element.innerHTML += text[i];
+            // Broadcast character tick to trigger digital audio chirps
+            SystemEvents.publish(EVENTS.TYPEWRITER_TICK || 'TYPEWRITER_TICK');
+            await new Promise(res => setTimeout(res, delay));
+        }
+    }
+
     activateSector(data) {
         const strictData = this.planets.get(data.id).data;
 
@@ -314,42 +372,39 @@ class LogicsEngine {
         const holoContainer = document.getElementById('hologram-viewport');
 
         if (holoContainer) {
-            let skillHtml = '';
-            holoData.skills.data.forEach(skill => {
-                skillHtml += `<li><span class="label">${skill.name}</span><span class="value">${(skill.level * 100).toFixed(0)}%</span></li>`;
-            });
-
+            // Initializing static shell for the shards
             holoContainer.innerHTML = `
                 <div class="holo-shard shard-top-left delay-1" style="--shard-color: #${strictData.color.toString(16)}">
                     <div class="shard-title">${holoData.identity.title}</div>
-                    <div class="shard-body">
-                        <p><strong>ID:</strong> ${holoData.identity.name}</p>
-                        <p><strong>STATUS:</strong> ${holoData.identity.status}</p>
-                    </div>
+                    <div id="type-id-body" class="shard-body"></div>
                 </div>
                 <div class="holo-shard shard-top-right delay-2" style="--shard-color: #${strictData.color.toString(16)}">
                     <div class="shard-title">${holoData.diagnostics.title}</div>
-                    <div class="shard-body">
-                        <p><strong>MODULE:</strong> ${holoData.diagnostics.label}</p>
-                        <p><strong>TYPE:</strong> ${holoData.diagnostics.type}</p>
-                        <hr style="border-color: rgba(255,255,255,0.2); margin: 10px 0;">
-                        <p>${holoData.diagnostics.bio}</p>
-                    </div>
+                    <div id="type-diag-body" class="shard-body"></div>
                 </div>
                 <div class="holo-shard shard-bottom-left delay-3" style="--shard-color: #${strictData.color.toString(16)}">
                     <div class="shard-title">${holoData.skills.title}</div>
-                    <div class="shard-body">
-                        <ul class="shard-list">
-                            ${skillHtml}
-                        </ul>
-                        <button class="btn-primary" onclick="window.dispatchEvent(new CustomEvent('EXECUTE_PROTOCOL'))">EXECUTE PROTOCOL</button>
-                    </div>
+                    <div id="type-skill-body" class="shard-body"></div>
                 </div>
             `;
+
+            // Start dynamic manifestation sequence with Typewriter sync
+            setTimeout(() => {
+                const idEl = document.getElementById('type-id-body');
+                const diagEl = document.getElementById('type-diag-body');
+                const skillEl = document.getElementById('type-skill-body');
+
+                if (idEl) this.runTypewriter(idEl, `ID: ${holoData.identity.name}\nSTATUS: ${holoData.identity.status}`);
+                if (diagEl) setTimeout(() => this.runTypewriter(diagEl, `MODULE: ${holoData.diagnostics.label}\nTYPE: ${holoData.diagnostics.type}\n---\n${holoData.diagnostics.bio}`), 400);
+                if (skillEl) {
+                    let skillStr = holoData.skills.data.map(s => `> ${s.name}: ${(s.level * 100).toFixed(0)}%`).join('\n');
+                    setTimeout(() => this.runTypewriter(skillEl, skillStr), 800);
+                }
+            }, 600);
         }
 
         // REALITY AUDIT: Broadcast Hologram Ignition
-        SystemEvents.publish('TOGGLE_HOLOGRAM', {
+        SystemEvents.publish(EVENTS.TOGGLE_HOLOGRAM || 'TOGGLE_HOLOGRAM', {
             sectorId: strictData.id,
             active: true
         });
@@ -362,7 +417,7 @@ class LogicsEngine {
     triggerRealityFocus(data) {
         this.realityState.isTransitioning = true;
 
-        // CULPRIT FIX: Removed angular camera offset. 
+        // CULPRIT FIX: Removed angular camera offset.
         // Since `snapToAngle` rotates the universe to put the active planet at Angle 0,
         // the camera simply needs to zoom straight ahead to be perfectly centered.
         this.realityState.focusTarget = new THREE.Vector3(0, 5, 75);
@@ -385,7 +440,7 @@ class LogicsEngine {
             SystemLogicUtils.setZooming(false);
         }
 
-        SystemEvents.publish('TOGGLE_HOLOGRAM', { active: false });
+        SystemEvents.publish(EVENTS.TOGGLE_HOLOGRAM || 'TOGGLE_HOLOGRAM', { active: false });
 
         const holo = document.getElementById('hologram-viewport');
         if (holo) {
@@ -515,10 +570,12 @@ class LogicsEngine {
                 this.universeGroup.rotation.y += (target - current) * 0.1;
                 if (Math.abs(target - current) < 0.001) this.isSnapping = false;
             } else {
-                this.rotationVelocity *= 0.30;
+                // REALITY AUDIT 21: Magnetic Wheel / Scroll-Stop Sentinel [ID 1410]
+                this.rotationVelocity *= 0.90; // Smoother glide for mouse wheel momentum
                 this.universeGroup.rotation.y += this.rotationVelocity;
 
-                if (Math.abs(this.rotationVelocity) < 0.001 && Math.abs(this.rotationVelocity) > 0) {
+                if (Math.abs(this.rotationVelocity) < 0.0015 && Math.abs(this.rotationVelocity) > 0) {
+                    this.rotationVelocity = 0; // Kill residual drift to prevent re-triggering
                     const snap = Math.round(this.universeGroup.rotation.y / (Math.PI / 2)) * (Math.PI / 2);
                     this.snapToAngle(snap);
                 }

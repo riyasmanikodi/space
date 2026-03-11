@@ -2,24 +2,30 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /systems/audio.js
  * Purpose: Procedural Web Audio API synthesizer, Binaural Spatialization, and Ripple Impact Sync
- * * * * KRAYE LOG V28:
+ * STATUS: PRO_PHASE_AUDIO_STABLE
+ * LINE_COUNT: ~195 Lines.
+ * * * * * KRAYE LOG V28:
  * - SYSTEM: Audio synthesizer synchronized with the GLOBAL_GLITCH dispatcher.
  * - SYSTEM: Procedural soundscape expanded to include tactile interaction-driven anomalies.
- * * * * CULPRIT LOG V28:
+ * - SYSTEM: Integrated TYPEWRITER_TICK listener for linguistic acoustic manifestation.
+ * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1101]: Audio Stutter. Increased voice limiter thresholds for high-velocity interaction bursts.
- * * * * OMISSION LOG V28:
+ * - FIXED [ID 1407]: Acoustic Handshake. Added handler for TYPEWRITER_TICK to synchronize clicks with text.
+ * * * * * OMISSION LOG V28:
  * - Fixed: Added GLOBAL_GLITCH subscription to trigger procedural "Static" and "Sub-Thump" sounds on interaction.
  * - Fixed: Integrated frequency-sweep logic for the Relativistic Lensing glitch.
- * * * * RIPPLE EFFECT V28:
+ * - Fixed: Added listener for TYPEWRITER_TICK to bridge the typewriter engine with procedural chirps.
+ * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: This module now provides the tactile acoustic layer for every viewport thump, ensuring the void feels physical.
- * * * * REALITY AUDIT V28:
+ * - RIPPLE: Every character manifested in the holographic shards triggers a synced digital click via this engine.
+ * * * * * REALITY AUDIT V28:
  * - APPEND 6: Acoustic Friction - Synchronized low-pass filter resonance with high-speed orbital swipes.
- * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_AUDIO_STABLE_RIPPLE
- * - LINE_COUNT: ~155 Lines.
+ * - APPEND 18: Linguistic Sync - High-frequency chirps (1200Hz -> 800Hz) mapped to every typewriter character manifestation.
+ * * * * * MASTER LOG V28:
+ * - STATUS: PRO_PHASE_AUDIO_STABLE
  */
 
-import { SystemEvents, EVENTS } from '../utils/events.js';
+import { SystemEvents, EVENTS } from '../utils/events.js'; // REALITY AUDIT: Verified pub/sub import
 
 class AudioSynthesizer {
     constructor() {
@@ -52,26 +58,28 @@ class AudioSynthesizer {
 
         // ==========================================
         // REALITY AUDIT: Oscillator Overload (Voice Limiter)
-        // Keeps a strict limit on concurrent sounds to prevent CPU crackle.
+        // CULPRIT 1101: Keeps a strict limit on concurrent sounds to prevent CPU crackle.
         // ==========================================
         this.activeVoices = [];
-        this.MAX_VOICES = 3;
+        this.MAX_VOICES = 5; // Increased threshold for high-velocity bursts
 
         this.bgmOscillator = null;
 
-        this.bindEvents(); // REALITY AUDIT: Register Ripple Impact handshake
+        this.bindEvents(); // Register Ripple Impact handshake
     }
 
     /**
      * SAFE IMPROV: Ripple Impact Handshake
-     * Subscribes to GLOBAL_GLITCH to fire procedural tones in sync with visuals.
+     * Subscribes to GLOBAL_GLITCH and TYPEWRITER_TICK to fire procedural tones.
      */
     bindEvents() {
         SystemEvents.subscribe(EVENTS.GLOBAL_GLITCH, (data) => {
             if (!this.unlocked) return;
 
-            // Map interaction anomalies to procedural sound profiles
-            switch (data.effectId) {
+            // OMISSION LOG: Map interaction anomalies to procedural sound profiles
+            const effectId = data ? data.effectId : 'DEFAULT';
+
+            switch (effectId) {
                 case 'HEX_SHRED':
                 case 'BINARY_FLICKER':
                     // High-frequency digital static chirps
@@ -87,9 +95,20 @@ class AudioSynthesizer {
                     this.playTone(400, 600, 0.1, 'sawtooth');
                     break;
                 default:
-                    // Default subtle UI click
-                    this.playTone(1200, 800, 0.05, 'sine');
+                    // Default subtle UI click (Sub-Thump)
+                    this.playTone(100, 40, 0.1, 'sine');
             }
+        });
+
+        // ==========================================
+        // SAFE IMPROV: Linguistic Sync
+        // Triggers for every character manifested in the holographic shards.
+        // REALITY AUDIT 18: High-frequency chirps (1200Hz -> 800Hz) mapped to typewriter ticks.
+        // ==========================================
+        SystemEvents.subscribe(EVENTS.TYPEWRITER_TICK, () => {
+            if (!this.unlocked) return;
+            // High-frequency digital chirp for industrial typewriter feel
+            this.playTone(1200, 800, 0.05, 'sine');
         });
     }
 
@@ -184,7 +203,7 @@ class AudioSynthesizer {
         // Shift pan based on horizontal orbit
         this.panner.pan.setTargetAtTime(panValue, this.ctx.currentTime, 0.1);
 
-        // Shift filter based on sector
+        // REALITY AUDIT 6: Acoustic Friction - Shift filter based on sector
         const targetFreq = sectorType === 'CODE' ? 800 : 20000;
         this.globalFilter.frequency.setTargetAtTime(targetFreq, this.ctx.currentTime, 0.5);
     }

@@ -2,10 +2,26 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /world/DebrisField.js
  * Purpose: Procedural Low-Poly Space Junk & Asteroids (Chaos Engine)
- * FIX: Reality Audit Append - Newtonian Drift, Boundary Wraparound, Volumetric Space Grime & Hardware Disposal
- * UPDATE: Added "Loop-Back" Recovery Physics - Debris returns to orbit when focus is lost.
- * REALITY AUDIT APPEND 2: Loop-Back Stabilization - Velocity clamping and softened recovery factors to prevent jitter during sudden planet scale transitions.
- * REALITY AUDIT APPEND 3: Zero-Cube Geometry Shift - Icosahedron enforced for realistic jagged asteroid shapes instead of digital cubes.
+ * STATUS: PRO_PHASE_DEBRIS_PHYSICS_STABLE
+ * LINE_COUNT: ~210 Lines.
+ * * * * * KRAYE LOG V28:
+ * - SYSTEM: Integrated Newtonian Drift and Boundary Wraparound for procedural asteroid generation.
+ * - SYSTEM: Added Volumetric Space Grime layer to give physical thickness to the void.
+ * * * * * CULPRIT LOG V28:
+ * - FIXED [ID 1701]: Physics Jitter. Softened recovery factors and added velocity clamping to prevent explosion during planet scale transitions.
+ * - FIXED [ID 1702]: Geometry Bloat. Enforced Zero-Cube shift, using detail 0 Icosahedrons for jagged rocks instead of high-poly spheres.
+ * * * * * OMISSION LOG V28:
+ * - Fixed: Implemented "Loop-Back" Recovery Physics to return debris to home orbits when focus is lost.
+ * - Fixed: Added hardware disposal purge logic for InstancedMesh and Grime layers to prevent memory leaks.
+ * * * * * RIPPLE EFFECT V28:
+ * - RIPPLE: Debris actively repulses from focal points (planets) when zooming, creating a cinematic path clearance.
+ * - RIPPLE: Grime particles interact with the VFX engine's volumetric lighting to create dynamic stardust.
+ * * * * * REALITY AUDIT V28:
+ * - APPEND 3: Zero-Cube Geometry Shift - Icosahedron enforced for realistic jagged asteroid shapes instead of digital cubes.
+ * - APPEND 28: Loop-Back Stabilization - Velocity clamping and softened recovery factors applied.
+ * - APPEND 29: Hardware Disposal - Strict garbage collection enforced on scene purge.
+ * * * * * MASTER LOG V28:
+ * - STATUS: PRO_PHASE_DEBRIS_PHYSICS_STABLE
  */
 
 import * as THREE from 'three';

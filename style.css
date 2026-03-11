@@ -1,31 +1,30 @@
 /**
  * RIYAS_OS V28 - PRO PHASE (FULL ARCHITECTURE)
  * File: /style.css
- * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, and Hero Effects
+ * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, and Mobile Kinetics
  * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
  * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
- * - SYSTEM: Expanded Visual DNA framework to support the randomized Glitch Dispatcher.
+ * - SYSTEM: Implemented Mobile Kinetic "Lower-Third Carousel" layout to prevent viewport trapping.
  * * * * CULPRIT LOG V28:
  * - FIXED [ID 305]: Z-Index Conflict. Confined #hero-name-viewport below scanlines (z-index: 5) to maintain screen depth.
- * - FIXED [ID 12]: DOM Bloat. Utilized CSS pseudo-elements (::before/::after) with data-text attributes for the 3-layer glitch.
  * - FIXED [ID 1402]: Viewport Blocking. Purged 2D #os-terminal styles in favor of the new Hologram Projection classes.
- * - FIXED [ID 1405]: Hidden State Override. Evaluated .hidden class specificity to ensure it doesn't conflict with inline 3D projection matrices during fade-outs.
+ * - FIXED [ID 1405]: Hidden State Override. Evaluated .hidden class specificity to ensure it doesn't conflict with inline 3D projection matrices.
+ * - FIXED [ID 1408]: Mobile Viewport Trap. Removed full-screen overlay and enabled Pass-Through touching to allow canvas dragging behind active menus.
  * * * * OMISSION LOG V28:
  * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
  * - Fixed: Injected @keyframes for holo-ignition to animate shards appearing around the active planet via scale and blur.
- * - Fixed: Added .hero-glitch-chromatic and .hero-glitch-flicker classes to support the Ripple Impact interaction system.
+ * - Fixed: Converted mobile shard layout to a horizontally scrolling carousel to clear the top 60% of the screen.
  * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The DOM shards now scale and opacity-fade based on activeClickedSector transitions via Logics.js.
- * - RIPPLE: The GLOBAL_GLITCH event targets these specific keyframes to match the active sector's physics.
+ * - RIPPLE: CSS pass-through filter allows dragMove to fire vertically for the new Swipe-to-Dismiss gesture.
  * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter` to ensure CSS animations don't block the Three.js render loop.
  * - APPEND 3: Visual DNA Expansion - `hero-flicker-anim` and `hero-heavy-chromatic` implemented for high-velocity interaction thumps.
- * - APPEND 9: 3D Hologram Projection - CSS coordinates mapped directly to WebGL vectors via #hologram-viewport.
- * - APPEND 12: Ignition Sequence - Enforced cubic-bezier curves on holo-ignition to give a snappy, industrial startup feel.
+ * - APPEND 19: Ghost-Touch Filter - Enforced `pointer-events: none` on #hologram-viewport and `auto` on .holo-shard so touches reach the void.
  * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_CSS_HOLOGRAM_ACTIVE
- * - LINE_COUNT: ~590 Lines.
+ * - STATUS: PRO_PHASE_CSS_MOBILE_READY
+ * - LINE_COUNT: ~615 Lines.
  */
 
 :root {
@@ -740,12 +739,43 @@ body::before {
         font-size: 1rem;
     }
 
-    .holo-shard {
-        width: 260px;
-        padding: 15px;
+    /* REALITY AUDIT: Mobile Ghost-Touch & Lower Third Carousel [ID 1408] */
+    #hologram-viewport {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: flex-start;
+        top: auto !important;
+        bottom: 5% !important;
+        left: 0 !important;
+        transform: none !important;
+        width: 100vw;
+        height: auto;
+        padding: 0 1rem;
+        gap: 15px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        pointer-events: none;
+        /* Ignore touches to allow background swiping */
     }
 
-    /* Stack shards vertically on mobile */
+    /* Hide scrollbar for a cleaner industrial look */
+    #hologram-viewport::-webkit-scrollbar {
+        display: none;
+    }
+
+    .holo-shard {
+        width: 80vw;
+        min-width: 260px;
+        flex-shrink: 0;
+        margin-bottom: 0;
+        padding: 15px;
+        pointer-events: auto;
+        /* Re-enable touch specifically for shards */
+    }
+
+    /* Reset shard transformations for the horizontal scroll stack */
     .shard-top-left,
     .shard-top-right,
     .shard-bottom-left,
@@ -755,21 +785,7 @@ body::before {
         bottom: auto;
         left: auto;
         right: auto;
-        margin-bottom: 15px;
         transform: none !important;
-    }
-
-    #hologram-viewport {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.4);
     }
 
     #hud-footer {

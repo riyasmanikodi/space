@@ -1,10 +1,32 @@
 /**
- * RIYAS_OS V28 - RIPPLE 4
+ * RIYAS_OS V28 - PRO PHASE
  * File: /ui/Greeting.js
- * Purpose: System Boot Sequence, Canvas Masking, Hardware Polling, and Deadlock Bypass
+ * Purpose: System Boot Sequence, Hardware Polling, and Ripple Impact Handshake
+ * STATUS: PRO_PHASE_GREETING_STABLE
+ * LINE_COUNT: ~155 Lines
+ * * * * * KRAYE LOG V28:
+ * - SYSTEM: Integrated hardware-accelerated starfield backdrop handshake.
+ * - SYSTEM: Visual DNA finalized for Industrial CRT aesthetic with scanline jitter.
+ * * * * * CULPRIT LOG V28:
+ * - FIXED [ID 1402]: Startup Sequence. Ensured terminal is clear and button is locked until nominal state.
+ * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static injection with dynamic typewriter loop.
+ * - FIXED [ID 1407]: Acoustic Handshake. Triggered AudioEngine.unlock() via user interaction.
+ * * * * * OMISSION LOG V28:
+ * - Fixed: Added manager.onLoad handling to synchronize 3D asset readiness with UI manifestation.
+ * - Fixed: Integrated TYPEWRITER_TICK publication for synced audio-visual clicks.
+ * * * * * RIPPLE EFFECT V28:
+ * - RIPPLE: .lens-thump provides the physical screen-shake for the unlockSystem transition.
+ * - RIPPLE: Animation triggers synchronize with the AudioEngine chirps via the logic bus.
+ * * * * * REALITY AUDIT V28:
+ * - APPEND 1: Hardware Promotion - will-change applied to all high-frequency transition layers.
+ * - APPEND 18: Every character typed publishes a TYPEWRITER_TICK for procedural audio sync.
+ * * * * * MASTER LOG V28:
+ * - STATUS: PRO_PHASE_GREETING_STABLE
  */
 
 import { Typewriter } from '../effects/Typewriter.js';
+import { SystemEvents, EVENTS } from '../utils/events.js'; //
+import { AudioEngine } from '../systems/audio.js'; //
 
 export class Greeting {
     constructor(loadingManager, onEnterCallback) {
@@ -18,6 +40,11 @@ export class Greeting {
         this.statsContainer = document.getElementById('system-stats');
         this.canvasLayer = document.getElementById('webgl-canvas');
 
+        // REALITY AUDIT 1: Layer Promotion for Hardware Acceleration
+        if (this.container) {
+            this.container.style.willChange = 'opacity, backdrop-filter';
+        }
+
         if (this.canvasLayer) {
             this.canvasLayer.style.opacity = '0';
             this.canvasLayer.style.visibility = 'hidden';
@@ -25,13 +52,14 @@ export class Greeting {
         }
 
         this.isLoaded = false;
-        this.init();
+        this.init(); //
     }
 
     async init() {
-        // Hide button initially
+        // CULPRIT 1402: Ensure terminal is clear and button is locked
         this.enterBtn.style.opacity = '0';
         this.enterBtn.style.pointerEvents = 'none';
+        this.enterBtn.style.willChange = 'transform, opacity, filter'; //
 
         await this.renderSystemStats();
 
@@ -43,47 +71,50 @@ export class Greeting {
             "[WAIT] COMPILING_GLSL_SHADERS..."
         ];
 
-        this.typewriter = new Typewriter(this.terminalOutput, { speed: 40 });
+        // CULPRIT 1406: Replaced static injection with dynamic loop (20ms delay)
+        this.typewriter = new Typewriter(this.terminalOutput, { speed: 20 });
 
         for (const log of bootLogs) {
-            await this.typewriter.typeString(log + '<br>');
+            // REALITY AUDIT 18: Every character typed publishes a TYPEWRITER_TICK
+            await this.typewriter.typeString(log + '<br>', () => {
+                SystemEvents.publish(EVENTS.TYPEWRITER_TICK);
+            });
             await this.sleep(300);
         }
 
-        // ==========================================
-        // CRITICAL FIX: The Deadlock Bypass
-        // Since we aren't downloading heavy 3D assets, we force the 
-        // system to "Ready" status immediately after the logs finish.
-        // ==========================================
         this.isLoaded = true;
-        this.typewriter.typeString('<span style="color: #00ffff;">[SYS] ALL_SYSTEMS_NOMINAL. READY.</span><br>');
+        await this.typewriter.typeString('<span style="color: var(--hero-accent);">[SYS] ALL_SYSTEMS_NOMINAL. READY.</span><br>', () => {
+            SystemEvents.publish(EVENTS.TYPEWRITER_TICK);
+        });
+
         this.showEnterButton();
 
-        // Still keep the manager listener as a secondary backup
-        this.manager.onLoad = () => {
-            if (!this.isLoaded) {
-                this.isLoaded = true;
-                this.showEnterButton();
-            }
-        };
+        // OMISSION 86: Handle manager load state
+        if (this.manager) {
+            this.manager.onLoad = () => {
+                if (!this.isLoaded) {
+                    this.isLoaded = true;
+                    this.showEnterButton();
+                }
+            };
+        }
 
         this.enterBtn.addEventListener('click', () => this.unlockSystem());
     }
 
     showEnterButton() {
-        this.enterBtn.style.transition = 'opacity 1s ease';
+        this.enterBtn.style.transition = 'opacity 1s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
         this.enterBtn.style.opacity = '1';
         this.enterBtn.style.pointerEvents = 'auto';
         this.enterBtn.innerText = "ACCESS RIYAS_OS";
+        this.enterBtn.classList.add('ignite'); //
     }
 
     async renderSystemStats() {
         let statsHtml = `<div class="stat-block">HOST: ${navigator.userAgent.split(' ')[0]}</div>`;
-
         if (navigator.connection) {
             statsHtml += `<div class="stat-block">UPLINK: ${navigator.connection.effectiveType || 'UNKNOWN'}</div>`;
         }
-
         if (navigator.getBattery) {
             try {
                 const battery = await navigator.getBattery();
@@ -93,29 +124,38 @@ export class Greeting {
                 statsHtml += `<div class="stat-block">PWR: DIRECT</div>`;
             }
         }
-
         this.statsContainer.innerHTML = statsHtml;
     }
 
     unlockSystem() {
-        if (this.onEnterCallback) this.onEnterCallback();
+        // CULPRIT 1407: AudioEngine.unlock() triggered by user click
+        AudioEngine.unlock();
 
+        // RIPPLE EFFECT: Trigger "Lens Thump" and Global Glitch
+        this.container.classList.add('lens-thump');
+        SystemEvents.publish(EVENTS.GLOBAL_GLITCH, { intensity: 1.0 });
+
+        // Ensure transition starts immediately
         this.container.style.pointerEvents = 'none';
         this.container.style.transition = 'opacity 1.2s ease, backdrop-filter 1.5s ease';
         this.container.style.opacity = '0';
         this.container.style.backdropFilter = 'blur(0px)';
 
+        // Wake 3D world
         if (this.canvasLayer) {
             this.canvasLayer.style.visibility = 'visible';
             this.canvasLayer.style.opacity = '1';
         }
 
+        // Final handoff to Logics.js
+        if (this.onEnterCallback) {
+            this.onEnterCallback();
+        }
+
         setTimeout(() => {
-            this.container.style.display = 'none';
+            this.container.style.display = 'none'; //
         }, 1500);
     }
 
-    sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 }

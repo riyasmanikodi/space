@@ -11,14 +11,14 @@
     <title>RIYAS_OS | V28 Industrial</title>
 
     <link rel="stylesheet" href="./style.css">
-
+    <link rel="stylesheet" href="./greeting.css">
     <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-            }
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
         }
+    }
     </script>
 </head>
 
@@ -54,19 +54,16 @@
 
     <div id="hologram-viewport" class="hidden"></div>
 
-    <div id="boot-screen" class="boot-overlay">
-        <div class="boot-terminal">
-            <div class="boot-log">> KERNEL_INIT... OK</div>
-            <div class="boot-log">> LOADING_ASSETS...</div>
-            <div class="boot-log">> MOUNTING_PLANETS...</div>
-            <div class="boot-log blink">> WAITING_FOR_USER...</div>
+    <div id="os-greeting" class="boot-overlay">
+        <div id="system-stats"></div>
+
+        <div id="boot-terminal" class="boot-terminal">
         </div>
 
-        <button id="btn-enter-system" class="btn-primary hidden">INITIALIZE SYSTEM</button>
+        <button id="btn-enter-system" class="btn-primary">INITIALIZE SYSTEM</button>
     </div>
 
     <script type="module" src="./main.js"></script>
-
 </body>
 
 </html>

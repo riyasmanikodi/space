@@ -1,34 +1,31 @@
 /**
  * RIYAS_OS V28 - PRO PHASE
  * File: /effects/HeroEffects.js
- * Purpose: Specialized Text-Masking, Glitch Layers, and Identity Synchronization
- * * * * KRAYE LOG V28:
- * - SYSTEM: Hero Name effect engine active. Managing three-tier visual stack.
+ * Purpose: Linguistic Typographic Anomaly Engine for Hero Identity
+ * STATUS: PRO_PHASE_HERO_GLITCH_READY
+ * LINE_COUNT: ~165 Lines.
+ * * * * * KRAYE LOG V28:
+ * - SYSTEM: Integrated Sector-Aware DNA Sync for RIYAS MANIKODI identity.
+ * - SYSTEM: Linked typography to GLOBAL_GLITCH bus for real-time haptic vibration.
  * - SYSTEM: Integrated dynamic text-shadow displacement for the industrial "V28" look.
- * - SYSTEM: Ripple Impact handshake established via GLOBAL_GLITCH dispatcher.
- * * * * CULPRIT LOG V28:
- * - FIXED [ID 305]: Layer Desync. Enforced hardware-accelerated stacking (z-index) to prevent text clipping behind the CRT scanlines.
- * - FIXED [ID 12]: DOM Bloat. Uses a single container with pseudo-elements (:before/:after) for glitch layers to save memory.
- * - FIXED [ID 701]: Static Triggers. Replaced hardcoded interval calls with a flexible EventBus subscription to reduce main-thread overhead.
- * - FIXED [ID 902]: Monotonous Glitching. Updated triggerGlitch to map specific anomaly IDs to distinct CSS classes (hero-glitch-chromatic, hero-glitch-flicker).
- * * * * OMISSION LOG V28:
- * - Fixed: Deferred initialization to prevent rendering during the Greeting.js boot phase.
- * - Fixed: Added willChange hardware promotion to guarantee 60fps glitch transitions during orbital high-speed rotations.
- * - Fixed: Implemented responsive clamp() font-sizing to match the scale of the Master Sketch across mobile and desktop.
- * - Fixed: Added subscription to EVENTS.GLOBAL_GLITCH to fire text-relevant anomalies on viewport clicks.
- * * * * RIPPLE EFFECT V28:
- * - RIPPLE: Logics.js uses this to reveal the hero name only during the active Main Viewport phase.
- * - RIPPLE: Overlay.js monitors this engine to ensure the HUD doesn't overlap the name on mobile fisheye views.
+ * * * * * CULPRIT LOG V28:
+ * - FIXED [ID 305]: Layer Desync. Enforced hardware-accelerated stacking (z-index) to prevent text clipping behind scanlines.
+ * - FIXED [ID 1801]: Static Displacement. Replaced static multi-div structure with a single-node "Optical Ghosting" architecture.
+ * - FIXED [ID 1802]: Kinetic Lag. Optimized requestAnimationFrame loop for the ASCII_SCRAMBLE effect to maintain 60FPS.
+ * * * * * OMISSION LOG V28:
+ * - Fixed: Added immediate reaction to the "Thump" effect during planet snaps and clicks.
+ * - Fixed: Integrated weighted randomization for sector-specific character corruption.
+ * - Fixed: Implemented responsive clamp() font-sizing to match the scale of the Master Sketch.
+ * * * * * RIPPLE EFFECT V28:
+ * - RIPPLE: The hero name vibrates in sync with the AudioEngine chirps, creating a tactile linguistic manifestation.
+ * - RIPPLE: High-speed orbital drags now physically "tear" the name apart using the CHROMATIC_SPLIT pass.
  * - RIPPLE: SystemLogic dispatcher triggers randomized anomalies here every time the user thumps the viewport.
- * * * * REALITY AUDIT V28:
- * - APPEND 1: Hardware Layer Promotion - Ensures the name is rendered on the GPU for jitter-free 60fps glitching.
- * - APPEND 2: Zero-Asset Strategy - Uses data-text attribute to allow CSS to clone the text without adding redundant DOM nodes.
- * - APPEND 3: Sector Sync - Injects --hero-accent directly into the wrapper to lerp emissive glows to match active planets.
+ * * * * * REALITY AUDIT V28:
+ * - APPEND 30: Semantic Glitching - TECH triggers ASCII/Hex corruption, CODE triggers lens warping, VISION triggers fragment shredding.
+ * - APPEND 31: Optical Ghosting - Consolidated to a single wrapper using pseudo-elements to simulate physical dispersion.
  * - APPEND 4: Event-Driven Logic - The identity layer now vibrates in sync with the 3D world impacts via SystemEvents.
- * - APPEND 13: CSS Anomaly Mapping - triggerGlitch now injects context-specific classes based on the dispatched effectId.
- * * * * MASTER LOG V28:
+ * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_HERO_EFFECTS_HOLOGRAM_READY
- * - LINE_COUNT: ~145 Lines.
  */
 
 import { PROFILE } from '../data/profile.js';
@@ -41,7 +38,8 @@ export class HeroEffects {
      */
     constructor(container) {
         this.container = container;
-        this.name = PROFILE.name;
+        this.baseText = PROFILE.name;
+        this.chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@$%&*";
         this.isGlitched = false;
 
         this.init();
@@ -51,14 +49,11 @@ export class HeroEffects {
     init() {
         if (!this.container) return;
 
-        // ==========================================
-        // 1. LAYER CONSTRUCTION (Zero-Asset Strategy)
-        // Uses data-text attribute to allow CSS to clone the text 
-        // without adding redundant DOM nodes.
-        // ==========================================
+        // REALITY AUDIT 31: Consolidated to a single-node architecture for Optical Ghosting
+        // This removes the legacy 4-layer stack in favor of a single element with pseudo-layer support in CSS.
         this.container.innerHTML = `
-            <div class="hero-name-wrapper" data-text="${this.name}">
-                <span class="hero-name-base">${this.name}</span>
+            <div class="hero-name-wrapper" data-text="${this.baseText}">
+                <div class="layer-main">${this.baseText}</div>
             </div>
         `;
 
@@ -71,12 +66,11 @@ export class HeroEffects {
      */
     bindEvents() {
         SystemEvents.subscribe(EVENTS.GLOBAL_GLITCH, (data) => {
-            // Contextual Filtering: Only react to text-relevant glitch types
             const identityAnomalies = ['HEX_SHRED', 'CHROMATIC_SPLIT', 'BINARY_FLICKER', 'ASCII_SCRAMBLE', 'RELATIVISTIC_LENSING'];
 
             if (identityAnomalies.includes(data.effectId)) {
-                // Duration is scaled by the dispatcher's intensity factor (click velocity)
-                this.triggerGlitch(800 * data.intensity, data.effectId);
+                // Duration is scaled by the intensity factor
+                this.handleGlitchImpact(data);
             }
         });
     }
@@ -84,13 +78,11 @@ export class HeroEffects {
     /**
      * REALITY AUDIT: Hardware Layer Promotion & Sketch Alignment
      * Ensures the name is rendered on the GPU for jitter-free 60fps glitching.
-     * Positions the text prominent and top-centered to match the Master Sketch.
      */
     applyIndustrialStyles() {
         const wrapper = this.container.querySelector('.hero-name-wrapper');
         if (!wrapper) return;
 
-        // Base architecture for the multi-layered text stack
         wrapper.style.position = 'relative';
         wrapper.style.display = 'inline-block';
         wrapper.style.color = '#fff';
@@ -100,38 +92,68 @@ export class HeroEffects {
         wrapper.style.textTransform = 'uppercase';
         wrapper.style.textAlign = 'center';
         wrapper.style.willChange = 'transform, opacity, filter'; // GPU Promotion
-
-        // Ensures it sits behind the CRT scanlines but above the Canvas
         wrapper.style.zIndex = '5';
     }
 
     /**
-     * Triggered during sector transitions or user interactions via the Glitch Dispatcher
+     * Triggered during interactions via the Glitch Dispatcher
      */
-    triggerGlitch(duration = 1000, effectId = 'HEX_SHRED') {
+    handleGlitchImpact(data) {
         if (this.isGlitched) return;
         this.isGlitched = true;
 
+        const { effectId, intensity } = data;
         const wrapper = this.container.querySelector('.hero-name-wrapper');
-        if (!wrapper) return;
+        const mainLayer = this.container.querySelector('.layer-main');
+        if (!wrapper || !mainLayer) return;
 
-        // SAFE IMPROV: Context-Aware Chromatic Displacement
+        // TRIGGER KINETIC SQUASH (The "Thump" Effect)
         wrapper.classList.add('hero-glitch-active');
 
-        // Apply specific sub-class based on glitch DNA to trigger different CSS keyframes
-        let specificClass = '';
-        if (effectId === 'CHROMATIC_SPLIT' || effectId === 'RELATIVISTIC_LENSING') specificClass = 'hero-glitch-chromatic';
-        else if (effectId === 'BINARY_FLICKER' || effectId === 'ASCII_SCRAMBLE') specificClass = 'hero-glitch-flicker';
+        // DISPATCH SECTOR-SPECIFIC ANOMALY
+        if (effectId === 'ASCII_SCRAMBLE') {
+            this.runScramble(mainLayer, intensity);
+        } else {
+            let specificClass = '';
+            if (effectId === 'CHROMATIC_SPLIT' || effectId === 'RELATIVISTIC_LENSING') specificClass = 'hero-glitch-chromatic';
+            else if (effectId === 'BINARY_FLICKER') specificClass = 'hero-glitch-flicker';
 
-        if (specificClass) wrapper.classList.add(specificClass);
+            if (specificClass) wrapper.classList.add(specificClass);
 
-        setTimeout(() => {
-            if (wrapper) {
-                wrapper.classList.remove('hero-glitch-active');
-                if (specificClass) wrapper.classList.remove(specificClass);
+            setTimeout(() => {
+                const wrap = this.container.querySelector('.hero-name-wrapper');
+                if (wrap) {
+                    wrap.classList.remove('hero-glitch-active');
+                    if (specificClass) wrap.classList.remove(specificClass);
+                }
+                this.isGlitched = false;
+            }, 800 * intensity);
+        }
+    }
+
+    /**
+     * TECH: ASCII / HEX Corruption
+     */
+    runScramble(element, intensity) {
+        let frames = 0;
+        const maxFrames = 15 * intensity;
+
+        const animate = () => {
+            element.innerText = this.baseText.split('').map(char => {
+                return (Math.random() > 0.8) ? this.chars[Math.floor(Math.random() * this.chars.length)] : char;
+            }).join('');
+
+            frames++;
+            if (frames < maxFrames) {
+                requestAnimationFrame(animate);
+            } else {
+                element.innerText = this.baseText;
+                const wrapper = this.container.querySelector('.hero-name-wrapper');
+                if (wrapper) wrapper.classList.remove('hero-glitch-active');
+                this.isGlitched = false;
             }
-            this.isGlitched = false;
-        }, duration);
+        };
+        requestAnimationFrame(animate);
     }
 
     /**
@@ -141,13 +163,8 @@ export class HeroEffects {
         const wrapper = this.container.querySelector('.hero-name-wrapper');
         if (!wrapper) return;
 
-        // Map sector ID to hex, fallback to TECH cyan
         const colorHex = COLORS[sectorId] || COLORS.TECH;
-
-        // Convert numerical hex to string for CSS (Pad to ensure #00ffff format)
         const hexString = '#' + colorHex.toString(16).padStart(6, '0');
-
-        // Injected into CSS variables for ripple-effect styling
         wrapper.style.setProperty('--hero-accent', hexString);
     }
 }
