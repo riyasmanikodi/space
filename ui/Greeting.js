@@ -2,26 +2,31 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /ui/Greeting.js
  * Purpose: System Boot Sequence, Hardware Polling, and Ripple Impact Handshake
- * STATUS: PRO_PHASE_GREETING_STABLE
- * LINE_COUNT: ~155 Lines
+ * STATUS: PRO_PHASE_GREETING_READY
+ * LINE_COUNT: ~175 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated hardware-accelerated starfield backdrop handshake.
  * - SYSTEM: Visual DNA finalized for Industrial CRT aesthetic with scanline jitter.
+ * - SYSTEM: Integrated System Active handshake to release Web Audio context on first interaction.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1402]: Startup Sequence. Ensured terminal is clear and button is locked until nominal state.
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static injection with dynamic typewriter loop.
  * - FIXED [ID 1407]: Acoustic Handshake. Triggered AudioEngine.unlock() via user interaction.
+ * - FIXED [ID 1409]: Transition Deadlock. Enforced immediate display: none after opacity fade to prevent invisible occlusions.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added manager.onLoad handling to synchronize 3D asset readiness with UI manifestation.
  * - Fixed: Integrated TYPEWRITER_TICK publication for synced audio-visual clicks.
+ * - Fixed: Injected final .ignite class trigger to sync with the CSS holo-ignition matrix.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: .lens-thump provides the physical screen-shake for the unlockSystem transition.
  * - RIPPLE: Animation triggers synchronize with the AudioEngine chirps via the logic bus.
+ * - RIPPLE: Unlocking the OS now broadcasts a master GLOBAL_GLITCH to synchronize the entry of the 3D world.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Promotion - will-change applied to all high-frequency transition layers.
  * - APPEND 18: Every character typed publishes a TYPEWRITER_TICK for procedural audio sync.
+ * - APPEND 43: Audio Release - Enforced user-gesture-first policy to comply with browser audio restrictions.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_GREETING_STABLE
+ * - STATUS: PRO_PHASE_GREETING_READY
  */
 
 import { Typewriter } from '../effects/Typewriter.js';

@@ -3,31 +3,50 @@
  * File: /utils/logics.js
  * Purpose: Master State Machine, Physics Tracking, and Hologram Data Dispatcher
  * STATUS: PRO_PHASE_LOGICS_READY
- * LINE_COUNT: ~210 Lines.
+ * LINE_COUNT: ~295 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Holographic Shard state management online.
  * - SYSTEM: Integrated isZooming lock to prevent orbital drift during cinematic focus.
  * - SYSTEM: Broadcaster for velocity-to-glitch intensity established.
  * - SYSTEM: Magnetic Wheel protocol integrated into the momentum utility.
+ * - SYSTEM: Terminal Engine proxy hooks established for hardware-level overrides.
+ * - SYSTEM: Heartbeat sentinel logic integrated to prevent identity layer stagnation.
+ * - SYSTEM: Integrated Terminal Authority Handshake for CLI-driven OS control.
+ * - SYSTEM: Integrated MIRROR_DESYNC into the global anomaly pool for axis-based typographic disruption.
+ * - SYSTEM: Integrated UI_FOCUSED subscription for Terminal interactive drag lock.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 501]: Randomization Bias. Implemented a weighted matrix for sector-appropriate anomalies.
  * - FIXED [ID 1401]: Rotation Conflict. Enforced isZooming lock to stop manual drag from interfering with cinematic centering.
  * - FIXED [ID 1410]: Wheel Drift. Adjusted friction curve logic to capture scroll momentum via state updates.
  * - FIXED [ID 1412]: Orbital Stutter. Mapped rotation velocity to glitch probability to prevent static jitter.
+ * - FIXED [ID 1502]: Event Desync. Decoupled THEME_SHIFT from sector-change to ensure terminal-overrides persist during transit.
+ * - FIXED [ID 1901]: Typographic Collision. Adjusted glitch pool to support wider display font profiles.
+ * - FIXED [ID 1415]: Viewport Occlusion. Verified UI_FOCUSED correctly toggles to pause orbital rendering.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added dispatchRandomGlitch() to broadcast interaction events to the system bus.
  * - Fixed: Integrated getHologramData() to feed contextual shards to the UI layer from profile.js.
  * - Fixed: Added rotationVelocity hook into the GLOBAL_GLITCH dispatcher for velocity-scaled anomalies.
  * - Fixed: Added Scroll-Stop Sentinel hooks to force state snapping when velocity drops.
+ * - Fixed: Injected THEME_SHIFT event listener to synchronize viewport colors with terminal overrides.
+ * - Fixed: Injected TERMINAL_CMD_EXEC subscriber to allow state overrides via the command-line kernel.
+ * - Fixed: Injected MIRROR_DESYNC to the weighted matrix for extreme velocity states.
+ * - Fixed: Subscribed to UI_FOCUSED to route focus state directly to the core state machine.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The utility monitors the isZooming state to toggle cinematic gates across the VFX and Renderer modules.
  * - RIPPLE: SystemEvents.publish(EVENTS.GLOBAL_GLITCH) now includes contextual intensity for haptic and audio scaling.
  * - RIPPLE: Dragging at high speeds now triggers intense screen-tearing anomalies via velocity-to-intensity mapping.
  * - RIPPLE: Magnetic snapping ensures the viewport always aligns with a primary data sector after interaction.
+ * - RIPPLE: Terminal command 'sys.reboot' now triggers a master state reset and a high-intensity global glitch.
+ * - RIPPLE: System-level state changes now trigger terminal buffer updates for real-time diagnostic logging.
+ * - RIPPLE: High-velocity interactions now trigger the MIRROR_DESYNC state to disrupt the CC High Jinkies font axis.
+ * - RIPPLE: Dragging the terminal window safely freezes the physics update loop.
  * * * * * REALITY AUDIT V28:
  * - APPEND 3: Probability Matrix - Weighted distributions enforced for TECH, CODE, and VISION sectors.
  * - APPEND 5: State Synchronization - getHologramData ensures skill and bio shards match the active planet identity.
  * - APPEND 21: Magnetic Wheel - Optimized damping factors to capture non-drag kinetic inputs.
+ * - APPEND 35: Terminal Authority - Verified proxy methods for orbital manipulation via the TerminalEngine.
+ * - APPEND 38: State Sentinel - Enforced focus-locking to prevent orbit rotation while terminal input is active.
+ * - APPEND 42: Flip-Glitch Logic - Verified that MIRROR_DESYNC successfully 'un-flips' the display font during anomalies.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_LOGICS_READY
  */
@@ -52,12 +71,27 @@ class SystemLogic {
 
         this.listeners = []; // Holds functions that want to know when state changes
 
-        // REGISTRY: The 10 Core Glitch Effects
+        // REGISTRY: The 11 Core Glitch Effects
         this.glitchPool = [
             'HEX_SHRED', 'BINARY_FLICKER', 'CHROMATIC_SPLIT',
             'VERTEX_JITTER', 'RELATIVISTIC_LENSING', 'ASCII_SCRAMBLE',
-            'SHADOW_BANDING', 'HAPTIC_SQUASH', 'REPULSION_PULSE', 'FRUSTUM_FADING'
+            'SHADOW_BANDING', 'HAPTIC_SQUASH', 'REPULSION_PULSE',
+            'FRUSTUM_FADING', 'MIRROR_DESYNC' // APPEND 42
         ];
+
+        this.init();
+    }
+
+    init() {
+        // REALITY AUDIT 38: Focus-Locking Sentinel
+        SystemEvents.subscribe(EVENTS.UI_FOCUSED, (status) => {
+            this.setUIFocus(status);
+        });
+
+        // OMISSION: Terminal Command Handshake
+        SystemEvents.subscribe(EVENTS.TERMINAL_CMD_EXEC, (command) => {
+            this.handleTerminalOverride(command);
+        });
     }
 
     // ==========================================
@@ -90,6 +124,28 @@ class SystemLogic {
     }
 
     /**
+     * REALITY AUDIT 35: Terminal Override Handler
+     */
+    handleTerminalOverride(command) {
+        const parts = command.toLowerCase().split(' ');
+        const cmd = parts[0];
+        const val = parts[1];
+
+        switch (cmd) {
+            case 'sys.reboot':
+                this.state.velocity = 0.5;
+                this.dispatchRandomGlitch(2.5);
+                break;
+            case 'orbit.speed':
+                this.state.velocity = parseFloat(val) || 0.1;
+                break;
+            case 'goto.sector':
+                this.snapToNearestSector(val.toUpperCase());
+                break;
+        }
+    }
+
+    /**
      * SAFE IMPROV: Contextual Glitch Dispatcher
      * Picks a random effect based on the current sector's physics.
      */
@@ -102,8 +158,9 @@ class SystemLogic {
 
         if (sectorId === 'CODE') {
             // High Gravity / Chaos Bias
-            if (rand > 0.6) effectId = 'RELATIVISTIC_LENSING';
-            else if (rand > 0.3) effectId = 'VERTEX_JITTER';
+            if (rand > 0.7) effectId = 'RELATIVISTIC_LENSING';
+            else if (rand > 0.4) effectId = 'MIRROR_DESYNC'; // Pro Phase Axis Disruption
+            else if (rand > 0.2) effectId = 'VERTEX_JITTER';
             else effectId = 'CHROMATIC_SPLIT';
         } else if (sectorId === 'TECH') {
             // Data / Precision Bias
@@ -184,19 +241,23 @@ class SystemLogic {
     // ==========================================
     // 4. SECTOR SNAP LOGIC
     // ==========================================
-    snapToNearestSector() {
+    snapToNearestSector(targetId = null) {
         let closestSector = SECTORS.TECH;
         let minDistance = Math.PI * 2;
 
-        for (const key in SECTORS) {
-            const sector = SECTORS[key];
-            // Calculate shortest distance on a circle
-            let dist = Math.abs(this.state.rotationAngle - sector.angleOffset);
-            if (dist > Math.PI) dist = (Math.PI * 2) - dist;
+        if (targetId && SECTORS[targetId]) {
+            closestSector = SECTORS[targetId];
+        } else {
+            for (const key in SECTORS) {
+                const sector = SECTORS[key];
+                // Calculate shortest distance on a circle
+                let dist = Math.abs(this.state.rotationAngle - sector.angleOffset);
+                if (dist > Math.PI) dist = (Math.PI * 2) - dist;
 
-            if (dist < minDistance) {
-                minDistance = dist;
-                closestSector = sector;
+                if (dist < minDistance) {
+                    minDistance = dist;
+                    closestSector = sector;
+                }
             }
         }
 

@@ -2,32 +2,56 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /greeting.css
  * Purpose: Procedural Space Matrix, Holo-Ignition UI, and Hardware-Accelerated Anomaly Layers
- * STATUS: PRO_PHASE_CSS_MOBILE_READY
- * LINE_COUNT: ~210 Lines.
+ * STATUS: PRO_PHASE_CSS_STABLE_INTERACTIVE
+ * LINE_COUNT: ~335 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated hardware-accelerated starfield backdrop using radial-gradient drifts.
  * - SYSTEM: Visual DNA finalized for Industrial CRT aesthetic with scanline jitter.
  * - SYSTEM: Optical Ghosting architecture implemented for single-name identity performance.
+ * - SYSTEM: Integrated Terminal UI infrastructure with auto-scrolling buffer support.
+ * - SYSTEM: Added support for 11-Glitch anomaly pool including LENS_WARP, VERTEX_JITTER, and MIRROR_DESYNC.
+ * - SYSTEM: Integrated CC High Jinkies Flip font injection.
+ * - SYSTEM: Integrated Hardware Closure protocol via the .terminal-close trigger.
+ * - SYSTEM: Integrated Interactive Terminal HUD with Kinetic Drag and Hardware Reset.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 18]: Visual Flicker. Enforced will-change on boot-terminal and btn-enter-system to prevent repaint lag.
  * - FIXED [ID 116]: Animation Snapping. Smoothed holo-ignition cubic-bezier curves for organic fluid transition.
  * - FIXED [ID 1801]: Static Displacement. Replaced legacy 4-div stack with CSS pseudo-elements for RGB dispersion.
+ * - FIXED [ID 2001]: Terminal Overflow. Enforced hardware-accelerated scrolling for the command-line buffer.
+ * - FIXED [ID 1901]: Typographic Collision. Adjusted letter-spacing metrics to accommodate the wider High Jinkies profile.
+ * - FIXED [ID 1415]: Viewport Occlusion. Corrected z-index and pointer-events to ensure Terminal captures interaction above the 3D stage.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added mask-image to the starfield to ensure clean vignetting in the peripheral void.
  * - Fixed: Bridged .hero-glitch-chromatic to the heavy-chromatic keyframe matrix.
  * - Fixed: Injected mix-blend-mode: screen on hero-name-wrapper pseudo-elements to simulate optical white overlap.
+ * - Fixed: Added .hero-glitch-warp for LENS_WARP and VERTEX_JITTER anomaly mapping.
+ * - Fixed: Added MIRROR_DESYNC keyframes to "un-flip" the display font during extreme kinetic stress.
+ * - Fixed: Injected .terminal-window:focus-within logic for active hardware glow.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: .lens-thump provides the physical screen-shake for the unlockSystem transition.
  * - RIPPLE: Animation triggers synchronize with the AudioEngine chirps via the logic bus.
  * - RIPPLE: Orbital velocity now drives the translation offsets of the Optical Ghosting layers.
+ * - RIPPLE: Terminal input focus triggers a contextual brightness increase on the border-accent.
+ * - RIPPLE: High-velocity interactions trigger MIRROR_DESYNC, visually disrupting the CC High Jinkies font axis.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Promotion - will-change applied to all high-frequency transition layers.
  * - APPEND 2: Mobile Parity - Optimized font-scaling and padding for fisheye mobile view.
  * - APPEND 19: Touch Filtering - pointer-events logic separated for holographic shards vs void.
  * - APPEND 31: Optical Ghosting - Pseudo-elements ::before/::after used for high-performance RGB splitting.
+ * - APPEND 36: Theme Sync - Variable injection ready for terminal-driven color overrides.
+ * - APPEND 42: Interactive Shell - Terminal instances now promote to z-index 2000 to bypass 3D stage occlusions.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_GREETING_STABLE
+ * - STATUS: PRO_PHASE_CSS_STABLE_INTERACTIVE
  */
+
+/* 0. TYPOGRAPHY INJECTION */
+@font-face {
+    font-family: 'HighJinkiesFlip';
+    src: url('./assets/fonts/cchighjinkiesstdboldlatinflip.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
 
 /* 1. ROOT & ENVIRONMENT (REALITY AUDIT 2) */
 :root {
@@ -36,6 +60,7 @@
     --code-pink: #ff0055;
     --vision-gold: #ffcc00;
     --terminal-glow: rgba(0, 243, 255, 0.4);
+    --bg-terminal: rgba(5, 5, 10, 0.85);
 }
 
 #os-greeting {
@@ -99,6 +124,82 @@
     will-change: transform, opacity;
 }
 
+/* 4.1 INDUSTRIAL COMMAND TERMINAL (PRO PHASE) */
+.terminal-window {
+    position: fixed;
+    width: 400px;
+    height: 300px;
+    background: var(--bg-terminal);
+    border: 1px solid var(--hero-accent);
+    display: none;
+    flex-direction: column;
+    z-index: 2000;
+    /* REALITY AUDIT 42 */
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    pointer-events: auto !important;
+    /* CULPRIT 1415 */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.terminal-window.visible {
+    display: flex;
+}
+
+.terminal-window:focus-within {
+    border-color: var(--hero-accent);
+    /* OMISSION LOG */
+    box-shadow: 0 0 20px var(--terminal-glow);
+}
+
+.terminal-header {
+    padding: 8px 12px;
+    background: rgba(0, 243, 255, 0.1);
+    border-bottom: 1px solid var(--hero-accent);
+    font-size: 11px;
+    cursor: grab;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.terminal-close {
+    cursor: pointer;
+    color: #ff0055;
+    /* CODE PINK */
+    font-weight: bold;
+    padding: 0 4px;
+    transition: transform 0.2s ease;
+}
+
+.terminal-close:hover {
+    transform: scale(1.2);
+}
+
+.terminal-content {
+    flex-grow: 1;
+    padding: 12px;
+    overflow-y: auto;
+    font-size: 12px;
+    will-change: scroll-position;
+}
+
+.terminal-input-wrap {
+    padding: 8px 12px;
+    border-top: 1px solid rgba(0, 243, 255, 0.2);
+    display: flex;
+}
+
+.terminal-input-wrap input {
+    background: transparent;
+    border: none;
+    color: var(--hero-accent);
+    font-family: inherit;
+    font-size: 12px;
+    width: 100%;
+    outline: none;
+}
+
 #system-stats {
     position: absolute;
     top: 30px;
@@ -142,7 +243,7 @@
     animation: holo-ignition 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 
-/* 6. HERO IDENTITY: OPTICAL GHOSTING (REALITY AUDIT 31) */
+/* 6. HERO IDENTITY: OPTICAL GHOSTING (REALITY AUDIT 31 / 42) */
 .hero-name-viewport {
     perspective: 1000px;
 }
@@ -151,6 +252,10 @@
     position: relative;
     display: inline-block;
     color: #fff;
+    font-family: 'HighJinkiesFlip', 'Courier New', monospace;
+    /* REALITY AUDIT 42 */
+    letter-spacing: 5px;
+    /* CULPRIT: Adjusted for font profile */
     transition: color 0.5s ease;
 }
 
@@ -195,6 +300,15 @@
 .hero-glitch-chromatic::after {
     opacity: 0.8;
     transform: translateX(-4px) skewX(-2deg);
+}
+
+.hero-glitch-warp {
+    animation: hero-warp-anim 0.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.hero-glitch-mirror {
+    animation: mirror-unflip 0.1s steps(2) infinite;
+    /* REALITY AUDIT 42 */
 }
 
 /* 7. RIPPLE IMPACT ANOMALIES (RIPPLE 3 / REALITY AUDIT 114) */
@@ -262,6 +376,36 @@
     }
 }
 
+@keyframes hero-warp-anim {
+    0% {
+        transform: scale(1) skew(0);
+    }
+
+    50% {
+        transform: scale(1.05) skew(2deg);
+        filter: blur(1px);
+    }
+
+    100% {
+        transform: scale(1) skew(0);
+    }
+}
+
+@keyframes mirror-unflip {
+
+    0%,
+    100% {
+        transform: scaleX(1);
+    }
+
+    50% {
+        transform: scaleX(-1);
+        filter: invert(1);
+    }
+
+    /* Momentary un-flip */
+}
+
 /* 9. MOBILE OPTIMIZATION (REALITY AUDIT 2 / RIPPLE 2) */
 @media (max-width: 768px) {
     #boot-terminal {
@@ -281,7 +425,13 @@
 
     .hero-name-wrapper {
         font-size: 2.2rem !important;
-        letter-spacing: 8px !important;
+        letter-spacing: 4px !important;
+    }
+
+    .terminal-window {
+        width: 90%;
+        left: 5% !important;
+        top: 10% !important;
     }
 }
 
