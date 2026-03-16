@@ -3,40 +3,45 @@
  * File: /effects/HeroEffects.js
  * Purpose: Linguistic Typographic Anomaly Engine for Hero Identity
  * STATUS: PRO_PHASE_HERO_GLITCH_TIMING_SYNC
- * LINE_COUNT: ~245 Lines.
+ * LINE_COUNT: ~260 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Sector-Aware DNA Sync for RIYAS MANIKODI identity.
  * - SYSTEM: Linked typography to GLOBAL_GLITCH bus for real-time haptic vibration.
  * - SYSTEM: Integrated dynamic text-shadow displacement for the industrial "V28" look.
  * - SYSTEM: Synchronized "Heartbeat" interval to 8 seconds with a 2-second glitch duration.
  * - SYSTEM: Integrated CC High Jinkies Flip font and MIRROR_DESYNC optical distortion.
+ * - SYSTEM: Transitioned randomization logic to a "Shuffle Queue" protocol to prevent immediate effect repetition.
  * * * * * CULPRIT LOG V28:
- * - FIXED [ID 305]: Layer Desync. Enforced hardware-accelerated stacking (z-index) to prevent text clipping behind scanlines.
+ * - FIXED [ID 305]: Layer Desync. Enforced hardware-accelerated stacking (z-index) to prevent text clipping.
  * - FIXED [ID 1801]: Static Displacement. Replaced static multi-div structure with a single-node "Optical Ghosting" architecture.
- * - FIXED [ID 1802]: Kinetic Lag. Optimized requestAnimationFrame loop for the ASCII_SCRAMBLE effect to maintain 60FPS.
+ * - FIXED [ID 1802]: Kinetic Lag. Optimized requestAnimationFrame loop for the ASCII_SCRAMBLE effect.
  * - FIXED [ID 1901]: Typographic Collision. Adjusted letter-spacing metrics to accommodate the wider High Jinkies profile.
+ * - FIXED [ID 1902]: Repetitive Anomalies. Resolved frequent glitch repeats by implementing Fisher-Yates shuffle queue logic.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added immediate reaction to the "Thump" effect during planet snaps and clicks.
  * - Fixed: Integrated weighted randomization for sector-specific character corruption.
  * - Fixed: Implemented responsive clamp() font-sizing to match the scale of the Master Sketch.
  * - Fixed: Adjusted Heartbeat Sentinel to 8,000ms to stabilize identity layer presence.
  * - Fixed: Extended glitch duration to 2,000ms for high-visibility anomalies.
+ * - Fixed: Added glitchQueue array and shuffleQueue method to ensure mathematically even effect distribution.
  * * * * * RIPPLE EFFECT V28:
- * - RIPPLE: The hero name vibrates in sync with the AudioEngine chirps, creating a tactile linguistic manifestation.
+ * - RIPPLE: The hero name vibrates in sync with the AudioEngine chirps.
  * - RIPPLE: High-speed orbital drags now physically "tear" the name apart using the CHROMATIC_SPLIT pass.
  * - RIPPLE: The system heartbeat triggers subtle anomalies every 8 seconds to maintain ambient realism.
  * - RIPPLE: High-velocity interactions trigger MIRROR_DESYNC, visually disrupting the CC High Jinkies font axis.
+ * - RIPPLE: The non-repeating loop enhances the cinematic, "intelligent" feel of the OS identity.
  * * * * * REALITY AUDIT V28:
- * - APPEND 30: Semantic Glitching - TECH triggers ASCII/Hex corruption, CODE triggers lens warping, VISION triggers fragment shredding.
+ * - APPEND 30: Semantic Glitching - TECH triggers ASCII/Hex corruption, CODE triggers lens warping.
  * - APPEND 31: Optical Ghosting - Consolidated to a single wrapper using pseudo-elements to simulate physical dispersion.
  * - APPEND 33: Heartbeat Logic - Optimized interval-based anomaly dispatcher for industrial stability.
  * - APPEND 42: Flip-Glitch Logic - Programmed optical ghosting layers to momentarily revert to standard axis upon high stress.
+ * - APPEND 83: Shuffle Queue - Verified 11-effect loop resets only when the queue array is entirely depleted.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_HERO_GLITCH_TIMING_SYNC
  */
 
 import { PROFILE } from '../data/profile.js';
-import { COLORS } from '../data/constants.js';
+import { COLORS, GLITCH } from '../data/constants.js';
 import { SystemEvents, EVENTS } from '../utils/events.js';
 
 export class HeroEffects {
@@ -56,6 +61,9 @@ export class HeroEffects {
             'FRUSTUM_FADING', 'GHOST_ECHO', 'MIRROR_DESYNC'
         ];
 
+        // PRO PHASE: Non-Repeating Shuffle Queue Array
+        this.glitchQueue = [];
+
         this.init();
         this.bindEvents(); // REALITY AUDIT: Establish Ripple Impact handshake
         this.startHeartbeat(); // REALITY AUDIT 33: Ambient Realism
@@ -63,6 +71,9 @@ export class HeroEffects {
 
     init() {
         if (!this.container) return;
+
+        // Initialize the shuffle queue before standard startup
+        this.shuffleQueue();
 
         // REALITY AUDIT 31: Consolidated to a single-node architecture for Optical Ghosting
         this.container.innerHTML = `
@@ -75,14 +86,37 @@ export class HeroEffects {
     }
 
     /**
+     * PRO PHASE: Fisher-Yates Shuffle Queue
+     * Ensures all 11 effects play before any repetition occurs.
+     */
+    shuffleQueue() {
+        this.glitchQueue = [...this.glitchPool];
+        for (let i = this.glitchQueue.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.glitchQueue[i], this.glitchQueue[j]] = [this.glitchQueue[j], this.glitchQueue[i]];
+        }
+    }
+
+    /**
+     * PRO PHASE: Safely extracts the next non-repeating effect.
+     */
+    getNextGlitch() {
+        if (this.glitchQueue.length === 0) {
+            this.shuffleQueue();
+        }
+        return this.glitchQueue.pop();
+    }
+
+    /**
      * REALITY AUDIT 33: The 8-Second Heartbeat
      * Adjusted to 8s interval for professional-grade OS pacing.
      */
     startHeartbeat() {
         setInterval(() => {
             if (!this.isGlitched) {
-                const randomEffect = this.glitchPool[Math.floor(Math.random() * this.glitchPool.length)];
-                this.handleGlitchImpact({ effectId: randomEffect, intensity: 1.0 });
+                // Replaced Math.random with the deterministic Shuffle Queue
+                const queuedEffect = this.getNextGlitch();
+                this.handleGlitchImpact({ effectId: queuedEffect, intensity: 1.0 });
             }
         }, 8000);
     }
@@ -93,6 +127,7 @@ export class HeroEffects {
     bindEvents() {
         SystemEvents.subscribe(EVENTS.GLOBAL_GLITCH, (data) => {
             if (this.glitchPool.includes(data.effectId)) {
+                // If a specific effect is requested via event bus, honor it over the queue.
                 this.handleGlitchImpact(data);
             }
         });
