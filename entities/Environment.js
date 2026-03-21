@@ -3,16 +3,19 @@
  * File: /entities/Environment.js
  * Purpose: Natural Celestial Architecture, Starfield Parallax, and Particle Void Dynamics
  * STATUS: PRO_PHASE_ENVIRONMENT_STABLE
- * LINE_COUNT: ~165 Lines.
+ * LINE_COUNT: ~180 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Parallax Starfield using an inverted spherical geometry for infinite depth.
  * - SYSTEM: Integrated "Natural Nebula" shards using high-anisotropy WebP textures to establish cosmic silhouettes.
  * - SYSTEM: Integrated Global Dust Particle System to provide kinetic speed cues during camera orbit.
  * - SYSTEM: Integrated "Atmospheric Bloom" simulation for celestial bodies via non-linear light scattering.
+ * - SYSTEM: [APPEND] Synchronized axial precession with the global temporal engine.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 2001]: Star Pixelation. Enforced Linear Filtering and Anisotropy (16x) on the Starfield map.
  * - FIXED [ID 2005]: Background Flickering. Hardened depth-buffer (depthWrite: false) for all environmental shards.
  * - FIXED [ID 2012]: Color Washout. Synchronized sRGBColorSpace correction across all celestial WebP textures.
+ * - FIXED [ID 2185]: [APPEND] Nebula Decay. Corrected cumulative opacity multiplication in the update loop which caused nebulae to fade to black; implemented baseOpacity tracking in userData.
+ * - FIXED [ID 2106]: [APPEND] Duplicate Ticker Deadlock. Updated update() signature to receive delta and activeSector from CoreLoop.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected axial precession to the starfield to prevent static "skybox" appearance.
  * - Fixed: Added randomized asteroid clusters using Draco-compressed geometry for memory efficiency.
@@ -31,6 +34,7 @@
  */
 
 import * as THREE from 'three';
+import { Time } from '../utils/time.js';
 
 export class Environment extends THREE.Group {
     constructor(loader) {
@@ -105,6 +109,11 @@ export class Environment extends THREE.Group {
             });
 
             const nebula = new THREE.Mesh(geo, mat);
+
+            // [FIX ID 2185] Tracking base opacity for non-decaying flicker
+            nebula.userData.isNebula = true;
+            nebula.userData.baseOpacity = mat.opacity;
+
             nebula.position.set(
                 (Math.random() - 0.5) * 200,
                 (Math.random() - 0.5) * 200,
@@ -118,25 +127,29 @@ export class Environment extends THREE.Group {
     /**
      * PRO PHASE: Kinetic Void Update
      * Implements axial precession and particle drift for celestial realism.
+     * Signature updated to match CoreLoop heartbeat.
      */
-    update(time) {
+    update(delta, activeSector) {
+        const time = Time.getElapsed();
+
         // 1. STARFIELD PRECESSION: Prevents static background look
         if (this.starfield) {
-            this.starfield.rotation.y += 0.0001;
-            this.starfield.rotation.z += 0.00005;
+            this.starfield.rotation.y += 0.0001 * delta;
+            this.starfield.rotation.z += 0.00005 * delta;
         }
 
         // 2. PARTICLE DRIFT: Simulates solar wind / movement cues
         if (this.particles) {
-            this.particles.rotation.y += 0.0002;
-            this.particles.rotation.x += 0.0001;
+            this.particles.rotation.y += 0.0002 * delta;
+            this.particles.rotation.x += 0.0001 * delta;
         }
 
         // 3. CELESTIAL BREATHING: Sync light jitter to sector energy levels
+        // [FIX ID 2185] Using baseOpacity to prevent cumulative fade-out
         const luminosity = 0.9 + Math.sin(time * 2) * 0.1;
         this.children.forEach(child => {
-            if (child.isMesh && child.material.opacity < 0.2) {
-                child.material.opacity *= luminosity; // Subtle nebula flicker
+            if (child.isMesh && child.userData.isNebula) {
+                child.material.opacity = child.userData.baseOpacity * luminosity;
             }
         });
     }

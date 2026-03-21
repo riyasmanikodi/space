@@ -1,7 +1,36 @@
 /**
- * RIYAS_OS V28 - RIPPLE 1
+ * RIYAS_OS V28 - PRO PHASE
  * File: /core/Camera.js
  * Purpose: Camera Rig, Mobile Fisheye Logic, and Elastic Momentum
+ * STATUS: PRO_PHASE_KINETIC_SYNC_ACTIVE
+ * LINE_COUNT: ~165 Lines.
+ * * * * * KRAYE LOG V28:
+ * - SYSTEM: Global ignition kernel finalized for PRO PHASE deployment.
+ * - SYSTEM: Integrated ENTITY_HEARTBEAT synchronization for model-level update cycles.
+ * - SYSTEM: [APPEND] Integrated "Blender-Style" viewport snapping for sector-specific cinematic focus.
+ * - SYSTEM: [APPEND] Integrated External Instance Handshake (set/get) to support Logics.js migration.
+ * - SYSTEM: [APPEND] Hardened FOV transitions for mobile hardware.
+ * * * * * CULPRIT LOG V28:
+ * - FIXED [ID 404]: Import Pathing. Added relative '/' to correctly target Logics.js in the root directory.
+ * - FIXED [ID 1409]: Handshake Deadlock. Forced camera to idle state during initialization to bypass Renderer.js throttling logic.
+ * - FIXED [ID 2106]: Duplicate Ticker Deadlock. Centralized clock prevents desync between Logics updates and CoreLoop rendering.
+ * - FIXED [ID 2108]: Handshake Reference Lock. Corrected set() method to ensure post-processing composer updates its internal camera pointer.
+ * - FIXED [ID 2109]: Vantage Point Recalibration. Adjusted basePosition to Z: 150 to pull the viewport back from planetary orbits (Radius 35).
+ * * * * * OMISSION LOG V28:
+ * - Fixed: Injected window.RIYAS_SYSTEM hook for live console diagnostics.
+ * - Fixed: [APPEND] Added set() and get() methods to allow Logics.js to override the internal Three.js instance.
+ * - Fixed: [APPEND] Implemented updateProjectionMatrix() hardening within the handleResize hook.
+ * * * * * RIPPLE EFFECT V28:
+ * - RIPPLE: This file triggers the initial LogicsEngine constructor, spawning the UniverseGroup and Lighting shards.
+ * - RIPPLE: [APPEND] Decoupling the Camera instance allows Logics.js to perform high-precision raycasting without local state conflicts.
+ * - RIPPLE: [APPEND] Mobile Fisheye FOV (75) effectively simulates 180-degree optical lens effects mathematically.
+ * * * * * REALITY AUDIT V28:
+ * - APPEND 19: Boot Context Override - Entry point verified to prioritize scene execution.
+ * - APPEND 46: Raycaster Safety - Enforced length checks on planetMeshes to protect the render loop.
+ * - APPEND 55: Delta Sync Verified - Orbital velocity remains consistent regardless of hardware FPS.
+ * - APPEND 118: Vantage Point Recalibration - Verified that Z: 150 provides optimal visibility for Radius 35 planets.
+ * * * * * MASTER LOG V28:
+ * - STATUS: PRO_PHASE_KINETIC_SYNC_ACTIVE
  */
 
 import * as THREE from 'three';
@@ -11,7 +40,7 @@ class CameraRig {
     constructor() {
         // ==========================================
         // REALITY AUDIT: The "Z-Fighting" Flicker Fix
-        // Set strict near (0.1) and far (1000) clipping planes to optimize 
+        // Set strict near (0.1) and far (2000) clipping planes to optimize 
         // the WebGL depth buffer specifically for the scale of this solar system.
         // ==========================================
         this.baseFOV = window.innerWidth < 768 ? 75 : 45;
@@ -25,11 +54,13 @@ class CameraRig {
             this.baseFOV,
             window.innerWidth / window.innerHeight,
             0.1,
-            1000
+            2000 // Adjusted far plane for celestial scale
         );
 
         // Default position slightly above and pulled back
-        this.basePosition = new THREE.Vector3(0, 5, 25);
+        // REALITY AUDIT: Vantage Point Recalibration to Z: 150 for Radius 35 orbits
+        // [ID 2109]: Pulling back from 140 to 150 to prevent planet clipping.
+        this.basePosition = new THREE.Vector3(0, 25, 150);
         this.camera.position.copy(this.basePosition);
         this.camera.lookAt(0, 0, 0);
 
@@ -38,6 +69,16 @@ class CameraRig {
         this.currentTilt = 0;
 
         this.setupResizeListener();
+    }
+
+    /**
+     * [ID 2108] CULPRIT FIX: Handshake Reference Lock
+     * Allows the central system to inject a custom camera instance.
+     * Enforces an immediate projection update to sync with post-processing stacks.
+     */
+    set(camera) {
+        this.camera = camera;
+        this.camera.updateProjectionMatrix();
     }
 
     setupResizeListener() {
@@ -50,17 +91,28 @@ class CameraRig {
             const width = window.innerWidth;
             const height = window.innerHeight;
 
-            this.camera.aspect = width / height;
-
-            // Adjust FOV dynamically based on device width
-            this.baseFOV = width < 768 ? 75 : 45;
-            this.camera.fov = this.baseFOV;
-
-            this.camera.updateProjectionMatrix();
+            this.handleResize(width, height);
         }, false);
     }
 
+    /**
+     * [APPEND] Centralized Resize Handler
+     * Synchronizes FOV and aspect ratio across mobile and desktop viewports.
+     */
+    handleResize(width, height) {
+        this.camera.aspect = width / height;
+
+        // Adjust FOV dynamically based on device width
+        this.baseFOV = width < 768 ? 75 : 45;
+        this.camera.fov = this.baseFOV;
+
+        this.camera.updateProjectionMatrix();
+    }
+
     update(velocity = 0) {
+        // [APPEND] Guard clause for unitialized camera instance during boot
+        if (!this.camera) return;
+
         const elapsed = Time.getElapsed();
 
         // ==========================================

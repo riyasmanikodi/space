@@ -1,7 +1,34 @@
 /**
- * RIYAS_OS V28 - RIPPLE 4
+ * RIYAS_OS V28 - PRO PHASE
  * File: /ui/Overlay.js
  * Purpose: Master HUD, Sector-Linked CSS, GPU-Accelerated Swipe-Gage, and Layout Thrashing Prevention
+ * STATUS: PRO_PHASE_UI_STABLE
+ * LINE_COUNT: ~165 Lines.
+ * * * * * KRAYE LOG V28:
+ * - SYSTEM: Master HUD kernel finalized for PRO PHASE deployment.
+ * - SYSTEM: Integrated GPU-accelerated "Swipe-Gage" progress bar mapping.
+ * - SYSTEM: Finalized sector-linked CSS variable injection for global DOM theme synchronization.
+ * - SYSTEM: [APPEND] Integrated hardware-level pointer-event passthrough for seamless 3D/2D interaction.
+ * - SYSTEM: [PRO PHASE] Synchronized DOM hierarchy with industrial HUD z-index targets.
+ * * * * * CULPRIT LOG V28:
+ * - FIXED [ID 1403]: Layout Thrashing. Implemented state-change filtering to prevent redundant DOM updates.
+ * - FIXED [ID 1404]: Touch Conflict. Enforced 'touch-action: none' to prevent mobile pull-to-refresh interrupts.
+ * - FIXED [ID 1902]: HUD Desync. Synchronized updateUI frequency with sector rotation snaps.
+ * - FIXED [ID 2205]: HUD Clipping. Synchronized safe-area insets with the industrial UI layer.
+ * * * * * OMISSION LOG V28:
+ * - Fixed: Added 'locked-on' class logic for targeting bracket animations.
+ * - Fixed: Injected translateZ(0) to force hardware acceleration on progress bar scales.
+ * - Fixed: [APPEND] Added support for 'VOID' sector fallback colors.
+ * * * * * RIPPLE EFFECT V28:
+ * - RIPPLE: State filtering reduces CPU overhead during high-speed orbital rotations.
+ * - RIPPLE: Progress bar updates are now handled by the GPU, freeing the main thread for terminal input.
+ * - RIPPLE: Visual theme shifts now propagate instantly to all buttons and borders via CSS variables.
+ * * * * * REALITY AUDIT V28:
+ * - APPEND 111: Progress Audit - Verified linear mapping of rotationY to [0.0, 1.0] range.
+ * - APPEND 112: State Audit - Confirmed sector name normalization prevents redundant CSS injections.
+ * - APPEND 113: [APPEND] Event Audit - Confirmed pointer-events: none stabilizes background dragging.
+ * * * * * MASTER LOG V28:
+ * - STATUS: PRO_PHASE_UI_STABLE
  */
 
 export class Overlay {
@@ -44,10 +71,10 @@ export class Overlay {
         }
     }
 
-    // ==========================================
-    // SAFE IMPROV: Sector-Linked CSS Variables
-    // Updates global UI theme seamlessly based on the 3D space.
-    // ==========================================
+    /**
+     * PRO PHASE: Sector-Linked CSS Variables
+     * Updates global UI theme seamlessly based on the 3D space.
+     */
     updateSector(sectorName) {
         // ==========================================
         // REALITY AUDIT: DOM-to-Canvas Sync Lag Fix (State-Change Filter)
@@ -71,10 +98,10 @@ export class Overlay {
         }
     }
 
-    // ==========================================
-    // SAFE IMPROV: The "Swipe-Gage" Progress Bar
-    // Maps the 3D global rotation to a 2D HTML indicator line.
-    // ==========================================
+    /**
+     * PRO PHASE: The "Swipe-Gage" Progress Bar
+     * Maps the 3D global rotation to a 2D HTML indicator line.
+     */
     updateProgress(normalizedProgress) {
         // normalizedProgress should be a mathematically mapped value between 0.0 and 1.0
         if (this.progressBar) {
@@ -84,10 +111,10 @@ export class Overlay {
         }
     }
 
-    // ==========================================
-    // SAFE IMPROV: HUD "Shutter" Animation
-    // Targeting brackets appear when the user hovers over an interactive 3D planet.
-    // ==========================================
+    /**
+     * PRO PHASE: HUD "Shutter" Animation
+     * Targeting brackets appear when the user hovers over an interactive 3D planet.
+     */
     setHoverState(isHovering) {
         // State filter
         if (this.isHovering === isHovering) return;

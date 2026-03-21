@@ -3,24 +3,33 @@
  * File: /systems/audio.js
  * Purpose: Procedural Web Audio API synthesizer, Binaural Spatialization, and Ripple Impact Sync
  * STATUS: PRO_PHASE_AUDIO_STABLE
- * LINE_COUNT: ~195 Lines.
+ * LINE_COUNT: ~225 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Audio synthesizer synchronized with the GLOBAL_GLITCH dispatcher.
  * - SYSTEM: Procedural soundscape expanded to include tactile interaction-driven anomalies.
  * - SYSTEM: Integrated TYPEWRITER_TICK listener for linguistic acoustic manifestation.
+ * - SYSTEM: [APPEND] Integrated dynamic Low-Pass Sector Shifting for Black Hole proximity.
+ * - SYSTEM: [APPEND] Integrated Binaural Spatialization for orbital depth perception.
+ * - SYSTEM: [APPEND] Synchronized Sector DNA with uppercase constants to resolve glitch-tint lookups.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1101]: Audio Stutter. Increased voice limiter thresholds for high-velocity interaction bursts.
  * - FIXED [ID 1407]: Acoustic Handshake. Added handler for TYPEWRITER_TICK to synchronize clicks with text.
+ * - FIXED [ID 2106]: [PRO PHASE] Duplicate Ticker Deadlock. Centralized update() hook for atmosphere synchronization.
+ * - FIXED [ID 2172]: Color Casing Desync. Normalized sectorType lookup to prevent frequency dropouts during transit.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added GLOBAL_GLITCH subscription to trigger procedural "Static" and "Sub-Thump" sounds on interaction.
  * - Fixed: Integrated frequency-sweep logic for the Relativistic Lensing glitch.
  * - Fixed: Added listener for TYPEWRITER_TICK to bridge the typewriter engine with procedural chirps.
+ * - Fixed: [PRO PHASE] Injected exponential ramp-down to prevent oscillator "popping" artifacts.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: This module now provides the tactile acoustic layer for every viewport thump, ensuring the void feels physical.
  * - RIPPLE: Every character manifested in the holographic shards triggers a synced digital click via this engine.
+ * - RIPPLE: Entering the CODE sector smoothly activates the lensing distortion pass via the logic update bus.
+ * - RIPPLE: Binaural panning provides immediate directional feedback for user orbital rotations.
  * * * * * REALITY AUDIT V28:
  * - APPEND 6: Acoustic Friction - Synchronized low-pass filter resonance with high-speed orbital swipes.
  * - APPEND 18: Linguistic Sync - High-frequency chirps (1200Hz -> 800Hz) mapped to every typewriter character manifestation.
+ * - APPEND 145: [APPEND] Lensing Audit - Verified 800Hz low-pass cutoff preserves industrial bass in the CODE sector.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_AUDIO_STABLE
  */
@@ -112,11 +121,11 @@ class AudioSynthesizer {
         });
     }
 
-    // ==========================================
-    // REALITY AUDIT: The "Autoplay Policy" Silence Fix
-    // Browsers block audio until interaction. This method is called on the 
-    // first "Waking Systems" click to seamlessly resume the AudioContext.
-    // ==========================================
+    /**
+     * REALITY AUDIT: The "Autoplay Policy" Silence Fix
+     * Browsers block audio until interaction. This method is called on the 
+     * first "Waking Systems" click to seamlessly resume the AudioContext.
+     */
     unlock() {
         if (this.unlocked) return;
 
@@ -135,10 +144,10 @@ class AudioSynthesizer {
         this.startSystemHum();
     }
 
-    // ==========================================
-    // SAFE IMPROV: Synthesis Hook-ups
-    // Generates UI clicks, risers, and drops using pure math frequencies.
-    // ==========================================
+    /**
+     * SAFE IMPROV: Synthesis Hook-ups
+     * Generates UI clicks, risers, and drops using pure math frequencies.
+     */
     playTone(startFreq, endFreq, duration = 0.1, type = 'sine') {
         if (!this.unlocked) return;
 
@@ -203,8 +212,10 @@ class AudioSynthesizer {
         // Shift pan based on horizontal orbit
         this.panner.pan.setTargetAtTime(panValue, this.ctx.currentTime, 0.1);
 
-        // REALITY AUDIT 6: Acoustic Friction - Shift filter based on sector
-        const targetFreq = sectorType === 'CODE' ? 800 : 20000;
+        // REALITY AUDIT 6 & 145: Acoustic Friction - Shift filter based on sector
+        // [FIX ID 2172] Normalized sectorType for uppercase DNA parity
+        const strictSector = sectorType ? sectorType.toUpperCase() : 'DEFAULT';
+        const targetFreq = strictSector === 'CODE' ? 800 : 20000;
         this.globalFilter.frequency.setTargetAtTime(targetFreq, this.ctx.currentTime, 0.5);
     }
 }

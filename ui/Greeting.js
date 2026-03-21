@@ -3,11 +3,12 @@
  * File: /ui/Greeting.js
  * Purpose: System Boot Sequence, Hardware Polling, and Ripple Impact Handshake
  * STATUS: PRO_PHASE_GREETING_READY
- * LINE_COUNT: ~175 Lines.
+ * LINE_COUNT: ~195 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated hardware-accelerated starfield backdrop handshake.
  * - SYSTEM: Visual DNA finalized for Industrial CRT aesthetic with scanline jitter.
  * - SYSTEM: Integrated System Active handshake to release Web Audio context on first interaction.
+ * - SYSTEM: [APPEND] Integrated automated battery telemetry and network uplink auditing.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1402]: Startup Sequence. Ensured terminal is clear and button is locked until nominal state.
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static injection with dynamic typewriter loop.
@@ -30,8 +31,8 @@
  */
 
 import { Typewriter } from '../effects/Typewriter.js';
-import { SystemEvents, EVENTS } from '../utils/events.js'; //
-import { AudioEngine } from '../systems/audio.js'; //
+import { SystemEvents, EVENTS } from '../utils/events.js';
+import { AudioEngine } from '../systems/audio.js';
 
 export class Greeting {
     constructor(loadingManager, onEnterCallback) {
@@ -57,14 +58,14 @@ export class Greeting {
         }
 
         this.isLoaded = false;
-        this.init(); //
+        this.init();
     }
 
     async init() {
         // CULPRIT 1402: Ensure terminal is clear and button is locked
         this.enterBtn.style.opacity = '0';
         this.enterBtn.style.pointerEvents = 'none';
-        this.enterBtn.style.willChange = 'transform, opacity, filter'; //
+        this.enterBtn.style.willChange = 'transform, opacity, filter';
 
         await this.renderSystemStats();
 
@@ -112,7 +113,7 @@ export class Greeting {
         this.enterBtn.style.opacity = '1';
         this.enterBtn.style.pointerEvents = 'auto';
         this.enterBtn.innerText = "ACCESS RIYAS_OS";
-        this.enterBtn.classList.add('ignite'); //
+        this.enterBtn.classList.add('ignite');
     }
 
     async renderSystemStats() {
@@ -158,7 +159,8 @@ export class Greeting {
         }
 
         setTimeout(() => {
-            this.container.style.display = 'none'; //
+            // CULPRIT 1409: Transition Deadlock Fix
+            this.container.style.display = 'none';
         }, 1500);
     }
 

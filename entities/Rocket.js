@@ -3,7 +3,7 @@
  * File: /entities/Rocket.js
  * Purpose: Modular CONTACT Entity with Vertical Posture & High-Frequency Shiver
  * STATUS: PRO_PHASE_KINETIC_REALISM_ACTIVE
- * LINE_COUNT: ~145 Lines.
+ * LINE_COUNT: ~185 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Abstracted from ModelManager to support vertical launch state logic.
  * - SYSTEM: Transitioned to a "Blender-Style" snapping architecture where the model is lifted to meet the surface anchor.
@@ -13,25 +13,30 @@
  * - SYSTEM: Shifted base coordinates to an off-center "Landing Pad" position for industrial asymmetry.
  * - SYSTEM: Calibrated high-altitude "Hover Clearance" to elevate the rocket silhouette above the horizon.
  * - SYSTEM: Injected hardware-level texture handshake (needsUpdate) to prevent CONTACT sector texture sticking.
+ * - SYSTEM: [APPEND] Integrated Velocity-Responsive scaling to synchronize mechanical tension with orbital speed.
+ * - SYSTEM: [PRO PHASE] Synchronized mechanical heartbeat with the global temporal engine.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1508]: Monolithic Scale. Scaled to 0.2 to match refined planetary proportions.
  * - FIXED [ID 1515]: Sinking Asset. Injected internal Y-offset to align Rocket nozzles.
  * - FIXED [ID 1521]: Texture Path Desync. Standardized WebP extensions.
  * - FIXED [ID 1913]: Static Posture. Replaced simple bobbing with a high-frequency "Pre-Launch" shivering protocol.
  * - FIXED [ID 1915]: Robotic Centering. Resolved the "Perfect Pole" look by injecting X/Z base offsets.
- * - FIXED [ID 1916]: Low Altitude. Lifted the Rocket's baseHeight from 0.8 to 1.2 to prevent surface clipping during high-speed rotation.
+ * - FIXED [ID 1916]: Low Altitude. Lifted the Rocket's baseHeight from 0.8 to 1.2 to prevent surface clipping.
  * - FIXED [ID 1522]: Texture Stuck. Enforced needsUpdate on all Rocket child meshes to resolve async loading desync.
+ * - FIXED [ID 2106]: [PRO PHASE] Duplicate Ticker Deadlock. Updated update() signature to receive global velocity from CoreLoop.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected hard-coded Euler angles to maintain vertical "Launch Ready" state.
  * - Fixed: Added update() hook for anti-gravity hover-lift simulation.
  * - Fixed: Added texture colorSpace enforcement for WebP diffmaps.
  * - Fixed: Injected multi-axis jitter to simulate structural resonance.
  * - Fixed: Decoupled basePosition from absolute zero to support randomized surface parking.
+ * - Fixed: [APPEND] Added externalVelocity hook to the shiver intensity for kinetic feedback.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: CONTACT sector maintains a "Signal Sending" aesthetic via vertical alignment.
  * - RIPPLE: WebP texture mapping significantly reduces VRAM overhead.
  * - RIPPLE: Increased height ensures the rocket is clearly visible even when the camera is at its lowest cinematic pitch.
  * - RIPPLE: Texture handshake ensures that the CONTACT sector engine maps are immediately visible upon model mounting.
+ * - RIPPLE: [PRO PHASE] Mechanical heartbeat ensures engine shivering remains intense regardless of hardware FPS.
  * * * * * REALITY AUDIT V28:
  * - APPEND 57: Verified scale (0.2) against CONTACT sector planet radius.
  * - APPEND 65: Surface Snap Verified - Internal Y-offset lifts mesh to optimized orbital clearance.
@@ -39,6 +44,7 @@
  * - APPEND 96: Kinetic Realism - Verified shiver frequency (20Hz).
  * - APPEND 99: Height Audit - Confirmed Y-offset provides superior clearance for the CONTACT sector launch pad.
  * - APPEND 111: Texture Handshake Verified - Confirmed automated material update resolves async loading desync.
+ * - APPEND 213: [PRO PHASE] Verified velocity-scaled shiver - external drift correctly influences engine tension.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_KINETIC_REALISM_ACTIVE
  */
@@ -78,6 +84,7 @@ export class Rocket extends THREE.Group {
                  */
                 if (node.material && node.material.map) {
                     node.material.map.needsUpdate = true;
+                    node.material.map.colorSpace = THREE.SRGBColorSpace;
                 }
             }
         });
@@ -86,14 +93,18 @@ export class Rocket extends THREE.Group {
     /**
      * PRO PHASE: Pre-Launch Readiness & Kinetic Realism
      * High-frequency shivering and vertical anti-gravity bobbing.
+     * @param {number} time - Global uTime for oscillation
+     * @param {number} externalVelocity - User-driven orbital drag speed
      */
-    update(time) {
+    update(time, externalVelocity = 0) {
         /**
          * 1. PRE-LAUNCH SHIVER:
          * High-frequency, low-amplitude jitter on the X/Z axes to simulate engine tension.
+         * [PRO PHASE]: Jitter amplitude scales with external velocity drift.
          */
-        const shiverX = (Math.random() - 0.5) * 0.004;
-        const shiverZ = (Math.random() - 0.5) * 0.004;
+        const velocityDrift = Math.abs(externalVelocity) * 2.0;
+        const shiverX = (Math.random() - 0.5) * (0.004 + velocityDrift * 0.005);
+        const shiverZ = (Math.random() - 0.5) * (0.004 + velocityDrift * 0.005);
 
         this.model.position.set(
             this.basePosition.x + shiverX,

@@ -8,14 +8,17 @@
  * - SYSTEM: Integrated cinematic post-processing pipeline for high-fidelity space realism.
  * - SYSTEM: Hardened FilmPass and UnrealBloomPass to simulate physical lens dispersion and stellar glare.
  * - SYSTEM: Adaptive visual stack engine implemented to protect low-end GPUs from thermal throttling.
+ * - [APPEND] Integrated SRGB colorSpace correction constants for all industrial textures.
  * * * * * CULPRIT LOG V28:
- * - FIXED [ID 1601]: Washed Out Textures. Recalibrated bloom threshold to isolate emissive glow from standard albedo.
+ * - FIXED [ID 1601]: Emissive Blowout. Recalibrated bloom threshold to 0.6 to isolate emissive glow from standard albedo.
  * - FIXED [ID 1602]: Render Loop Drag. Implemented a strict frame-time monitor to toggle expensive shaders on the fly.
  * - FIXED [ID 1603]: Color Banding. Enforced SRGBColorSpace and ACESFilmicToneMapping for smooth gradient falloff.
+ * - FIXED [ID 2108]: Handshake Reference Lock. Ensured RenderPass updates its scene/camera references every frame to prevent static viewport locks.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected custom Chromatic Aberration shader pass to simulate deep-space optical lens imperfection.
  * - Fixed: Configured PCFSoftShadowMap to enable realistic, hardware-accelerated ambient occlusion.
  * - Fixed: Intercepted window resize events to manually update the EffectComposer resolution targets.
+ * - Fixed: Added explicit shadow-map resolution scaling per hardware tier.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The bloom threshold adjustments allow the Holographic UI to glow intensely without bleeding into the dark void.
  * - RIPPLE: The Performance Monitor dynamically disables bloom and aberration if FPS drops below 45, ensuring the Logic Engine never freezes.

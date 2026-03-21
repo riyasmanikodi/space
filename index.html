@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./greeting.css">
+
     <script type="importmap">
     {
         "imports": {
@@ -27,7 +28,7 @@
     </script>
 </head>
 
-<body>
+<body style="margin: 0; padding: 0; overflow: hidden; background: #000;">
     <canvas id="stage"></canvas>
 
     <div id="ui-layer">
@@ -80,6 +81,16 @@
     </div>
 
     <script type="module" src="./main.js"></script>
+
+    <script type="module">
+        import { CursorService } from './systems/CursorService.js';
+        try {
+            window.RIYAS_CURSOR = new CursorService();
+            console.log(":: PROCEDURAL_CURSOR_SYSTEM_SIDE_LOADED");
+        } catch (e) {
+            console.error(":: CURSOR_BOOT_FAILURE", e);
+        }
+    </script>
 
 </body>
 

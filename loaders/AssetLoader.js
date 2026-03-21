@@ -16,6 +16,7 @@
  * - SYSTEM: Integrated Progressive Loading for WebP textures to reduce initial server-side TTFB (Time to First Byte).
  * - SYSTEM: Finalized Draco Decompression handshake with a fail-safe local fallback to reduce external network dependencies.
  * - SYSTEM: Integrated automated VRAM cleanup protocol to purge unused texture buffers on mobile devices.
+ * - SYSTEM: [APPEND] Synchronized Sector DNA with uppercase constants to resolve dictionary lookup failures.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1501]: Texture Bloat. Swapped legacy PNG loaders for WebP-centric pipelines.
  * - FIXED [ID 1524]: Neon Light Overlap. Removed automated emissive property injection.
@@ -24,6 +25,8 @@
  * - FIXED [ID 1917]: Texture Flickering. Synchronized depth-test and depth-write states across all industrial meshes.
  * - FIXED [ID 2101]: Server Throttle. Implemented request-batching to prevent CDN rate-limiting during burst loads.
  * - FIXED [ID 2105]: Mobile Crash. Limited max-anisotropy to 4x for low-tier mobile hardware to prevent GPU over-draw.
+ * - FIXED [ID 2130]: [APPEND] Asynchronous Deadlock. Added timeout-safe resolution to the gltfLoader promise chain.
+ * - FIXED [ID 2131]: [APPEND] ID Casing Desync. Normalized id lookups in the loadAsset cache to UPPERCASE.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected sRGB color space correction for stars.webp environment mapping.
  * - Fixed: Added cloning mechanism in loadAsset cache for multiple sector instances.
@@ -104,11 +107,20 @@ export class AssetLoader {
      * Loads high-fidelity geometry and ensures detached textures are mapped to WebP files.
      */
     async loadAsset(id, path, onProgress, colorOverride = null) {
+        // [ID 2131] CULPRIT FIX: ID Casing Desync
+        const strictId = id.toUpperCase();
+
         // OMISSION LOG: Support model cloning from cache for multiple instances
-        if (this.cache.has(id)) return this.cache.get(id).clone();
+        if (this.cache.has(strictId)) return this.cache.get(strictId).clone();
 
         return new Promise((resolve, reject) => {
+            // [ID 2130] CULPRIT FIX: Asynchronous Deadlock
+            const timeout = setTimeout(() => {
+                reject(new Error(`ASSET_LOAD_TIMEOUT: ${strictId}`));
+            }, 30000); // 30s Fail-safe
+
             this.gltfLoader.load(path, (gltf) => {
+                clearTimeout(timeout);
                 const model = gltf.scene;
 
                 model.traverse(node => {
@@ -157,9 +169,12 @@ export class AssetLoader {
                     }
                 });
 
-                this.cache.set(id, model);
+                this.cache.set(strictId, model);
                 resolve(model);
-            }, onProgress, reject);
+            }, onProgress, (err) => {
+                clearTimeout(timeout);
+                reject(err);
+            });
         });
     }
 

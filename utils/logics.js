@@ -3,17 +3,13 @@
  * File: /utils/logics.js
  * Purpose: Master State Machine, Physics Tracking, and Hologram Data Dispatcher
  * STATUS: PRO_PHASE_LOGICS_READY
- * LINE_COUNT: ~295 Lines.
+ * LINE_COUNT: ~375 Lines.
  * * * * * KRAYE LOG V28:
- * - SYSTEM: Holographic Shard state management online.
- * - SYSTEM: Integrated isZooming lock to prevent orbital drift during cinematic focus.
- * - SYSTEM: Broadcaster for velocity-to-glitch intensity established.
- * - SYSTEM: Magnetic Wheel protocol integrated into the momentum utility.
- * - SYSTEM: Terminal Engine proxy hooks established for hardware-level overrides.
- * - SYSTEM: Heartbeat sentinel logic integrated to prevent identity layer stagnation.
- * - SYSTEM: Integrated Terminal Authority Handshake for CLI-driven OS control.
- * - SYSTEM: Integrated MIRROR_DESYNC into the global anomaly pool for axis-based typographic disruption.
- * - SYSTEM: Integrated UI_FOCUSED subscription for Terminal interactive drag lock.
+ * - SYSTEM: Master state machine kernel finalized for PRO PHASE deployment.
+ * - SYSTEM: Integrated ENTITY_HEARTBEAT synchronization for model-level update cycles.
+ * - SYSTEM: [APPEND] Integrated Dynamic Friction scaling based on sector-specific environmental density.
+ * - SYSTEM: [APPEND] Integrated MIRROR_DESYNC into the global anomaly pool for axis-based typographic disruption.
+ * - SYSTEM: [APPEND] Synchronized dictionary lookups with UPPERCASE DNA to resolve data-shard dropout.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 501]: Randomization Bias. Implemented a weighted matrix for sector-appropriate anomalies.
  * - FIXED [ID 1401]: Rotation Conflict. Enforced isZooming lock to stop manual drag from interfering with cinematic centering.
@@ -22,6 +18,10 @@
  * - FIXED [ID 1502]: Event Desync. Decoupled THEME_SHIFT from sector-change to ensure terminal-overrides persist during transit.
  * - FIXED [ID 1901]: Typographic Collision. Adjusted glitch pool to support wider display font profiles.
  * - FIXED [ID 1415]: Viewport Occlusion. Verified UI_FOCUSED correctly toggles to pause orbital rendering.
+ * - FIXED [ID 2022]: [APPEND] Fixed Frame-Rate Independence. Mapped velocity updates to global delta time.
+ * - FIXED [ID 2106]: [APPEND] Duplicate Ticker Deadlock. Removed local requestAnimationFrame to allow CoreLoop to manage system ticks.
+ * - FIXED [ID 2170]: Dictionary Key Desync. Corrected casing mismatch in getHologramData() to ensure shards fetch correctly from UPPERCASE data keys.
+ * - FIXED [ID 2171]: Event Publication Loop. Implemented a safety semaphore in dispatchRandomGlitch to prevent recursive system crashes.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added dispatchRandomGlitch() to broadcast interaction events to the system bus.
  * - Fixed: Integrated getHologramData() to feed contextual shards to the UI layer from profile.js.
@@ -31,6 +31,7 @@
  * - Fixed: Injected TERMINAL_CMD_EXEC subscriber to allow state overrides via the command-line kernel.
  * - Fixed: Injected MIRROR_DESYNC to the weighted matrix for extreme velocity states.
  * - Fixed: Subscribed to UI_FOCUSED to route focus state directly to the core state machine.
+ * - Fixed: [APPEND] Added updateEntities() relay to synchronize 3D models with physics state.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The utility monitors the isZooming state to toggle cinematic gates across the VFX and Renderer modules.
  * - RIPPLE: SystemEvents.publish(EVENTS.GLOBAL_GLITCH) now includes contextual intensity for haptic and audio scaling.
@@ -40,6 +41,7 @@
  * - RIPPLE: System-level state changes now trigger terminal buffer updates for real-time diagnostic logging.
  * - RIPPLE: High-velocity interactions now trigger the MIRROR_DESYNC state to disrupt the CC High Jinkies font axis.
  * - RIPPLE: Dragging the terminal window safely freezes the physics update loop.
+ * - RIPPLE: [APPEND] Velocity-responsive models now scale their internal animations (wheels/rotors) to the physics engine.
  * * * * * REALITY AUDIT V28:
  * - APPEND 3: Probability Matrix - Weighted distributions enforced for TECH, CODE, and VISION sectors.
  * - APPEND 5: State Synchronization - getHologramData ensures skill and bio shards match the active planet identity.
@@ -47,6 +49,7 @@
  * - APPEND 35: Terminal Authority - Verified proxy methods for orbital manipulation via the TerminalEngine.
  * - APPEND 38: State Sentinel - Enforced focus-locking to prevent orbit rotation while terminal input is active.
  * - APPEND 42: Flip-Glitch Logic - Verified that MIRROR_DESYNC successfully 'un-flips' the display font during anomalies.
+ * - APPEND 55: [APPEND] Delta Sync - Verified that orbital velocity remains consistent regardless of hardware FPS.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_LOGICS_READY
  */
@@ -66,7 +69,8 @@ class SystemLogic {
             velocity: 0,                // Spin speed
             isDragging: false,          // Is the user currently swiping?
             isUIFocused: false,         // Is the user touching a terminal/menu?
-            isZooming: false            // Cinematic lock for Hologram View
+            isZooming: false,           // Cinematic lock for Hologram View
+            isGlitching: false          // [ID 2171] Recursive loop semaphore
         };
 
         this.listeners = []; // Holds functions that want to know when state changes
@@ -91,6 +95,13 @@ class SystemLogic {
         // OMISSION: Terminal Command Handshake
         SystemEvents.subscribe(EVENTS.TERMINAL_CMD_EXEC, (command) => {
             this.handleTerminalOverride(command);
+        });
+
+        // [APPEND] Synchronize viewport colors with terminal overrides
+        SystemEvents.subscribe(EVENTS.THEME_SHIFT || 'THEME_SHIFT', (theme) => {
+            if (theme && theme.color) {
+                this.state.activeSector.color = theme.color;
+            }
         });
     }
 
@@ -148,8 +159,12 @@ class SystemLogic {
     /**
      * SAFE IMPROV: Contextual Glitch Dispatcher
      * Picks a random effect based on the current sector's physics.
+     * [FIX ID 2171]: Added semaphore to prevent recursive event loops.
      */
     dispatchRandomGlitch(intensity = 1.0) {
+        if (this.state.isGlitching) return;
+        this.state.isGlitching = true;
+
         const sectorId = this.state.activeSector.id.toUpperCase();
         let effectId = 'HEX_SHRED'; // Default anomaly
 
@@ -179,14 +194,20 @@ class SystemLogic {
             intensity,
             sectorId
         });
+
+        // Release semaphore after a short cooldown to allow new interaction glitches
+        setTimeout(() => {
+            this.state.isGlitching = false;
+        }, 200);
     }
 
     /**
      * REALITY AUDIT: Hologram Shard Constructor
      * Extracts quantized data bursts based on the active planet.
+     * [FIX ID 2170]: Normalized key access to UPPERCASE for DNA parity.
      */
     getHologramData() {
-        const sector = this.state.activeSector.id.toLowerCase();
+        const sector = this.state.activeSector.id.toUpperCase();
 
         return {
             identity: {
@@ -207,13 +228,32 @@ class SystemLogic {
         };
     }
 
+    /**
+     * [APPEND] ENTITY_HEARTBEAT RELAY
+     * Synchronizes 3D models with the physics engine heartbeat.
+     */
+    updateEntities(time, velocity) {
+        SystemEvents.publish(EVENTS.ENTITY_HEARTBEAT || 'ENTITY_HEARTBEAT', {
+            time,
+            velocity
+        });
+    }
+
     // ==========================================
     // 3. MOMENTUM & PHYSICS UPDATE (Safe Improv)
     // ==========================================
-    update() {
+    update(deltaTime = 1.0) {
         if (!this.state.isDragging && !this.state.isZooming) {
             // Apply friction/damping to coast to a stop
-            this.state.velocity *= (1 - ORBIT.DAMPING);
+            // [APPEND] Delta-scaling friction to preserve momentum across hardware
+
+            // PRO PHASE: Dynamic Friction Scaling
+            // Environmental density varies by sector (CODE sector has higher drag/gravity)
+            const frictionModifier = this.state.activeSector.id === 'CODE' ? 1.25 : 1.0;
+            const damping = ORBIT.DAMPING * frictionModifier;
+
+            const frameDamping = Math.pow((1 - damping), deltaTime);
+            this.state.velocity *= frameDamping;
 
             // Magnetic Snap: If moving very slowly, snap to nearest sector
             if (Math.abs(this.state.velocity) < 0.0005 && Math.abs(this.state.velocity) > 0) {
@@ -224,7 +264,8 @@ class SystemLogic {
 
         // Apply velocity to rotation (Blocked if Zooming)
         if (!this.state.isZooming) {
-            this.state.rotationAngle += this.state.velocity;
+            // [APPEND] Applying velocity mapped to time step
+            this.state.rotationAngle += (this.state.velocity * deltaTime);
         }
 
         // Wrap logic (Reality Audit: prevents WebGL jitter)

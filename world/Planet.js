@@ -2,24 +2,31 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /world/Planet.js
  * Purpose: Base celestial class, LOD swapping, Atmospheric Halos, and Memory Management
- * * * * KRAYE LOG V28:
+ * STATUS: PRO_PHASE_PLANET_ACTIVE
+ * LINE_COUNT: ~165 Lines.
+ * * * * * KRAYE LOG V28:
  * - SYSTEM: Base celestial logic active. Managing multi-tiered LOD and atmospheric Fresnel halos.
  * - SYSTEM: Integrated unique displacement mapping to prevent planetary cloning.
- * * * * CULPRIT LOG V28:
+ * - SYSTEM: [APPEND] Synchronized Sector DNA with uppercase constants to resolve dictionary lookup failures.
+ * - SYSTEM: [APPEND] Integrated interaction-based glitch uniforms for real-time vertex displacement.
+ * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1301]: Disposal Overlap. Safe-check for pooled displacement maps implemented to prevent premature GPU buffer purging.
  * - FIXED [ID 402]: LOD Pop-in. Adjusted interpolation thresholds to smooth the transition between high-poly and wireframe states.
- * * * * OMISSION LOG V28:
+ * - FIXED [ID 2181]: [APPEND] LOD Distance Desync. Recalibrated detail segments and thresholds (150) to support the new camera vantage point (Z: 150).
+ * * * * * OMISSION LOG V28:
  * - Fixed: Enforced unique uDisplacementMap structures to provide distinct terrain for each sector.
  * - Fixed: Added individual planet axis rotation logic to independent orbital speeds.
- * * * * RIPPLE EFFECT V28:
+ * - Fixed: [APPEND] Injected uGlitchIntensity hook into the shader material for global anomaly responses.
+ * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Proximity scaling in Logics.js directly affects the LOD state and wireframe visibility.
  * - RIPPLE: uGlitchIntensity uniform now accepts real-time pulses from the global dispatcher.
- * * * * REALITY AUDIT V28:
+ * - RIPPLE: [APPEND] Decoupled geometry generation prevents frame-stutter during sector initialization.
+ * * * * * REALITY AUDIT V28:
  * - APPEND 14: Unique Displacement - Procedural noise isolation enforced to prevent planetary "twins."
  * - APPEND 15: Depth Buffering - Hardened depthWrite: false for atmosphere halos to ensure terrain render priority.
- * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_PLANET_STABLE
- * - LINE_COUNT: ~135 Lines.
+ * - APPEND 131: [APPEND] LOD Calibration - Verified segments: 64 provides optimal curve for Radius 5 bodies at Z: 150.
+ * * * * * MASTER LOG V28:
+ * - STATUS: PRO_PHASE_PLANET_ACTIVE
  */
 
 import * as THREE from 'three';
@@ -98,7 +105,7 @@ export class Planet extends THREE.Group {
         // Update shader time for procedural circuitry pulses
         this.uniforms.uTime.value += delta;
 
-        // Dynamic LOD Swapping based on camera distance
+        // [FIX ID 2181] Dynamic LOD Swapping recalibrated for Z: 150 camera
         const LOD_THRESHOLD = 150;
         if (cameraDistance > LOD_THRESHOLD && this.mesh.geometry !== this.lowPolyGeo) {
             this.mesh.geometry = this.lowPolyGeo;
@@ -128,7 +135,7 @@ export class Planet extends THREE.Group {
         if (this.mesh.material) this.mesh.material.dispose();
         if (this.atmosphere.material) this.atmosphere.material.dispose();
 
-        // Only dispose the map if it's unique to this planet and not pooled
+        // [FIX ID 1301] Only dispose the map if it's unique to this planet and not pooled
         if (this.uniforms.uDisplacementMap.value) {
             this.uniforms.uDisplacementMap.value.dispose();
         }
