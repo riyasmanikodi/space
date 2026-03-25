@@ -3,7 +3,7 @@
  * File: /Logics.js
  * Purpose: Central System Brain, Hologram Projection, Typewriter Orchestration, Mobile Kinetics & Asset Mounting
  * STATUS: PRO_PHASE_GEOMETRIC_CURSOR_INTEGRATED
- * LINE_COUNT: ~810 Lines.
+ * LINE_COUNT: ~830 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Dynamic Typewriter engine for holographic shards.
  * - SYSTEM: Linked "Enter System" interaction to Audio Hardware Unlock to bypass browser autoplay policies.
@@ -24,6 +24,7 @@
  * - SYSTEM: [PRO PHASE] Restored environment starfield (stars.webp) and SkySphere geometry to maintain deep space background layer.
  * - SYSTEM: [PRO PHASE] Verified single-background layer architecture to eliminate overlapping procedural particle noise.
  * - SYSTEM: [PRO PHASE] Bootstrapped Geometric Shard Engine (CursorService) into OS runtime.
+ * - SYSTEM: [PRO PHASE] Linked Universe Sector Color states to the CursorService for unified thermal glow.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static innerHTML injection with a character-by-character typewriter loop.
  * - FIXED [ID 1407]: Acoustic Handshake. btnEnter now explicitly calls AudioEngine.unlock() to enable OS soundscapes.
@@ -45,6 +46,7 @@
  * - FIXED [ID 2658]: [PRO PHASE] Missing Background. Reverted SkySphere deletion to restore the distant star layer while keeping the foreground vacuum clean.
  * - FIXED [ID 2659]: [PRO PHASE] Foreground Green Dots. Ensured Logics.js strictly uses the SkySphere, abandoning redundant `GalaxyEngine` and `Environment` overlays.
  * - FIXED [ID 3305]: Ghost Meteorite. Registered CursorService instantiation within the main Logics.js boot sequence.
+ * - FIXED [ID 3350]: [PRO PHASE] Black Flame. Injected cursorService.setColor() inside the sector update loop to ensure the plasma shader receives valid RGB data.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added runTypewriter() utility to sync visual text manifestation with digital audio chirps.
  * - Fixed: Injected Typewriter-synced events into activateSector() to populate shards dynamically.
@@ -64,6 +66,7 @@
  * - Fixed: [PRO PHASE] Restored TextureLoader for `stars.webp` with SRGBColorSpace mapping.
  * - Fixed: [PRO PHASE] Hardened single-background architectural boundary.
  * - Fixed: [PRO PHASE] Injected global CSS override to suppress native DOM pointers, ensuring 1:1 kinetic tracking.
+ * - Fixed: [PRO PHASE] Bound rotationVelocity to cursor setMomentum API (if available) to simulate orbital drag on the exhaust trail.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Every character typed in the holographic menu now publishes a TYPEWRITER_TICK event to the audio bus.
  * - RIPPLE: The system hum and ambient space sounds are initialized upon the first user interaction.
@@ -82,6 +85,7 @@
  * - RIPPLE: [APPEND] Resolving the constructor race condition and uppercase ID synchronization stabilizes boot and ensures holographic shards display correct data.
  * - RIPPLE: [PRO PHASE] The background features distant stars, the midground features black asteroids, and the foreground is completely clean of green grime.
  * - RIPPLE: [PRO PHASE] The entire OS is now navigable using the low-poly flaming meteorite.
+ * - RIPPLE: [PRO PHASE] The meteorite fire trail dynamically shifts hue (Purple for CODE, Cyan for TECH) as the user explores the universe.
  * * * * * REALITY AUDIT V28:
  * - APPEND 16: Typewriter Synchronization - Enforced 20ms character delay to match industrial "Data-Stream" aesthetic.
  * - APPEND 17: Audio Hardware Release - btnEnter acts as the authoritative source for the Web Audio API handshake.
@@ -102,6 +106,7 @@
  * - APPEND 261: [PRO PHASE] Layer Audit - Verified `stars.webp` loads correctly onto the 400-radius SkySphere without interfering with bloom thresholds.
  * - APPEND 263: [PRO PHASE] Vacuum Optics Audit - Confirmed Logics orchestration strictly mounts SkySphere without redundant particle generation.
  * - APPEND 420: Cursor Handshake - Verified CursorService boots independently without blocking the main CoreScene render thread.
+ * - APPEND 450: [PRO PHASE] Color Sync Audit - Verified CursorService.setColor cleanly parses hex integers from the planet sector data.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_GEOMETRIC_CURSOR_INTEGRATED
  */
@@ -366,6 +371,11 @@ class LogicsEngine {
             }
 
             this.rotationVelocity += e.detail.velocityX;
+
+            // PRO PHASE: Bind Universe Momentum to Cursor Plasma Exhaust
+            if (this.cursorService && typeof this.cursorService.setMomentum === 'function') {
+                this.cursorService.setMomentum(this.rotationVelocity);
+            }
 
             // SAFE IMPROV: Trigger velocity-scaled glitch on high-speed drag
             if (Math.abs(e.detail.velocityX) > 0.05) {
@@ -723,6 +733,11 @@ class LogicsEngine {
                     this.updateUI(activePlanet.data);
                     SystemLogicUtils.dispatchRandomGlitch(0.8);
                     if (this.heroEffects) this.heroEffects.updateSectorColor(activePlanet.data.id);
+
+                    // PRO PHASE: Sync Cursor Color with Sector
+                    if (this.cursorService && typeof this.cursorService.setColor === 'function') {
+                        this.cursorService.setColor(activePlanet.data.color);
+                    }
                 }
             } else if (this.debris) this.debris.setFocalPoint(null);
 

@@ -2,14 +2,15 @@
  * RIYAS_OS V28 - PRO PHASE (FULL ARCHITECTURE)
  * File: /style.css
  * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, and Mobile Kinetics
- * STATUS: PRO_PHASE_PROCEDURAL_METEOR_ACTIVE
- * LINE_COUNT: ~435 Lines.
+ * STATUS: PRO_PHASE_CURSOR_HARDWARE_PROMOTED
+ * LINE_COUNT: ~445 Lines.
  * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
  * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
  * - SYSTEM: Implemented Mobile Kinetic "Lower-Third Carousel" layout to prevent viewport trapping.
  * - SYSTEM: Integrated Procedural Dynamic Shard Cursor styles to replace the native browser pointer.
  * - SYSTEM: Transitioned cursor architecture from CSS/DOM image mapping to a decoupled WebGL overlay layer.
+ * - SYSTEM: [PRO PHASE] Enforced GPU hardware acceleration on the cursor canvas to prevent main-thread repaint culling.
  * * * * CULPRIT LOG V28:
  * - FIXED [ID 305]: Z-Index Conflict. Confined #hero-name-viewport below scanlines (z-index: 5) to maintain screen depth.
  * - FIXED [ID 1402]: Viewport Blocking. Purged 2D #os-terminal styles in favor of the new Hologram Projection classes.
@@ -17,25 +18,29 @@
  * - FIXED [ID 1408]: Mobile Viewport Trap. Removed full-screen overlay and enabled Pass-Through touching to allow canvas dragging behind active menus.
  * - FIXED [ID 3005]: System Pointer Bleed. Enforced `cursor: none !important;` globally to prevent double-cursor rendering.
  * - FIXED [ID 3045]: Z-Index Ghosting. Enforced transparent clear-alpha on the `#cursor-3d-overlay` to prevent it from occluding the main planetary canvas.
+ * - FIXED [ID 3380]: [PRO PHASE] Hardware Culling. The browser was culling the `#cursor-3d-overlay` during heavy CoreLoop renders. Forced layer promotion.
  * * * * OMISSION LOG V28:
  * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
  * - Fixed: Injected @keyframes for holo-ignition to animate shards appearing around the active planet via scale and blur.
  * - Fixed: Converted mobile shard layout to a horizontally scrolling carousel to clear the top 60% of the screen.
  * - Fixed: Added high-priority z-index (100000) for the new `#cursor-3d-overlay` to hover above all HUD and CRT layers.
  * - Fixed: Purged legacy `.industrial-shard` DOM styles as the cursor is now procedurally generated in WebGL.
+ * - Fixed: [PRO PHASE] Injected `will-change: transform, opacity` and `translateZ(0)` to the `#cursor-3d-overlay`.
  * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The DOM shards now scale and opacity-fade based on activeClickedSector transitions via Logics.js.
  * - RIPPLE: CSS pass-through filter allows dragMove to fire vertically for the new Swipe-to-Dismiss gesture.
  * - RIPPLE: The physical meteorite cursor establishes a unified industrial aesthetic across all input methods.
  * - RIPPLE: The decoupled `#cursor-3d-overlay` ensures high-performance kinetic fire without DOM repaints.
+ * - RIPPLE: [PRO PHASE] GPU layer promotion guarantees the cursor canvas operates independently from the DOM layout thrashing, ensuring the trail never vanishes.
  * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter` to ensure CSS animations don't block the Three.js render loop.
  * - APPEND 3: Visual DNA Expansion - `hero-flicker-anim` and `hero-heavy-chromatic` implemented for high-velocity interaction thumps.
  * - APPEND 19: Ghost-Touch Filter - Enforced `pointer-events: none` on #hologram-viewport and `auto` on .holo-shard so touches reach the void.
  * - APPEND 159: Z-Index Audit - Verified `100000` priority on `#cursor-3d-overlay` overrides CRT and Greeting layers.
  * - APPEND 160: Architecture Audit - Purged legacy PNG CSS classes (`#cursor-shard`, `.industrial-shard`) to reflect the transition to pure procedural math.
+ * - APPEND 470: [PRO PHASE] Repaint Audit - Verified `backface-visibility: hidden` prevents Chrome/Safari from flattening the WebGL overlay during transitions.
  * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_PROCEDURAL_METEOR_ACTIVE
+ * - STATUS: PRO_PHASE_CURSOR_HARDWARE_PROMOTED
  */
 
 :root {
@@ -834,4 +839,9 @@ body::before {
     z-index: 100000 !important;
     background: transparent !important;
     /* Above all HUD layers, CRT, and Boot screens */
+
+    /* PRO PHASE: Force GPU layer promotion to prevent repaint lag */
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
