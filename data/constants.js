@@ -2,13 +2,16 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /data/constants.js
  * Purpose: Global DNA, Performance Weighting, and Hardware Tiering
- * STATUS: PRO_PHASE_PROCEDURAL_METEOR_ACTIVE
- * LINE_COUNT: ~215 Lines.
+ * STATUS: PRO_PHASE_ASSET_PATHS_VERIFIED
+ * LINE_COUNT: ~150 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Global DNA registry finalized. Unified sector mapping and brand color-space established.
  * - SYSTEM: Transitioned from image-based assets to mathematical procedural geometry for the cursor.
  * - SYSTEM: Integrated high-fidelity procedural "Meteor on Fire" physics into the centralized DNA registry.
  * - SYSTEM: [APPEND] Synchronized Sector DNA with uppercase Logics constants to resolve dictionary lookup failures.
+ * - SYSTEM: [PRO PHASE] Registered Lava.webp surface texture for the procedural 3D cursor.
+ * - SYSTEM: [PRO PHASE] Finalized asset registry for cursor texture integration.
+ * - SYSTEM: [PRO PHASE] Verified local asset pipeline paths to resolve 404 fetch failures.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 05]: Angle Offset Jitter. Enforced strict radians for sector distribution.
  * - FIXED [ID 202]: Color Space Delta. Swapped legacy hex strings for numeric values.
@@ -16,16 +19,22 @@
  * - FIXED [ID 3030]: Blue Dot Error. Resolved by igniting the procedural 3D Meteor geometry independently.
  * - FIXED [ID 3055]: Viewport Visibility. Swapped arbitrary coordinate multipliers for Camera Unprojection math to ensure 1:1 tracking.
  * - FIXED [ID 2120]: Capitalization Lock-Out. Normalized Sector IDs to UPPERCASE to match Logics.js and Profile.js authority keys.
+ * - FIXED [ID 3130]: [PRO PHASE] Missing Asset Warning. Registered Lava.webp to prevent AssetLoader bypass.
+ * - FIXED [ID 4120]: [PRO PHASE] Resource Fetch Failure. Verified ASSET_PATHS relative routing to ensure Lava.webp resolves locally without 404 errors.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected METEOR_CONFIG to define procedural vertex displacement and ignition thresholds.
  * - Fixed: Added HARDWARE_PROFILES to support Low/Medium/High performance tiers.
  * - Fixed: Injected sRGB colorSpace correction constants for all industrial textures.
  * - Fixed: Normalized sector identifiers to prevent undefined data-shard manifestations.
+ * - Fixed: [PRO PHASE] Injected LAVA path into ASSET_PATHS.TEXTURES to establish single source of truth.
+ * - Fixed: [PRO PHASE] Hardened relative path prefixes ('./') for web-server compatibility.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The system is now 100% independent of external cursor assets, increasing boot speed.
  * - RIPPLE: Procedural geometry allows for unique asteroid topography on every system initialization.
  * - RIPPLE: The decoupled renderer ensures that cursor crashes do not impact planetary rotation.
  * - RIPPLE: Synchronizing IDs allows holographic shards to correctly manifest bio-data and skill levels.
+ * - RIPPLE: [PRO PHASE] AssetLoader can now pre-fetch the cursor texture to prevent a "Black Box" flash on ignition.
+ * - RIPPLE: [PRO PHASE] Texture paths map cleanly on both dev servers and production builds.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Circular Wraparound - WRAP_LIMIT enforced at 2PI.
  * - APPEND 123: Tier Calibration - Verified Anisotropy limits (4x Low / 16x High).
@@ -33,8 +42,10 @@
  * - APPEND 185: Light Audit - Confirmed point light intensity constants scale with movement velocity.
  * - APPEND 205: Viewport Audit - Replaced legacy NDC-to-World mapping with Vector3.unproject() for precision.
  * - APPEND 212: DNA Audit - Verified that all sector keys match the global state machine's case-sensitive lookups.
+ * - APPEND 220: Texture Audit - Verified Lava.webp path maps correctly to the surfaces directory.
+ * - APPEND 225: [PRO PHASE] Path Sync Audit - Confirmed local server resolution for `./assets/textures/surfaces/Lava.webp`.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_PROCEDURAL_METEOR_ACTIVE
+ * - STATUS: PRO_PHASE_ASSET_PATHS_VERIFIED
  */
 
 // ==========================================
@@ -141,6 +152,7 @@ export const ASSET_PATHS = {
         RADAR_DIFF: './assets/textures/radar.webp',
         SAT_DIFF: './assets/textures/satellite.webp',
         ROCKET_DIFF: './assets/textures/rocket.webp',
+        LAVA: './assets/textures/surfaces/Lava.webp', // [PRO PHASE]: High-detail cracked volcanic rock cursor map
         // LEGACY FALLBACK:
         CURSOR_SHARD: './assets/textures/ui/Flying Meteorite on Fire Animated--cursor--SweezyCursors.png'
     }

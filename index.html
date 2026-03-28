@@ -29,11 +29,11 @@
 </head>
 
 <body style="margin: 0; padding: 0; overflow: hidden; background: #000;">
-    <canvas id="stage"></canvas>
+    <canvas id="webgl-canvas"></canvas>
 
     <div id="ui-layer">
 
-        <div id="hero-name-viewport" class="top-center"></div>
+        <div id="hero-name-viewport" class="top-center" data-text="RIYAS"></div>
 
         <div id="hud-header" class="hud-panel top-center">
             <div class="hud-subtitle">SYSTEM // ONLINE</div>
@@ -77,7 +77,7 @@
         <div id="boot-terminal" class="boot-terminal">
         </div>
 
-        <button id="btn-enter-system" class="btn-primary">INITIALIZE SYSTEM</button>
+        <button id="btn-enter-system" class="btn-primary" style="display: none;">INITIALIZE SYSTEM</button>
     </div>
 
     <script type="module" src="./main.js"></script>

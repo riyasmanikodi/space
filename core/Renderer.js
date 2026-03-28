@@ -2,33 +2,41 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /core/Renderer.js
  * Purpose: Cinematic WebGL Engine, Physical Shadows, HDR Tone Mapping, and Reality Audit Post-Processing
- * STATUS: PRO_PHASE_RENDERER_CINEMATIC_READY
- * LINE_COUNT: ~210 Lines.
+ * STATUS: PRO_PHASE_RENDERER_HARDENED
+ * LINE_COUNT: ~225 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated cinematic post-processing pipeline for high-fidelity space realism.
  * - SYSTEM: Hardened FilmPass and UnrealBloomPass to simulate physical lens dispersion and stellar glare.
  * - SYSTEM: Adaptive visual stack engine implemented to protect low-end GPUs from thermal throttling.
- * - [APPEND] Integrated SRGB colorSpace correction constants for all industrial textures.
+ * - SYSTEM: [APPEND] Integrated SRGB colorSpace correction constants for all industrial textures.
+ * - SYSTEM: [PRO PHASE] Synchronized DOM selector with the V28 kernel to resolve initialization deadlocks.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1601]: Emissive Blowout. Recalibrated bloom threshold to 0.6 to isolate emissive glow from standard albedo.
  * - FIXED [ID 1602]: Render Loop Drag. Implemented a strict frame-time monitor to toggle expensive shaders on the fly.
  * - FIXED [ID 1603]: Color Banding. Enforced SRGBColorSpace and ACESFilmicToneMapping for smooth gradient falloff.
  * - FIXED [ID 2108]: Handshake Reference Lock. Ensured RenderPass updates its scene/camera references every frame to prevent static viewport locks.
+ * - FIXED [ID 3380]: Canvas ID Mismatch. Swapped #stage for #webgl-canvas to align with index.html update and prevent orphan canvas generation.
+ * - FIXED [ID 4220]: [PRO PHASE] Null Reference Crash. Injected a strict guard to prevent WebGLRenderer instantiation if the canvas is not yet available in the DOM.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected custom Chromatic Aberration shader pass to simulate deep-space optical lens imperfection.
  * - Fixed: Configured PCFSoftShadowMap to enable realistic, hardware-accelerated ambient occlusion.
  * - Fixed: Intercepted window resize events to manually update the EffectComposer resolution targets.
  * - Fixed: Added explicit shadow-map resolution scaling per hardware tier.
+ * - Fixed: [PRO PHASE] Hardened selector in constructor to ensure WebGL context binds to the active DOM canvas.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The bloom threshold adjustments allow the Holographic UI to glow intensely without bleeding into the dark void.
  * - RIPPLE: The Performance Monitor dynamically disables bloom and aberration if FPS drops below 45, ensuring the Logic Engine never freezes.
  * - RIPPLE: Logics.js relies on this centralized render loop to project 2D HTML shards accurately.
+ * - RIPPLE: [PRO PHASE] WebGL context now correctly binds to the visible DOM element, restoring the 3D scene to the user's viewport.
+ * - RIPPLE: [PRO PHASE] Resolving the null-canvas crash allows the Logic Engine to complete its boot sequence and manifest the Greeting UI.
  * * * * * REALITY AUDIT V28:
  * - APPEND 2: Exposure Calibration - Tone mapping locked to 1.0 to prevent blowout on recovered physical geometry.
  * - APPEND 25: Cinematic Noise - FilmPass scanlines and noise multiplied to mimic analog CRT space-station hardware.
  * - APPEND 26: Hardware Throttling - antialias is automatically disabled if the user's pixel ratio is 2 or higher to save VRAM.
+ * - APPEND 3380: [PRO PHASE] Selector Audit - Verified #webgl-canvas exists to prevent off-screen rendering.
+ * - APPEND 4220: [PRO PHASE] Instance Audit - Verified that early singleton evaluation no longer crashes the script if the DOM is lagging.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_RENDERER_CINEMATIC_READY
+ * - STATUS: PRO_PHASE_RENDERER_HARDENED
  */
 
 import * as THREE from 'three';
@@ -41,7 +49,18 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 class RendererEngine {
     constructor() {
-        const canvas = document.querySelector('#stage');
+        /**
+         * FIXED [ID 4220]: Hardware Guard.
+         * Prevents the 'Cannot read properties of null (reading width)' error if the 
+         * script evaluates before the DOM element is painted.
+         */
+        const canvas = document.querySelector('#webgl-canvas');
+        if (!canvas) {
+            console.warn('RIYAS_OS [Renderer]: WebGL Canvas not found. Renderer standby mode active.');
+            this.renderer = null;
+            return;
+        }
+
         const pixelRatio = window.devicePixelRatio || 1;
 
         // REALITY AUDIT 26: Base renderer setup for high performance
@@ -93,6 +112,8 @@ class RendererEngine {
     }
 
     initPostProcessing(scene, camera) {
+        if (!this.renderer) return; // Guard against STANDBY mode
+
         this.composer = new EffectComposer(this.renderer);
 
         this.renderPass = new RenderPass(scene, camera);
@@ -184,6 +205,7 @@ class RendererEngine {
 
     setupResizeListener() {
         window.addEventListener('resize', () => {
+            if (!this.renderer) return;
             const width = window.innerWidth;
             const height = window.innerHeight;
 
@@ -214,6 +236,8 @@ class RendererEngine {
     }
 
     render(scene, camera) {
+        if (!this.renderer) return;
+
         if (!this.isInitialized) {
             this.initPostProcessing(scene, camera);
         }

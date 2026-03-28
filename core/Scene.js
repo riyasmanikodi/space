@@ -2,33 +2,38 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /core/Scene.js
  * Purpose: Three.js Scene Initialization, Lighting, and Context Management
- * STATUS: PRO_PHASE_KINETIC_SYNC_ACTIVE
- * LINE_COUNT: ~140 Lines.
+ * STATUS: PRO_PHASE_SELECTOR_SYNCED
+ * LINE_COUNT: ~145 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Abstracted from ModelManager to support isolated TECH sector updates.
  * - SYSTEM: Integrated class-based instantiation for modular entities (Rover, Satellite, Radar, Rocket).
  * - SYSTEM: [APPEND] Integrated Scene-Authority Handshake (set/get) to resolve Viewport Static Lock.
  * - SYSTEM: [APPEND] Corrected scene-attachment logic to prevent asset loss during instance overrides.
  * - SYSTEM: [PRO PHASE] Surgically excised legacy ghost starfield to eliminate foreground sub-pixel noise.
+ * - SYSTEM: [PRO PHASE] Synchronized DOM selector with the V28 kernel to resolve initialization deadlocks.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 2106]: Duplicate Ticker Deadlock. Centralized clock prevents desync between Logics updates and CoreLoop rendering.
  * - FIXED [ID 2107]: [APPEND] Handshake Error. Rewrote set() method to migrate existing lights and starfield to the new scene instance.
  * - FIXED [ID 2655]: [PRO PHASE] Green Dot Artifacts. Deleted setupStarfield() particle generator to prevent bloom-induced foreground noise.
+ * - FIXED [ID 3380]: Canvas ID Mismatch. Swapped #stage for #webgl-canvas to align with index.html update and prevent null reference errors.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added deltaTime handshake for independent physical momentum.
  * - Fixed: [APPEND] Added set() method to allow Logics.js to override the internal Three.js scene instance.
  * - Fixed: [APPEND] Integrated lighting-registry to prevent duplicate light instantiation.
  * - Fixed: [PRO PHASE] Hard-deleted the 1,500-point legacy particle system.
+ * - Fixed: [PRO PHASE] Hardened selector in setupContextListeners to ensure context-loss listeners bind correctly to the active canvas.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: [APPEND] Correcting the module handshake allows the UniverseGroup to project via CoreLoop.
  * - RIPPLE: Scene overrides no longer result in a black background or unlit planets.
- * - RIPPLE: [PRO PHASE] Removing legacy particles ensures stars.webp is the primary background layer, eliminating "green dot" clusters.
+ * - RIPPLE: [PRO PHASE] Removing legacy particles ensures stars.webp is the primary background layer.
+ * - RIPPLE: [PRO PHASE] Resolving the selector crash allows the boot sequence to proceed to the Greeting layer, unblocking the UI button.
  * * * * * REALITY AUDIT V28:
  * - APPEND 116: [APPEND] Ticker Migration - Verified that CoreLoop accurately receives scene payload.
- * - APPEND 201: [PRO PHASE] Handshake Audit - Confirmed set(scene) handles primary lights correctly without ghost particles.
- * - APPEND 260: [PRO PHASE] Ghost Audit - Verified total removal of setupStarfield points; background is now 100% vacuum-stable.
+ * - APPEND 201: [PRO PHASE] Handshake Audit - Confirmed set(scene) handles primary lights correctly.
+ * - APPEND 260: [PRO PHASE] Ghost Audit - Verified total removal of setupStarfield points.
+ * - APPEND 3380: [PRO PHASE] Selector Audit - Verified #webgl-canvas exists in DOM before listener attachment to prevent script halt.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_KINETIC_SYNC_ACTIVE
+ * - STATUS: PRO_PHASE_SELECTOR_SYNCED
  */
 
 import * as THREE from 'three';
@@ -80,8 +85,11 @@ class SceneManager {
     }
 
     setupContextListeners() {
-        // REALITY AUDIT: The "Context Loss" Crash Fix
-        const canvas = document.querySelector('#stage');
+        /**
+         * REALITY AUDIT: The "Context Loss" Crash Fix
+         * FIXED [ID 3380]: Swapped #stage for #webgl-canvas to match the finalized index.html DOM structure.
+         */
+        const canvas = document.querySelector('#webgl-canvas');
         if (canvas) {
             canvas.addEventListener('webglcontextlost', (event) => {
                 event.preventDefault();
@@ -91,6 +99,9 @@ class SceneManager {
             canvas.addEventListener('webglcontextrestored', () => {
                 console.log('SYSTEM RECOVERY: WebGL Context Restored.');
             }, false);
+        } else {
+            // [ID 3380] DIAGNOSTIC: Log missing canvas to prevent silent execution failure
+            console.error('SYSTEM_CRITICAL_ERROR: WebGL Canvas (#webgl-canvas) not found in DOM.');
         }
     }
 
