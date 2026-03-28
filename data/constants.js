@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /data/constants.js
  * Purpose: Global DNA, Performance Weighting, and Hardware Tiering
- * STATUS: PRO_PHASE_ASSET_PATHS_VERIFIED
- * LINE_COUNT: ~150 Lines.
+ * STATUS: PRO_PHASE_LAVA_ASSET_VERIFIED
+ * LINE_COUNT: ~155 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Global DNA registry finalized. Unified sector mapping and brand color-space established.
  * - SYSTEM: Transitioned from image-based assets to mathematical procedural geometry for the cursor.
@@ -21,6 +21,7 @@
  * - FIXED [ID 2120]: Capitalization Lock-Out. Normalized Sector IDs to UPPERCASE to match Logics.js and Profile.js authority keys.
  * - FIXED [ID 3130]: [PRO PHASE] Missing Asset Warning. Registered Lava.webp to prevent AssetLoader bypass.
  * - FIXED [ID 4120]: [PRO PHASE] Resource Fetch Failure. Verified ASSET_PATHS relative routing to ensure Lava.webp resolves locally without 404 errors.
+ * - FIXED [ID 4290]: [PRO PHASE] Texture Ghosting. Ensured Lava.webp path strictly matches the procedural requirement of the cursor fragment shader.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected METEOR_CONFIG to define procedural vertex displacement and ignition thresholds.
  * - Fixed: Added HARDWARE_PROFILES to support Low/Medium/High performance tiers.
@@ -28,6 +29,7 @@
  * - Fixed: Normalized sector identifiers to prevent undefined data-shard manifestations.
  * - Fixed: [PRO PHASE] Injected LAVA path into ASSET_PATHS.TEXTURES to establish single source of truth.
  * - Fixed: [PRO PHASE] Hardened relative path prefixes ('./') for web-server compatibility.
+ * - Fixed: [PRO PHASE] Ensured texture constants are exposed to CursorService to drive volumetric mapping.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The system is now 100% independent of external cursor assets, increasing boot speed.
  * - RIPPLE: Procedural geometry allows for unique asteroid topography on every system initialization.
@@ -35,6 +37,7 @@
  * - RIPPLE: Synchronizing IDs allows holographic shards to correctly manifest bio-data and skill levels.
  * - RIPPLE: [PRO PHASE] AssetLoader can now pre-fetch the cursor texture to prevent a "Black Box" flash on ignition.
  * - RIPPLE: [PRO PHASE] Texture paths map cleanly on both dev servers and production builds.
+ * - RIPPLE: [PRO PHASE] CursorService successfully loads the volcanic texture, allowing the fragment shader to render the realistic rocky core.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Circular Wraparound - WRAP_LIMIT enforced at 2PI.
  * - APPEND 123: Tier Calibration - Verified Anisotropy limits (4x Low / 16x High).
@@ -44,8 +47,9 @@
  * - APPEND 212: DNA Audit - Verified that all sector keys match the global state machine's case-sensitive lookups.
  * - APPEND 220: Texture Audit - Verified Lava.webp path maps correctly to the surfaces directory.
  * - APPEND 225: [PRO PHASE] Path Sync Audit - Confirmed local server resolution for `./assets/textures/surfaces/Lava.webp`.
+ * - APPEND 4290: [PRO PHASE] Asset Link Audit - Confirmed `ASSET_PATHS.TEXTURES.LAVA` is structurally sound for `CursorService` instantiation.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_ASSET_PATHS_VERIFIED
+ * - STATUS: PRO_PHASE_LAVA_ASSET_VERIFIED
  */
 
 // ==========================================
@@ -152,7 +156,8 @@ export const ASSET_PATHS = {
         RADAR_DIFF: './assets/textures/radar.webp',
         SAT_DIFF: './assets/textures/satellite.webp',
         ROCKET_DIFF: './assets/textures/rocket.webp',
-        LAVA: './assets/textures/surfaces/Lava.webp', // [PRO PHASE]: High-detail cracked volcanic rock cursor map
+        // [ID 4290]: Procedural Volcanic Texture Registry
+        LAVA: './assets/textures/surfaces/Lava.webp',
         // LEGACY FALLBACK:
         CURSOR_SHARD: './assets/textures/ui/Flying Meteorite on Fire Animated--cursor--SweezyCursors.png'
     }

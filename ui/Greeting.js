@@ -128,7 +128,7 @@ export class Greeting {
                 this.enterBtn.style.transition = 'opacity 1s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                 this.enterBtn.style.opacity = '1';
                 this.enterBtn.style.pointerEvents = 'auto';
-                this.enterBtn.innerText = "ACCESS RIYAS_OS";
+                this.enterBtn.innerText = "signal ends at krayetos";
                 this.enterBtn.classList.add('ignite');
             }, 50);
         }

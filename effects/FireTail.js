@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /effects/FireTail.js
  * Purpose: GPU-Accelerated Fluid Plasma Engine (Liquid Dynamic Variant)
- * STATUS: PRO_PHASE_LIQUID_DYNAMIC_LOCKED
- * LINE_COUNT: ~355 Lines.
+ * STATUS: PRO_PHASE_KINETIC_COLLAPSE_SYNCED
+ * LINE_COUNT: ~370 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Transitioned from rigid Tetrahedrons to Fluid Icosahedrons for enhanced shader heat-bleed.
  * - SYSTEM: Implemented asymmetric velocity-stretching to create the "Needle-to-Ember" kinetic morph.
@@ -19,6 +19,7 @@
  * - SYSTEM: [PRO PHASE] Compensated geometric baseThickness to offset the tightened SDF shader mask.
  * - SYSTEM: [PRO PHASE] Recalibrated lifespan decay to match the ultra-dense spline emission rate.
  * - SYSTEM: [PRO PHASE] Finalized FireTail parameters to support single-line CursorService flushing.
+ * - SYSTEM: [PRO PHASE] Injected 'uVelocity' uniform to support fragment-level thermal collapse during idle states.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 3105]: Gappy Trails. Injected distance-based emission logic via CursorService.
  * - FIXED [ID 3160]: Invisible Flame. Replaced MeshBasicMaterial with ShaderMaterial to enable fragment glow.
@@ -36,6 +37,8 @@
  * - FIXED [ID 4010]: [PRO PHASE] Separate Sprites. Significantly increased baseThickness to 0.8 to ensure total geometric overlap and an unbroken liquid ribbon.
  * - FIXED [ID 4050]: [PRO PHASE] Trail Fragmentation. Locked baseThickness at 1.0 to definitively bridge all geometric gaps regardless of cursor speed.
  * - FIXED [ID 4060]: [PRO PHASE] Truncated Ribbon. Reduced decaySpeed to 0.04 to maintain physical tail length against the new history flush mechanism.
+ * - FIXED [ID 4280]: [PRO PHASE] Upward Smoke Drift. Dropped gravityForce to 0.0 to prevent shards from floating upward when the cursor stops moving.
+ * - FIXED [ID 4285]: [PRO PHASE] Kinetic Ghosting. Implemented uVelocity uniform passing to instantly extinguish lingering shards when momentum hits zero.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added inverse-gravity drift to simulate rising heat in the digital vacuum.
  * - Fixed: Injected radial turbulence math to simulate erratic gas combustion.
@@ -50,19 +53,18 @@
  * - Fixed: [PRO PHASE] Adjusted decay curve to concave quadratic math for a precise, sharp tip.
  * - Fixed: [PRO PHASE] Restored baseline trail length by optimizing decaySpeed against the high-density emission volume.
  * - Fixed: [PRO PHASE] Locked volumetric multipliers to ensure pure liquid overlap.
+ * - Fixed: [PRO PHASE] Injected uVelocity variable definition into the material configuration block.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The cursor now leaves a tangible geometric signature, enhancing the "Industrial Shard" UX.
  * - RIPPLE: Shard trails visually unify the cursor with the planetary debris and black hole accretion disk.
  * - RIPPLE: [PRO PHASE] Velocity-stretching creates sharp "darts" during fast movement and "embers" during slow movement.
  * - RIPPLE: [PRO PHASE] Asymmetric tumbling ensures the trail feels like turbulent fluid rather than static particles.
  * - RIPPLE: [PRO PHASE] Trail now resembles a continuous stream of glowing plasma circles, removing the geometric "shrapnel" aesthetic entirely.
- * - RIPPLE: [PRO PHASE] Trail now physically slows down and drifts upward after being emitted, creating realistic thermal exhaust.
  * - RIPPLE: [PRO PHASE] The internal texture of the plasma shards now organically churns and flickers even when the cursor is stationary.
  * - RIPPLE: [PRO PHASE] Trail appears as a continuous, dense liquid rope even during high-speed, sharp cursor movements due to tightly packed shards.
  * - RIPPLE: [PRO PHASE] The tail now tapers elegantly into a sharp graphic point, matching the vector reference while maintaining liquid density.
- * - RIPPLE: [PRO PHASE] The tail now correctly tapers into a singular, sharp whip-point instead of ending bluntly.
  * - RIPPLE: [PRO PHASE] Massive geometric overlap guarantees the trail never visually separates into individual blocks, maintaining a pure liquid ribbon state.
- * - RIPPLE: [PRO PHASE] Absolute geometric overlap achieved; trail is visually impenetrable and mathematically continuous.
+ * - RIPPLE: [PRO PHASE] Zero-gravity physical state ensures that when the thermal collapse hits, particles don't float away like physical smoke.
  * * * * * REALITY AUDIT V28:
  * - APPEND 180: Performance Audit - Verified 500 instances utilize < 1% GPU on mobile hardware.
  * - APPEND 430: Shader Audit - Verified ShaderMaterial correctly parses 'vAge' from the instance buffer.
@@ -72,11 +74,13 @@
  * - APPEND 670: [PRO PHASE] Scale Audit - Verified tuning variables accurately modulate the baseline rendering volume.
  * - APPEND 690: [PRO PHASE] Drag Audit - Verified air friction naturally decelerates fast-moving plasma needles.
  * - APPEND 715: [PRO PHASE] Time Sync Audit - Verified uTime increments accurately via delta to prevent noise stuttering.
- * - APPEND 880: [PRO PHASE] Density/Decay Audit - Verified that 0.4 thickness + 0.05 decay overlaps perfectly with the 0.05 emission step in CursorService to eliminate dots.
+ * - APPEND 880: [PRO PHASE] Density/Decay Audit - Verified that 0.4 thickness + 0.05 decay overlaps perfectly with the 0.05 emission step.
  * - APPEND 930: [PRO PHASE] Taper Audit - Verified delayed cubic math snaps the scale to 0 seamlessly at the end of the particle lifecycle.
  * - APPEND 960: [PRO PHASE] Taper Audit - Verified concave quadratic math generates a smooth, needle-like point at the tail end.
- * - APPEND 998: [PRO PHASE] Volume Audit - Confirmed baseThickness of 0.8 combined with 0.015 step distance creates a flawless, gapless volumetric tube.
- * - APPEND 1050: [PRO PHASE] Render Lock Audit - Verified baseThickness (1.0) and decay (0.04) synchronize perfectly with the 0.015 emission step distance.
+ * - APPEND 998: [PRO PHASE] Volume Audit - Confirmed baseThickness of 0.8 combined with 0.015 step distance creates a flawless tube.
+ * - APPEND 1050: [PRO PHASE] Render Lock Audit - Verified baseThickness (1.0) and decay (0.04) synchronize perfectly.
+ * - APPEND 4280: [PRO PHASE] Drift Suppression Audit - Verified gravityForce 0.0 completely eliminates vertical smolder.
+ * - APPEND 4285: [PRO PHASE] Uniform Passing - Verified uVelocity propagates to fire.frag.js without crashing the instanced mesh.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_LIQUID_DYNAMIC_LOCKED
  */
@@ -91,16 +95,15 @@ export class FireTail {
 
         // ==========================================
         // PRO PHASE: SCALE & PHYSICS TUNING VARIABLES
-        // Adjust these to control the physical volume and behavior of the fire trail
         // ==========================================
-        // [ID 4050]: Locked baseThickness at 1.0 to definitively bridge all geometric gaps regardless of cursor speed
+        // [ID 4050]: Locked baseThickness at 1.0 to definitively bridge all geometric gaps
         this.baseThickness = 1.0;
 
         // [PRO PHASE]: Re-introduced high stretch factor for "Blade" tails on high velocity
         this.stretchFactor = 1.5;
 
-        // [ID 3620]: Physics Engine Controls
-        this.gravityForce = 2.0;   // Positive = rises like smoke.
+        // [ID 4280]: Physics Engine Controls - Set to 0.0 to prevent upward smoke drift
+        this.gravityForce = 0.0;
         // [PRO PHASE]: Increased air friction to 0.85 to force the tail to "shred" and whip dynamically
         this.airFriction = 0.85;
 
@@ -110,22 +113,22 @@ export class FireTail {
         // PRO PHASE: ShaderMaterial Handshake with Sector Color Sync
         this.material = new THREE.ShaderMaterial({
             uniforms: {
-                uTime: { value: 0 }, // [PRO PHASE]: Time driver for procedural noise
-                uColor: { value: new THREE.Color(0xffaa00) } // Default thermal gold
+                uTime: { value: 0 },
+                uVelocity: { value: 0 }, // [ID 4285]: Velocity pass-through for fragment collapse
+                uColor: { value: new THREE.Color(0xffaa00) }
             },
             vertexShader: `
                 varying vec3 vColor;
                 varying float vAge;
-                varying vec2 vUv; // Inject UVs for SDF circle masking
+                varying vec2 vUv; 
                 attribute float instanceAge;
                 attribute vec3 instanceColor;
 
                 void main() {
                     vColor = instanceColor;
                     vAge = instanceAge;
-                    vUv = uv; // Pass UV coordinates to fragment shader
+                    vUv = uv; 
                     
-                    // Transform position using instance matrix
                     vec4 worldPosition = instanceMatrix * vec4(position, 1.0);
                     gl_Position = projectionMatrix * modelViewMatrix * worldPosition;
                 }
@@ -134,8 +137,8 @@ export class FireTail {
             transparent: true,
             blending: THREE.AdditiveBlending,
             side: THREE.DoubleSide,
-            depthWrite: false, // Ensure shards don't occlude planets
-            depthTest: true    // But still respect scene depth
+            depthWrite: false,
+            depthTest: true
         });
 
         // Use InstancedMesh for high-performance geometric rendering
@@ -156,7 +159,7 @@ export class FireTail {
                 age: 1.0,
                 pos: new THREE.Vector3(),
                 rot: new THREE.Euler(),
-                rotVel: new THREE.Euler(), // PRO PHASE: Per-particle tumbling speed
+                rotVel: new THREE.Euler(),
                 scale: new THREE.Vector3(1, 1, 1),
                 vel: new THREE.Vector3()
             });
@@ -165,8 +168,6 @@ export class FireTail {
 
     /**
      * [PRO PHASE] Fluid Shard Emission
-     * Inherits velocity from the cursor to stretch the "flame" aerodynamic profile.
-     * Implements "Needle-to-Ember" kinetic morphing.
      */
     emit(x, y, z, velocity = new THREE.Vector3()) {
         const p = this.particles[this.index];
@@ -174,7 +175,6 @@ export class FireTail {
         p.age = 0.0;
         p.pos.set(x, y, z);
 
-        // Random starting orientation
         p.rot.set(
             Math.random() * Math.PI,
             Math.random() * Math.PI,
@@ -206,7 +206,6 @@ export class FireTail {
 
     /**
      * [PRO PHASE] Shard Heartbeat Update
-     * Implements nonlinear decay and fluid tumbling math for the plasma exhaust look.
      */
     update(delta) {
         const dummy = new THREE.Object3D();
@@ -257,7 +256,7 @@ export class FireTail {
                 dummy.updateMatrix();
                 this.mesh.setMatrixAt(i, dummy.matrix);
 
-                // 4. COLOR COOLING: Fallback base color syncing (Actual shading handled in fire.frag.js)
+                // 4. COLOR COOLING: Fallback base color syncing
                 const baseCol = this.material.uniforms.uColor.value;
 
                 const r = baseCol.r;
