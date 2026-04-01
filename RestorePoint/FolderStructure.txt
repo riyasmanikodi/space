@@ -1,0 +1,158 @@
+1. Restore Point Archive (The Brain Shards)
+Upload these .txt files first to establish the project history and solved anomalies.
+
+KRAYE_LOG_V28_PRO.txt
+
+CULPRIT_LOG_V28_PRO.txt
+
+OMISSION_LOG_V28_PRO.txt
+
+REALITY_AUDIT_V28_PRO.txt
+
+RIPPLE_EFFECT_V28_PRO.txt
+
+MASTER_LOG_V28_PRO.txt
+
+GREETING_NARRATIVE_V28.txt
+
+PRO_PHASE_IGNITION_PROTOCOL.txt
+
+V28_PRO_ARCHITECTURE_MANIFEST.txt
+
+2. System Root
+index.html (The viewport foundation)
+
+style.css (Industrial UI & Z-Index stacking)
+
+greeting.css (8bit.ai & Scanline styling)
+
+Logics.js (Central System Brain)
+
+main.js (Kernel Ignition & Handshake)
+
+3. Core Logic (/core)
+Camera.js (Elastic Rig & Mobile Fisheye)
+
+Input.js (Device Normalization & Focus-Lock)
+
+Loop.js (Central Heartbeat & Gating)
+
+Renderer.js (Cinematic Post-Processing)
+
+Scene.js (Hardware Handshake & Background Migration)
+
+4. System Services (/systems)
+animations.js (Kinetic Easing & Spring Math)
+
+audio.js (Procedural Sound & Acoustic Sync)
+
+CursorService.js (Spline-Interpolated Pathing)
+
+KineticAnimator.js (Decoupled Physics Loop)
+
+NetworkOrchestrator.js (Batch Loading & Throttling)
+
+physics.js (Orbital Mechanics & Magnetic Snapping)
+
+PolyGen.js (Zero-Asset Geometry Engine)
+
+ResponsiveService.js (Viewport Sync & Orientation Lock)
+
+TerminalEngine.js (Command Parsing & Proxy)
+
+vfx.js (Bloom, Chromatic Aberration & Uber-Shaders)
+
+5. Visual Effects (/effects)
+FireTail.js (GPU Fluid Plasma Tail)
+
+HeroEffects.js (Typographic Anomaly Engine)
+
+ManifestoEngine.js (8bit.ai Streaks & Tunnel Warp)
+
+Typewriter.js (Decryption Scramble Engine)
+
+6. Shaders (/shaders)
+blackhole.frag.js (Relativistic Lensing)
+
+cursor.frag.js (Meteorite Ignition)
+
+fire.frag.js (Plasma Fragment Logic)
+
+particles.frag.js (Soft Star Masking)
+
+planet.frag.js (Circuitry & Surface Intensity)
+
+planet.vert.js (Surgical Vertex Displacement)
+
+7. Celestial World (/world)
+DebrisField.js (Asteroids & Vacuum Purge)
+
+galaxy.js (Fibonacci Sphere Starfield)
+
+Lighting.js (Void Calibration & God-Source Sun)
+
+OrbitRing.js (Mechanical Rail-Gun Tracks)
+
+Planet.js (LOD Swapping & Atmosphere)
+
+Starfield.js (Parallax Background)
+
+8. 3D Entities (/entities)
+BlackHole.js (Procedural Singularity)
+
+Environment.js (Celestial Architecture)
+
+HeroPlanet.js (Surface-Snap Sector World)
+
+Radar.js (CODE Sector Scanning Entity)
+
+Rocket.js (CONTACT Sector Launch Entity)
+
+Rover.js (TECH Sector Suspension Entity)
+
+Satellite.js (VISION Sector Weightless Entity)
+
+TransmissionDish.js (Elastic Tracking Sensor)
+
+9. Data & Registry (/data)
+constants.js (Global DNA & Sector Mappings)
+
+HardwareTiers.js (Device Performance Profiles)
+
+logs.js (Terminal Content Database)
+
+profile.js (Identity & Skill Shards)
+
+projects.js (Portfolio Mapping)
+
+resume.js (Timeline Shards)
+
+10. UI Components (/ui)
+Greeting.js (Boot Sequence & Insights)
+
+MobileFisheye.js (Adaptive Horizon & Gyro)
+
+Overlay.js (Master HUD & Swipe-Gage)
+
+SlideDrawer.js (Navigation & Momentum Snapping)
+
+Terminal.js (Interactive CRT CLI)
+
+11. Utilities & Generators (/utils, /loaders, /generators)
+AssetLoader.js (VRAM Management & Throttling)
+
+ModelManager.js (Surface-Snap Factory)
+
+events.js (Central Event Bus)
+
+logics.js (State Machine Logic)
+
+math.js (Trigonometry & Kinetic Curves)
+
+PerformanceMonitor.js (Real-Time Diagnostics)
+
+time.js (Temporal Delta Normalization)
+
+textures.js (Procedural Displacement Gen)
+
+gradients.js (Zero-Asset Aura Gen)

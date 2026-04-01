@@ -1,0 +1,54 @@
+/// PRO PHASE: IGNITION PROTOCOL [V28 MASTER]
+1. PHASE 1: KERNEL SINGLETON ASSIGNMENT
+
+Action: Immediate assignment of window.RIYAS_SYSTEM = CoreLogics.
+
+Purpose: [ID 3385] Prevents reference race conditions. Ensures the CoreLoop and CursorService can resolve the system brain during the very first execution frame.
+
+2. PHASE 2: DOM MOUNTING & CONTEXT PREPARATION
+
+Action: Execution deferred until DOMContentLoaded.
+
+Purpose: Ensures the #webgl-canvas and #os-greeting layers are present in the DOM before the Renderer attempts context acquisition. Prevents [ID 3380] Null Selector crashes.
+
+3. PHASE 3: THE HARDWARE HANDSHAKE (LOGIC ENGINE)
+
+Action: CoreLogics initializes the primary CoreScene and CoreCamera.
+
+Critical Logic: The logic engine must finish asset registration and scene setup before visual effects are attached to ensure the effect groups aren't purged by scene overrides.
+
+4. PHASE 4: EVENT-DRIVEN SIGNAL (RIYAS_OS_READY)
+
+Action: main.js dispatches a CustomEvent('RIYAS_OS_READY').
+
+Purpose: Acts as the master synchronization signal. It tells the ManifestoEngine, CursorService, and VFX stack that the hardware handshake is complete and the scene is ready for effect mounting.
+
+5. PHASE 5: MANIFESTO IGNITION (8bit.ai VISUALS)
+
+Action: CoreManifesto.init(CoreScene.get()) fires upon the RIYAS_OS_READY signal.
+
+Purpose: [ID 4341] Ensures the kinetic background streaks and tunnel geometries are added to the final active scene instance's backgroundGroup. This prevents the "Static Background" bug caused by scene-authority races.
+
+6. PHASE 6: UI BRIDGE RESTORATION (GREETING)
+
+Action: Instantiation of new Greeting().
+
+Purpose: Starts the typewriter insight loop and reveals the "Enter System" prompt. This is placed after Manifesto ignition to ensure the high-contrast 8bit.ai aesthetic is visible behind the text immediately.
+
+7. PHASE 7: THE LENS THUMP (SYSTEM UNLOCK)
+
+Action: User clicks "Enter System" -> unlockSystem().
+
+Critical Teardown:
+
+CoreManifesto.dispose() is called immediately to purge background WebGL memory and stop the noise loop.
+
+lens-thump CSS animation triggers.
+
+Logics.js initiates the cinematic camera lerp to the first planetary sector.
+
+8. PHASE 8: HEARTBEAT GATING
+
+Action: Loop.js monitors CoreManifesto.isActive.
+
+Purpose: [ID 4386] Ensures background calculations for the 8bit.ai visuals are zeroed out once the user enters the main OS, reclaiming 100% of those GPU resources for planetary rendering.

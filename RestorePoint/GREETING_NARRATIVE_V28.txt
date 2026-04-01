@@ -1,0 +1,54 @@
+/// GREETING NARRATIVE: MASTER REGISTRY [V28 PRO PHASE]
+1. IDENTITY_SHARDS (Linguistic Core)
+
+[ID_001]: Krayetos walks the void alone.
+
+[ID_002]: Only Krayetos remains here.
+
+[ID_003]: Find Krayetos in the dark.
+
+[ID_004]: Krayetos wanders the stars.
+
+[ID_005]: Krayetos is my lonely universe.
+
+[ID_006]: Lost stars follow Krayetos.
+
+2. VOID_RESONANCE (Acoustic Pacing)
+
+[RES_01]: Silence belongs to Krayetos.
+
+[RES_02]: Find Krayetos in silence.
+
+[RES_03]: Krayetos drifts in peace.
+
+[RES_04]: Only Krayetos remains calm.
+
+[RES_05]: Krayetos: The quiet star.
+
+[RES_06]: Krayetos loves the void.
+
+3. SIGNAL_TERMINATION (Final Sequence)
+
+[TERM_01]: SIGNAL_INTERRUPT // NO_DATA_DETECTED
+
+[TERM_02]: SEARCHING_FOR_LIFE_SIGNS... 0%
+
+4. TYPEWRITER_CONFIG (Engine Constraints)
+
+Mode: DECRYPTION_SCRAMBLE
+
+Frequency: 60Hz
+
+Char_Delay: 10ms - 30ms (Randomized)
+
+Pacing: Industrial_Mechanical
+
+Acoustic_Sync: TYPEWRITER_TICK_1200Hz
+
+5. NARRATIVE_ORCHESTRATION
+
+Sequence A (Boot): [ID_001] -> [RES_05] -> [TERM_01]
+
+Sequence B (Insight): [RES_01] -> [ID_006] -> TERM_03
+
+Sequence C (Final): [ID_003] -> [RES_06] -> TERM_04

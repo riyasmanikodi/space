@@ -3,7 +3,7 @@
  * File: /style.css
  * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, and Mobile Kinetics
  * STATUS: PRO_PHASE_CURSOR_HARDWARE_PROMOTED
- * LINE_COUNT: ~445 Lines.
+ * LINE_COUNT: ~450 Lines.
  * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
  * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
@@ -19,6 +19,7 @@
  * - FIXED [ID 3005]: System Pointer Bleed. Enforced `cursor: none !important;` globally to prevent double-cursor rendering.
  * - FIXED [ID 3045]: Z-Index Ghosting. Enforced transparent clear-alpha on the `#cursor-3d-overlay` to prevent it from occluding the main planetary canvas.
  * - FIXED [ID 3380]: [PRO PHASE] Hardware Culling. The browser was culling the `#cursor-3d-overlay` during heavy CoreLoop renders. Forced layer promotion.
+ * - FIXED [ID 4390]: [PRO PHASE] Selector Mismatch. Swapped legacy #stage for #webgl-canvas to properly align hardware layers and promote canvas visibility for 8bit.ai effects.
  * * * * OMISSION LOG V28:
  * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
  * - Fixed: Injected @keyframes for holo-ignition to animate shards appearing around the active planet via scale and blur.
@@ -26,12 +27,14 @@
  * - Fixed: Added high-priority z-index (100000) for the new `#cursor-3d-overlay` to hover above all HUD and CRT layers.
  * - Fixed: Purged legacy `.industrial-shard` DOM styles as the cursor is now procedurally generated in WebGL.
  * - Fixed: [PRO PHASE] Injected `will-change: transform, opacity` and `translateZ(0)` to the `#cursor-3d-overlay`.
+ * - Fixed: [PRO PHASE] Updated CSS ID selector to #webgl-canvas to match DOM structure.
  * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The DOM shards now scale and opacity-fade based on activeClickedSector transitions via Logics.js.
  * - RIPPLE: CSS pass-through filter allows dragMove to fire vertically for the new Swipe-to-Dismiss gesture.
  * - RIPPLE: The physical meteorite cursor establishes a unified industrial aesthetic across all input methods.
  * - RIPPLE: The decoupled `#cursor-3d-overlay` ensures high-performance kinetic fire without DOM repaints.
  * - RIPPLE: [PRO PHASE] GPU layer promotion guarantees the cursor canvas operates independently from the DOM layout thrashing, ensuring the trail never vanishes.
+ * - RIPPLE: [PRO PHASE] Aligning the #webgl-canvas selector ensures the 3D particles render behind the Greeting UI rather than being hidden.
  * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter` to ensure CSS animations don't block the Three.js render loop.
  * - APPEND 3: Visual DNA Expansion - `hero-flicker-anim` and `hero-heavy-chromatic` implemented for high-velocity interaction thumps.
@@ -39,6 +42,7 @@
  * - APPEND 159: Z-Index Audit - Verified `100000` priority on `#cursor-3d-overlay` overrides CRT and Greeting layers.
  * - APPEND 160: Architecture Audit - Purged legacy PNG CSS classes (`#cursor-shard`, `.industrial-shard`) to reflect the transition to pure procedural math.
  * - APPEND 470: [PRO PHASE] Repaint Audit - Verified `backface-visibility: hidden` prevents Chrome/Safari from flattening the WebGL overlay during transitions.
+ * - APPEND 4390: [PRO PHASE] Visibility Audit - Verified #webgl-canvas replaces legacy #stage selector.
  * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_CURSOR_HARDWARE_PROMOTED
  */
@@ -126,7 +130,7 @@ body::before {
 /* ==========================================
    2. 3D STAGE (Canvas)
    ========================================== */
-#stage {
+#webgl-canvas {
     position: fixed;
     top: 0;
     left: 0;

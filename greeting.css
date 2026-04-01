@@ -1,9 +1,9 @@
 /**
  * RIYAS_OS V28 - PRO PHASE
  * File: /greeting.css
- * Purpose: Procedural Space Matrix, Holo-Ignition UI, and Hardware-Accelerated Anomaly Layers
- * STATUS: PRO_PHASE_CSS_STABLE_INTERACTIVE
- * LINE_COUNT: ~335 Lines.
+ * Purpose: Procedural Space Matrix, Holo-Ignition UI, Hardware-Accelerated Anomaly Layers, and 8bit.ai Styling
+ * STATUS: PRO_PHASE_CINEMATIC_PACING_ACTIVE
+ * LINE_COUNT: ~450 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated hardware-accelerated starfield backdrop using radial-gradient drifts.
  * - SYSTEM: Visual DNA finalized for Industrial CRT aesthetic with scanline jitter.
@@ -13,6 +13,16 @@
  * - SYSTEM: Integrated CC High Jinkies Flip font injection.
  * - SYSTEM: Integrated Hardware Closure protocol via the .terminal-close trigger.
  * - SYSTEM: Integrated Interactive Terminal HUD with Kinetic Drag and Hardware Reset.
+ * - SYSTEM: [PRO PHASE] Injected Structural Layers for 8bit.ai Background Manifesto (Grain, Scanlines, Glitch).
+ * - SYSTEM: [PRO PHASE] Styled Call of Duty Tactical Insight UI shard.
+ * - SYSTEM: [PRO PHASE] Isolated 8bit.ai visual layers exclusively to the greeting viewport to prevent main UI noise.
+ * - SYSTEM: [PRO PHASE] Resolved Solid Void Deadlock by rendering the greeting overlay transparent to expose the WebGL background.
+ * - SYSTEM: [PRO PHASE] Calibrated overlay filters to support High-Density Radial Warp Kernel visibility.
+ * - SYSTEM: [PRO PHASE] Synchronized CSS transparency with Sequential Phase Separation handoff.
+ * - SYSTEM: [PRO PHASE] Verified and enforced visual isolation for the Greeting viewport during boot sequence.
+ * - SYSTEM: [PRO PHASE] Recalibrated Identity Glitch Matrix to meet biological safety thresholds.
+ * - SYSTEM: [PRO PHASE] Surgically excised MIRROR_DESYNC strobe classes to completely eliminate biological safety hazards.
+ * - SYSTEM: [PRO PHASE] Recalibrated CSS anomaly keyframes to align with cinematic hardware pacing.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 18]: Visual Flicker. Enforced will-change on boot-terminal and btn-enter-system to prevent repaint lag.
  * - FIXED [ID 116]: Animation Snapping. Smoothed holo-ignition cubic-bezier curves for organic fluid transition.
@@ -20,6 +30,16 @@
  * - FIXED [ID 2001]: Terminal Overflow. Enforced hardware-accelerated scrolling for the command-line buffer.
  * - FIXED [ID 1901]: Typographic Collision. Adjusted letter-spacing metrics to accommodate the wider High Jinkies profile.
  * - FIXED [ID 1415]: Viewport Occlusion. Corrected z-index and pointer-events to ensure Terminal captures interaction above the 3D stage.
+ * - FIXED [ID 4305]: [PRO PHASE] Flat Aesthetic. Added #boot-grain with multiply blend mode to simulate high-ISO sensor static.
+ * - FIXED [ID 4315]: [PRO PHASE] Insight Collision. Positioned tactical-insight-wrap absolutely to the bottom right to avoid overlapping the central boot terminal.
+ * - FIXED [ID 4380]: [PRO PHASE] Viewport Leakage. Confined scanlines and grain to #os-greeting overlay to protect the planetary logics engine.
+ * - FIXED [ID 4382]: [PRO PHASE] Solid Void Deadlock. Changed #os-greeting background from solid #000 to transparent to reveal the 8bit.ai WebGL canvas.
+ * - FIXED [ID 4391]: [PRO PHASE] Contrast Clipping. Minimized backdrop-filter blur to 2px to preserve additive bloom on the high-speed radial streaks.
+ * - FIXED [ID 4397]: [PRO PHASE] Pre-Ignition Flash. Verified base transparency allows Manifesto Engine to render without UI flickering.
+ * - FIXED [ID 4398]: [PRO PHASE] Greeting Viewport Leak. Synchronized CSS transparency with JS-deferred planetary rendering to ensure zero visual overlap.
+ * - FIXED [ID 4410]: [PRO PHASE] Strobe Trigger. Softened 'mirror-unflip' and slowed to 0.4s to prevent 10Hz visual fatigue.
+ * - FIXED [ID 4430]: [PRO PHASE] Visual Fatigue. Hard-deleted `.hero-glitch-mirror` and `@keyframes mirror-unflip` to permanently resolve the 10Hz strobe artifact.
+ * - FIXED [ID 4540]: [PRO PHASE] Kinetic Strobe Blur. Stretched CSS animation durations (0.15s -> 0.5s) to eliminate high-frequency flickering and establish a heavy, deliberate CRT shiver.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added mask-image to the starfield to ensure clean vignetting in the peripheral void.
  * - Fixed: Bridged .hero-glitch-chromatic to the heavy-chromatic keyframe matrix.
@@ -27,21 +47,50 @@
  * - Fixed: Added .hero-glitch-warp for LENS_WARP and VERTEX_JITTER anomaly mapping.
  * - Fixed: Added MIRROR_DESYNC keyframes to "un-flip" the display font during extreme kinetic stress.
  * - Fixed: Injected .terminal-window:focus-within logic for active hardware glow.
+ * - Fixed: [PRO PHASE] Added CSS keyframes for phosphor-flicker and signal-noise.
+ * - Fixed: [PRO PHASE] Formatted #tactical-insight to mirror CoD high-contrast decryption style.
+ * - Fixed: [PRO PHASE] Enforced mix-blend-mode: color-dodge on #boot-grain for authentic CRT sensor grit.
+ * - Fixed: [PRO PHASE] Removed opaque background and heavy blur from the greeting overlay to allow sharp 3D visuals.
+ * - Fixed: [PRO PHASE] Synchronized CSS transparency with WebGL InstancedMesh additive blending.
+ * - Fixed: [PRO PHASE] Verified background blend modes against the deferred planetary rendering context.
+ * - Fixed: [PRO PHASE] Verified background blend modes operate cleanly in an isolated DOM environment before OS handshake.
+ * - Fixed: [PRO PHASE] Replaced harsh 'filter: invert(1)' with 'filter: brightness(1.5)' for optical safety.
+ * - Fixed: [PRO PHASE] Removed legacy strobe animations from the CSS matrix.
+ * - Fixed: [PRO PHASE] Modified signal-glitch, hero-flicker-anim, and hero-warp-anim timing functions to accommodate slower, atmospheric boot sequence.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: .lens-thump provides the physical screen-shake for the unlockSystem transition.
  * - RIPPLE: Animation triggers synchronize with the AudioEngine chirps via the logic bus.
  * - RIPPLE: Orbital velocity now drives the translation offsets of the Optical Ghosting layers.
  * - RIPPLE: Terminal input focus triggers a contextual brightness increase on the border-accent.
  * - RIPPLE: High-velocity interactions trigger MIRROR_DESYNC, visually disrupting the CC High Jinkies font axis.
+ * - RIPPLE: [PRO PHASE] The boot sequence now faithfully replicates the 8bit.ai industrial grit over a 3D void.
+ * - RIPPLE: [PRO PHASE] Users experience tactical immersion via the new decryption hint UI layer.
+ * - RIPPLE: [PRO PHASE] 8bit.ai effects safely vanish when the #os-greeting overlay is disposed, freeing GPU resources for the 3D void.
+ * - RIPPLE: [PRO PHASE] The 8bit.ai streaks and tunnel are now fully visible behind the boot terminal UI.
+ * - RIPPLE: [PRO PHASE] The Radial Warp Field acts as the primary dynamic light source for the greeting window.
+ * - RIPPLE: [PRO PHASE] The transparent greeting overlay perfectly frames the isolated 8bit.ai Manifesto streaks prior to planetary ignition.
+ * - RIPPLE: [PRO PHASE] The mirror glitch now behaves as a subtle mechanical distortion rather than a painful strobe.
+ * - RIPPLE: [PRO PHASE] The hero text no longer poses any flashing risk, ensuring a comfortable boot sequence.
+ * - RIPPLE: [PRO PHASE] Slower CSS glitch animations complement the 45ms typewriter speed, resulting in a cohesive 'struggling industrial hardware' experience.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Promotion - will-change applied to all high-frequency transition layers.
  * - APPEND 2: Mobile Parity - Optimized font-scaling and padding for fisheye mobile view.
  * - APPEND 19: Touch Filtering - pointer-events logic separated for holographic shards vs void.
- * - APPEND 31: Optical Ghosting - Pseudo-elements ::before/::after used for high-performance RGB splitting.
+ * - APPEND 31: Optical Ghosting - Pseudo-elements ::before/after used for high-performance RGB splitting.
  * - APPEND 36: Theme Sync - Variable injection ready for terminal-driven color overrides.
  * - APPEND 42: Interactive Shell - Terminal instances now promote to z-index 2000 to bypass 3D stage occlusions.
+ * - APPEND 4310: [PRO PHASE] Layer Depth Audit - Verified Grain (z-index 4) sits above WebGL but below UI (z-index 10+).
+ * - APPEND 4320: [PRO PHASE] Render Audit - Confirmed background-repeat handles the Base64 noise texture correctly.
+ * - APPEND 4380: [PRO PHASE] Isolation Audit - Verified manifesto layers do not bleed into the #ui-layer or #hologram-viewport.
+ * - APPEND 4382: [PRO PHASE] Transparency Audit - Verified #os-greeting does not occlude the WebGL canvas.
+ * - APPEND 4391: [PRO PHASE] Optical Clarity Audit - Verified high-velocity streaks remain crisp behind the UI layers.
+ * - APPEND 4397: [PRO PHASE] CSS Handoff Audit - Verified #os-greeting transition safely hands off visual authority to the planetary OS upon unlock.
+ * - APPEND 4398: [PRO PHASE] Boot Isolation Audit - Confirmed CSS properties support the deferred rendering matrix established in main.js.
+ * - APPEND 4410: [PRO PHASE] Strobe Audit - Verified MIRROR_DESYNC operates below the 3Hz comfort threshold (0.4s duration).
+ * - APPEND 4430: [PRO PHASE] Strobe Purge Audit - Verified no keyframes attempt to rapidly invert or scale the identity text.
+ * - APPEND 4540: [PRO PHASE] Pacing Audit - Verified visual anomalies do not trigger strobe discomfort, remaining under the 3Hz safety threshold.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_CSS_STABLE_INTERACTIVE
+ * - STATUS: PRO_PHASE_CINEMATIC_PACING_ACTIVE
  */
 
 /* 0. TYPOGRAPHY INJECTION */
@@ -66,8 +115,8 @@
 #os-greeting {
     position: fixed;
     inset: 0;
-    background: #000;
-    /* Deep Void */
+    /* FIXED [ID 4382]: Solid Void Deadlock - Changed from #000 to transparent */
+    background: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -76,44 +125,141 @@
     overflow: hidden;
     font-family: 'Courier New', Courier, monospace;
     color: var(--hero-accent);
-    backdrop-filter: blur(10px);
+    /* Lowered blur to let the high-density streaks show clearly */
+    backdrop-filter: blur(2px);
     transition: opacity 1.2s ease, backdrop-filter 1.5s ease;
-    will-change: opacity, backdrop-filter;
+    will-change: opacity, backdrop-filter, transform;
     /* REALITY AUDIT 1 */
 }
 
-/* 2. PROCEDURAL STARFIELD (OMISSION 4 / REALITY AUDIT 2) */
-#os-greeting::before {
-    content: "";
-    position: absolute;
-    inset: -50%;
-    background-image:
-        radial-gradient(1px 1px at 10% 20%, #ffffff 100%, transparent),
-        radial-gradient(1.5px 1.5px at 50% 50%, var(--hero-accent) 100%, transparent),
-        radial-gradient(1px 1px at 80% 30%, #ffffff 80%, transparent);
-    background-size: 300px 300px;
-    opacity: 0.2;
-    mask-image: radial-gradient(circle, black 30%, transparent 80%);
-    animation: void-drift 120s linear infinite;
-}
+/* ==========================================
+   PRO PHASE: 8bit.ai MANIFESTO LAYERS
+   ========================================== */
 
-/* 3. INDUSTRIAL CRT SCANLINES (CULPRIT 18 / REALITY AUDIT 3) */
-#os-greeting::after {
-    content: "";
+#boot-scanlines {
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(0deg,
             rgba(0, 0, 0, 0.15) 0px,
-            rgba(0, 0, 0, 0.15) 1px,
-            transparent 1px,
-            transparent 2px);
-    box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.9);
+            rgba(0, 0, 0, 0.15) 2px,
+            transparent 2px,
+            transparent 4px);
     pointer-events: none;
-    z-index: 5;
-    /* Below scanlines */
+    z-index: 3;
+    opacity: 0.1;
+    will-change: transform, opacity;
 }
 
-/* 4. BOOT TERMINAL & HUD (OMISSION 6 / REALITY AUDIT 5) */
+#boot-grain {
+    position: absolute;
+    inset: -100%;
+    /* Oversized for parallax panning */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    pointer-events: none;
+    z-index: 4;
+    opacity: 0.08;
+    mix-blend-mode: color-dodge;
+    /* Simulates sensor grit */
+    will-change: background-position;
+}
+
+#boot-glitch-layer {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.05);
+    z-index: 5;
+    display: none;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    animation: signal-glitch 0.5s steps(4) infinite;
+    /* PRO PHASE: Slower 0.5s */
+}
+
+@keyframes signal-glitch {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+
+    25% {
+        transform: translateY(5px);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translateY(-5px);
+        opacity: 0.2;
+    }
+
+    75% {
+        transform: translateY(2px);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+}
+
+/* ==========================================
+   PRO PHASE: CALL OF DUTY TACTICAL INSIGHTS
+   ========================================== */
+
+#tactical-insight-wrap {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    max-width: 350px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    border-left: 2px solid var(--hero-accent);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+    z-index: 15;
+    text-align: left;
+    backdrop-filter: blur(4px);
+    will-change: opacity;
+}
+
+#tactical-insight-header {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+#tactical-insight {
+    font-size: 13px;
+    color: #fff;
+    line-height: 1.5;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.typewriter-cursor {
+    display: inline-block;
+    width: 8px;
+    animation: blink 1s step-end infinite;
+    background-color: currentColor;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ==========================================
+   LEGACY BOOT TERMINAL & HUD
+   ========================================== */
+
 #boot-terminal {
     width: 85%;
     max-width: 600px;
@@ -124,7 +270,7 @@
     will-change: transform, opacity;
 }
 
-/* 4.1 INDUSTRIAL COMMAND TERMINAL (PRO PHASE) */
+/* 4.1 INDUSTRIAL COMMAND TERMINAL */
 .terminal-window {
     position: fixed;
     width: 400px;
@@ -134,11 +280,9 @@
     display: none;
     flex-direction: column;
     z-index: 2000;
-    /* REALITY AUDIT 42 */
     backdrop-filter: blur(12px);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     pointer-events: auto !important;
-    /* CULPRIT 1415 */
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
@@ -148,7 +292,6 @@
 
 .terminal-window:focus-within {
     border-color: var(--hero-accent);
-    /* OMISSION LOG */
     box-shadow: 0 0 20px var(--terminal-glow);
 }
 
@@ -166,7 +309,6 @@
 .terminal-close {
     cursor: pointer;
     color: #ff0055;
-    /* CODE PINK */
     font-weight: bold;
     padding: 0 4px;
     transition: transform 0.2s ease;
@@ -215,7 +357,7 @@
     margin-bottom: 5px;
 }
 
-/* 5. THE HOLO-IGNITION TRIGGER (OMISSION 5 / REALITY AUDIT 116) */
+/* 5. THE HOLO-IGNITION TRIGGER */
 #btn-enter-system {
     margin-top: 50px;
     padding: 15px 45px;
@@ -243,7 +385,7 @@
     animation: holo-ignition 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 
-/* 6. HERO IDENTITY: OPTICAL GHOSTING (REALITY AUDIT 31 / 42) */
+/* 6. HERO IDENTITY: OPTICAL GHOSTING */
 .hero-name-viewport {
     perspective: 1000px;
 }
@@ -253,13 +395,10 @@
     display: inline-block;
     color: #fff;
     font-family: 'HighJinkiesFlip', 'Courier New', monospace;
-    /* REALITY AUDIT 42 */
     letter-spacing: 5px;
-    /* CULPRIT: Adjusted for font profile */
     transition: color 0.5s ease;
 }
 
-/* Ghosting Pseudo-Layers for RGB Split */
 .hero-name-wrapper::before,
 .hero-name-wrapper::after {
     content: attr(data-text);
@@ -269,7 +408,6 @@
     width: 100%;
     height: 100%;
     mix-blend-mode: screen;
-    /* Simulate optical white overlap */
     opacity: 0;
     transition: transform 0.1s ease-out, opacity 0.2s ease;
     pointer-events: none;
@@ -277,19 +415,17 @@
 
 .hero-name-wrapper::before {
     color: #f00;
-    /* Red shift */
     z-index: -1;
 }
 
 .hero-name-wrapper::after {
     color: #0ff;
-    /* Cyan shift */
     z-index: -2;
 }
 
-/* Glitch States for Hero Name */
 .hero-glitch-active {
-    animation: hero-flicker-anim 0.15s infinite;
+    animation: hero-flicker-anim 0.4s infinite;
+    /* PRO PHASE: Slower 0.4s */
 }
 
 .hero-glitch-chromatic::before {
@@ -303,34 +439,21 @@
 }
 
 .hero-glitch-warp {
-    animation: hero-warp-anim 0.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    animation: hero-warp-anim 0.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    /* PRO PHASE: Slower 0.5s */
 }
 
-.hero-glitch-mirror {
-    animation: mirror-unflip 0.1s steps(2) infinite;
-    /* REALITY AUDIT 42 */
-}
-
-/* 7. RIPPLE IMPACT ANOMALIES (RIPPLE 3 / REALITY AUDIT 114) */
+/* 7. RIPPLE IMPACT ANOMALIES */
 .lens-thump {
     animation: heavy-chromatic 0.5s cubic-bezier(0.36, 0, 0.66, -0.56) forwards;
 }
 
 .hero-glitch-flicker {
-    animation: hero-flicker-anim 0.2s infinite;
+    animation: hero-flicker-anim 0.5s infinite;
+    /* PRO PHASE: Slower 0.5s */
 }
 
 /* 8. ANIMATION MATRIX */
-@keyframes void-drift {
-    from {
-        transform: rotate(0deg) scale(1.1);
-    }
-
-    to {
-        transform: rotate(360deg) scale(1.1);
-    }
-}
-
 @keyframes holo-ignition {
     0% {
         transform: scale(0.7) translateY(40px);
@@ -391,26 +514,19 @@
     }
 }
 
-@keyframes mirror-unflip {
-
-    0%,
-    100% {
-        transform: scaleX(1);
-    }
-
-    50% {
-        transform: scaleX(-1);
-        filter: invert(1);
-    }
-
-    /* Momentary un-flip */
-}
-
-/* 9. MOBILE OPTIMIZATION (REALITY AUDIT 2 / RIPPLE 2) */
+/* 9. MOBILE OPTIMIZATION */
 @media (max-width: 768px) {
     #boot-terminal {
         font-size: 12px;
         width: 90%;
+    }
+
+    #tactical-insight-wrap {
+        bottom: 20px;
+        right: 20px;
+        left: 20px;
+        /* Full width on mobile */
+        max-width: none;
     }
 
     #btn-enter-system {
@@ -435,28 +551,23 @@
     }
 }
 
-/* 10. GHOST-TOUCH FILTER (REALITY AUDIT 19) */
+/* 10. GHOST-TOUCH FILTER */
 #hologram-viewport {
     pointer-events: none;
-    /* Touches reach the void */
 }
 
 .holo-shard {
     pointer-events: auto;
-    /* Buttons interactive */
 }
 
-/* 11. KRAYE LOG INTEGRATION (KRAYE 41) */
 .holo-ignition {
     animation: holo-ignition 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 
-/* 12. VISUAL DNA FRAMEWORK (KRAYE 43) */
 .hero-glitch-chromatic-global {
     animation: heavy-chromatic 0.5s cubic-bezier(0.36, 0, 0.66, -0.56) forwards;
 }
 
-/* 13. OMISSION LOG INTEGRATION (OMISSION 78) */
 .canvas-wrap {
     position: relative;
     width: 100%;

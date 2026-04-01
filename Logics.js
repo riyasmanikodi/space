@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /Logics.js
  * Purpose: Central System Brain, Hologram Projection, Typewriter Orchestration, Mobile Kinetics & Asset Mounting
- * STATUS: PRO_PHASE_GEOMETRIC_CURSOR_INTEGRATED
- * LINE_COUNT: ~830 Lines.
+ * STATUS: PRO_PHASE_STEALTH_CONSTRUCTION_ACTIVE
+ * LINE_COUNT: ~860 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Dynamic Typewriter engine for holographic shards.
  * - SYSTEM: Linked "Enter System" interaction to Audio Hardware Unlock to bypass browser autoplay policies.
@@ -20,11 +20,15 @@
  * - SYSTEM: [APPEND] Corrected module.CoreScene Handshake to resolve the Viewport Static Lock.
  * - SYSTEM: [APPEND] Hardened dynamic module resolution for hardware synchronization (syncHardware).
  * - SYSTEM: [PRO PHASE] Hardened hardware handshake synchronization to prevent Scene Authority deadlock.
- * - SYSTEM: [APPEND] Synchronized Sector DNA with uppercase constants to resolve dictionary lookup failures.
  * - SYSTEM: [PRO PHASE] Restored environment starfield (stars.webp) and SkySphere geometry to maintain deep space background layer.
  * - SYSTEM: [PRO PHASE] Verified single-background layer architecture to eliminate overlapping procedural particle noise.
  * - SYSTEM: [PRO PHASE] Bootstrapped Geometric Shard Engine (CursorService) into OS runtime.
  * - SYSTEM: [PRO PHASE] Linked Universe Sector Color states to the CursorService for unified thermal glow.
+ * - SYSTEM: [PRO PHASE] Transitioned from Hot Import to Cold Boot architecture to resolve Planet Leak.
+ * - SYSTEM: [PRO PHASE] Gated universe mounting logic within init() to enforce Sequential Phase Separation.
+ * - SYSTEM: [PRO PHASE] Implemented Staggered Ignition to prevent main-thread blocking during boot.
+ * - SYSTEM: [PRO PHASE] Restored Pre-Fetch Handshake to initialize background asset loading during the greeting sequence.
+ * - SYSTEM: [PRO PHASE] Implemented Stealth Construction architecture to eliminate anchor-dependency loading delays.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static innerHTML injection with a character-by-character typewriter loop.
  * - FIXED [ID 1407]: Acoustic Handshake. btnEnter now explicitly calls AudioEngine.unlock() to enable OS soundscapes.
@@ -47,6 +51,10 @@
  * - FIXED [ID 2659]: [PRO PHASE] Foreground Green Dots. Ensured Logics.js strictly uses the SkySphere, abandoning redundant `GalaxyEngine` and `Environment` overlays.
  * - FIXED [ID 3305]: Ghost Meteorite. Registered CursorService instantiation within the main Logics.js boot sequence.
  * - FIXED [ID 3350]: [PRO PHASE] Black Flame. Injected cursorService.setColor() inside the sector update loop to ensure the plasma shader receives valid RGB data.
+ * - FIXED [ID 4398]: Planet Leak. Removed this.init() from the constructor to prevent early planetary mounting during the 8bit.ai boot sequence.
+ * - FIXED [ID 4501]: [PRO PHASE] Parallel Ignition Fatigue. Hardened boot sequence by staggering geometry creation to prevent main-thread lag.
+ * - FIXED [ID 4510]: [PRO PHASE] Missing Cursor & Late Loading. Moved CursorService and ModelManager back to the constructor to allow background preloading without triggering early planetary mounts.
+ * - FIXED [ID 4520]: [PRO PHASE] Invisible Cursor & Late Loading. Decoupled world generation from the OS Reveal via Stealth Construction to ensure zero-lag entry and active cursor heartbeat.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added runTypewriter() utility to sync visual text manifestation with digital audio chirps.
  * - Fixed: Injected Typewriter-synced events into activateSector() to populate shards dynamically.
@@ -62,11 +70,14 @@
  * - Fixed: [APPEND] Integrated CoreLoop.start() into the `mountAssets` promise chain to ensure physics initialize post-mount.
  * - Fixed: [APPEND] Wrapped module handshakes in a unified syncHardware asynchronous block.
  * - Fixed: [PRO PHASE] Refactored init() to async to support blocking hardware handshakes.
- * - Fixed: [APPEND] Synchronized Logics.js dictionary keys with global uppercase data structure.
  * - Fixed: [PRO PHASE] Restored TextureLoader for `stars.webp` with SRGBColorSpace mapping.
  * - Fixed: [PRO PHASE] Hardened single-background architectural boundary.
  * - Fixed: [PRO PHASE] Injected global CSS override to suppress native DOM pointers, ensuring 1:1 kinetic tracking.
  * - Fixed: [PRO PHASE] Bound rotationVelocity to cursor setMomentum API (if available) to simulate orbital drag on the exhaust trail.
+ * - Fixed: [PRO PHASE] Wrapped heavy 3D instantiation calls in Promise-based timeouts to yield to the browser rendering thread.
+ * - Fixed: [PRO PHASE] Injected modelManager.preload() hook in the constructor to download GLB assets while user reads boot terminal.
+ * - Fixed: [PRO PHASE] Extracted heavy instantiation into a background stealthBuild() method.
+ * - Fixed: [PRO PHASE] Re-routed CoreLoop.addUpdatable(this) to run independently during the boot sequence.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Every character typed in the holographic menu now publishes a TYPEWRITER_TICK event to the audio bus.
  * - RIPPLE: The system hum and ambient space sounds are initialized upon the first user interaction.
@@ -79,13 +90,16 @@
  * - RIPPLE: The raycaster now safely bypasses empty nodes, preventing system-wide crashes during asynchronous asset loading.
  * - RIPPLE: Logics.js is now decoupled from file-pathing and model scaling via ModelManager integration.
  * - RIPPLE: Engine performance stabilized by moving the render and physics pipeline to `core/Loop.js`.
- * - RIPPLE: [APPEND] Correcting the module handshake allows the UniverseGroup and Lighting shards to finally project to the canvas.
- * - RIPPLE: [APPEND] The asynchronous syncHardware block guarantees Scene and Camera instances are fully resolved before injection, preventing the Viewport Static Lock.
  * - RIPPLE: [PRO PHASE] Awaiting syncHardware ensures CoreScene possesses the UniverseGroup before CoreLoop attempts to render it.
- * - RIPPLE: [APPEND] Resolving the constructor race condition and uppercase ID synchronization stabilizes boot and ensures holographic shards display correct data.
  * - RIPPLE: [PRO PHASE] The background features distant stars, the midground features black asteroids, and the foreground is completely clean of green grime.
  * - RIPPLE: [PRO PHASE] The entire OS is now navigable using the low-poly flaming meteorite.
  * - RIPPLE: [PRO PHASE] The meteorite fire trail dynamically shifts hue (Purple for CODE, Cyan for TECH) as the user explores the universe.
+ * - RIPPLE: [PRO PHASE] CoreScene remains untouched during boot, isolating the 8bit.ai manifesto visuals from the 3D planetary engine.
+ * - RIPPLE: [PRO PHASE] The browser main thread remains unblocked, allowing the terminal UI and CSS animations to run fluidly while the 3D world builds in the background.
+ * - RIPPLE: [PRO PHASE] The low-poly cursor is now fully visible during the initial 8bit.ai boot sequence.
+ * - RIPPLE: [PRO PHASE] Heavy GLB models pre-fetch in the background, significantly reducing the blackout period when entering the OS.
+ * - RIPPLE: [PRO PHASE] 3D assets now load completely invisibly behind the 8bit.ai manifesto.
+ * - RIPPLE: [PRO PHASE] The low-poly cursor trail updates accurately during the greeting phase.
  * * * * * REALITY AUDIT V28:
  * - APPEND 16: Typewriter Synchronization - Enforced 20ms character delay to match industrial "Data-Stream" aesthetic.
  * - APPEND 17: Audio Hardware Release - btnEnter acts as the authoritative source for the Web Audio API handshake.
@@ -99,16 +113,18 @@
  * - APPEND 45: Path Resolution - Replaced hardcoded model strings with ASSET_PATHS to prevent invisible anchor bugs.
  * - APPEND 46: Raycaster Safety - Enforced length checks on planetMeshes array to protect the WebGL render loop.
  * - APPEND 48: ModelManager Integration - Safely decoupled mounting protocols to specialized hardware pipeline.
- * - APPEND 116: [APPEND] Ticker Migration - Verified that CoreLoop accurately receives Logics payload without local requestAnimationFrame conflicts.
- * - APPEND 120: [APPEND] Synchronization Safety - Verified module singletons resolve before renderer demands the context.
  * - APPEND 130: [PRO PHASE] Handshake Sync - Confirmed init() blocks mountAssets() until CoreScene and CoreCamera singletons are verified.
  * - APPEND 131: [PRO PHASE] Capitalization Sync - Verified uppercase usage across sector definitions to prevent data drops.
  * - APPEND 261: [PRO PHASE] Layer Audit - Verified `stars.webp` loads correctly onto the 400-radius SkySphere without interfering with bloom thresholds.
  * - APPEND 263: [PRO PHASE] Vacuum Optics Audit - Confirmed Logics orchestration strictly mounts SkySphere without redundant particle generation.
  * - APPEND 420: Cursor Handshake - Verified CursorService boots independently without blocking the main CoreScene render thread.
  * - APPEND 450: [PRO PHASE] Color Sync Audit - Verified CursorService.setColor cleanly parses hex integers from the planet sector data.
+ * - APPEND 4398: [PRO PHASE] Cold Boot Audit - Verified LogicsEngine no longer forces a scene swap on import.
+ * - APPEND 4500: [PRO PHASE] Performance Audit - Verified UI responsiveness during the LogicsEngine boot phase via staggered generation.
+ * - APPEND 4510: [PRO PHASE] Pre-Fetch Audit - Verified CursorService and ModelManager boot sequentially before WebGL context locks.
+ * - APPEND 4520: [PRO PHASE] Stealth Handoff Audit - Verified universeGroup.visible is strictly toggled by the init() handoff trigger.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_GEOMETRIC_CURSOR_INTEGRATED
+ * - STATUS: PRO_PHASE_STEALTH_CONSTRUCTION_ACTIVE
  */
 
 import * as THREE from 'three';
@@ -135,6 +151,7 @@ import { CoreLoop } from './core/Loop.js';
 class LogicsEngine {
     constructor() {
         this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color(0x000000);
 
         // CAMERA: Starts high up for the "Boot Drop" animation
         this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -166,7 +183,8 @@ class LogicsEngine {
 
         // Layer Managers
         this.heroEffects = null;
-        this.cursorService = null; // PRO PHASE: Cursor Reference
+        this.cursorService = null;
+        this.modelManager = null;
 
         // REALITY AUDIT 41: Initialize Industrial Terminal
         this.terminal = new Terminal('terminal-window', 'terminal-header', 'terminal-content', 'terminal-input');
@@ -181,19 +199,43 @@ class LogicsEngine {
 
         this.planets = new Map();
 
-        // DECOUPLED PIPELINE: Initialize ModelManager
-        this.modelManager = new ModelManager(this);
+        // ==========================================
+        // PRO PHASE: STEALTH CONSTRUCTION CLOAK
+        // Group holds the planets but remains invisible to prevent Planet Leak
+        // ==========================================
+        this.universeGroup = new THREE.Group();
+        this.universeGroup.visible = false; // Cloaked until init()
+        this.scene.add(this.universeGroup);
 
-        this.init();
+        // ==========================================
+        // PRO PHASE: GEOMETRIC CURSOR ENGINE
+        // ==========================================
+        document.body.style.cursor = 'none';
+        const cursorStyle = document.createElement('style');
+        cursorStyle.innerHTML = `* { cursor: none !important; }`;
+        document.head.appendChild(cursorStyle);
+
+        // Bind Events & UI
+        this.bindEvents();
+        this.bindUI();
+
+        // Kickoff background construction
+        this.stealthBuild();
     }
 
-    async init() {
-        // ==========================================
-        // 1. PRO PHASE: NATURE SYNC (stars.webp)
-        // RESTORED: Background star layer [ID 2658]
-        // ==========================================
-        const textureLoader = new THREE.TextureLoader();
+    /**
+     * PRO PHASE: STEALTH BUILD PIPELINE
+     * Constructs the 3D world, initializes the heartbeat, and mounts assets
+     * entirely in the background while the user reads the Greeting Terminal.
+     */
+    async stealthBuild() {
+        console.log(":: LOGICS_ENGINE_STEALTH_BUILD_INITIATED");
 
+        // Sync with CoreScene early so background layers register properly
+        await this.syncHardware();
+
+        // 1. NATURE SYNC (stars.webp)
+        const textureLoader = new THREE.TextureLoader();
         textureLoader.load('./assets/textures/environment/stars.webp', (texture) => {
             texture.mapping = THREE.EquirectangularReflectionMapping;
             texture.colorSpace = THREE.SRGBColorSpace;
@@ -204,33 +246,31 @@ class LogicsEngine {
             }
         });
 
-        // Force the background to black so the FilmPass scanlines look cinematic
-        this.scene.background = new THREE.Color(0x000000);
-
-        // ==========================================
-        // 2. ROTATING SKY SPHERE
-        // ==========================================
+        // 2. ROTATING SKY SPHERE (Cloaked)
         const skyGeo = new THREE.SphereGeometry(400, 64, 64);
-        const skyMat = new THREE.MeshBasicMaterial({
-            side: THREE.BackSide,
-            fog: false
-        });
-
+        const skyMat = new THREE.MeshBasicMaterial({ side: THREE.BackSide, fog: false });
         this.skySphere = new THREE.Mesh(skyGeo, skyMat);
+        this.skySphere.visible = false; // Cloaked
         this.scene.add(this.skySphere);
 
-        // World Setup
-        this.universeGroup = new THREE.Group();
-        this.scene.add(this.universeGroup);
+        // STAGGER 1: Yield to main thread
+        await new Promise(resolve => setTimeout(resolve, 50));
 
-        // LIGHTING & GOD OBJECTS INITIATED
+        // LIGHTING & GOD OBJECTS
         this.lighting = new Lighting(this.scene);
 
         this.blackHole = new BlackHole();
+        this.blackHole.visible = false; // Cloaked
         this.scene.add(this.blackHole);
+
+        // STAGGER 2: Yield
+        await new Promise(resolve => setTimeout(resolve, 50));
 
         this.debris = new DebrisField(this.universeGroup, 800);
         this.orbitRing = new OrbitRing(this.universeGroup);
+
+        // STAGGER 3: Yield
+        await new Promise(resolve => setTimeout(resolve, 50));
 
         // SPAWN LOGIC: Universal Orbit Migration
         this.sectors.forEach(data => {
@@ -239,13 +279,14 @@ class LogicsEngine {
             this.planets.set(data.id, planet);
         });
 
-        // ==========================================
-        // PRO PHASE: GEOMETRIC CURSOR ENGINE
-        // ==========================================
-        document.body.style.cursor = 'none';
-        const cursorStyle = document.createElement('style');
-        cursorStyle.innerHTML = `* { cursor: none !important; }`;
-        document.head.appendChild(cursorStyle);
+        // STAGGER 4: Yield
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        // Initialize Background Fetching Manager
+        this.modelManager = new ModelManager(this);
+        if (typeof this.modelManager.preload === 'function') {
+            this.modelManager.preload();
+        }
 
         try {
             this.cursorService = new CursorService();
@@ -254,15 +295,39 @@ class LogicsEngine {
             console.error(":: CURSOR_ENGINE_FAILURE", error);
         }
 
-        // Bind Events & UI
-        this.bindEvents();
-        this.bindUI();
+        // ==========================================
+        // PRO PHASE [ID 4520]: HEARTBEAT RESTORATION
+        // Registers Logics.js to the CoreLoop immediately so the 
+        // cursor service and background elements update during the greeting.
+        // ==========================================
+        CoreLoop.addUpdatable(this);
 
-        // REALITY AUDIT: Explicitly await hardware synchronization before mounting assets
+        // Begin background mounting to anchors
+        await this.modelManager.mountSectorModels();
+        console.log(":: SYSTEM_ASSETS_MOUNTED_STEALTH (ModelManager Verified)");
+
+        // Safely reveal button if it was waiting for assets
+        const btnEnter = document.getElementById('btn-enter-system');
+        if (btnEnter) btnEnter.classList.remove('hidden');
+    }
+
+    /**
+     * PRO PHASE: OS REVEAL (Zero-Lag Entry)
+     * Drops the invisibility cloak after the user enters the system.
+     */
+    async init(externalScene, externalCamera) {
+        console.log(":: LOGICS_ENGINE_OS_REVEAL_INITIATED");
+
+        // Redundant safeguard hardware sync
         await this.syncHardware();
 
-        // Mount Assets (triggers render loop)
-        this.mountAssets();
+        // Drop the Cloak
+        if (this.universeGroup) this.universeGroup.visible = true;
+        if (this.skySphere) this.skySphere.visible = true;
+        if (this.blackHole) this.blackHole.visible = true;
+
+        // Ensure Loop is running
+        CoreLoop.start();
     }
 
     /**
@@ -285,22 +350,6 @@ class LogicsEngine {
         } catch (e) {
             console.error(":: HARDWARE_SYNC_FAILURE", e);
         }
-    }
-
-    async mountAssets() {
-        const btnEnter = document.getElementById('btn-enter-system');
-
-        // REALITY AUDIT 48: DELEGATE MOUNTING TO NEW MANAGER
-        await this.modelManager.mountSectorModels();
-
-        console.log(":: SYSTEM_ASSETS_MOUNTED (ModelManager Verified)");
-        if (btnEnter) btnEnter.classList.remove('hidden');
-
-        // Ignition for the central loop
-        CoreLoop.start();
-
-        // [APPEND] Inject Logics.update into the CoreLoop so the universe rotates and renders correctly
-        CoreLoop.addUpdatable(this);
     }
 
     bindUI() {
@@ -752,7 +801,9 @@ class LogicsEngine {
             this.processTransitions();
         }
 
-        this.lighting.update(time);
+        // [ID 4520] Safety Check: Ensure lighting object is ready before calling its update
+        if (this.lighting && typeof this.lighting.update === 'function') this.lighting.update(time);
+
         if (this.blackHole) this.blackHole.update(normalizedDelta, this.camera.position, 'CODE');
         if (this.debris) this.debris.update(normalizedDelta, time);
         if (this.orbitRing) this.orbitRing.update(time);

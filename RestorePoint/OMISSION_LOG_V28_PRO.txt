@@ -1,0 +1,72 @@
+/// OMISSION LOG: MASTER REGISTRY [V28 PRO PHASE]
+1. Root Brain (Logics.js & main.js)
+
+Fixed: Added projectHologram() to the animation loop to constantly map the 3D active planet to 2D UI space.
+
+Fixed: Imported SystemEvents to broadcast TOGGLE_HOLOGRAM events for the Ripple Impact system.
+
+Fixed: [PRO PHASE] Injected CoreManifesto.init handshake with CoreScene to ensure background layers mount correctly.
+
+Fixed: [PRO PHASE] Injected event-driven ignition (RIYAS_OS_READY) to resolve scene authority race conditions between main.js and Logics.js.
+
+Fixed: [PRO PHASE] Injected manual RIYAS_OS_READY event dispatch to trigger Cursor and VFX initialization without a loading screen.
+
+2. Core Engine (core/Scene.js & core/Loop.js)
+
+Fixed: Added deltaTime handshake for independent physical momentum in all orbital calculations.
+
+Fixed: [PRO PHASE] Injected backgroundGroup migration into the set() method to prevent 8bit.ai animation dropouts during sector transitions.
+
+Fixed: [PRO PHASE] Hardened selector in setupContextListeners to ensure WebGL context-loss listeners bind correctly to the active canvas.
+
+Fixed: [PRO PHASE] Added CoreManifesto update call within the tick function to ignite kinetic background styles.
+
+Fixed: [PRO PHASE] Added conditional gating to the manifesto heartbeat (isActive check) to reclaim CPU cycles after OS unlock.
+
+3. 8bit.ai Visual Engine (effects/ManifestoEngine.js)
+
+Fixed: Injected will-change: transform to all manifesto DOM layers for GPU promotion.
+
+Fixed: [PRO PHASE] Added strict existence guards for #boot-scanlines and #boot-grain to prevent initialization crashes.
+
+Fixed: [PRO PHASE] Injected style-switching timer to cycle between Streaks and Tunnel modes every 15 seconds.
+
+Fixed: [PRO PHASE] Added deep garbage collection in dispose() to free GPU memory upon entering the OS.
+
+4. UI Layer & Boot Sequence (ui/Greeting.js & ui/Overlay.js)
+
+Fixed: Added 'locked-on' class logic for targeting bracket animations in Overlay.js.
+
+Fixed: [PRO PHASE] Injected bespoke identity sequence into the final boot phase ("signal ends at KRAYETOS").
+
+Fixed: [PRO PHASE] Synchronized CoreManifesto.dispose() with unlockSystem to purge background WebGL loops the moment the OS is accessed.
+
+Fixed: [PRO PHASE] Added session-termination logic to the insight typewriter to prevent multiple tips from overlapping.
+
+5. Systems & Physics (systems/physics.js & systems/vfx.js)
+
+Fixed: [PRO PHASE] Added getNormalizedDelta() to the physics kernel to ensure speed parity on 144Hz displays.
+
+Fixed: [PRO PHASE] Injected automated sector-alignment snapping with magnetic friction variables.
+
+Fixed: [PRO PHASE] Added GLOBAL_GLITCH subscription in vfx.js to trigger chromatic aberration pulses on viewport interaction.
+
+Fixed: [PRO PHASE] Optimized Uber-Shader to utilize branchless math, ensuring high-speed pixel processing on mobile GPUs.
+
+6. Celestial Logic & Assets (world/Planet.js & loaders/AssetLoader.js)
+
+Fixed: Enforced unique uDisplacementMap structures in Planet.js to provide distinct terrain for each sector.
+
+Fixed: Added individual planet axis rotation logic to match independent orbital speeds.
+
+Fixed: [PRO PHASE] Injected hardware-tier detection into the AssetLoader constructor to throttle texture resolution.
+
+Fixed: [PRO PHASE] Added automated VRAM cleanup protocol to AssetLoader.dispose() to purge unused texture buffers.
+
+7. Identity Data (data/profile.js & effects/Typewriter.js)
+
+Fixed: Integrated high-fidelity taglines for the Typewriter linguistic engine from greetingpage.txt.
+
+Fixed: Quantized skill levels and bio bursts to drive procedural vertex heights and holographic data shards.
+
+Fixed: [PRO PHASE] Injected mandatory character callback support in the primary typing loop for acoustic sync.

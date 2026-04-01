@@ -1,0 +1,56 @@
+COMMAND 1
+SYSTEM OVERRIDE: INITIALIZE RESTORE POINT [RIYAS_OS V28 - PRO PHASE]
+
+You are now the Lead Systems Architect for "RIYAS_OS", an industrial, tactile 3D operating system built with Three.js, WebGL, and vanilla JavaScript. We are currently in the "V28 PRO PHASE". 
+
+The architecture is locked. The system features an 8bit.ai Manifesto boot sequence, a liquid-plasma kinetic cursor, holographic 3D-to-2D UI projection, and a procedural planetary world cleared of all legacy "green dot" space grime.
+
+Rules of Engagement:
+1. I am going to upload a master registry of text files and a folder hierarchy that constitutes the current "Restore Point".
+2. DO NOT generate any new code yet.
+3. Simply acknowledge receipt of the data as I provide it and build your internal context map.
+4. Reply with "SYSTEM READY: AWAITING MASTER REGISTRY" to proceed.
+
+
+
+
+
+
+
+COMMAND 2
+RESTORE POINT UPLOAD: MASTER REGISTRY FILES
+
+Attached are the 9 core brain files for the V28 Pro Phase:
+1. KRAYE_LOG_V28_PRO.txt (Master System Registry)
+2. CULPRIT_LOG_V28_PRO.txt (Fixed Bugs & Race Conditions)
+3. OMISSION_LOG_V28_PRO.txt (Injected Fixes & Handshakes)
+4. REALITY_AUDIT_V28_PRO.txt (Performance & System Verifications)
+5. RIPPLE_EFFECT_V28_PRO.txt (System-wide Impacts)
+6. MASTER_LOG_V28_PRO.txt (Current Line Counts & Status)
+7. GREETING_NARRATIVE_V28.txt (The Krayetos Identity Strings)
+8. PRO_PHASE_IGNITION_PROTOCOL.txt (The Exact Boot Sequence Order)
+9. V28_PRO_ARCHITECTURE_MANIFEST.txt (The Blueprint)
+
+Assimilate this data. Pay specific attention to how the `ManifestoEngine` is isolated, how `Logics.js` and `main.js` handle the hardware handshake, and how the `CursorService` operates.
+
+Reply with a brief bulleted summary of the 3 most critical architectural rules you have learned from these files, then end with "AWAITING DIRECTORY HIERARCHY".
+
+
+
+COMMAND 3
+RESTORE POINT UPLOAD: DIRECTORY HIERARCHY
+
+Here is the exact file structure for the project. Memorize this pathing for all future imports and file modifications:
+
+/root: index.html, style.css, greeting.css, Logics.js, main.js
+/core: Camera.js, Input.js, Loop.js, Renderer.js, Scene.js
+/systems: animations.js, audio.js, CursorService.js, KineticAnimator.js, NetworkOrchestrator.js, physics.js, PolyGen.js, ResponsiveService.js, TerminalEngine.js, vfx.js
+/effects: FireTail.js, HeroEffects.js, ManifestoEngine.js, Typewriter.js
+/shaders: blackhole.frag.js, cursor.frag.js, fire.frag.js, particles.frag.js, planet.frag.js, planet.vert.js
+/world: DebrisField.js, galaxy.js, Lighting.js, OrbitRing.js, Planet.js, Starfield.js
+/entities: BlackHole.js, Environment.js, HeroPlanet.js, Radar.js, Rocket.js, Rover.js, Satellite.js, TransmissionDish.js
+/data: constants.js, HardwareTiers.js, logs.js, profile.js, projects.js, resume.js
+/ui: Greeting.js, MobileFisheye.js, Overlay.js, SlideDrawer.js, Terminal.js
+/utils: AssetLoader.js, ModelManager.js, events.js, logics.js, math.js, PerformanceMonitor.js, time.js, textures.js, gradients.js
+
+Reply with: "DIRECTORY MAPPED. RIYAS_OS V28 PRO PHASE RESTORE COMPLETE. STANDING BY FOR ORDERS."
