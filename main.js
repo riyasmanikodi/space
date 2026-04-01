@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /main.js
  * Purpose: System Ignition, Kernel Handshake, and 8bit.ai Manifesto Orchestration
- * STATUS: PRO_PHASE_STEALTH_CONSTRUCTION_ACTIVE
- * LINE_COUNT: ~245 Lines.
+ * STATUS: PRO_PHASE_UNIFIED_AUTHORITY_ACTIVE
+ * LINE_COUNT: ~255 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Global ignition kernel finalized for PRO PHASE deployment.
  * - SYSTEM: Integrated DOMContentLoaded listener for synchronized WebGL context mounting.
@@ -16,6 +16,7 @@
  * - SYSTEM: [PRO PHASE] Enforced Cold Boot architecture via gated RIYAS_SYSTEM.init() handshake.
  * - SYSTEM: [PRO PHASE] Verified Pre-Fetch Handshake instantiation during DOMContentLoaded.
  * - SYSTEM: [PRO PHASE] Realigned kernel reveal to support Stealth Construction architecture.
+ * - SYSTEM: [PRO PHASE] Resolved Scene Hijacking by synchronizing CoreScene authority across Manifesto and Logics engines.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 404]: Import Pathing. Added relative '/' to correctly target Logics.js.
  * - FIXED [ID 1409]: Handshake Deadlock. Single entry point enforced.
@@ -27,6 +28,7 @@
  * - FIXED [ID 4401]: [PRO PHASE] Scene Authority Orphan. Verified CoreScene.get() passes the isolated singleton down to the planetary engine upon unlock.
  * - FIXED [ID 4510]: [PRO PHASE] Late Loading Stutter. Verified CoreLogics singleton instantiation triggers background cache warming without breaking Phase Separation.
  * - FIXED [ID 4520]: [PRO PHASE] Reveal Delay. Optimized onEnterCallback to trigger the Stealth Build reveal, ensuring zero-lag system entry.
+ * - FIXED [ID 4550]: [PRO PHASE] 8bit.ai Erasure. Verified initialization order to ensure CoreScene is established before the Logics constructor adopts it.
  * * * * * OMISSION LOG V28:
  * - Fixed: [PRO PHASE] Injected CoreManifesto.init handshake with CoreScene to ensure background layers mount correctly.
  * - Fixed: [PRO PHASE] Moved RIYAS_OS_READY signal to the enter callback to prevent secondary system early-ignition.
@@ -35,6 +37,7 @@
  * - Fixed: [PRO PHASE] Synced hidden UI layer class removal (hologram-viewport, ui-layer) with the exact frame of 3D asset mounting.
  * - Fixed: [PRO PHASE] Confirmed CoreLogics import executes the pre-fetch constructor gracefully before the OS ignition.
  * - Fixed: [PRO PHASE] Optimized ignition handshake to strictly reveal the pre-constructed stealth universe.
+ * - Fixed: [PRO PHASE] Realigned CoreScene handoff to support Unified Authority architecture.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The 8bit.ai Warp Kernel now renders with 100% GPU priority during the greeting phase.
  * - RIPPLE: Planets and galaxies now "blink-in" precisely as the greeting overlay fades, creating a seamless entry.
@@ -43,6 +46,7 @@
  * - RIPPLE: Planetary geometries and heavy WebP textures are no longer pushed to the GPU until the user explicitly enters the OS.
  * - RIPPLE: [PRO PHASE] Background caching operates silently during the 8bit.ai manifesto greeting.
  * - RIPPLE: [PRO PHASE] System entry is instantaneous as the world is pre-constructed behind the 8bit.ai curtain.
+ * - RIPPLE: [PRO PHASE] The 8bit.ai Manifesto animation now plays uninterrupted for its full duration during the greeting window.
  * * * * * REALITY AUDIT V28:
  * - APPEND 19: Boot Context Override - Entry point verified to bypass legacy loading screens.
  * - APPEND 4340: [PRO PHASE] Manifesto Audit - Verified CoreManifesto mounts successfully to the backgroundGroup.
@@ -52,8 +56,9 @@
  * - APPEND 4402: [PRO PHASE] Initialization Event Sequence - Confirmed the custom 'RIYAS_OS_READY' event strictly fires after DOM reveals.
  * - APPEND 4510: [PRO PHASE] Pre-Fetch Audit - Confirmed main.js safely bridges the singleton without forcing early WebGL mounts.
  * - APPEND 4520: [PRO PHASE] Stealth Construction Audit - Verified that RIYAS_SYSTEM.init() performs a pure visibility reveal during the entry handoff.
+ * - APPEND 4550: [PRO PHASE] Unified Authority Audit - Verified CoreScene is shared between ManifestoEngine and LogicsEngine to prevent premature deletion.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_STEALTH_CONSTRUCTION_ACTIVE
+ * - STATUS: PRO_PHASE_UNIFIED_AUTHORITY_ACTIVE
  */
 
 import { CoreLogics } from './Logics.js';
@@ -75,6 +80,7 @@ window.addEventListener('DOMContentLoaded', () => {
      * 2. KERNEL SINGLETON ASSIGNMENT (PRO PHASE)
      * FIXED [ID 3385]: Immediate assignment to prevent reference race conditions.
      * PRE-FETCH: This assignment evaluates CoreLogics, triggering the background asset preload.
+     * UNIFIED AUTHORITY: Logics.js now shares CoreScene with ManifestoEngine.
      */
     window.RIYAS_SYSTEM = CoreLogics;
 
