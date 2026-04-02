@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /effects/ManifestoEngine.js
  * Purpose: 8bit.ai "Manifesto" Visual Orchestrator (Radial Warp Kernel and Fragment Grit)
- * STATUS: PRO_PHASE_MANIFESTO_PERFORMANCE_HARDENED
- * LINE_COUNT: ~235 Lines.
+ * STATUS: PRO_PHASE_VERTEX_SHREDDER_ACTIVE
+ * LINE_COUNT: ~320 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Abstracted 8bit.ai visual logic into a standalone ManifestoEngine for background looping.
  * - SYSTEM: Integrated high-contrast "Manifesto" grain and scanline synchronization.
@@ -15,6 +15,8 @@
  * - SYSTEM: [PRO PHASE] Migrated CSS Signal Grit directly into WebGL Fragment Shader for synced hardware jitter.
  * - SYSTEM: [PRO PHASE] Surgically excised Style B (Accretion Tunnel) to guarantee biological optical safety.
  * - SYSTEM: [PRO PHASE] Implemented Distance Culling in the vertex shader to prevent fragment processing behind the central UI terminal.
+ * - SYSTEM: [PRO PHASE] Recalibrated manifesto procedural jitter to align with heavy industrial hardware pacing.
+ * - SYSTEM: [PRO PHASE] Engineered `TextGlitchMaterial` to implement Valentin-style Banded Vertex Slicing for the 3D Hero Name.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 4300]: Static Background. Injected dynamic noise-shifting to simulate signal interference.
  * - FIXED [ID 4305]: Rigid Layers. Implemented separate parallax multipliers for Grain vs. Scanlines to create depth.
@@ -26,6 +28,8 @@
  * - FIXED [ID 4388]: [PRO PHASE] Linear Drift. Replaced diagonal coordinates with GPU-driven Spherical Radial Acceleration.
  * - FIXED [ID 4440]: [PRO PHASE] Motion Sickness Hazard. Hard-deleted `setupTunnel` and `styleLoop` to permanently eliminate the slingshot radial distortion.
  * - FIXED [ID 4505]: [PRO PHASE] Fill-Rate Bottleneck. Added radius clipping to the Warp Kernel to save GPU cycles on occluded pixels.
+ * - FIXED [ID 4560]: [PRO PHASE] Frantic Noise. Throttled noiseLoop to ~20fps (50ms) to sync grain and scanline jitter with the heavy 60ms typewriter heartbeat.
+ * - FIXED [ID 4601]: [PRO PHASE] DOM Text Ghosting. Exported custom `TextGlitchMaterial` to shift the Hero Name out of standard CSS flow and into the GPU pipeline.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected will-change: transform to all manifesto layers for GPU promotion.
  * - Fixed: Added 'signalIntensity' property to allow Logics.js to trigger global glitches during sector swaps.
@@ -34,6 +38,8 @@
  * - Fixed: [PRO PHASE] Added deep garbage collection in `dispose()` to free GPU memory upon entering the OS.
  * - Fixed: [PRO PHASE] Added Fragment-Level Grit for industrial texture integration directly into the WebGL ribbons.
  * - Fixed: [PRO PHASE] Injected currentRadius bounds check in the InstancedMesh vertex shader.
+ * - Fixed: [PRO PHASE] Increased triggerGlitch decay from 200ms to 600ms for sustained hardware flash.
+ * - Fixed: [PRO PHASE] Injected `createTextGlitchMaterial` factory function to support kinetic RGB splitting and Y-band vertex shifting.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The boot sequence now mirrors the 8bit.ai high-contrast aesthetic with zero impact on main-thread loading.
  * - RIPPLE: Parallax response creates a tactile sense of depth behind the industrial terminal.
@@ -41,6 +47,8 @@
  * - RIPPLE: [PRO PHASE] 8bit.ai effects safely vanish when the OS is unlocked, preventing visual noise from leaking into the 3D Void.
  * - RIPPLE: [PRO PHASE] The boot sequence is now completely free of nausea-inducing radial warp, providing a stable and industrial entry.
  * - RIPPLE: [PRO PHASE] Discarding occluded geometry drastically reduces post-processing debt during the boot phase.
+ * - RIPPLE: [PRO PHASE] Global glitches and background static now feel like heavy, deliberate electrical surges rather than lightweight digital stutters.
+ * - RIPPLE: [PRO PHASE] The Hero Name now physically shreds in 3D space, matching the aggressive structural deformation seen in the 2015 Valentin reference architecture.
  * * * * * REALITY AUDIT V28:
  * - APPEND 4300: Layer Logic Audit - Verified Grain layer uses 'multiply' blend-mode for grit fidelity.
  * - APPEND 4310: Parallax Audit - Verified sub-pixel (0.05x) damping to prevent user motion sickness.
@@ -50,12 +58,89 @@
  * - APPEND 4395: [PRO PHASE] InstancedMesh Audit - Verified GPU-driven radial math reduces CPU overhead to zero.
  * - APPEND 4440: [PRO PHASE] Comfort Audit - Verified complete removal of the `styleLoop` interval and Accretion Tunnel geometry.
  * - APPEND 4505: [PRO PHASE] Distance Culling Audit - Verified streaks do not render within the central 15-radius deadzone.
+ * - APPEND 4560: [PRO PHASE] Pacing Audit - Verified JS glitch timeouts and noise throttles accommodate human biological persistence of vision.
+ * - APPEND 4602: [PRO PHASE] Vertex Displacement Audit - Verified `TextGlitchMaterial` manipulates `position.x` strictly based on segmented `position.y` floor calculations.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_MANIFESTO_PERFORMANCE_HARDENED
+ * - STATUS: PRO_PHASE_VERTEX_SHREDDER_ACTIVE
  */
 
 import * as THREE from 'three';
 import { MANIFESTO_CONFIG } from '../data/constants.js';
+
+/**
+ * [PRO PHASE]: KINETIC SHREDDER MATERIAL
+ * Valentin Marmonier Reference Architecture for 3D Text Slicing and RGB Offset.
+ */
+export function createTextGlitchMaterial(baseColor = 0xffffff) {
+    return new THREE.ShaderMaterial({
+        uniforms: {
+            uTime: { value: 0 },
+            uColor: { value: new THREE.Color(baseColor) },
+            uIgnition: { value: 0.0 }, // Drives the intensity of the slice (0.0 to 1.0+)
+            uDensity: { value: 2.5 },  // Defines the height of the horizontal shred bands
+        },
+        vertexShader: `
+            uniform float uTime;
+            uniform float uIgnition;
+            uniform float uDensity;
+            varying vec2 vUv;
+            
+            // Industrial Cathode Noise
+            float rand(vec2 co){
+                return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+            }
+
+            void main() {
+                vUv = uv;
+                vec3 pos = position;
+                
+                // Banded Slicing (Y-axis drives X-axis displacement)
+                float band = floor(pos.y * uDensity);
+                
+                // Kinetic Shiver (Active during ignition spike)
+                float shiver = (rand(vec2(band, uTime)) - 0.5) * 2.0;
+                
+                // Sinusoidal tear modified by raw hardware noise
+                float sliceTarget = sin(band * 15.0 + uTime * 10.0) * 8.0 + shiver * 4.0;
+                
+                // Apply the physical shred scaled by the JS ignition uniform
+                pos.x += sliceTarget * uIgnition;
+                
+                // Depth-Stutter (Z-axis micro-stutter for CRT realism)
+                pos.z += (rand(vec2(uTime, pos.y)) - 0.5) * 4.0 * uIgnition;
+
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+            }
+        `,
+        fragmentShader: `
+            uniform vec3 uColor;
+            uniform float uIgnition;
+            uniform float uTime;
+            varying vec2 vUv;
+            
+            void main() {
+                vec3 finalColor = uColor;
+                
+                // Kinetic RGB Split on fragments during ignition spike
+                if (uIgnition > 0.0) {
+                    float redShift = sin(vUv.y * 50.0 + uTime * 20.0) * uIgnition;
+                    float blueShift = cos(vUv.y * 40.0 - uTime * 15.0) * uIgnition;
+                    
+                    finalColor.r += redShift;
+                    finalColor.b += blueShift;
+                    
+                    // Additive Phosphor Bloom
+                    finalColor *= 1.0 + (uIgnition * 0.8);
+                }
+                
+                gl_FragColor = vec4(finalColor, 1.0);
+            }
+        `,
+        transparent: true,
+        side: THREE.DoubleSide,
+        depthWrite: false
+    });
+}
 
 class ManifestoEngine {
     constructor() {
@@ -72,6 +157,7 @@ class ManifestoEngine {
         this.noisePos = { x: 0, y: 0 };
         this.parallaxPos = { x: 0, y: 0 };
         this.intensity = 1.0;
+        this.lastNoiseTime = 0; // [PRO PHASE]: Throttling heartbeat
 
         // 3D Visual Assets
         this.group = new THREE.Group();
@@ -241,21 +327,26 @@ class ManifestoEngine {
     noiseLoop() {
         if (!this.isActive) return;
 
-        this.noisePos.x = Math.random() * 100;
-        this.noisePos.y = Math.random() * 100;
+        const now = performance.now();
+        // [PRO PHASE]: Throttle noise to ~20fps (50ms) to match heavy typewriter pacing
+        if (now - this.lastNoiseTime > 50) {
+            this.noisePos.x = Math.random() * 100;
+            this.noisePos.y = Math.random() * 100;
 
-        if (this.grain) {
-            this.grain.style.backgroundPosition = `${this.noisePos.x}% ${this.noisePos.y}%`;
-        }
+            if (this.grain) {
+                this.grain.style.backgroundPosition = `${this.noisePos.x}% ${this.noisePos.y}%`;
+            }
 
-        if (this.scanlines && Math.random() > 0.95) {
-            this.scanlines.style.opacity = (0.05 + Math.random() * 0.03).toString();
+            if (this.scanlines && Math.random() > 0.95) {
+                this.scanlines.style.opacity = (0.05 + Math.random() * 0.03).toString();
+            }
+            this.lastNoiseTime = now;
         }
 
         requestAnimationFrame(() => this.noiseLoop());
     }
 
-    triggerGlitch(duration = 200) {
+    triggerGlitch(duration = 600) { // [PRO PHASE] Increased from 200ms to 600ms for chunky hardware feel
         if (!this.glitchLayer) return;
         this.glitchLayer.style.display = 'block';
         this.glitchLayer.style.opacity = '1';

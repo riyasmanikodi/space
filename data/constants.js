@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /data/constants.js
  * Purpose: Global DNA, Performance Weighting, and Hardware Tiering
- * STATUS: PRO_PHASE_PERFORMANCE_HARDENED
- * LINE_COUNT: ~245 Lines.
+ * STATUS: PRO_PHASE_VERTEX_SHREDDER_ACTIVE
+ * LINE_COUNT: ~270 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Global DNA registry finalized. Unified sector mapping and brand color-space established.
  * - SYSTEM: Transitioned from image-based assets to mathematical procedural geometry for the cursor.
@@ -18,6 +18,9 @@
  * - SYSTEM: [PRO PHASE] Recalibrated bloom and warp intensities to meet biological safety thresholds.
  * - SYSTEM: [PRO PHASE] Implemented Temporal Throttling via BOOT_FRAME_CAP to eliminate Dual-Engine GPU pressure.
  * - SYSTEM: [PRO PHASE] Integrated dynamic hardware-tiering for STREAK_COUNT to resolve bandwidth contention.
+ * - SYSTEM: [PRO PHASE] Synchronized COLORS dictionary to enforce a single source of truth for all modules.
+ * - SYSTEM: [PRO PHASE] Injected Application Support engineering metrics into KERNEL_INSIGHTS.
+ * - SYSTEM: [PRO PHASE] Injected SHRED_CONFIG to centralize vertex displacement logic for 3D typography.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 05]: Angle Offset Jitter. Enforced strict radians for sector distribution.
  * - FIXED [ID 202]: Color Space Delta. Swapped legacy hex strings for numeric values.
@@ -32,6 +35,9 @@
  * - FIXED [ID 4390]: [PRO PHASE] Low Density Streaks. Increased STREAK_COUNT from 40 to 800 for the light ribbon effect.
  * - FIXED [ID 4420]: [PRO PHASE] Motion Sickness Trigger. Lowered WARP_INTENSITY and BLOOM_STRENGTH to prevent high-velocity edge-smearing and visual fatigue.
  * - FIXED [ID 4501]: [PRO PHASE] Parallel Ignition Fatigue. Hardened boot sequence by injecting a 30FPS cap to prevent Main-Thread blocking during texture uploads.
+ * - FIXED [ID 4595]: [PRO PHASE] Golden Line Disconnect. Updated COLORS.VISION to Matrix Green to ensure HUD and Physical Entity (Satellite/Singularity) are aesthetically unified across the entire stack.
+ * - FIXED [ID 4605]: [PRO PHASE] Hardcoded Shaders. Abstracted TextGlitchMaterial magic numbers into SHRED_CONFIG for global kinetic tuning.
+ * - FIXED [ID 5510]: [PRO PHASE] Generic Lore. Replaced default placeholder tips with Active Directory, SLA, and SQL diagnostic insights.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected METEOR_CONFIG to define procedural vertex displacement and ignition thresholds.
  * - Fixed: Added HARDWARE_PROFILES to support Low/Medium/High performance tiers.
@@ -45,6 +51,9 @@
  * - Fixed: [PRO PHASE] Adjusted MANIFESTO_CONFIG visual comfort boundaries.
  * - Fixed: [PRO PHASE] Injected BOOT_FRAME_CAP into the PERFORMANCE registry to throttle early render loops.
  * - Fixed: [PRO PHASE] Recalibrated STREAK_COUNT dynamically based on viewport to respect mobile fill-rates.
+ * - Fixed: [PRO PHASE] Modified COLORS.VISION from 0xffcc00 to 0x0aff0a to resolve color DNA conflict.
+ * - Fixed: [PRO PHASE] Added SHRED_CONFIG to manage horizontal band density, slice intensity, and RGB kinetic split.
+ * - Fixed: [PRO PHASE] Appended SLA threshold and SQL execution diagnostic strings to KERNEL_INSIGHTS.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The system is now 100% independent of external cursor assets, increasing boot speed.
  * - RIPPLE: Procedural geometry allows for unique asteroid topography on every system initialization.
@@ -57,6 +66,9 @@
  * - RIPPLE: [PRO PHASE] Global manifesto parameters now directly drive the GPU-instanced Radial Warp shader.
  * - RIPPLE: [PRO PHASE] Lower bloom prevents edge-smearing, allowing crisp 8bit.ai aesthetics without strobe discomfort.
  * - RIPPLE: [PRO PHASE] Capping the boot frame rate at 30FPS saves 50% of GPU cycles, dramatically smoothing background asset decryption.
+ * - RIPPLE: [PRO PHASE] Changing COLORS.VISION to Matrix Green ensures the Central Singularity (Black Hole Jet) and HUD Progress Track glow correctly without breaking CSS variable inheritance.
+ * - RIPPLE: [PRO PHASE] Tuning SHRED_CONFIG now globally adjusts the Valentin-style kinetic text shredding across all physical interactions.
+ * - RIPPLE: [PRO PHASE] The boot sequence now provides verified, professional tactical lore, reflecting actual support engineer experience.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Circular Wraparound - WRAP_LIMIT enforced at 2PI.
  * - APPEND 123: Tier Calibration - Verified Anisotropy limits (4x Low / 16x High).
@@ -71,8 +83,11 @@
  * - APPEND 4395: [PRO PHASE] Radial Math Audit - Verified high-density particle counts do not overflow the buffer limits.
  * - APPEND 4420: [PRO PHASE] Comfort Audit - Verified BLOOM_STRENGTH and RADIAL_ACCELERATION meet safety thresholds.
  * - APPEND 4500: [PRO PHASE] Performance Audit - Verified BOOT_FRAME_CAP allows planetary WebP textures to upload without main-thread stutter.
+ * - APPEND 4595: [PRO PHASE] DNA Propagation Audit - Verified that modifying `COLORS.VISION` securely propagates the `0x0aff0a` integer to `Logics.js` and the physical engine rendering loop.
+ * - APPEND 4606: [PRO PHASE] Shader Config Audit - Confirmed SHRED_CONFIG scales vertex displacement boundaries safely within camera frustum.
+ * - APPEND 5510: [PRO PHASE] Telemetry Audit - Verified KERNEL_INSIGHTS correctly loads Active Directory and SQL data without overflow.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_PERFORMANCE_HARDENED
+ * - STATUS: PRO_PHASE_VERTEX_SHREDDER_ACTIVE
  */
 
 // ==========================================
@@ -90,7 +105,7 @@ export const SYSTEM = {
 export const COLORS = {
     TECH: 0x00f3ff,     // Cyan Hub
     CODE: 0xff0055,     // Pink Black Hole
-    VISION: 0xffcc00,   // Yellow Satellite
+    VISION: 0x0aff0a,   // [PRO PHASE] Changed from 0xffcc00 (Golden Yellow) to Matrix Green
     CONTACT: 0x0aff0a,  // Matrix Green Rocket
     BG: 0x050508,       // Deep Space Void
     UI_GLASS: "rgba(10, 15, 25, 0.7)"
@@ -239,7 +254,10 @@ export const KERNEL_INSIGHTS = [
     "[DEBUG] Meteorite core topography is procedurally seeded per session.",
     "[INFO] 8bit.ai manifesto layers are rendered via dedicated WebGL buffers.",
     "[KERN] Sector DNA is hard-coded to 64-bit industrial identifiers.",
-    "[ALRT] Event Horizon drag coefficients exceed standard safety limits."
+    "[ALRT] Event Horizon drag coefficients exceed standard safety limits.",
+    "[INFO] Active Directory synchronization confirmed.",
+    "[TIP] SLA threshold at 99.9%—Maintaining system uptime.",
+    "[DATA] Analyzing SQL execution plans for Culprit discovery."
 ];
 
 // ==========================================
@@ -256,4 +274,15 @@ export const MANIFESTO_CONFIG = {
     WARP_INTENSITY: 12.0, // [PRO PHASE]: Lowered from 20.0 to prevent visual slingshot effect
     STREAK_STRETCH_FACTOR: 5.0,
     RADIAL_ACCELERATION: 5.0  // [PRO PHASE]: Lowered from 10.0 to maintain steady, comfortable velocity
+};
+
+// ==========================================
+// 12. TEXT GLITCH CONFIG (PRO PHASE)
+// ==========================================
+export const SHRED_CONFIG = {
+    BAND_DENSITY: 2.5,        // Number of horizontal slices
+    SLICE_INTENSITY: 8.0,     // Max horizontal displacement multiplier
+    SHIVER_SPEED: 10.0,       // Frequency of the X-axis noise
+    RGB_OFFSET_STRENGTH: 0.8, // Chromatic aberration distance multiplier
+    DECAY_RATE: 0.05          // Speed at which the glitch fades after trigger
 };

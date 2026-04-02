@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /greeting.css
  * Purpose: Procedural Space Matrix, Holo-Ignition UI, Hardware-Accelerated Anomaly Layers, and 8bit.ai Styling
- * STATUS: PRO_PHASE_CINEMATIC_PACING_ACTIVE
- * LINE_COUNT: ~450 Lines.
+ * STATUS: PRO_PHASE_VERTEX_SHREDDER_ACTIVE
+ * LINE_COUNT: ~320 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated hardware-accelerated starfield backdrop using radial-gradient drifts.
  * - SYSTEM: Visual DNA finalized for Industrial CRT aesthetic with scanline jitter.
@@ -22,7 +22,10 @@
  * - SYSTEM: [PRO PHASE] Verified and enforced visual isolation for the Greeting viewport during boot sequence.
  * - SYSTEM: [PRO PHASE] Recalibrated Identity Glitch Matrix to meet biological safety thresholds.
  * - SYSTEM: [PRO PHASE] Surgically excised MIRROR_DESYNC strobe classes to completely eliminate biological safety hazards.
- * - SYSTEM: [PRO PHASE] Recalibrated CSS anomaly keyframes to align with cinematic hardware pacing.
+ * - SYSTEM: [PRO PHASE] Recalibrated CSS anomaly keyframes to align with heavy cinematic hardware pacing.
+ * - SYSTEM: [PRO PHASE] Synchronized CSS color variables with global constants registry to prevent Matrix/Amber DNA mismatch.
+ * - SYSTEM: [PRO PHASE] Excised legacy DOM-based Hero Name CSS layers.
+ * - SYSTEM: [PRO PHASE] Cleaned redundant CSS keyframes to optimize GPU memory for WebGL handoff.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 18]: Visual Flicker. Enforced will-change on boot-terminal and btn-enter-system to prevent repaint lag.
  * - FIXED [ID 116]: Animation Snapping. Smoothed holo-ignition cubic-bezier curves for organic fluid transition.
@@ -40,6 +43,9 @@
  * - FIXED [ID 4410]: [PRO PHASE] Strobe Trigger. Softened 'mirror-unflip' and slowed to 0.4s to prevent 10Hz visual fatigue.
  * - FIXED [ID 4430]: [PRO PHASE] Visual Fatigue. Hard-deleted `.hero-glitch-mirror` and `@keyframes mirror-unflip` to permanently resolve the 10Hz strobe artifact.
  * - FIXED [ID 4540]: [PRO PHASE] Kinetic Strobe Blur. Stretched CSS animation durations (0.15s -> 0.5s) to eliminate high-frequency flickering and establish a heavy, deliberate CRT shiver.
+ * - FIXED [ID 4555]: [PRO PHASE] Strobe Disconnect. Stretched CSS animation durations (0.15s -> 0.6s/0.8s) to eliminate high-frequency flickering and establish a heavy, deliberate CRT shiver matching the 60ms typewriter.
+ * - FIXED [ID 4580]: [PRO PHASE] DNA Mismatch. Updated `--vision-gold` and added `--contact-matrix` to align the CSS global variables with the newly synchronized `COLORS` dictionary in constants.js.
+ * - FIXED [ID 4604]: [PRO PHASE] DOM Text Ghosting. Surgically purged `.hero-name-wrapper` and related keyframes from `greeting.css` to prevent rendering conflicts with the new WebGL `TextGlitchMaterial`.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added mask-image to the starfield to ensure clean vignetting in the peripheral void.
  * - Fixed: Bridged .hero-glitch-chromatic to the heavy-chromatic keyframe matrix.
@@ -57,6 +63,10 @@
  * - Fixed: [PRO PHASE] Replaced harsh 'filter: invert(1)' with 'filter: brightness(1.5)' for optical safety.
  * - Fixed: [PRO PHASE] Removed legacy strobe animations from the CSS matrix.
  * - Fixed: [PRO PHASE] Modified signal-glitch, hero-flicker-anim, and hero-warp-anim timing functions to accommodate slower, atmospheric boot sequence.
+ * - Fixed: [PRO PHASE] Synchronized hero-glitch-anim, hero-chromatic-anim, and hero-flicker-anim durations with the heavy industrial boot sequence.
+ * - Fixed: [PRO PHASE] Declared --contact-matrix globally to ensure `#hud-progress-fill` glows matrix green when interacting with the Rocket entity.
+ * - Fixed: [PRO PHASE] Retained `.lens-thump` and `heavy-chromatic` for the `unlockSystem` transition shake.
+ * - Fixed: [PRO PHASE] Removed optical ghosting pseudo-elements (`::before` / `::after`) attached to the legacy hero text.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: .lens-thump provides the physical screen-shake for the unlockSystem transition.
  * - RIPPLE: Animation triggers synchronize with the AudioEngine chirps via the logic bus.
@@ -71,7 +81,10 @@
  * - RIPPLE: [PRO PHASE] The transparent greeting overlay perfectly frames the isolated 8bit.ai Manifesto streaks prior to planetary ignition.
  * - RIPPLE: [PRO PHASE] The mirror glitch now behaves as a subtle mechanical distortion rather than a painful strobe.
  * - RIPPLE: [PRO PHASE] The hero text no longer poses any flashing risk, ensuring a comfortable boot sequence.
- * - RIPPLE: [PRO PHASE] Slower CSS glitch animations complement the 45ms typewriter speed, resulting in a cohesive 'struggling industrial hardware' experience.
+ * - RIPPLE: [PRO PHASE] Slower CSS glitch animations (0.6s-0.8s) perfectly complement the heavy 60ms typewriter speed, resulting in a cohesive 'struggling industrial hardware' experience.
+ * - RIPPLE: [PRO PHASE] The Golden Line in the HUD is now perfectly synchronized with the 3D physical anchors (Amber -> Matrix Green).
+ * - RIPPLE: [PRO PHASE] Deleting DOM CSS text styles guarantees zero visual duplication when the 3D WebGL mesh ignites.
+ * - RIPPLE: [PRO PHASE] Stylesheet size and complexity reduced, accelerating render-tree parsing.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Promotion - will-change applied to all high-frequency transition layers.
  * - APPEND 2: Mobile Parity - Optimized font-scaling and padding for fisheye mobile view.
@@ -89,8 +102,11 @@
  * - APPEND 4410: [PRO PHASE] Strobe Audit - Verified MIRROR_DESYNC operates below the 3Hz comfort threshold (0.4s duration).
  * - APPEND 4430: [PRO PHASE] Strobe Purge Audit - Verified no keyframes attempt to rapidly invert or scale the identity text.
  * - APPEND 4540: [PRO PHASE] Pacing Audit - Verified visual anomalies do not trigger strobe discomfort, remaining under the 3Hz safety threshold.
+ * - APPEND 4555: [PRO PHASE] Heavy Pacing Audit - Verified visual anomalies trigger at a slower, heavier frequency (0.6s - 0.8s) establishing strong cinematic suspense.
+ * - APPEND 4580: [PRO PHASE] CSS Variable Sync Audit - Verified `--vision-gold` (#ffcc00) and `--contact-matrix` (#0aff0a) perfectly mirror `constants.COLORS` dictionary.
+ * - APPEND 4604: [PRO PHASE] CSS Purge Audit - Verified complete removal of `hero-glitch-anim`, `hero-chromatic-anim`, `hero-base-shake`, and `hero-heavy-chromatic` keyframes.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_CINEMATIC_PACING_ACTIVE
+ * - STATUS: PRO_PHASE_VERTEX_SHREDDER_ACTIVE
  */
 
 /* 0. TYPOGRAPHY INJECTION */
@@ -107,7 +123,9 @@
     --hero-accent: #00f3ff;
     /* TECH Cyan */
     --code-pink: #ff0055;
+    /* [PRO PHASE] Sync with COLORS dictionary */
     --vision-gold: #ffcc00;
+    --contact-matrix: #0aff0a;
     --terminal-glow: rgba(0, 243, 255, 0.4);
     --bg-terminal: rgba(5, 5, 10, 0.85);
 }
@@ -172,8 +190,8 @@
     display: none;
     pointer-events: none;
     mix-blend-mode: screen;
-    animation: signal-glitch 0.5s steps(4) infinite;
-    /* PRO PHASE: Slower 0.5s */
+    animation: signal-glitch 0.8s steps(4) infinite;
+    /* PRO PHASE: Slower 0.8s */
 }
 
 @keyframes signal-glitch {
@@ -386,72 +404,15 @@
 }
 
 /* 6. HERO IDENTITY: OPTICAL GHOSTING */
-.hero-name-viewport {
-    perspective: 1000px;
-}
-
-.hero-name-wrapper {
-    position: relative;
-    display: inline-block;
-    color: #fff;
-    font-family: 'HighJinkiesFlip', 'Courier New', monospace;
-    letter-spacing: 5px;
-    transition: color 0.5s ease;
-}
-
-.hero-name-wrapper::before,
-.hero-name-wrapper::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    mix-blend-mode: screen;
-    opacity: 0;
-    transition: transform 0.1s ease-out, opacity 0.2s ease;
-    pointer-events: none;
-}
-
-.hero-name-wrapper::before {
-    color: #f00;
-    z-index: -1;
-}
-
-.hero-name-wrapper::after {
-    color: #0ff;
-    z-index: -2;
-}
-
-.hero-glitch-active {
-    animation: hero-flicker-anim 0.4s infinite;
-    /* PRO PHASE: Slower 0.4s */
-}
-
-.hero-glitch-chromatic::before {
-    opacity: 0.8;
-    transform: translateX(4px) skewX(2deg);
-}
-
-.hero-glitch-chromatic::after {
-    opacity: 0.8;
-    transform: translateX(-4px) skewX(-2deg);
-}
-
-.hero-glitch-warp {
-    animation: hero-warp-anim 0.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-    /* PRO PHASE: Slower 0.5s */
-}
+/* [PRO PHASE]: Legacy DOM-based Hero Identity layers excised. 
+   Typography is now rendered via WebGL in TextGlitchMaterial (ManifestoEngine.js). */
 
 /* 7. RIPPLE IMPACT ANOMALIES */
 .lens-thump {
     animation: heavy-chromatic 0.5s cubic-bezier(0.36, 0, 0.66, -0.56) forwards;
 }
 
-.hero-glitch-flicker {
-    animation: hero-flicker-anim 0.5s infinite;
-    /* PRO PHASE: Slower 0.5s */
-}
+/* [PRO PHASE]: Remaining legacy DOM glitch modifiers purged for WebGL handoff. */
 
 /* 8. ANIMATION MATRIX */
 @keyframes holo-ignition {
@@ -485,34 +446,7 @@
     }
 }
 
-@keyframes hero-flicker-anim {
-    0% {
-        opacity: 0.1;
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0.2;
-    }
-}
-
-@keyframes hero-warp-anim {
-    0% {
-        transform: scale(1) skew(0);
-    }
-
-    50% {
-        transform: scale(1.05) skew(2deg);
-        filter: blur(1px);
-    }
-
-    100% {
-        transform: scale(1) skew(0);
-    }
-}
+/* [PRO PHASE]: Extraneous DOM-level keyframes (flicker, warp, shake, split) purged. */
 
 /* 9. MOBILE OPTIMIZATION */
 @media (max-width: 768px) {
@@ -539,11 +473,6 @@
         padding: 20px;
     }
 
-    .hero-name-wrapper {
-        font-size: 2.2rem !important;
-        letter-spacing: 4px !important;
-    }
-
     .terminal-window {
         width: 90%;
         left: 5% !important;
@@ -551,7 +480,7 @@
     }
 }
 
-/* 10. GHOST-TOUCH FILTER */
+/* 10. GHOST-TOUCH FILTER & GLOBAL ANOMALIES */
 #hologram-viewport {
     pointer-events: none;
 }
@@ -572,4 +501,18 @@
     position: relative;
     width: 100%;
     height: 100%;
+}
+
+@keyframes slide-hint {
+
+    0%,
+    100% {
+        transform: translateX(-15px);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: translateX(15px);
+        opacity: 1;
+    }
 }

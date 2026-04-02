@@ -2,7 +2,7 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /Logics.js
  * Purpose: Central System Brain, Hologram Projection, Typewriter Orchestration, Mobile Kinetics & Asset Mounting
- * STATUS: PRO_PHASE_UNIFIED_AUTHORITY_ACTIVE
+ * STATUS: PRO_PHASE_COLOR_SPACE_SYNCHRONIZED
  * LINE_COUNT: ~860 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Dynamic Typewriter engine for holographic shards.
@@ -30,6 +30,7 @@
  * - SYSTEM: [PRO PHASE] Restored Pre-Fetch Handshake to initialize background asset loading during the greeting sequence.
  * - SYSTEM: [PRO PHASE] Implemented Stealth Construction architecture to eliminate anchor-dependency loading delays.
  * - SYSTEM: [PRO PHASE] Resolved Scene Hijacking by adopting the global CoreScene singleton instead of instantiating a new THREE.Scene().
+ * - SYSTEM: [PRO PHASE] Synchronized Logics.js color registry with constants.js to enforce single-source-of-truth for sector DNA.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static innerHTML injection with a character-by-character typewriter loop.
  * - FIXED [ID 1407]: Acoustic Handshake. btnEnter now explicitly calls AudioEngine.unlock() to enable OS soundscapes.
@@ -57,6 +58,7 @@
  * - FIXED [ID 4510]: [PRO PHASE] Missing Cursor & Late Loading. Moved CursorService and ModelManager back to the constructor to allow background preloading without triggering early planetary mounts.
  * - FIXED [ID 4520]: [PRO PHASE] Invisible Cursor & Late Loading. Decoupled world generation from the OS Reveal via Stealth Construction to ensure zero-lag entry and active cursor heartbeat.
  * - FIXED [ID 4550]: [PRO PHASE] 8bit.ai Erasure. Logics.js now adopts CoreScene.get() in syncHardware() instead of overwriting it, allowing the Manifesto background to persist during stealth construction.
+ * - FIXED [ID 4570]: [PRO PHASE] Golden Line Disconnect. Replaced hardcoded Logics.js sector colors with imported COLORS from constants.js to ensure UI elements (like the progress track) match the 3D entity models.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added runTypewriter() utility to sync visual text manifestation with digital audio chirps.
  * - Fixed: Injected Typewriter-synced events into activateSector() to populate shards dynamically.
@@ -81,6 +83,7 @@
  * - Fixed: [PRO PHASE] Extracted heavy instantiation into a background stealthBuild() method.
  * - Fixed: [PRO PHASE] Re-routed CoreLoop.addUpdatable(this) to run independently during the boot sequence.
  * - Fixed: [PRO PHASE] Removed unneeded `new THREE.Scene()` from constructor to prevent global scene overwrite.
+ * - Fixed: [PRO PHASE] Imported COLORS from constants.js to bridge UI state colors with physical rendering states.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Every character typed in the holographic menu now publishes a TYPEWRITER_TICK event to the audio bus.
  * - RIPPLE: The system hum and ambient space sounds are initialized upon the first user interaction.
@@ -104,6 +107,7 @@
  * - RIPPLE: [PRO PHASE] 3D assets now load completely invisibly behind the 8bit.ai manifesto.
  * - RIPPLE: [PRO PHASE] The low-poly cursor trail updates accurately during the greeting phase.
  * - RIPPLE: [PRO PHASE] The 8bit.ai Manifesto animation now plays uninterrupted for its full duration during the greeting window.
+ * - RIPPLE: [PRO PHASE] The "Golden Line" HUD progress track now correctly displays Matrix Green when focused on the CONTACT sector.
  * * * * * REALITY AUDIT V28:
  * - APPEND 16: Typewriter Synchronization - Enforced 20ms character delay to match industrial "Data-Stream" aesthetic.
  * - APPEND 17: Audio Hardware Release - btnEnter acts as the authoritative source for the Web Audio API handshake.
@@ -128,8 +132,9 @@
  * - APPEND 4510: [PRO PHASE] Pre-Fetch Audit - Verified CursorService and ModelManager boot sequentially before WebGL context locks.
  * - APPEND 4520: [PRO PHASE] Stealth Handoff Audit - Verified universeGroup.visible is strictly toggled by the init() handoff trigger.
  * - APPEND 4550: [PRO PHASE] Unified Authority Audit - Verified CoreScene is shared between ManifestoEngine and LogicsEngine to prevent premature scene deletion.
+ * - APPEND 4570: [PRO PHASE] DNA Sync Audit - Verified Logics.js strictly inherits COLORS dictionary from constants.js.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_UNIFIED_AUTHORITY_ACTIVE
+ * - STATUS: PRO_PHASE_COLOR_SPACE_SYNCHRONIZED
  */
 
 import * as THREE from 'three';
@@ -152,6 +157,7 @@ import { CursorService } from './systems/CursorService.js'; // PRO PHASE: Low-Po
 import { Logics as SystemLogicUtils } from './utils/logics.js';
 import { SystemEvents, EVENTS } from './utils/events.js';
 import { CoreLoop } from './core/Loop.js';
+import { COLORS } from './data/constants.js'; // [PRO PHASE]: Single Source of Truth for Colors
 
 class LogicsEngine {
     constructor() {
@@ -195,12 +201,12 @@ class LogicsEngine {
         // REALITY AUDIT 41: Initialize Industrial Terminal
         this.terminal = new Terminal('terminal-window', 'terminal-header', 'terminal-content', 'terminal-input');
 
-        // SECTOR DATA
+        // SECTOR DATA [ID 4570]: Synchronized with constants.js COLORS
         this.sectors = [
-            { id: 'TECH', label: 'CENTRAL_HUB', color: 0x00f3ff, angle: 0 },
-            { id: 'VISION', label: 'CREATIVE_DESIGN', color: 0xff00ff, angle: Math.PI / 2 },
-            { id: 'CODE', label: 'FULL_STACK_DEV', color: 0x8a2be2, angle: Math.PI },
-            { id: 'CONTACT', label: 'SIGNAL_TRANSMISSION', color: 0xffaa00, angle: -Math.PI / 2 }
+            { id: 'TECH', label: 'CENTRAL_HUB', color: COLORS.TECH, angle: 0 },
+            { id: 'VISION', label: 'CREATIVE_DESIGN', color: COLORS.VISION, angle: Math.PI / 2 },
+            { id: 'CODE', label: 'FULL_STACK_DEV', color: COLORS.CODE, angle: Math.PI },
+            { id: 'CONTACT', label: 'SIGNAL_TRANSMISSION', color: COLORS.CONTACT, angle: -Math.PI / 2 }
         ];
 
         this.planets = new Map();

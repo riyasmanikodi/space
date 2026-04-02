@@ -2,14 +2,19 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /utils/logics.js
  * Purpose: Master State Machine, Physics Tracking, and Hologram Data Dispatcher
- * STATUS: PRO_PHASE_LOGICS_READY
- * LINE_COUNT: ~375 Lines.
+ * STATUS: PRO_PHASE_VERTEX_SHREDDER_ACTIVE
+ * LINE_COUNT: ~420 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Master state machine kernel finalized for PRO PHASE deployment.
  * - SYSTEM: Integrated ENTITY_HEARTBEAT synchronization for model-level update cycles.
  * - SYSTEM: [APPEND] Integrated Dynamic Friction scaling based on sector-specific environmental density.
  * - SYSTEM: [APPEND] Integrated MIRROR_DESYNC into the global anomaly pool for axis-based typographic disruption.
  * - SYSTEM: [APPEND] Synchronized dictionary lookups with UPPERCASE DNA to resolve data-shard dropout.
+ * - SYSTEM: [PRO PHASE] Hardcoded planet-by-planet professional telemetry directly into the logic engine.
+ * - SYSTEM: [PRO PHASE] Injected Application Support engineering metrics into the TECH sector.
+ * - SYSTEM: [PRO PHASE] Mapped Full-Stack and 3D architectural data to the CODE sector.
+ * - SYSTEM: [PRO PHASE] Integrated AR/VR and Cybersecurity protocols into the VISION sector.
+ * - SYSTEM: [PRO PHASE] Established direct career uplinks within the CONTACT sector.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 501]: Randomization Bias. Implemented a weighted matrix for sector-appropriate anomalies.
  * - FIXED [ID 1401]: Rotation Conflict. Enforced isZooming lock to stop manual drag from interfering with cinematic centering.
@@ -22,6 +27,8 @@
  * - FIXED [ID 2106]: [APPEND] Duplicate Ticker Deadlock. Removed local requestAnimationFrame to allow CoreLoop to manage system ticks.
  * - FIXED [ID 2170]: Dictionary Key Desync. Corrected casing mismatch in getHologramData() to ensure shards fetch correctly from UPPERCASE data keys.
  * - FIXED [ID 2171]: Event Publication Loop. Implemented a safety semaphore in dispatchRandomGlitch to prevent recursive system crashes.
+ * - FIXED [ID 5500]: [PRO PHASE] Placeholder Data. Replaced generic profile arrays with targeted, hardcoded career metrics based on the established data DNA.
+ * - FIXED [ID 5505]: [PRO PHASE] Vague Bio Shards. Injected quantifiable metrics (500+ incidents, 95% SLA) into the TECH diagnostic bio.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added dispatchRandomGlitch() to broadcast interaction events to the system bus.
  * - Fixed: Integrated getHologramData() to feed contextual shards to the UI layer from profile.js.
@@ -32,6 +39,7 @@
  * - Fixed: Injected MIRROR_DESYNC to the weighted matrix for extreme velocity states.
  * - Fixed: Subscribed to UI_FOCUSED to route focus state directly to the core state machine.
  * - Fixed: [APPEND] Added updateEntities() relay to synchronize 3D models with physics state.
+ * - Fixed: [PRO PHASE] Excised external profile.js dependency for getHologramData to guarantee identity data integrity within the core state machine.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The utility monitors the isZooming state to toggle cinematic gates across the VFX and Renderer modules.
  * - RIPPLE: SystemEvents.publish(EVENTS.GLOBAL_GLITCH) now includes contextual intensity for haptic and audio scaling.
@@ -42,6 +50,8 @@
  * - RIPPLE: High-velocity interactions now trigger the MIRROR_DESYNC state to disrupt the CC High Jinkies font axis.
  * - RIPPLE: Dragging the terminal window safely freezes the physics update loop.
  * - RIPPLE: [APPEND] Velocity-responsive models now scale their internal animations (wheels/rotors) to the physics engine.
+ * - RIPPLE: [PRO PHASE] Holographic shards now directly reflect actual resume telemetry and skill proficiencies.
+ * - RIPPLE: [PRO PHASE] Recruiters navigating the OS will instantly interact with verified, sector-specific professional data without relying on external file loads.
  * * * * * REALITY AUDIT V28:
  * - APPEND 3: Probability Matrix - Weighted distributions enforced for TECH, CODE, and VISION sectors.
  * - APPEND 5: State Synchronization - getHologramData ensures skill and bio shards match the active planet identity.
@@ -50,13 +60,14 @@
  * - APPEND 38: State Sentinel - Enforced focus-locking to prevent orbit rotation while terminal input is active.
  * - APPEND 42: Flip-Glitch Logic - Verified that MIRROR_DESYNC successfully 'un-flips' the display font during anomalies.
  * - APPEND 55: [APPEND] Delta Sync - Verified that orbital velocity remains consistent regardless of hardware FPS.
+ * - APPEND 5500: [PRO PHASE] Identity Audit - Verified TECH sector correctly displays Application Support Engineer status.
+ * - APPEND 5505: [PRO PHASE] Telemetry Audit - Verified CONTACT sector securely hosts GitHub and location coordinates.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_LOGICS_READY
+ * - STATUS: PRO_PHASE_VERTEX_SHREDDER_ACTIVE
  */
 
 import { SECTORS, ORBIT } from '../data/constants.js';
 import { SystemEvents, EVENTS } from './events.js';
-import { PROFILE } from '../data/profile.js';
 
 class SystemLogic {
     constructor() {
@@ -204,26 +215,71 @@ class SystemLogic {
     /**
      * REALITY AUDIT: Hologram Shard Constructor
      * Extracts quantized data bursts based on the active planet.
-     * [FIX ID 2170]: Normalized key access to UPPERCASE for DNA parity.
+     * [PRO PHASE]: Hardcoded to extract precise, verified resume metrics.
      */
     getHologramData() {
         const sector = this.state.activeSector.id.toUpperCase();
+        let statusStr = "";
+        let bioStr = "";
+        let skillData = [];
+
+        if (sector === 'TECH') {
+            statusStr = "APPLICATION_SUPPORT_ENGINEER";
+            bioStr = "Resolved 500+ critical incidents with 95% SLA precision. Orchestrated firewalls, DNS, and automated workflows.";
+            skillData = [
+                { name: "Linux & Windows Admin", level: 0.95 },
+                { name: "ServiceNow & SLA Mgmt", level: 0.95 },
+                { name: "TCP/IP, DNS & DHCP", level: 0.90 },
+                { name: "SQL Query Optimization", level: 0.88 },
+                { name: "Bash & Python Scripts", level: 0.85 }
+            ];
+        } else if (sector === 'CODE') {
+            statusStr = "APPLICATION_SUPPORT_DEVELOPMENT";
+            bioStr = "Engineering 3D motion-logic tools and end-to-end utilities. Optimizing service delivery via Python automation.";
+            skillData = [
+                { name: "React.js & JavaScript", level: 0.90 },
+                { name: "Python, MySQL, MongoDB", level: 0.88 },
+                { name: "WebGL & Three.js", level: 0.82 },
+                { name: "OpenCV & MediaPipe", level: 0.80 }
+            ];
+        } else if (sector === 'VISION') {
+            statusStr = "AR_VR_VIRTUAL_REALITY_DEV";
+            bioStr = "Architecting automated pipelines to retarget complex motion data and bridging depth estimation with industrial visuals.";
+            skillData = [
+                { name: "Unreal Engine 5 & Unity", level: 0.85 },
+                { name: "Blender & Creative Suite", level: 0.88 },
+                { name: "Network Security Protocols", level: 0.80 },
+                { name: "Steganographic Algorithms", level: 0.75 }
+            ];
+        } else if (sector === 'CONTACT') {
+            statusStr = "SIGNAL_TRANSMISSION_UPLINK";
+            bioStr = "System Locator: ASIA_SOUTH (Tamil Nadu, India). Handshake initialization standing by. Signal ends at KRAYETOS.";
+            skillData = [
+                { name: "GITHUB_UPLINK", level: 1.0 },
+                { name: "LINKEDIN_TELEMETRY", level: 1.0 },
+                { name: "DIRECT_MAIL_HANDSHAKE", level: 1.0 }
+            ];
+        } else {
+            statusStr = "SYSTEM_AWAITING_INPUT";
+            bioStr = "NO_DATA_AVAILABLE";
+            skillData = [];
+        }
 
         return {
             identity: {
                 title: "IDENTITY_CORE",
-                name: PROFILE.name,
-                status: "OS_V28 // ACTIVE"
+                name: "RIYAS MANIKODI",
+                status: statusStr
             },
             diagnostics: {
                 title: "SECTOR_DIAGNOSTICS",
                 label: this.state.activeSector.name,
                 type: this.state.activeSector.type,
-                bio: PROFILE.bio[Math.floor(Math.random() * PROFILE.bio.length)]
+                bio: bioStr
             },
             skills: {
                 title: "QUANTIZED_SKILLS",
-                data: PROFILE.skills[sector] || []
+                data: skillData
             }
         };
     }

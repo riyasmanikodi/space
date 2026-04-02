@@ -2,7 +2,7 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /ui/Greeting.js
  * Purpose: System Boot Sequence, Hardware Polling, Tactical Insights, and Ripple Impact Handshake
- * STATUS: PRO_PHASE_CINEMATIC_PACING_ACTIVE
+ * STATUS: PRO_PHASE_HEAVY_INDUSTRIAL_PACING_ACTIVE
  * LINE_COUNT: ~300 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated hardware-accelerated starfield backdrop handshake.
@@ -21,7 +21,7 @@
  * - SYSTEM: [PRO PHASE] Verified CoreManifesto disposal strictly precedes planetary ignition.
  * - SYSTEM: [PRO PHASE] Implemented Staggered Handoff in unlockSystem to allow GPU VRAM flush before OS ignition.
  * - SYSTEM: [PRO PHASE] Realigned unlockSystem handoff to support Stealth Construction and Zero-Lag OS Reveal.
- * - SYSTEM: [PRO PHASE] Recalibrated boot terminal pacing for cinematic hardware suspense.
+ * - SYSTEM: [PRO PHASE] Recalibrated boot terminal pacing for heavy cinematic hardware suspense.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1402]: Startup Sequence. Ensured terminal is clear and button is locked until nominal state.
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static injection with dynamic typewriter loop.
@@ -38,7 +38,7 @@
  * - FIXED [ID 4398]: [PRO PHASE] Greeting Viewport Leak. Synchronized manifesto disposal with the Logics.js cold-boot handshake.
  * - FIXED [ID 4502]: [PRO PHASE] Double-Engine Memory Spike. Deferred onEnterCallback via setTimeout to ensure Manifesto geometry is fully garbage-collected from VRAM before planetary assets are uploaded.
  * - FIXED [ID 4520]: [PRO PHASE] Transition Stutter. Maintained 100ms VRAM flush yield to smoothly reveal the stealth-constructed planetary void.
- * - FIXED [ID 4530]: [PRO PHASE] Strobe Blur. Slowed typewriter speed (45ms) and line breaks (800ms) to restore heavy industrial hardware feel.
+ * - FIXED [ID 4530]: [PRO PHASE] Strobe Blur. Slowed typewriter speed (60ms) and line breaks (1200ms) to restore heavy industrial hardware feel.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added manager.onLoad handling to synchronize 3D asset readiness with UI manifestation.
  * - Fixed: Integrated TYPEWRITER_TICK publication for synced audio-visual clicks.
@@ -53,7 +53,7 @@
  * - Fixed: [PRO PHASE] Abstracted planetary ignition exclusively to the explicit UI handshake trigger.
  * - Fixed: [PRO PHASE] Wrapped OS ignition handshake in a 100ms yield to unblock the main thread during transition.
  * - Fixed: [PRO PHASE] Decoupled heavy geometry instantiation from the unlock trigger, shifting to a pure visibility reveal.
- * - Fixed: [PRO PHASE] Adjusted Typewriter delay parameters for deliberate acoustic syncing.
+ * - Fixed: [PRO PHASE] Adjusted Typewriter delay parameters (60ms char, 1200ms break) for deliberate acoustic syncing.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: .lens-thump provides the physical screen-shake for the unlockSystem transition.
  * - RIPPLE: Animation triggers synchronize with the AudioEngine chirps via the logic bus.
@@ -68,7 +68,7 @@
  * - RIPPLE: [PRO PHASE] Handoff ensures the OS interface and planetary void manifest only after the user actively clears the greeting overlay.
  * - RIPPLE: [PRO PHASE] Transition into the OS is significantly smoother without the stutter caused by simultaneous disposal and instantiation.
  * - RIPPLE: [PRO PHASE] OS entry is instantaneous as the planetary void is pre-constructed invisibly in the background.
- * - RIPPLE: [PRO PHASE] The boot sequence now builds tension, allowing users to read the lore and feel the hardware struggling.
+ * - RIPPLE: [PRO PHASE] The slower 60ms typewriter speed combined with 1200ms pauses creates genuine suspense, allowing users to "feel" the hardware struggling to initialize.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Promotion - will-change applied to all high-frequency transition layers.
  * - APPEND 18: Every character typed publishes a TYPEWRITER_TICK for procedural audio sync.
@@ -84,9 +84,9 @@
  * - APPEND 4401: [PRO PHASE] Execution Audit - Confirmed onEnterCallback acts as the sole trigger for the 'Cold Boot' universe generation.
  * - APPEND 4502: [PRO PHASE] Memory Flush Audit - Verified VRAM drops to baseline before `CoreLoop.start()` triggers the heavy planetary renders.
  * - APPEND 4520: [PRO PHASE] Stealth Handshake Audit - Verified onEnterCallback serves solely as a visibility toggle, eliminating transition lag.
- * - APPEND 4530: [PRO PHASE] Pacing Audit - Verified slower boot sequence correctly delays the initialization button without blocking.
+ * - APPEND 4530: [PRO PHASE] Pacing Audit - Verified slower boot sequence correctly delays the initialization button without blocking, running at 60ms/char and 1200ms/break.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_CINEMATIC_PACING_ACTIVE
+ * - STATUS: PRO_PHASE_HEAVY_INDUSTRIAL_PACING_ACTIVE
  */
 
 import { Typewriter } from '../effects/Typewriter.js';
@@ -145,16 +145,16 @@ export class Greeting {
             "[WAIT] COMPILING_GLSL_SHADERS..."
         ];
 
-        // CULPRIT 1406 / [PRO PHASE]: Replaced static injection with dynamic loop (45ms cinematic delay)
-        this.typewriter = new Typewriter(this.terminalOutput, { speed: 45 });
+        // CULPRIT 1406 / [PRO PHASE]: Replaced static injection with dynamic loop (60ms heavy industrial delay)
+        this.typewriter = new Typewriter(this.terminalOutput, { speed: 60 });
 
         for (const log of bootLogs) {
             // REALITY AUDIT 18: Every character typed publishes a TYPEWRITER_TICK
             await this.typewriter.typeString(log + '<br>', () => {
                 SystemEvents.publish(EVENTS.TYPEWRITER_TICK);
             });
-            // [PRO PHASE] Increased from 300ms to 800ms for heavy hardware suspense
-            await this.sleep(800);
+            // [PRO PHASE] Increased from 800ms to 1200ms for heavy hardware suspense
+            await this.sleep(1200);
         }
 
         this.isLoaded = true;
@@ -184,7 +184,7 @@ export class Greeting {
         if (!this.insightTarget) return;
 
         // [PRO PHASE]: Matched pacing to terminal output
-        const typeEngine = new Typewriter(this.insightTarget, { speed: 45 });
+        const typeEngine = new Typewriter(this.insightTarget, { speed: 60 });
         let lastIndex = -1;
 
         const loop = async () => {
