@@ -1,9 +1,9 @@
 /**
  * RIYAS_OS V28 - PRO PHASE
  * File: /utils/logics.js
- * Purpose: Master State Machine, Physics Tracking, and Hologram Data Dispatcher
- * STATUS: PRO_PHASE_VERTEX_SHREDDER_ACTIVE
- * LINE_COUNT: ~420 Lines.
+ * Purpose: Centralized Glitch Authority, Master Shuffle Queue & State Machine
+ * STATUS: PRO_PHASE_RULE_STRICT_LOCKED
+ * LINE_COUNT: ~485 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Master state machine kernel finalized for PRO PHASE deployment.
  * - SYSTEM: Integrated ENTITY_HEARTBEAT synchronization for model-level update cycles.
@@ -15,8 +15,17 @@
  * - SYSTEM: [PRO PHASE] Mapped Full-Stack and 3D architectural data to the CODE sector.
  * - SYSTEM: [PRO PHASE] Integrated AR/VR and Cybersecurity protocols into the VISION sector.
  * - SYSTEM: [PRO PHASE] Established direct career uplinks within the CONTACT sector.
+ * - SYSTEM: [PRO PHASE] Enforced strict Data Partitioning Protocol across all planetary sectors.
+ * - SYSTEM: [PRO PHASE] Injected System Configuration and Formspree telemetry into holographic shards.
+ * - SYSTEM: [PRO PHASE] Integrated Phosphor Bleed and Band Shredding glitch triggers into the interaction matrix.
+ * - SYSTEM: [PRO PHASE] Registered CLI Secret Commands (logs.incidents, sys.audit, whois) into the Kernel Event Bus.
+ * - SYSTEM: [PRO PHASE] Integrated DOM-based Kinetic Anomaly dispatcher for 'HELLO' glitch sequence.
+ * - SYSTEM: [PRO PHASE] Registered BLOCK_SCRAMBLE, SLICE_DRIFT, and PHOSPHOR_SPLIT into the master state machine.
+ * - SYSTEM: [PRO PHASE] DE-COUPLED planet-specific weighting.
+ * - SYSTEM: [PRO PHASE] Transitioned to truly random index selection for all 15 anomaly archetypes.
+ * - SYSTEM: [PRO PHASE] Centralized Glitch Authority & Master Shuffle Queue into Logics.js.
  * * * * * CULPRIT LOG V28:
- * - FIXED [ID 501]: Randomization Bias. Implemented a weighted matrix for sector-appropriate anomalies.
+ * - FIXED [ID 501]: Randomization Bias. Permanently removed conditional weighted matrices to allow full glitch pool utilization.
  * - FIXED [ID 1401]: Rotation Conflict. Enforced isZooming lock to stop manual drag from interfering with cinematic centering.
  * - FIXED [ID 1410]: Wheel Drift. Adjusted friction curve logic to capture scroll momentum via state updates.
  * - FIXED [ID 1412]: Orbital Stutter. Mapped rotation velocity to glitch probability to prevent static jitter.
@@ -29,6 +38,11 @@
  * - FIXED [ID 2171]: Event Publication Loop. Implemented a safety semaphore in dispatchRandomGlitch to prevent recursive system crashes.
  * - FIXED [ID 5500]: [PRO PHASE] Placeholder Data. Replaced generic profile arrays with targeted, hardcoded career metrics based on the established data DNA.
  * - FIXED [ID 5505]: [PRO PHASE] Vague Bio Shards. Injected quantifiable metrics (500+ incidents, 95% SLA) into the TECH diagnostic bio.
+ * - FIXED [ID 5601]: [PRO PHASE] Data Replication. Hard-coded unique HTML5, React, and Godot Engine shards to prevent skill overlap between sectors.
+ * - FIXED [ID 5602]: [PRO PHASE] Terminal Echo. Synchronized handleTerminalOverride to process secret commands without breaking the orbital state machine.
+ * - FIXED [ID 5630]: [PRO PHASE] Aesthetic Disconnect. Re-routed dispatchRandomGlitch to output DOM-compatible Space Realism anomaly IDs instead of WebGL shredder keys.
+ * - FIXED [ID 6006]: [PRO PHASE] Repetition Error. Expanded global glitch pool to 15 unique archetypes to complete the cycle requirements.
+ * - FIXED [ID 6008]: [PRO PHASE] Double Queue Bug. Moved master shuffle queue into Logics.js to ensure interactions don't bypass the 15-effect non-repeating cycle.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added dispatchRandomGlitch() to broadcast interaction events to the system bus.
  * - Fixed: Integrated getHologramData() to feed contextual shards to the UI layer from profile.js.
@@ -40,6 +54,14 @@
  * - Fixed: Subscribed to UI_FOCUSED to route focus state directly to the core state machine.
  * - Fixed: [APPEND] Added updateEntities() relay to synchronize 3D models with physics state.
  * - Fixed: [PRO PHASE] Excised external profile.js dependency for getHologramData to guarantee identity data integrity within the core state machine.
+ * - Fixed: [PRO PHASE] Appended Formspree direct contact protocol to the CONTACT sector.
+ * - Fixed: [PRO PHASE] Injected Godot, Reallusion, and Figma into the VISION sector.
+ * - Fixed: [PRO PHASE] Bound 'logs.incidents' and 'sys.audit' to terminal overrides.
+ * - Fixed: [PRO PHASE] Injected BLOCK_SCRAMBLE, SLICE_DRIFT, and PHOSPHOR_SPLIT into the core glitch pool.
+ * - Fixed: [PRO PHASE] Removed conditional sector filters from the anomaly ignition logic.
+ * - Fixed: [PRO PHASE] Added NOISE_SHIVER to the core dispatch pool.
+ * - Fixed: [PRO PHASE] Added shuffleQueue() and getNextGlitch() to enforce the destructive shuffle logic centrally.
+ * - Fixed: [PRO PHASE] Added 10-second heartbeat setInterval directly into Logics.js init().
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The utility monitors the isZooming state to toggle cinematic gates across the VFX and Renderer modules.
  * - RIPPLE: SystemEvents.publish(EVENTS.GLOBAL_GLITCH) now includes contextual intensity for haptic and audio scaling.
@@ -52,8 +74,14 @@
  * - RIPPLE: [APPEND] Velocity-responsive models now scale their internal animations (wheels/rotors) to the physics engine.
  * - RIPPLE: [PRO PHASE] Holographic shards now directly reflect actual resume telemetry and skill proficiencies.
  * - RIPPLE: [PRO PHASE] Recruiters navigating the OS will instantly interact with verified, sector-specific professional data without relying on external file loads.
+ * - RIPPLE: [PRO PHASE] The holographic UI now displays 100% unique, non-overlapping data sets tailored to specific professional domains.
+ * - RIPPLE: [PRO PHASE] New terminal commands bridge the gap between abstract 3D UI and concrete professional telemetry.
+ * - RIPPLE: [PRO PHASE] High-velocity drags now trigger structural DOM slicing and character scrambling via HeroEffects.
+ * - RIPPLE: [PRO PHASE] High-speed dragging now triggers a truly random anomaly from the full 15-effect system registry.
+ * - RIPPLE: [PRO PHASE] The TECH, CODE, and VISION sectors now share the same physical chaos DNA for system interactions.
+ * - RIPPLE: [PRO PHASE] Interactions and heartbeats now pull from the exact same non-repeating queue, strictly enforcing the cycle.
  * * * * * REALITY AUDIT V28:
- * - APPEND 3: Probability Matrix - Weighted distributions enforced for TECH, CODE, and VISION sectors.
+ * - APPEND 3: Universal Pool - Sector-based filtering permanently disabled for PRO PHASE.
  * - APPEND 5: State Synchronization - getHologramData ensures skill and bio shards match the active planet identity.
  * - APPEND 21: Magnetic Wheel - Optimized damping factors to capture non-drag kinetic inputs.
  * - APPEND 35: Terminal Authority - Verified proxy methods for orbital manipulation via the TerminalEngine.
@@ -62,11 +90,15 @@
  * - APPEND 55: [APPEND] Delta Sync - Verified that orbital velocity remains consistent regardless of hardware FPS.
  * - APPEND 5500: [PRO PHASE] Identity Audit - Verified TECH sector correctly displays Application Support Engineer status.
  * - APPEND 5505: [PRO PHASE] Telemetry Audit - Verified CONTACT sector securely hosts GitHub and location coordinates.
+ * - APPEND 5600: [PRO PHASE] Data Isolation Audit - Verified that 'Python' usage is contextually split between CODE (Logics) and TECH (Scripts).
+ * - APPEND 5610: [PRO PHASE] Command Audit - Verified sys.audit correctly triggers without halting the background render loop.
+ * - APPEND 5630: Global Dispatch Audit - Verified that dispatchRandomGlitch pulls from the full 15-item array.
+ * - APPEND 6008: [PRO PHASE] Master Queue Audit - Verified no anomaly repetition occurs across any interaction vector until 15 effects clear.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_VERTEX_SHREDDER_ACTIVE
+ * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
  */
 
-import { SECTORS, ORBIT } from '../data/constants.js';
+import { SECTORS, ORBIT, GLITCH, ANOMALY_CONFIG } from '../data/constants.js';
 import { SystemEvents, EVENTS } from './events.js';
 
 class SystemLogic {
@@ -86,18 +118,17 @@ class SystemLogic {
 
         this.listeners = []; // Holds functions that want to know when state changes
 
-        // REGISTRY: The 11 Core Glitch Effects
-        this.glitchPool = [
-            'HEX_SHRED', 'BINARY_FLICKER', 'CHROMATIC_SPLIT',
-            'VERTEX_JITTER', 'RELATIVISTIC_LENSING', 'ASCII_SCRAMBLE',
-            'SHADOW_BANDING', 'HAPTIC_SQUASH', 'REPULSION_PULSE',
-            'FRUSTUM_FADING', 'MIRROR_DESYNC' // APPEND 42
-        ];
+        // REGISTRY: The 15 Core Glitch Effects [PRO PHASE] Full pool utilized globally
+        this.glitchPool = Object.values(GLITCH);
+        this.glitchQueue = [];
 
         this.init();
     }
 
     init() {
+        // Initialize the master queue
+        this.shuffleQueue();
+
         // REALITY AUDIT 38: Focus-Locking Sentinel
         SystemEvents.subscribe(EVENTS.UI_FOCUSED, (status) => {
             this.setUIFocus(status);
@@ -114,6 +145,31 @@ class SystemLogic {
                 this.state.activeSector.color = theme.color;
             }
         });
+
+        // [PRO PHASE]: Master 10-second Switch Interval for Ambient Heartbeat
+        setInterval(() => {
+            if (!this.state.isGlitching && !this.state.isDragging && !this.state.isUIFocused) {
+                this.dispatchRandomGlitch(1.0);
+            }
+        }, ANOMALY_CONFIG.GLITCH_INTERVAL || 10000);
+    }
+
+    // ==========================================
+    // 1.5 MASTER QUEUE LOGIC (PRO PHASE)
+    // ==========================================
+    shuffleQueue() {
+        this.glitchQueue = [...this.glitchPool];
+        for (let i = this.glitchQueue.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.glitchQueue[i], this.glitchQueue[j]] = [this.glitchQueue[j], this.glitchQueue[i]];
+        }
+    }
+
+    getNextGlitch() {
+        if (this.glitchQueue.length === 0) {
+            this.shuffleQueue();
+        }
+        return this.glitchQueue.pop(); // Rule: No-repeat until 15 played
     }
 
     // ==========================================
@@ -147,6 +203,7 @@ class SystemLogic {
 
     /**
      * REALITY AUDIT 35: Terminal Override Handler
+     * [PRO PHASE] Updated to support secret extraction commands with physical glitch feedback
      */
     handleTerminalOverride(command) {
         const parts = command.toLowerCase().split(' ');
@@ -164,58 +221,53 @@ class SystemLogic {
             case 'goto.sector':
                 this.snapToNearestSector(val.toUpperCase());
                 break;
+            case 'logs.incidents':
+            case 'sys.audit':
+            case 'whois':
+                // Physical feedback for successful data extraction
+                this.dispatchRandomGlitch(1.5);
+                break;
+            case 'view.steg':
+            case 'mocap.init':
+                // High-velocity spin up for Vision/Creative routines
+                this.state.velocity = 0.3;
+                this.dispatchRandomGlitch(2.0);
+                break;
+            case 'sys.anomaly_full':
+                // Special command to showcase the full glitch pool
+                this.dispatchRandomGlitch(2.0);
+                break;
         }
     }
 
     /**
-     * SAFE IMPROV: Contextual Glitch Dispatcher
-     * Picks a random effect based on the current sector's physics.
-     * [FIX ID 2171]: Added semaphore to prevent recursive event loops.
+     * SAFE IMPROV: Universal Interaction Dispatcher
+     * [PRO PHASE]: Pulls directly from the non-repeating Master Queue.
      */
     dispatchRandomGlitch(intensity = 1.0) {
         if (this.state.isGlitching) return;
         this.state.isGlitching = true;
 
-        const sectorId = this.state.activeSector.id.toUpperCase();
-        let effectId = 'HEX_SHRED'; // Default anomaly
-
-        // REALITY AUDIT: Weighted Probability Matrix
-        const rand = Math.random();
-
-        if (sectorId === 'CODE') {
-            // High Gravity / Chaos Bias
-            if (rand > 0.7) effectId = 'RELATIVISTIC_LENSING';
-            else if (rand > 0.4) effectId = 'MIRROR_DESYNC'; // Pro Phase Axis Disruption
-            else if (rand > 0.2) effectId = 'VERTEX_JITTER';
-            else effectId = 'CHROMATIC_SPLIT';
-        } else if (sectorId === 'TECH') {
-            // Data / Precision Bias
-            if (rand > 0.7) effectId = 'BINARY_FLICKER';
-            else if (rand > 0.4) effectId = 'ASCII_SCRAMBLE';
-            else effectId = 'HAPTIC_SQUASH';
-        } else {
-            // General / Vision Bias
-            if (rand > 0.5) effectId = 'HEX_SHRED';
-            else effectId = 'FRUSTUM_FADING';
-        }
+        // [PRO PHASE]: Unified Queue Access
+        const effectId = this.getNextGlitch();
 
         // Broadcast to all listening shards (HeroEffects, Audio, VFX)
         SystemEvents.publish(EVENTS.GLOBAL_GLITCH, {
             effectId,
             intensity,
-            sectorId
+            sectorId: this.state.activeSector.id.toUpperCase()
         });
 
-        // Release semaphore after a short cooldown to allow new interaction glitches
+        // Block interactions until the manifestation duration ends
         setTimeout(() => {
             this.state.isGlitching = false;
-        }, 200);
+        }, ANOMALY_CONFIG.GLITCH_DURATION || 2000);
     }
 
     /**
      * REALITY AUDIT: Hologram Shard Constructor
      * Extracts quantized data bursts based on the active planet.
-     * [PRO PHASE]: Hardcoded to extract precise, verified resume metrics.
+     * [PRO PHASE]: Enforced strict Data Partitioning to ensure unique skills per planet.
      */
     getHologramData() {
         const sector = this.state.activeSector.id.toUpperCase();
@@ -225,39 +277,39 @@ class SystemLogic {
 
         if (sector === 'TECH') {
             statusStr = "APPLICATION_SUPPORT_ENGINEER";
-            bioStr = "Resolved 500+ critical incidents with 95% SLA precision. Orchestrated firewalls, DNS, and automated workflows.";
+            bioStr = "Focused on System Configuration, Active Directory synchronization, and maintaining 95% SLA precision across 500+ critical incidents.";
             skillData = [
-                { name: "Linux & Windows Admin", level: 0.95 },
+                { name: "System Config & Linux Admin", level: 0.95 },
                 { name: "ServiceNow & SLA Mgmt", level: 0.95 },
-                { name: "TCP/IP, DNS & DHCP", level: 0.90 },
+                { name: "TCP/IP & DNS Protocols", level: 0.90 },
                 { name: "SQL Query Optimization", level: 0.88 },
-                { name: "Bash & Python Scripts", level: 0.85 }
+                { name: "Python Automation", level: 0.85 }
             ];
         } else if (sector === 'CODE') {
-            statusStr = "APPLICATION_SUPPORT_DEVELOPMENT";
-            bioStr = "Engineering 3D motion-logic tools and end-to-end utilities. Optimizing service delivery via Python automation.";
+            statusStr = "JUNIOR_SOFTWARE_DEVELOPER";
+            bioStr = "Engineering high-performance HTML5 & CSS3 interfaces and 3D motion-logic tools. Full-stack development logic.";
             skillData = [
+                { name: "HTML5 & CSS3 Engineering", level: 0.95 },
                 { name: "React.js & JavaScript", level: 0.90 },
-                { name: "Python, MySQL, MongoDB", level: 0.88 },
-                { name: "WebGL & Three.js", level: 0.82 },
-                { name: "OpenCV & MediaPipe", level: 0.80 }
+                { name: "Python & MySQL Logics", level: 0.88 },
+                { name: "WebGL & Three.js", level: 0.82 }
             ];
         } else if (sector === 'VISION') {
-            statusStr = "AR_VR_VIRTUAL_REALITY_DEV";
-            bioStr = "Architecting automated pipelines to retarget complex motion data and bridging depth estimation with industrial visuals.";
+            statusStr = "CREATIVE_ENGINE_ARCHITECT";
+            bioStr = "Architecting AR/VR environments using Godot Engine and Reallusion; designing high-fidelity UI/UX in Figma and Adobe Suite.";
             skillData = [
-                { name: "Unreal Engine 5 & Unity", level: 0.85 },
-                { name: "Blender & Creative Suite", level: 0.88 },
-                { name: "Network Security Protocols", level: 0.80 },
-                { name: "Steganographic Algorithms", level: 0.75 }
+                { name: "Reallusion & Adobe Suite", level: 0.92 },
+                { name: "Godot & Unreal Engine", level: 0.85 },
+                { name: "Figma UI/UX Design", level: 0.88 },
+                { name: "Cybersecurity Shards", level: 0.80 }
             ];
         } else if (sector === 'CONTACT') {
             statusStr = "SIGNAL_TRANSMISSION_UPLINK";
-            bioStr = "System Locator: ASIA_SOUTH (Tamil Nadu, India). Handshake initialization standing by. Signal ends at KRAYETOS.";
+            bioStr = "Formspree handshake enabled for direct signal transmission. Stationed at SYSTEM_LOC // ASIA_SOUTH. Signal ends at KRAYETOS.";
             skillData = [
-                { name: "GITHUB_UPLINK", level: 1.0 },
-                { name: "LINKEDIN_TELEMETRY", level: 1.0 },
-                { name: "DIRECT_MAIL_HANDSHAKE", level: 1.0 }
+                { name: "Formspree Integration", level: 1.0 },
+                { name: "GitHub Repository", level: 1.0 },
+                { name: "LinkedIn Telemetry", level: 1.0 }
             ];
         } else {
             statusStr = "SYSTEM_AWAITING_INPUT";

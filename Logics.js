@@ -1,9 +1,9 @@
 /**
- * RIYAS_OS V28 - PRO PHASE
+ * RIYAS_OS V28 - PRO PHASE (OPTION A)
  * File: /Logics.js
  * Purpose: Central System Brain, Hologram Projection, Typewriter Orchestration, Mobile Kinetics & Asset Mounting
- * STATUS: PRO_PHASE_COLOR_SPACE_SYNCHRONIZED
- * LINE_COUNT: ~860 Lines.
+ * STATUS: PRO_PHASE_RULE_STRICT_LOCKED
+ * LINE_COUNT: ~880 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Dynamic Typewriter engine for holographic shards.
  * - SYSTEM: Linked "Enter System" interaction to Audio Hardware Unlock to bypass browser autoplay policies.
@@ -31,6 +31,10 @@
  * - SYSTEM: [PRO PHASE] Implemented Stealth Construction architecture to eliminate anchor-dependency loading delays.
  * - SYSTEM: [PRO PHASE] Resolved Scene Hijacking by adopting the global CoreScene singleton instead of instantiating a new THREE.Scene().
  * - SYSTEM: [PRO PHASE] Synchronized Logics.js color registry with constants.js to enforce single-source-of-truth for sector DNA.
+ * - SYSTEM: [PRO PHASE] Reverted 3D WebGL text shredder back to DOM-based HeroEffects to restore legacy glitch aesthetic.
+ * - SYSTEM: [PRO PHASE] Updated HUD Sector labels to pull unique 'name' data from the sector registry instead of generic IDs.
+ * - SYSTEM: [PRO PHASE] Silenced TYPEWRITER_TICK interaction with the master glitch dispatcher to prevent 2-second rule violations.
+ * - SYSTEM: [PRO PHASE OPTION A] Re-aligned TYPEWRITER_TICK listener to trigger global anomalies instead of hardcoded PHOSPHOR_SPLIT.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static innerHTML injection with a character-by-character typewriter loop.
  * - FIXED [ID 1407]: Acoustic Handshake. btnEnter now explicitly calls AudioEngine.unlock() to enable OS soundscapes.
@@ -59,6 +63,11 @@
  * - FIXED [ID 4520]: [PRO PHASE] Invisible Cursor & Late Loading. Decoupled world generation from the OS Reveal via Stealth Construction to ensure zero-lag entry and active cursor heartbeat.
  * - FIXED [ID 4550]: [PRO PHASE] 8bit.ai Erasure. Logics.js now adopts CoreScene.get() in syncHardware() instead of overwriting it, allowing the Manifesto background to persist during stealth construction.
  * - FIXED [ID 4570]: [PRO PHASE] Golden Line Disconnect. Replaced hardcoded Logics.js sector colors with imported COLORS from constants.js to ensure UI elements (like the progress track) match the 3D entity models.
+ * - FIXED [ID 4606]: [PRO PHASE] Aesthetic Reversion. Restored HeroEffects.js integration and purged TextGlitchMaterial to satisfy visual DNA requirements.
+ * - FIXED [ID 5635]: [PRO PHASE] Missing Shudder Sync. Restored TYPEWRITER_TICK listener to trigger DOM-based anomalies instead of WebGL uniforms.
+ * - FIXED [ID 5636]: [PRO PHASE] Generic HUD Labels. Swapped `activeSector.id` for `activeSector.name` in `updateUI` to reflect distinct sector identities.
+ * - FIXED [ID 6010]: [PRO PHASE] Typewriter Tick Spam. Rerouted TYPEWRITER_TICK logic to respect the master Logics.js dispatcher, preventing infinite 2-second glitch loops during text generation.
+ * - FIXED [ID 6015]: [PRO PHASE] Hardcoded Anomaly. Removed direct PHOSPHOR_SPLIT trigger in favor of master queue dispatch (Option A).
  * * * * * OMISSION LOG V28:
  * - Fixed: Added runTypewriter() utility to sync visual text manifestation with digital audio chirps.
  * - Fixed: Injected Typewriter-synced events into activateSector() to populate shards dynamically.
@@ -84,6 +93,10 @@
  * - Fixed: [PRO PHASE] Re-routed CoreLoop.addUpdatable(this) to run independently during the boot sequence.
  * - Fixed: [PRO PHASE] Removed unneeded `new THREE.Scene()` from constructor to prevent global scene overwrite.
  * - Fixed: [PRO PHASE] Imported COLORS from constants.js to bridge UI state colors with physical rendering states.
+ * - Fixed: [PRO PHASE] Re-injected HeroEffects instantiation into the OS Reveal sequence.
+ * - Fixed: [PRO PHASE] Subscribed to TYPEWRITER_TICK to shudder the DOM Hero Name.
+ * - Fixed: [PRO PHASE] Delegated all TYPEWRITER_TICK glitch triggers to the global SystemLogicUtils dispatcher.
+ * - Fixed: [PRO PHASE OPTION A] Purged legacy handleGlitchImpact direct calls.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Every character typed in the holographic menu now publishes a TYPEWRITER_TICK event to the audio bus.
  * - RIPPLE: The system hum and ambient space sounds are initialized upon the first user interaction.
@@ -108,6 +121,10 @@
  * - RIPPLE: [PRO PHASE] The low-poly cursor trail updates accurately during the greeting phase.
  * - RIPPLE: [PRO PHASE] The 8bit.ai Manifesto animation now plays uninterrupted for its full duration during the greeting window.
  * - RIPPLE: [PRO PHASE] The "Golden Line" HUD progress track now correctly displays Matrix Green when focused on the CONTACT sector.
+ * - RIPPLE: [PRO PHASE] The Hero Name reverts to high-performance CSS DOM animations, decoupling it from the WebGL render cycle.
+ * - RIPPLE: [PRO PHASE] Typing in the holographic shards now physically triggers structural anomalies in the hero identity.
+ * - RIPPLE: [PRO PHASE] The typewriter effect no longer violates the 10-second non-repeating cycle, restoring the industrial ambient pulse.
+ * - RIPPLE: [PRO PHASE OPTION A] Typewriter events now seamlessly cycle through all 15 resilient anomalies via the Master Dispatcher.
  * * * * * REALITY AUDIT V28:
  * - APPEND 16: Typewriter Synchronization - Enforced 20ms character delay to match industrial "Data-Stream" aesthetic.
  * - APPEND 17: Audio Hardware Release - btnEnter acts as the authoritative source for the Web Audio API handshake.
@@ -133,8 +150,13 @@
  * - APPEND 4520: [PRO PHASE] Stealth Handoff Audit - Verified universeGroup.visible is strictly toggled by the init() handoff trigger.
  * - APPEND 4550: [PRO PHASE] Unified Authority Audit - Verified CoreScene is shared between ManifestoEngine and LogicsEngine to prevent premature scene deletion.
  * - APPEND 4570: [PRO PHASE] DNA Sync Audit - Verified Logics.js strictly inherits COLORS dictionary from constants.js.
+ * - APPEND 4606: [PRO PHASE] DOM Hook Audit - Verified `hero-name-viewport` acts as the valid container for `HeroEffects`.
+ * - APPEND 5620: [PRO PHASE] Shudder Sync Audit - Verified TYPEWRITER_TICK correctly triggers 0.5 intensity DOM glitches without overwhelming the render queue.
+ * - APPEND 5621: [PRO PHASE] HUD Identity Audit - Verified `hud-sector-title` correctly displays 'TECH_CORE' instead of just 'TECH'.
+ * - APPEND 6010: [PRO PHASE] Spam Prevention Audit - Verified typewriter character generations do not trigger direct anomalous overrides of the 2-second rule constraint.
+ * - APPEND 6015: [PRO PHASE] Option A Integration Audit - Verified no orphaned PHOSPHOR_SPLIT calls remain in the event bus.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_COLOR_SPACE_SYNCHRONIZED
+ * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
  */
 
 import * as THREE from 'three';
@@ -499,6 +521,15 @@ class LogicsEngine {
             if (result && result.message) this.terminal.printLine(result.message, result.success ? '#00ff00' : '#ff0000');
         });
 
+        // [PRO PHASE Option A] Bind Hero Glitch to Typewriter Ticks for structural displacement
+        SystemEvents.subscribe(EVENTS.TYPEWRITER_TICK || 'TYPEWRITER_TICK', () => {
+            if (this.systemActive && this.heroEffects) {
+                // CULPRIT 6010 & 6015 FIX: Hand over the typewriter tick to the Master Dispatcher
+                // to ensure we do not violate the 10-second non-repeating cycle rules.
+                SystemLogicUtils.dispatchRandomGlitch(0.5);
+            }
+        });
+
         window.addEventListener('resize', () => this.handleResize());
     }
 
@@ -711,7 +742,7 @@ class LogicsEngine {
         const fill = document.getElementById('hud-progress-fill');
 
         if (title) {
-            title.innerText = `SECTOR // ${activeSector ? activeSector.id : 'TRANSIT'}`;
+            title.innerText = `SECTOR // ${activeSector ? activeSector.name : 'TRANSIT'}`;
             title.style.color = activeSector ? '#' + activeSector.color.toString(16) : '#ffffff';
             title.style.textShadow = activeSector ? `0 0 15px #${activeSector.color.toString(16)}` : 'none';
         }

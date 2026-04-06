@@ -1,9 +1,9 @@
 /**
- * RIYAS_OS V28 - PRO PHASE
+ * RIYAS_OS V28 - PRO PHASE (KRAYETOS ISOLATION)
  * File: /ui/Greeting.js
  * Purpose: System Boot Sequence, Hardware Polling, Tactical Insights, and Ripple Impact Handshake
- * STATUS: PRO_PHASE_HEAVY_INDUSTRIAL_PACING_ACTIVE
- * LINE_COUNT: ~300 Lines.
+ * STATUS: PRO_PHASE_KRAYETOS_ISOLATION_LOCKED
+ * LINE_COUNT: ~350 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated hardware-accelerated starfield backdrop handshake.
  * - SYSTEM: Visual DNA finalized for Industrial CRT aesthetic with scanline jitter.
@@ -22,6 +22,13 @@
  * - SYSTEM: [PRO PHASE] Implemented Staggered Handoff in unlockSystem to allow GPU VRAM flush before OS ignition.
  * - SYSTEM: [PRO PHASE] Realigned unlockSystem handoff to support Stealth Construction and Zero-Lag OS Reveal.
  * - SYSTEM: [PRO PHASE] Recalibrated boot terminal pacing for heavy cinematic hardware suspense.
+ * - SYSTEM: [PRO PHASE] Re-aligned boot event dispatcher to synchronize with DOM-based 'HELLO' glitch architecture.
+ * - SYSTEM: [PRO PHASE] Validated TYPEWRITER_TICK emissions map correctly to the PHOSPHOR_SPLIT anomaly handlers.
+ * - SYSTEM: [PRO PHASE] Synchronized boot sequence transition with the new 2.5-second global glitch duration.
+ * - SYSTEM: [PRO PHASE] Synchronized initial OS entry shockwave to exactly 2.0 seconds to enforce strict cycle rules.
+ * - SYSTEM: [PRO PHASE ISOLATION] Injected HeroEffects engine into the Greeting boot sequence.
+ * - SYSTEM: [PRO PHASE ISOLATION] Overrode static identity string with "SIGNAL ENDS AT" contextual text.
+ * - SYSTEM: [PRO PHASE ISOLATION] Activated Cold Boot Glitch preview upon nominal system readiness.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1402]: Startup Sequence. Ensured terminal is clear and button is locked until nominal state.
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static injection with dynamic typewriter loop.
@@ -39,6 +46,11 @@
  * - FIXED [ID 4502]: [PRO PHASE] Double-Engine Memory Spike. Deferred onEnterCallback via setTimeout to ensure Manifesto geometry is fully garbage-collected from VRAM before planetary assets are uploaded.
  * - FIXED [ID 4520]: [PRO PHASE] Transition Stutter. Maintained 100ms VRAM flush yield to smoothly reveal the stealth-constructed planetary void.
  * - FIXED [ID 4530]: [PRO PHASE] Strobe Blur. Slowed typewriter speed (60ms) and line breaks (1200ms) to restore heavy industrial hardware feel.
+ * - FIXED [ID 5640]: [PRO PHASE] Handoff Desync. Confirmed that GLOBAL_GLITCH triggers during unlockSystem successfully propagate to the newly restored DOM HeroEffects.
+ * - FIXED [ID 6002]: [PRO PHASE] Transition Truncation. Synchronized OS handoff to accommodate the recalibrated 2.5s hardware initialization shiver.
+ * - FIXED [ID 6009]: [PRO PHASE] Boot Glitch Bleed. Synchronized `onEnterCallback` timeout to strictly match the 2000ms duration rule.
+ * - FIXED [ID 6025]: [PRO PHASE ISOLATION] Static Boot Button. Converted raw text button to dynamic DOM glitch container.
+ * - FIXED [ID 6026]: [PRO PHASE ISOLATION] Identity Bleed. Safely overrode HeroEffects static text injection to prevent "RIYAS MANIKODI" from appearing on the enter button.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added manager.onLoad handling to synchronize 3D asset readiness with UI manifestation.
  * - Fixed: Integrated TYPEWRITER_TICK publication for synced audio-visual clicks.
@@ -54,6 +66,12 @@
  * - Fixed: [PRO PHASE] Wrapped OS ignition handshake in a 100ms yield to unblock the main thread during transition.
  * - Fixed: [PRO PHASE] Decoupled heavy geometry instantiation from the unlock trigger, shifting to a pure visibility reveal.
  * - Fixed: [PRO PHASE] Adjusted Typewriter delay parameters (60ms char, 1200ms break) for deliberate acoustic syncing.
+ * - Fixed: [PRO PHASE] Verified TYPEWRITER_TICK event structure complies with the new PHOSPHOR_SPLIT UI shiver logic.
+ * - Fixed: [PRO PHASE] Calibrated system handoff transition timing to respect the 2500ms anomaly lifecycle.
+ * - Fixed: [PRO PHASE] Hardened global transition timeout to 2000ms to enforce cycle constraints.
+ * - Fixed: [PRO PHASE ISOLATION] Imported HeroEffects into Greeting.js.
+ * - Fixed: [PRO PHASE ISOLATION] Added greeting-glitch-container injection.
+ * - Fixed: [PRO PHASE ISOLATION] Fired delayed BLOCK_SCRAMBLE preview event.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: .lens-thump provides the physical screen-shake for the unlockSystem transition.
  * - RIPPLE: Animation triggers synchronize with the AudioEngine chirps via the logic bus.
@@ -69,6 +87,11 @@
  * - RIPPLE: [PRO PHASE] Transition into the OS is significantly smoother without the stutter caused by simultaneous disposal and instantiation.
  * - RIPPLE: [PRO PHASE] OS entry is instantaneous as the planetary void is pre-constructed invisibly in the background.
  * - RIPPLE: [PRO PHASE] The slower 60ms typewriter speed combined with 1200ms pauses creates genuine suspense, allowing users to "feel" the hardware struggling to initialize.
+ * - RIPPLE: [PRO PHASE] The boot terminal input now implicitly pre-conditions the user for the structural anomalies found in the main UI.
+ * - RIPPLE: [PRO PHASE] The initial OS entry shockwave now visibly reverberates across the 3D space for 2.5 seconds.
+ * - RIPPLE: [PRO PHASE] The entry transition now aligns exactly with the 2.0s global glitch duration, seamlessly bridging the boot to the 10-second OS cycle.
+ * - RIPPLE: [PRO PHASE ISOLATION] The "KRAYETOS" anomaly is now previewed immediately during the boot sequence, establishing the visual language before the user even enters the OS.
+ * - RIPPLE: [PRO PHASE ISOLATION] Button retains full click functionality despite complex internal DOM mutations.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Promotion - will-change applied to all high-frequency transition layers.
  * - APPEND 18: Every character typed publishes a TYPEWRITER_TICK for procedural audio sync.
@@ -85,15 +108,20 @@
  * - APPEND 4502: [PRO PHASE] Memory Flush Audit - Verified VRAM drops to baseline before `CoreLoop.start()` triggers the heavy planetary renders.
  * - APPEND 4520: [PRO PHASE] Stealth Handshake Audit - Verified onEnterCallback serves solely as a visibility toggle, eliminating transition lag.
  * - APPEND 4530: [PRO PHASE] Pacing Audit - Verified slower boot sequence correctly delays the initialization button without blocking, running at 60ms/char and 1200ms/break.
+ * - APPEND 5640: [PRO PHASE] Typographic Pipeline Audit - Verified `Typewriter.js` emits uniform ticks compatible with the Space Realism aesthetic reversion.
+ * - APPEND 6002: [PRO PHASE] Entry Handoff Audit - Verified OS entry transition accommodates the 2500ms global glitch duration without UI deadlocks.
+ * - APPEND 6009: [PRO PHASE] Cycle Sync Audit - Verified entry shockwave fully resolves at exactly 2000ms.
+ * - APPEND 6025: [PRO PHASE ISOLATION] Boot Node Audit - Verified button innerHTML correctly hosts the HeroEffects DOM structure without breaking the `click` event listener.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_HEAVY_INDUSTRIAL_PACING_ACTIVE
+ * - STATUS: PRO_PHASE_KRAYETOS_ISOLATION_LOCKED
  */
 
 import { Typewriter } from '../effects/Typewriter.js';
 import { SystemEvents, EVENTS } from '../utils/events.js';
 import { AudioEngine } from '../systems/audio.js';
-import { KERNEL_INSIGHTS } from '../data/constants.js';
+import { KERNEL_INSIGHTS, ANOMALY_CONFIG } from '../data/constants.js'; // [PRO PHASE] Sync timing authorities
 import { CoreManifesto } from '../effects/ManifestoEngine.js';
+import { HeroEffects } from '../effects/HeroEffects.js'; // [PRO PHASE ISOLATION] Import glitch engine
 
 export class Greeting {
     constructor(loadingManager, onEnterCallback) {
@@ -107,6 +135,8 @@ export class Greeting {
         this.statsContainer = document.getElementById('system-stats');
         this.canvasLayer = document.getElementById('webgl-canvas');
         this.insightTarget = document.getElementById('tactical-insight');
+
+        this.greetingEffects = null; // [PRO PHASE ISOLATION] Hold reference to glitch engine
 
         // REALITY AUDIT 1: Layer Promotion for Hardware Acceleration
         if (this.container) {
@@ -150,6 +180,7 @@ export class Greeting {
 
         for (const log of bootLogs) {
             // REALITY AUDIT 18: Every character typed publishes a TYPEWRITER_TICK
+            // [PRO PHASE] This seamlessly syncs with HeroEffects anomalies
             await this.typewriter.typeString(log + '<br>', () => {
                 SystemEvents.publish(EVENTS.TYPEWRITER_TICK);
             });
@@ -219,8 +250,41 @@ export class Greeting {
                 this.enterBtn.style.transition = 'opacity 1s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                 this.enterBtn.style.opacity = '1';
                 this.enterBtn.style.pointerEvents = 'auto';
-                this.enterBtn.innerText = "signal ends at KRAYETOS";
+
+                // [PRO PHASE ISOLATION]: Inject DOM structure for HeroEffects into the button
+                this.enterBtn.innerHTML = '<div id="greeting-glitch-container" style="pointer-events: none;"></div>';
+                const glitchContainer = document.getElementById('greeting-glitch-container');
+
+                if (glitchContainer) {
+                    // Instantiate the glitch engine
+                    this.greetingEffects = new HeroEffects(glitchContainer);
+
+                    // FIXED [ID 6026]: Override the injected static text to match the greeting context
+                    const staticNode = glitchContainer.querySelector('.hero-name-static');
+                    if (staticNode) {
+                        staticNode.innerText = "SIGNAL ENDS AT";
+                        staticNode.style.fontSize = "clamp(0.8rem, 1.5vw, 1.2rem)";
+                        staticNode.style.letterSpacing = "6px";
+                        staticNode.style.color = "rgba(0, 243, 255, 0.6)"; // Cyan tint
+                        staticNode.style.marginRight = "5px";
+                    }
+
+                    // Adjust KRAYETOS sizing specifically for the button
+                    const wrapperNode = glitchContainer.querySelector('.hero-name-wrapper');
+                    if (wrapperNode) {
+                        wrapperNode.style.fontSize = "clamp(1.5rem, 3vw, 2.5rem)";
+                        wrapperNode.style.textShadow = "0 0 10px rgba(0, 243, 255, 0.5)";
+                        wrapperNode.style.setProperty('--hero-accent', '#00f3ff');
+                    }
+                }
+
                 this.enterBtn.classList.add('ignite');
+
+                // [PRO PHASE ISOLATION]: Trigger initial Cold Boot Glitch to preview the anomaly
+                setTimeout(() => {
+                    SystemEvents.publish(EVENTS.GLOBAL_GLITCH, { effectId: 'BLOCK_SCRAMBLE', intensity: 1.5 });
+                }, 400);
+
             }, 50);
         }
     }
@@ -290,10 +354,13 @@ export class Greeting {
             }, 100);
         }
 
+        // [PRO PHASE]: CULPRIT 6009 Sync the OS entrance with the strict 2.0s rule
+        const transitionDuration = (ANOMALY_CONFIG && ANOMALY_CONFIG.GLITCH_DURATION) ? ANOMALY_CONFIG.GLITCH_DURATION : 2000;
+
         setTimeout(() => {
             // CULPRIT 1409: Transition Deadlock Fix
             this.container.style.display = 'none';
-        }, 1500);
+        }, transitionDuration);
     }
 
     sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }

@@ -1,9 +1,9 @@
 /**
- * RIYAS_OS V28 - PRO PHASE
+ * RIYAS_OS V28 - PRO PHASE (OPTION A)
  * File: /data/constants.js
- * Purpose: Global DNA, Performance Weighting, and Hardware Tiering
- * STATUS: PRO_PHASE_VERTEX_SHREDDER_ACTIVE
- * LINE_COUNT: ~270 Lines.
+ * Purpose: Global DNA, Performance Weighting, and Anomaly Timing Registry
+ * STATUS: PRO_PHASE_RULE_STRICT_LOCKED
+ * LINE_COUNT: ~325 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Global DNA registry finalized. Unified sector mapping and brand color-space established.
  * - SYSTEM: Transitioned from image-based assets to mathematical procedural geometry for the cursor.
@@ -21,6 +21,20 @@
  * - SYSTEM: [PRO PHASE] Synchronized COLORS dictionary to enforce a single source of truth for all modules.
  * - SYSTEM: [PRO PHASE] Injected Application Support engineering metrics into KERNEL_INSIGHTS.
  * - SYSTEM: [PRO PHASE] Injected SHRED_CONFIG to centralize vertex displacement logic for 3D typography.
+ * - SYSTEM: [PRO PHASE] Synchronized KERNEL_INSIGHTS with strictly partitioned planetary data.
+ * - SYSTEM: [PRO PHASE] Injected 'System Configuration', 'HTML5/CSS3', 'Godot', and 'Formspree' lore.
+ * - SYSTEM: [PRO PHASE] Configured HOVER_WARP_INTENSITY for 'Cathode Influx' terminal effect.
+ * - SYSTEM: [PRO PHASE] Reverted typography engine to DOM-based HeroEffects to restore Space Realism.
+ * - SYSTEM: [PRO PHASE] Injected "HELLO" sequence anomaly thresholds (Block Scramble, Slice Drift, Phosphor Split).
+ * - SYSTEM: [PRO PHASE] Configured ANOMALY_CONFIG parameters for character scrambling and structural slicing.
+ * - SYSTEM: [PRO PHASE] Calibrated global anomaly duration to a sustained 4.0-second lifecycle.
+ * - SYSTEM: [PRO PHASE] Recalibrated glitch duration to 2.5 seconds to balance structural tears with visual stability.
+ * - SYSTEM: [PRO PHASE] Calibrated switching interval to 10.0 seconds.
+ * - SYSTEM: [PRO PHASE] Expanded anomaly pool to 15 unique archetypes.
+ * - SYSTEM: [PRO PHASE] Calibrated glitch duration strictly to 2.0 seconds.
+ * - SYSTEM: [PRO PHASE] Excised BLOCK_SCRAMBLE and PHOSPHOR_SPLIT to resolve 2s rule violations.
+ * - SYSTEM: [PRO PHASE] Engineered DATA_SKEW and LUMA_STUTTER as replacement anomalies.
+ * - SYSTEM: [PRO PHASE] Maintained 15-glitch universal pool integrity.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 05]: Angle Offset Jitter. Enforced strict radians for sector distribution.
  * - FIXED [ID 202]: Color Space Delta. Swapped legacy hex strings for numeric values.
@@ -38,6 +52,14 @@
  * - FIXED [ID 4595]: [PRO PHASE] Golden Line Disconnect. Updated COLORS.VISION to Matrix Green to ensure HUD and Physical Entity (Satellite/Singularity) are aesthetically unified across the entire stack.
  * - FIXED [ID 4605]: [PRO PHASE] Hardcoded Shaders. Abstracted TextGlitchMaterial magic numbers into SHRED_CONFIG for global kinetic tuning.
  * - FIXED [ID 5510]: [PRO PHASE] Generic Lore. Replaced default placeholder tips with Active Directory, SLA, and SQL diagnostic insights.
+ * - FIXED [ID 5605]: [PRO PHASE] Insight Overlap. Purged generic SQL/AD logs to ensure strict sector uniqueness in the boot sequence.
+ * - FIXED [ID 4606]: [PRO PHASE] Aesthetic Reversion. Excised WebGL TextGlitchMaterial references to restore original brand identity.
+ * - FIXED [ID 5631]: [PRO PHASE] Config Orphan. Added DOM-specific glitch timing constants to replace legacy shader uniforms.
+ * - FIXED [ID 6001]: [PRO PHASE] Transient Anomalies. Centralized glitch duration to 4000ms to ensure structural deformations remain legible.
+ * - FIXED [ID 6005]: [PRO PHASE] Timing Desync. Synchronized GLITCH_DURATION (2500) and GLITCH_INTERVAL (10000) to match the 15-effect non-repeating cycle.
+ * - FIXED [ID 6008]: [PRO PHASE] Timing Drift. Locked GLITCH_DURATION precisely to 2000ms to enforce the 2s visual rule.
+ * - FIXED [ID 6015]: [PRO PHASE] Duration Violation. Replaced typewriter-sensitive effects with structural skews and luma stutters.
+ * - FIXED [ID 6016]: [PRO PHASE] Timing Drift. Locked GLITCH_DURATION precisely to 2000ms.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected METEOR_CONFIG to define procedural vertex displacement and ignition thresholds.
  * - Fixed: Added HARDWARE_PROFILES to support Low/Medium/High performance tiers.
@@ -54,6 +76,14 @@
  * - Fixed: [PRO PHASE] Modified COLORS.VISION from 0xffcc00 to 0x0aff0a to resolve color DNA conflict.
  * - Fixed: [PRO PHASE] Added SHRED_CONFIG to manage horizontal band density, slice intensity, and RGB kinetic split.
  * - Fixed: [PRO PHASE] Appended SLA threshold and SQL execution diagnostic strings to KERNEL_INSIGHTS.
+ * - Fixed: [PRO PHASE] Appended HOVER_WARP_INTENSITY and HOVER_BLOOM_STRENGTH to MANIFESTO_CONFIG.
+ * - Fixed: [PRO PHASE] Appended PHOSPHOR_BLEED_DECAY to SHRED_CONFIG.
+ * - Fixed: [PRO PHASE] Injected ANOMALY_CONFIG to govern data corruption density and slice jitter frequency.
+ * - Fixed: [PRO PHASE] Appended BLOCK_SCRAMBLE, SLICE_DRIFT, and PHOSPHOR_SPLIT to the GLITCH registry.
+ * - Fixed: [PRO PHASE] Added GLITCH_DURATION to ANOMALY_CONFIG to serve as the global timing authority.
+ * - Fixed: [PRO PHASE] Added NOISE_SHIVER to the anomaly registry to achieve the 15-effect minimum requirement.
+ * - Fixed: [PRO PHASE] Added GLITCH_INTERVAL to ANOMALY_CONFIG.
+ * - Fixed: [PRO PHASE] Hardcoded GLITCH_DURATION to 2000.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The system is now 100% independent of external cursor assets, increasing boot speed.
  * - RIPPLE: Procedural geometry allows for unique asteroid topography on every system initialization.
@@ -69,6 +99,14 @@
  * - RIPPLE: [PRO PHASE] Changing COLORS.VISION to Matrix Green ensures the Central Singularity (Black Hole Jet) and HUD Progress Track glow correctly without breaking CSS variable inheritance.
  * - RIPPLE: [PRO PHASE] Tuning SHRED_CONFIG now globally adjusts the Valentin-style kinetic text shredding across all physical interactions.
  * - RIPPLE: [PRO PHASE] The boot sequence now provides verified, professional tactical lore, reflecting actual support engineer experience.
+ * - RIPPLE: [PRO PHASE] The boot sequence now acts as a primer for the specific, partitioned professional data the user will encounter.
+ * - RIPPLE: [PRO PHASE] Terminal hover states can now trigger Cathode Influx background warping.
+ * - RIPPLE: [PRO PHASE] System variables now govern physical DOM manipulation rather than WebGL fragment discarding.
+ * - RIPPLE: [PRO PHASE] The "HELLO" glitch sequence runs completely independent of the CoreLoop rendering cycle.
+ * - RIPPLE: [PRO PHASE] The extended 4-second duration allows complex block-scrambling and structural slicing to remain legible during high-velocity drifts.
+ * - RIPPLE: [PRO PHASE] The system now enforces a strict 15-glitch non-repeating cycle.
+ * - RIPPLE: [PRO PHASE] 2.5s glitch duration with 10s intervals establishes a rhythmic, industrial ambient pulse.
+ * - RIPPLE: [PRO PHASE] The visual anomalies now perfectly align with the 2-second rule, eliminating duration drift.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Circular Wraparound - WRAP_LIMIT enforced at 2PI.
  * - APPEND 123: Tier Calibration - Verified Anisotropy limits (4x Low / 16x High).
@@ -86,8 +124,14 @@
  * - APPEND 4595: [PRO PHASE] DNA Propagation Audit - Verified that modifying `COLORS.VISION` securely propagates the `0x0aff0a` integer to `Logics.js` and the physical engine rendering loop.
  * - APPEND 4606: [PRO PHASE] Shader Config Audit - Confirmed SHRED_CONFIG scales vertex displacement boundaries safely within camera frustum.
  * - APPEND 5510: [PRO PHASE] Telemetry Audit - Verified KERNEL_INSIGHTS correctly loads Active Directory and SQL data without overflow.
+ * - APPEND 5600: [PRO PHASE] Insight Audit - Verified KERNEL_INSIGHTS accurately reflect the 4 distinct sector domains.
+ * - APPEND 4606: [PRO PHASE] Aesthetic Audit - Verified configuration parameters map to CSS and JS properties instead of GLSL floats.
+ * - APPEND 5635: [PRO PHASE] Glitch Config Audit - Confirmed ANOMALY_CONFIG provides strict boundaries to prevent DOM layout wrapping.
+ * - APPEND 6001: [PRO PHASE] Duration Audit - Verified that GLITCH_DURATION is securely set to 4000ms across the configuration registry.
+ * - APPEND 6005: [PRO PHASE] Timing Audit - Verified GLITCH_DURATION is securely set to 2500ms and GLITCH_INTERVAL to 10000ms.
+ * - APPEND 6008: [PRO PHASE] Timing Audit - Verified GLITCH_DURATION is securely set to 2000ms.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_VERTEX_SHREDDER_ACTIVE
+ * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
  */
 
 // ==========================================
@@ -204,6 +248,7 @@ export const ASSET_PATHS = {
 // ==========================================
 // 7. GLITCH EFFECT REGISTRY
 // ==========================================
+// [PRO PHASE]: OPTION A Anomaly Registry (15 Unique Effects)
 export const GLITCH = {
     HEX_SHRED: 'HEX_SHRED',
     BINARY_FLICKER: 'BINARY_FLICKER',
@@ -216,9 +261,10 @@ export const GLITCH = {
     REPULSION_PULSE: 'REPULSION_PULSE',
     FRUSTUM_FADING: 'FRUSTUM_FADING',
     MIRROR_DESYNC: 'MIRROR_DESYNC',
-    SIGNAL_NOISE: 'SIGNAL_NOISE',
-    GHOST_ECHO: 'GHOST_ECHO',
-    LENS_WARP: 'LENS_WARP'
+    SLICE_DRIFT: 'SLICE_DRIFT',
+    NOISE_SHIVER: 'NOISE_SHIVER',
+    DATA_SKEW: 'DATA_SKEW',       // [PRO PHASE] Replacement 1
+    LUMA_STUTTER: 'LUMA_STUTTER'  // [PRO PHASE] Replacement 2
 };
 
 // ==========================================
@@ -248,16 +294,19 @@ export const METEOR_CONFIG = {
 // ==========================================
 export const KERNEL_INSIGHTS = [
     "[TIP] Use the Industrial Terminal (`) for direct kernel overrides.",
+    "[INFO] System Configuration: Linux and Active Directory nominal.",
+    "[DATA] HTML5/CSS3 rendering kernels stabilized.",
+    "[STRAT] Godot and Unreal engines initialized for spatial rendering.",
+    "[INFO] Formspree uplink standing by for identity handshake.",
+    "[DATA] SLA threshold at 99.9%—Maintaining system uptime.",
+    "[DEBUG] Secret Shards available via 'logs.incidents' and 'sys.audit'.",
     "[INFO] Liquid Fire cursor response is gated by real-time GPU latency.",
     "[DATA] V28 uses PCFSoftShadowMap for hardware-accelerated realism.",
     "[STRAT] Hold SHIFT while dragging for high-velocity sector orbits.",
-    "[DEBUG] Meteorite core topography is procedurally seeded per session.",
-    "[INFO] 8bit.ai manifesto layers are rendered via dedicated WebGL buffers.",
     "[KERN] Sector DNA is hard-coded to 64-bit industrial identifiers.",
     "[ALRT] Event Horizon drag coefficients exceed standard safety limits.",
-    "[INFO] Active Directory synchronization confirmed.",
-    "[TIP] SLA threshold at 99.9%—Maintaining system uptime.",
-    "[DATA] Analyzing SQL execution plans for Culprit discovery."
+    "[TIP] 10-second cycle detected.",
+    "[INFO] Universal anomaly pool active."
 ];
 
 // ==========================================
@@ -268,10 +317,11 @@ export const MANIFESTO_CONFIG = {
     STREAK_COUNT: isMobile ? 200 : 400, // [PRO PHASE]: Dynamically reduced to prevent GPU contention during boot
     TUNNEL_SEGMENTS: 64,
     BLOOM_STRENGTH: 0.8,  // [PRO PHASE]: Lowered from 1.5 to prevent edge-smearing and strobe fatigue
-    BLOOM_RADIUS: 0.4,
+    HOVER_BLOOM_STRENGTH: 1.2, // [PRO PHASE]: Target bloom for Cathode Influx
     GRAIN_OPACITY: 0.05,
     SCANLINE_DENSITY: 2.0,
     WARP_INTENSITY: 12.0, // [PRO PHASE]: Lowered from 20.0 to prevent visual slingshot effect
+    HOVER_WARP_INTENSITY: 20.0, // [PRO PHASE]: Target intensity for Cathode Influx hover effect
     STREAK_STRETCH_FACTOR: 5.0,
     RADIAL_ACCELERATION: 5.0  // [PRO PHASE]: Lowered from 10.0 to maintain steady, comfortable velocity
 };
@@ -284,5 +334,20 @@ export const SHRED_CONFIG = {
     SLICE_INTENSITY: 8.0,     // Max horizontal displacement multiplier
     SHIVER_SPEED: 10.0,       // Frequency of the X-axis noise
     RGB_OFFSET_STRENGTH: 0.8, // Chromatic aberration distance multiplier
-    DECAY_RATE: 0.05          // Speed at which the glitch fades after trigger
+    DECAY_RATE: 0.05,         // Speed at which the glitch fades after trigger
+    PHOSPHOR_BLEED_DECAY: 0.02 // [PRO PHASE]: Rate of text trailing decay for terminal interactions
+};
+
+// ==========================================
+// 13. DOM SPACE REALISM ANOMALY CONFIG (PRO PHASE)
+// ==========================================
+export const ANOMALY_CONFIG = {
+    GLITCH_DURATION: 2000,        // [PRO PHASE]: Global timing authority for all interaction-based anomalies
+    GLITCH_INTERVAL: 10000,       // [PRO PHASE]: Switching interval locked to 10s
+    ANOMALY_DENSITY: 0.15,        // Probability of a letter scrambling during an effect
+    SCRAMBLE_THRESHOLD: 100,      // Minimum velocity or duration for data corruption
+    GLYPHS: ['█', '▓', '░', 'X', '9', '0', '#', '/', '\\', '-', '+', '='],
+    SLICE_JITTER_SPEED: 50,       // ms between layout tears
+    PHOSPHOR_OPACITY: 0.4,        // Base opacity for RGB split layers
+    GHOST_DELAY: 0.1              // CSS transition delay for phosphor lag
 };
