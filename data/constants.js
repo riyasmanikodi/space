@@ -1,9 +1,9 @@
 /**
- * RIYAS_OS V28 - PRO PHASE (OPTION A)
+ * RIYAS_OS V28 - PRO PHASE (SINGULARITY INTEGRATION)
  * File: /data/constants.js
  * Purpose: Global DNA, Performance Weighting, and Anomaly Timing Registry
- * STATUS: PRO_PHASE_RULE_STRICT_LOCKED
- * LINE_COUNT: ~325 Lines.
+ * STATUS: PRO_PHASE_SINGULARITY_LOCKED
+ * LINE_COUNT: ~385 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Global DNA registry finalized. Unified sector mapping and brand color-space established.
  * - SYSTEM: Transitioned from image-based assets to mathematical procedural geometry for the cursor.
@@ -32,9 +32,12 @@
  * - SYSTEM: [PRO PHASE] Calibrated switching interval to 10.0 seconds.
  * - SYSTEM: [PRO PHASE] Expanded anomaly pool to 15 unique archetypes.
  * - SYSTEM: [PRO PHASE] Calibrated glitch duration strictly to 2.0 seconds.
- * - SYSTEM: [PRO PHASE] Excised BLOCK_SCRAMBLE and PHOSPHOR_SPLIT to resolve 2s rule violations.
- * - SYSTEM: [PRO PHASE] Engineered DATA_SKEW and LUMA_STUTTER as replacement anomalies.
- * - SYSTEM: [PRO PHASE] Maintained 15-glitch universal pool integrity.
+ * - SYSTEM: [PRO PHASE] Excised DATA_SKEW and LUMA_STUTTER to restore original isolation archetypes.
+ * - SYSTEM: [PRO PHASE] Restored BLOCK_SCRAMBLE and PHOSPHOR_SPLIT for contextual identity targeting.
+ * - SYSTEM: [PRO PHASE SINGULARITY] Integrated BLACKHOLE_CONFIG to govern volumetric rendering and relativistic parameters.
+ * - SYSTEM: [PRO PHASE KRAYE PROTOCOL] Appended AUDIO_CONFIG to support sector-aware, pitch-shifted typewriter mechanics.
+ * - SYSTEM: [PRO PHASE KRAYE PROTOCOL] Registered blackhole.glb into ASSET_PATHS.
+ * - SYSTEM: [PRO PHASE KRAYE PROTOCOL] Added QUALITY_PRESETS for dynamic terminal-driven graphics throttling.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 05]: Angle Offset Jitter. Enforced strict radians for sector distribution.
  * - FIXED [ID 202]: Color Space Delta. Swapped legacy hex strings for numeric values.
@@ -60,6 +63,8 @@
  * - FIXED [ID 6008]: [PRO PHASE] Timing Drift. Locked GLITCH_DURATION precisely to 2000ms to enforce the 2s visual rule.
  * - FIXED [ID 6015]: [PRO PHASE] Duration Violation. Replaced typewriter-sensitive effects with structural skews and luma stutters.
  * - FIXED [ID 6016]: [PRO PHASE] Timing Drift. Locked GLITCH_DURATION precisely to 2000ms.
+ * - FIXED [ID 6035]: [PRO PHASE] Hardcoded Physics. Abstracted IOR and Disk parameters from BlackHole.js into BLACKHOLE_CONFIG for centralized control.
+ * - FIXED [ID 6100]: [PRO PHASE KRAYE] Missing Resume Link. Registered authoritative resume path in global constants.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected METEOR_CONFIG to define procedural vertex displacement and ignition thresholds.
  * - Fixed: Added HARDWARE_PROFILES to support Low/Medium/High performance tiers.
@@ -84,6 +89,10 @@
  * - Fixed: [PRO PHASE] Added NOISE_SHIVER to the anomaly registry to achieve the 15-effect minimum requirement.
  * - Fixed: [PRO PHASE] Added GLITCH_INTERVAL to ANOMALY_CONFIG.
  * - Fixed: [PRO PHASE] Hardcoded GLITCH_DURATION to 2000.
+ * - Fixed: [PRO PHASE] Re-registered BLOCK_SCRAMBLE and PHOSPHOR_SPLIT to support HeroEffects isolation protocols.
+ * - Fixed: [PRO PHASE] Injected BLACKHOLE_CONFIG containing LENSING_STRENGTH, DISK_RADIUS, and NOISE_SCALE.
+ * - Fixed: [PRO PHASE KRAYE] Added QUALITY_PRESETS array for `kraye.graphics` kernel override.
+ * - Fixed: [PRO PHASE KRAYE] Added AUDIO_CONFIG to govern acoustic output and mechanical jitter.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The system is now 100% independent of external cursor assets, increasing boot speed.
  * - RIPPLE: Procedural geometry allows for unique asteroid topography on every system initialization.
@@ -107,6 +116,9 @@
  * - RIPPLE: [PRO PHASE] The system now enforces a strict 15-glitch non-repeating cycle.
  * - RIPPLE: [PRO PHASE] 2.5s glitch duration with 10s intervals establishes a rhythmic, industrial ambient pulse.
  * - RIPPLE: [PRO PHASE] The visual anomalies now perfectly align with the 2-second rule, eliminating duration drift.
+ * - RIPPLE: [PRO PHASE] Reverting to the core glitch array ensures both the Greeting Button and Main Identity can utilize the precise Space Realism physical anomalies.
+ * - RIPPLE: [PRO PHASE] Centralizing BLACKHOLE_CONFIG allows real-time tuning of the cinematic black hole without digging into shader code.
+ * - RIPPLE: [PRO PHASE KRAYE] QUALITY_PRESETS allows instantaneous CPU/GPU load balancing directly from the terminal layer.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Circular Wraparound - WRAP_LIMIT enforced at 2PI.
  * - APPEND 123: Tier Calibration - Verified Anisotropy limits (4x Low / 16x High).
@@ -130,8 +142,10 @@
  * - APPEND 6001: [PRO PHASE] Duration Audit - Verified that GLITCH_DURATION is securely set to 4000ms across the configuration registry.
  * - APPEND 6005: [PRO PHASE] Timing Audit - Verified GLITCH_DURATION is securely set to 2500ms and GLITCH_INTERVAL to 10000ms.
  * - APPEND 6008: [PRO PHASE] Timing Audit - Verified GLITCH_DURATION is securely set to 2000ms.
+ * - APPEND 6035: [PRO PHASE] Black Hole Config Audit - Verified BLACKHOLE_CONFIG parameters match cinematic references and correctly pipe into BlackHole.js material instantiation.
+ * - APPEND 6110: [PRO PHASE KRAYE] Data Audit - Verified QUALITY_PRESETS correctly map to float values required by WebGL uniforms.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
+ * - STATUS: PRO_PHASE_SINGULARITY_LOCKED
  */
 
 // ==========================================
@@ -140,7 +154,8 @@
 export const SYSTEM = {
     VERSION: "28.0.0_PRO_PHASE",
     AUTHOR: "RIYAS MANIKODI",
-    DEBUG_MODE: true
+    DEBUG_MODE: true,
+    RESUME_URL: './assets/docs/Riyas_Manikodi_Resume.pdf' // [PRO PHASE KRAYE] Secure uplink path
 };
 
 // ==========================================
@@ -149,7 +164,7 @@ export const SYSTEM = {
 export const COLORS = {
     TECH: 0x00f3ff,     // Cyan Hub
     CODE: 0xff0055,     // Pink Black Hole
-    VISION: 0x0aff0a,   // [PRO PHASE] Changed from 0xffcc00 (Golden Yellow) to Matrix Green
+    VISION: 0x0aff0a,   // [PRO PHASE] Matrix Green
     CONTACT: 0x0aff0a,  // Matrix Green Rocket
     BG: 0x050508,       // Deep Space Void
     UI_GLASS: "rgba(10, 15, 25, 0.7)"
@@ -167,6 +182,14 @@ export const PERFORMANCE = {
         MEDIUM: { anisotropy: 8, shadows: true, particles: 1200, streaks: 300 },
         HIGH: { anisotropy: 16, shadows: true, particles: 2000, streaks: 600 }
     }
+};
+
+// [PRO PHASE KRAYE] Terminal-Driven Quality Governance
+export const QUALITY_PRESETS = {
+    LOW: { octaves: 1, lensing: 1.1, bloom: 0.0, scanlines: 'static' },
+    MEDIUM: { octaves: 3, lensing: 2.8, bloom: 0.5, scanlines: 'pulsing' },
+    HIGH: { octaves: 5, lensing: 3.5, bloom: 1.2, scanlines: 'interlaced' },
+    ULTRA: { octaves: 8, lensing: 4.5, bloom: 2.5, scanlines: 'shimmer' }
 };
 
 // ==========================================
@@ -226,7 +249,8 @@ export const ASSET_PATHS = {
         ROVER: './assets/models/rover.glb',
         SATELLITE: './assets/models/satellite.glb',
         RADAR: './assets/models/radar_dish.glb',
-        ROCKET: './assets/models/rocket.glb'
+        ROCKET: './assets/models/rocket.glb',
+        BLACKHOLE: './assets/models/blackhole.glb' // [PRO PHASE KRAYE] Registered Hybrid Singularity
     },
     TEXTURES: {
         SKY: './assets/textures/environment/stars.webp',
@@ -239,8 +263,7 @@ export const ASSET_PATHS = {
         RADAR_DIFF: './assets/textures/radar.webp',
         SAT_DIFF: './assets/textures/satellite.webp',
         ROCKET_DIFF: './assets/textures/rocket.webp',
-        LAVA: './assets/textures/surfaces/Lava.webp', // [PRO PHASE]: High-detail cracked volcanic rock cursor map
-        // LEGACY FALLBACK:
+        LAVA: './assets/textures/surfaces/Lava.webp',
         CURSOR_SHARD: './assets/textures/ui/Flying Meteorite on Fire Animated--cursor--SweezyCursors.png'
     }
 };
@@ -248,7 +271,7 @@ export const ASSET_PATHS = {
 // ==========================================
 // 7. GLITCH EFFECT REGISTRY
 // ==========================================
-// [PRO PHASE]: OPTION A Anomaly Registry (15 Unique Effects)
+// [PRO PHASE]: Restored 15 Unique Effects for Targeted Isolation & Dual-Context
 export const GLITCH = {
     HEX_SHRED: 'HEX_SHRED',
     BINARY_FLICKER: 'BINARY_FLICKER',
@@ -263,8 +286,8 @@ export const GLITCH = {
     MIRROR_DESYNC: 'MIRROR_DESYNC',
     SLICE_DRIFT: 'SLICE_DRIFT',
     NOISE_SHIVER: 'NOISE_SHIVER',
-    DATA_SKEW: 'DATA_SKEW',       // [PRO PHASE] Replacement 1
-    LUMA_STUTTER: 'LUMA_STUTTER'  // [PRO PHASE] Replacement 2
+    BLOCK_SCRAMBLE: 'BLOCK_SCRAMBLE',
+    PHOSPHOR_SPLIT: 'PHOSPHOR_SPLIT'
 };
 
 // ==========================================
@@ -299,7 +322,7 @@ export const KERNEL_INSIGHTS = [
     "[STRAT] Godot and Unreal engines initialized for spatial rendering.",
     "[INFO] Formspree uplink standing by for identity handshake.",
     "[DATA] SLA threshold at 99.9%—Maintaining system uptime.",
-    "[DEBUG] Secret Shards available via 'logs.incidents' and 'sys.audit'.",
+    "[DEBUG] Secret Shards available via 'kraye.logs' and 'kraye.audit'.",
     "[INFO] Liquid Fire cursor response is gated by real-time GPU latency.",
     "[DATA] V28 uses PCFSoftShadowMap for hardware-accelerated realism.",
     "[STRAT] Hold SHIFT while dragging for high-velocity sector orbits.",
@@ -313,17 +336,17 @@ export const KERNEL_INSIGHTS = [
 // 11. MANIFESTO ANIMATION CONFIG (PRO PHASE)
 // ==========================================
 export const MANIFESTO_CONFIG = {
-    LOOP_DURATION: 15000, // Time in ms before switching styles
-    STREAK_COUNT: isMobile ? 200 : 400, // [PRO PHASE]: Dynamically reduced to prevent GPU contention during boot
+    LOOP_DURATION: 15000,
+    STREAK_COUNT: isMobile ? 200 : 400,
     TUNNEL_SEGMENTS: 64,
-    BLOOM_STRENGTH: 0.8,  // [PRO PHASE]: Lowered from 1.5 to prevent edge-smearing and strobe fatigue
-    HOVER_BLOOM_STRENGTH: 1.2, // [PRO PHASE]: Target bloom for Cathode Influx
+    BLOOM_STRENGTH: 0.8,
+    HOVER_BLOOM_STRENGTH: 1.2,
     GRAIN_OPACITY: 0.05,
     SCANLINE_DENSITY: 2.0,
-    WARP_INTENSITY: 12.0, // [PRO PHASE]: Lowered from 20.0 to prevent visual slingshot effect
-    HOVER_WARP_INTENSITY: 20.0, // [PRO PHASE]: Target intensity for Cathode Influx hover effect
+    WARP_INTENSITY: 12.0,
+    HOVER_WARP_INTENSITY: 20.0,
     STREAK_STRETCH_FACTOR: 5.0,
-    RADIAL_ACCELERATION: 5.0  // [PRO PHASE]: Lowered from 10.0 to maintain steady, comfortable velocity
+    RADIAL_ACCELERATION: 5.0
 };
 
 // ==========================================
@@ -342,12 +365,38 @@ export const SHRED_CONFIG = {
 // 13. DOM SPACE REALISM ANOMALY CONFIG (PRO PHASE)
 // ==========================================
 export const ANOMALY_CONFIG = {
-    GLITCH_DURATION: 2000,        // [PRO PHASE]: Global timing authority for all interaction-based anomalies
-    GLITCH_INTERVAL: 10000,       // [PRO PHASE]: Switching interval locked to 10s
-    ANOMALY_DENSITY: 0.15,        // Probability of a letter scrambling during an effect
-    SCRAMBLE_THRESHOLD: 100,      // Minimum velocity or duration for data corruption
+    GLITCH_DURATION: 2000,
+    GLITCH_INTERVAL: 10000,
+    ANOMALY_DENSITY: 0.15,
+    SCRAMBLE_THRESHOLD: 100,
     GLYPHS: ['█', '▓', '░', 'X', '9', '0', '#', '/', '\\', '-', '+', '='],
-    SLICE_JITTER_SPEED: 50,       // ms between layout tears
-    PHOSPHOR_OPACITY: 0.4,        // Base opacity for RGB split layers
-    GHOST_DELAY: 0.1              // CSS transition delay for phosphor lag
+    SLICE_JITTER_SPEED: 50,
+    PHOSPHOR_OPACITY: 0.4,
+    GHOST_DELAY: 0.1
+};
+
+// ==========================================
+// 14. SINGULARITY CONFIG (PRO PHASE)
+// ==========================================
+export const BLACKHOLE_CONFIG = {
+    DISK_RADIUS: 85,              // Scale of the primary volumetric accretion disk
+    PHOTON_RING_RADIUS: 5.4,      // Absolute distance for high-heat light loop
+    LENSING_STRENGTH: 2.8,        // Index of Refraction (IOR) for Einstein Ring simulation
+    NOISE_SCALE: 2.0,             // Multiplier for Simplex Noise turbulence on the disk
+    SPIN_MULTIPLIER: 5.0,         // Reactivity to global UI rotation
+    WOBBLE_SPEED: 0.5             // Speed of sine/cosine structural deformation
+};
+
+// ==========================================
+// 15. AUDIO ENGINE KERNEL (PRO PHASE KRAYE)
+// ==========================================
+export const AUDIO_CONFIG = {
+    MASTER_GAIN: 0.8,
+    SFX_ENABLED: true,
+    PITCH_MAP: {
+        TECH: { base: 1.2, jitter: 0.05 }, // Clean, high-pitched mechanical clack
+        CODE: { base: 0.7, jitter: 0.15 }, // Deep, resonant mass-based thud
+        VISION: { base: 1.0, jitter: 0.10 }, // Mid-range ghost shimmer
+        CONTACT: { base: 1.5, jitter: 0.02 } // Rapid binary chirp
+    }
 };

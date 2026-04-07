@@ -165,7 +165,7 @@ export class HeroEffects {
         wrapper.style.color = '#fff';
         wrapper.style.fontFamily = "'HighJinkiesFlip', 'Courier New', monospace";
         // [PRO PHASE] Contextual Sizing
-        wrapper.style.fontSize = isGreeting ? 'clamp(1.5rem, 3vw, 2.5rem)' : 'clamp(3.5rem, 7vw, 6.0rem)';
+        wrapper.style.fontSize = isGreeting ? 'clamp(1.5rem, 3vw, 2.5rem)' : 'clamp(3.5rem, 7vw, 4.0rem)';
         wrapper.style.fontWeight = '900';
         wrapper.style.letterSpacing = '5px';
         wrapper.style.textTransform = 'uppercase';

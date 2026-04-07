@@ -3,15 +3,17 @@
  * File: /style.css
  * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, and Mobile Kinetics
  * STATUS: PRO_PHASE_CURSOR_HARDWARE_PROMOTED
- * LINE_COUNT: ~450 Lines.
- * * * * KRAYE LOG V28:
+ * LINE_COUNT: ~460 Lines.
+ * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
  * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
  * - SYSTEM: Implemented Mobile Kinetic "Lower-Third Carousel" layout to prevent viewport trapping.
  * - SYSTEM: Integrated Procedural Dynamic Shard Cursor styles to replace the native browser pointer.
  * - SYSTEM: Transitioned cursor architecture from CSS/DOM image mapping to a decoupled WebGL overlay layer.
  * - SYSTEM: [PRO PHASE] Enforced GPU hardware acceleration on the cursor canvas to prevent main-thread repaint culling.
- * * * * CULPRIT LOG V28:
+ * - SYSTEM: [PRO PHASE KRAYE] Integrated CSS variables (--terminal-glow) for real-time terminal-driven DNA recoloring.
+ * - SYSTEM: [PRO PHASE KRAYE] Implemented .terminal-glitch-active class for Kraye Protocol visual feedback.
+ * * * * * CULPRIT LOG V28:
  * - FIXED [ID 305]: Z-Index Conflict. Confined #hero-name-viewport below scanlines (z-index: 5) to maintain screen depth.
  * - FIXED [ID 1402]: Viewport Blocking. Purged 2D #os-terminal styles in favor of the new Hologram Projection classes.
  * - FIXED [ID 1405]: Hidden State Override. Evaluated .hidden class specificity to ensure it doesn't conflict with inline 3D projection matrices.
@@ -20,7 +22,8 @@
  * - FIXED [ID 3045]: Z-Index Ghosting. Enforced transparent clear-alpha on the `#cursor-3d-overlay` to prevent it from occluding the main planetary canvas.
  * - FIXED [ID 3380]: [PRO PHASE] Hardware Culling. The browser was culling the `#cursor-3d-overlay` during heavy CoreLoop renders. Forced layer promotion.
  * - FIXED [ID 4390]: [PRO PHASE] Selector Mismatch. Swapped legacy #stage for #webgl-canvas to properly align hardware layers and promote canvas visibility for 8bit.ai effects.
- * * * * OMISSION LOG V28:
+ * - FIXED [ID 6160]: [PRO PHASE KRAYE] Phosphor Trail Lag. Optimized CSS transitions for text-shadow properties to prevent layout thrashing.
+ * * * * * OMISSION LOG V28:
  * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
  * - Fixed: Injected @keyframes for holo-ignition to animate shards appearing around the active planet via scale and blur.
  * - Fixed: Converted mobile shard layout to a horizontally scrolling carousel to clear the top 60% of the screen.
@@ -28,14 +31,16 @@
  * - Fixed: Purged legacy `.industrial-shard` DOM styles as the cursor is now procedurally generated in WebGL.
  * - Fixed: [PRO PHASE] Injected `will-change: transform, opacity` and `translateZ(0)` to the `#cursor-3d-overlay`.
  * - Fixed: [PRO PHASE] Updated CSS ID selector to #webgl-canvas to match DOM structure.
- * * * * RIPPLE EFFECT V28:
+ * - Fixed: [PRO PHASE KRAYE] Injected `--terminal-glow` and `--shard-color` into the root variable scope.
+ * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The DOM shards now scale and opacity-fade based on activeClickedSector transitions via Logics.js.
  * - RIPPLE: CSS pass-through filter allows dragMove to fire vertically for the new Swipe-to-Dismiss gesture.
  * - RIPPLE: The physical meteorite cursor establishes a unified industrial aesthetic across all input methods.
  * - RIPPLE: The decoupled `#cursor-3d-overlay` ensures high-performance kinetic fire without DOM repaints.
  * - RIPPLE: [PRO PHASE] GPU layer promotion guarantees the cursor canvas operates independently from the DOM layout thrashing, ensuring the trail never vanishes.
  * - RIPPLE: [PRO PHASE] Aligning the #webgl-canvas selector ensures the 3D particles render behind the Greeting UI rather than being hidden.
- * * * * REALITY AUDIT V28:
+ * - RIPPLE: [PRO PHASE KRAYE] The kraye.color terminal command now seamlessly updates UI borders and text glows instantly without DOM reloading.
+ * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter` to ensure CSS animations don't block the Three.js render loop.
  * - APPEND 3: Visual DNA Expansion - `hero-flicker-anim` and `hero-heavy-chromatic` implemented for high-velocity interaction thumps.
  * - APPEND 19: Ghost-Touch Filter - Enforced `pointer-events: none` on #hologram-viewport and `auto` on .holo-shard so touches reach the void.
@@ -43,7 +48,8 @@
  * - APPEND 160: Architecture Audit - Purged legacy PNG CSS classes (`#cursor-shard`, `.industrial-shard`) to reflect the transition to pure procedural math.
  * - APPEND 470: [PRO PHASE] Repaint Audit - Verified `backface-visibility: hidden` prevents Chrome/Safari from flattening the WebGL overlay during transitions.
  * - APPEND 4390: [PRO PHASE] Visibility Audit - Verified #webgl-canvas replaces legacy #stage selector.
- * * * * MASTER LOG V28:
+ * - APPEND 617: [PRO PHASE KRAYE] Theme Override Audit - Verified CSS variable propagation throughout the HUD and Terminal elements.
+ * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_CURSOR_HARDWARE_PROMOTED
  */
 
@@ -66,6 +72,10 @@
     --sys-success: #00ffcc;
     --sys-warning: #ff3366;
     --sys-terminal: rgba(10, 15, 20, 0.85);
+
+    /* PRO PHASE KRAYE Dynamic Vars */
+    --terminal-glow: rgba(0, 243, 255, 0.5);
+    --shard-color: #00f3ff;
 
     --font-mono: 'Courier New', Courier, monospace;
     --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;

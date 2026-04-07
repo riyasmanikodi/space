@@ -1,23 +1,33 @@
 im in pro phase, 
-effects/HeroEffects.js
+Logics.js
 i upoaded the existing file, append the kraye log, omission log, culprit log, ripple effect,reality audit, master log, generate only code dont generate any summary. But before generating the code check existing code so you cant omit any existing previous lines of code and also keep an eye in the number of lines of code.
 
 data/constants.js
+entities/BlackHole.js
+Logics.js
+utils/logics.js
+index.html
+ui/Terminal.js
+systems/audio.js
+style.css
+
+
+
+
+
+
+
 effects/HeroEffects.js
 utils/logics.js
 
-
 ui/Greeting.js
-Logics.js
-
-
 
 
 
 
 
 greeting.css
-
+Logics.js
 effects/ManifestoEngine.js
 
 

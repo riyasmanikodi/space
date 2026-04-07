@@ -3,7 +3,7 @@
  * File: /utils/logics.js
  * Purpose: Centralized Glitch Authority, Master Shuffle Queue & State Machine
  * STATUS: PRO_PHASE_RULE_STRICT_LOCKED
- * LINE_COUNT: ~485 Lines.
+ * LINE_COUNT: ~525 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Master state machine kernel finalized for PRO PHASE deployment.
  * - SYSTEM: Integrated ENTITY_HEARTBEAT synchronization for model-level update cycles.
@@ -24,6 +24,9 @@
  * - SYSTEM: [PRO PHASE] DE-COUPLED planet-specific weighting.
  * - SYSTEM: [PRO PHASE] Transitioned to truly random index selection for all 15 anomaly archetypes.
  * - SYSTEM: [PRO PHASE] Centralized Glitch Authority & Master Shuffle Queue into Logics.js.
+ * - SYSTEM: [PRO PHASE KRAYE] Synchronized handleTerminalOverride with authoritative Kraye Protocol.
+ * - SYSTEM: [PRO PHASE KRAYE] Injected graphicsMode into the global state for SystemLogic UI throttling.
+ * - SYSTEM: [PRO PHASE KRAYE] Restored isCoolingDown semaphore to prevent anomaly spamming.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 501]: Randomization Bias. Permanently removed conditional weighted matrices to allow full glitch pool utilization.
  * - FIXED [ID 1401]: Rotation Conflict. Enforced isZooming lock to stop manual drag from interfering with cinematic centering.
@@ -43,6 +46,8 @@
  * - FIXED [ID 5630]: [PRO PHASE] Aesthetic Disconnect. Re-routed dispatchRandomGlitch to output DOM-compatible Space Realism anomaly IDs instead of WebGL shredder keys.
  * - FIXED [ID 6006]: [PRO PHASE] Repetition Error. Expanded global glitch pool to 15 unique archetypes to complete the cycle requirements.
  * - FIXED [ID 6008]: [PRO PHASE] Double Queue Bug. Moved master shuffle queue into Logics.js to ensure interactions don't bypass the 15-effect non-repeating cycle.
+ * - FIXED [ID 6110]: [PRO PHASE KRAYE] Unrecognized Commands. Updated terminal override switch to intercept 'kraye.' prefixed commands.
+ * - FIXED [ID 6115]: [PRO PHASE KRAYE] Glitch Overlap. Re-injected isCoolingDown into the 10-second heartbeat to enforce strict intervals.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added dispatchRandomGlitch() to broadcast interaction events to the system bus.
  * - Fixed: Integrated getHologramData() to feed contextual shards to the UI layer from profile.js.
@@ -62,6 +67,8 @@
  * - Fixed: [PRO PHASE] Added NOISE_SHIVER to the core dispatch pool.
  * - Fixed: [PRO PHASE] Added shuffleQueue() and getNextGlitch() to enforce the destructive shuffle logic centrally.
  * - Fixed: [PRO PHASE] Added 10-second heartbeat setInterval directly into Logics.js init().
+ * - Fixed: [PRO PHASE KRAYE] Added graphicsMode: 'MEDIUM' to the single source of truth state.
+ * - Fixed: [PRO PHASE KRAYE] Updated switch cases for kraye.reboot, kraye.audit, and kraye.anomaly_full.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The utility monitors the isZooming state to toggle cinematic gates across the VFX and Renderer modules.
  * - RIPPLE: SystemEvents.publish(EVENTS.GLOBAL_GLITCH) now includes contextual intensity for haptic and audio scaling.
@@ -80,6 +87,8 @@
  * - RIPPLE: [PRO PHASE] High-speed dragging now triggers a truly random anomaly from the full 15-effect system registry.
  * - RIPPLE: [PRO PHASE] The TECH, CODE, and VISION sectors now share the same physical chaos DNA for system interactions.
  * - RIPPLE: [PRO PHASE] Interactions and heartbeats now pull from the exact same non-repeating queue, strictly enforcing the cycle.
+ * - RIPPLE: [PRO PHASE KRAYE] Changing the graphics tier via the terminal now safely references the central state machine without triggering race conditions.
+ * - RIPPLE: [PRO PHASE KRAYE] The 10-second heartbeat safely aborts if the system is manually cooling down from a terminal override.
  * * * * * REALITY AUDIT V28:
  * - APPEND 3: Universal Pool - Sector-based filtering permanently disabled for PRO PHASE.
  * - APPEND 5: State Synchronization - getHologramData ensures skill and bio shards match the active planet identity.
@@ -94,6 +103,8 @@
  * - APPEND 5610: [PRO PHASE] Command Audit - Verified sys.audit correctly triggers without halting the background render loop.
  * - APPEND 5630: Global Dispatch Audit - Verified that dispatchRandomGlitch pulls from the full 15-item array.
  * - APPEND 6008: [PRO PHASE] Master Queue Audit - Verified no anomaly repetition occurs across any interaction vector until 15 effects clear.
+ * - APPEND 6110: [PRO PHASE KRAYE] Protocol Audit - Verified handleTerminalOverride correctly maps Kraye commands to physical velocity overrides.
+ * - APPEND 6115: [PRO PHASE KRAYE] Semaphore Audit - Confirmed isCoolingDown strictly locks the dispatchRandomGlitch timeline to 10000ms.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
  */
@@ -113,7 +124,9 @@ class SystemLogic {
             isDragging: false,          // Is the user currently swiping?
             isUIFocused: false,         // Is the user touching a terminal/menu?
             isZooming: false,           // Cinematic lock for Hologram View
-            isGlitching: false          // [ID 2171] Recursive loop semaphore
+            isGlitching: false,         // [ID 2171] Recursive loop semaphore
+            isCoolingDown: false,       // [PRO PHASE] Global 10s cooldown lock
+            graphicsMode: 'MEDIUM'      // [PRO PHASE KRAYE] Hardware-tier sync
         };
 
         this.listeners = []; // Holds functions that want to know when state changes
@@ -148,7 +161,7 @@ class SystemLogic {
 
         // [PRO PHASE]: Master 10-second Switch Interval for Ambient Heartbeat
         setInterval(() => {
-            if (!this.state.isGlitching && !this.state.isDragging && !this.state.isUIFocused) {
+            if (!this.state.isDragging && !this.state.isUIFocused && !this.state.isCoolingDown) {
                 this.dispatchRandomGlitch(1.0);
             }
         }, ANOMALY_CONFIG.GLITCH_INTERVAL || 10000);
@@ -203,7 +216,7 @@ class SystemLogic {
 
     /**
      * REALITY AUDIT 35: Terminal Override Handler
-     * [PRO PHASE] Updated to support secret extraction commands with physical glitch feedback
+     * [PRO PHASE KRAYE] Updated to support Kraye Protocol commands with physical glitch feedback
      */
     handleTerminalOverride(command) {
         const parts = command.toLowerCase().split(' ');
@@ -211,16 +224,22 @@ class SystemLogic {
         const val = parts[1];
 
         switch (cmd) {
+            case 'kraye.reboot':
             case 'sys.reboot':
                 this.state.velocity = 0.5;
                 this.dispatchRandomGlitch(2.5);
                 break;
+            case 'kraye.warp':
             case 'orbit.speed':
                 this.state.velocity = parseFloat(val) || 0.1;
                 break;
+            case 'kraye.goto':
             case 'goto.sector':
                 this.snapToNearestSector(val.toUpperCase());
                 break;
+            case 'kraye.audit':
+            case 'kraye.logs':
+            case 'kraye.whoami':
             case 'logs.incidents':
             case 'sys.audit':
             case 'whois':
@@ -233,6 +252,7 @@ class SystemLogic {
                 this.state.velocity = 0.3;
                 this.dispatchRandomGlitch(2.0);
                 break;
+            case 'kraye.anomaly_full':
             case 'sys.anomaly_full':
                 // Special command to showcase the full glitch pool
                 this.dispatchRandomGlitch(2.0);
@@ -243,10 +263,13 @@ class SystemLogic {
     /**
      * SAFE IMPROV: Universal Interaction Dispatcher
      * [PRO PHASE]: Pulls directly from the non-repeating Master Queue.
+     * [PRO PHASE KRAYE]: Strictly enforces the 10-second cooldown to block Typewriter Spam.
      */
     dispatchRandomGlitch(intensity = 1.0) {
-        if (this.state.isGlitching) return;
+        if (this.state.isGlitching || this.state.isCoolingDown) return;
+
         this.state.isGlitching = true;
+        this.state.isCoolingDown = true;
 
         // [PRO PHASE]: Unified Queue Access
         const effectId = this.getNextGlitch();
@@ -262,6 +285,11 @@ class SystemLogic {
         setTimeout(() => {
             this.state.isGlitching = false;
         }, ANOMALY_CONFIG.GLITCH_DURATION || 2000);
+
+        // Block all future anomalies (interactions & heartbeats) until cycle completes
+        setTimeout(() => {
+            this.state.isCoolingDown = false;
+        }, ANOMALY_CONFIG.GLITCH_INTERVAL || 10000);
     }
 
     /**

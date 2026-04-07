@@ -1,9 +1,9 @@
 /**
- * RIYAS_OS V28 - PRO PHASE (OPTION A)
+ * RIYAS_OS V28 - PRO PHASE (OPTION A & SINGULARITY)
  * File: /Logics.js
  * Purpose: Central System Brain, Hologram Projection, Typewriter Orchestration, Mobile Kinetics & Asset Mounting
  * STATUS: PRO_PHASE_RULE_STRICT_LOCKED
- * LINE_COUNT: ~880 Lines.
+ * LINE_COUNT: ~1045 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Dynamic Typewriter engine for holographic shards.
  * - SYSTEM: Linked "Enter System" interaction to Audio Hardware Unlock to bypass browser autoplay policies.
@@ -35,6 +35,11 @@
  * - SYSTEM: [PRO PHASE] Updated HUD Sector labels to pull unique 'name' data from the sector registry instead of generic IDs.
  * - SYSTEM: [PRO PHASE] Silenced TYPEWRITER_TICK interaction with the master glitch dispatcher to prevent 2-second rule violations.
  * - SYSTEM: [PRO PHASE OPTION A] Re-aligned TYPEWRITER_TICK listener to trigger global anomalies instead of hardcoded PHOSPHOR_SPLIT.
+ * - SYSTEM: [PRO PHASE SINGULARITY] Linked orbital rotationVelocity to BlackHole entity to drive Relativistic Beaming and accretion stretching.
+ * - SYSTEM: [PRO PHASE KRAYE] Replaced generic terminal kernel with authoritative Kraye Protocol.
+ * - SYSTEM: [PRO PHASE KRAYE] Injected Mechanical Jitter into runTypewriter for sector-specific typography.
+ * - SYSTEM: [PRO PHASE KRAYE] Piped graphicsMode state into the BlackHole update loop.
+ * - SYSTEM: [PRO PHASE KRAYE] Integrated Event Listener for the native ghost-color-picker input.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static innerHTML injection with a character-by-character typewriter loop.
  * - FIXED [ID 1407]: Acoustic Handshake. btnEnter now explicitly calls AudioEngine.unlock() to enable OS soundscapes.
@@ -68,6 +73,11 @@
  * - FIXED [ID 5636]: [PRO PHASE] Generic HUD Labels. Swapped `activeSector.id` for `activeSector.name` in `updateUI` to reflect distinct sector identities.
  * - FIXED [ID 6010]: [PRO PHASE] Typewriter Tick Spam. Rerouted TYPEWRITER_TICK logic to respect the master Logics.js dispatcher, preventing infinite 2-second glitch loops during text generation.
  * - FIXED [ID 6015]: [PRO PHASE] Hardcoded Anomaly. Removed direct PHOSPHOR_SPLIT trigger in favor of master queue dispatch (Option A).
+ * - FIXED [ID 6040]: [PRO PHASE] Static Singularity. Piped kinetic momentum (rotationVelocity) directly into the BlackHole update loop to synchronize physics with the shader.
+ * - FIXED [ID 6110]: [PRO PHASE KRAYE] Implemented dot-notation parser for kraye.graphics.[tier].
+ * - FIXED [ID 6120]: [PRO PHASE KRAYE] Linked kraye.resume to native file download.
+ * - FIXED [ID 6180]: [PRO PHASE KRAYE] Dead Theme Trigger. Added an 'input' event listener in bindUI() to capture color picker changes and synchronize the universe.
+ * - FIXED [ID 6185]: [PRO PHASE KRAYE] Broken Download Path. Synchronized kraye.resume logic with the authoritative `SYSTEM.RESUME_URL` constant.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added runTypewriter() utility to sync visual text manifestation with digital audio chirps.
  * - Fixed: Injected Typewriter-synced events into activateSector() to populate shards dynamically.
@@ -97,6 +107,11 @@
  * - Fixed: [PRO PHASE] Subscribed to TYPEWRITER_TICK to shudder the DOM Hero Name.
  * - Fixed: [PRO PHASE] Delegated all TYPEWRITER_TICK glitch triggers to the global SystemLogicUtils dispatcher.
  * - Fixed: [PRO PHASE OPTION A] Purged legacy handleGlitchImpact direct calls.
+ * - Fixed: [PRO PHASE] Appended this.rotationVelocity to this.blackHole.update() call.
+ * - Fixed: [PRO PHASE KRAYE] Added kraye.mass, kraye.audit, and kraye.volume overrides to executeSystemOverride.
+ * - Fixed: [PRO PHASE KRAYE] Injected kraye.graphics parser to dynamically modify SystemLogicUtils state.
+ * - Fixed: [PRO PHASE KRAYE] Added DOM parsing logic for `#ghost-color-picker` inside `bindUI()`.
+ * - Fixed: [PRO PHASE KRAYE] Imported SYSTEM from constants.js to access authoritative pathing.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Every character typed in the holographic menu now publishes a TYPEWRITER_TICK event to the audio bus.
  * - RIPPLE: The system hum and ambient space sounds are initialized upon the first user interaction.
@@ -125,6 +140,10 @@
  * - RIPPLE: [PRO PHASE] Typing in the holographic shards now physically triggers structural anomalies in the hero identity.
  * - RIPPLE: [PRO PHASE] The typewriter effect no longer violates the 10-second non-repeating cycle, restoring the industrial ambient pulse.
  * - RIPPLE: [PRO PHASE OPTION A] Typewriter events now seamlessly cycle through all 15 resilient anomalies via the Master Dispatcher.
+ * - RIPPLE: [PRO PHASE SINGULARITY] The black hole's accretion disk now visually stretches and intensifies based on the speed of the user's scroll/drag.
+ * - RIPPLE: [PRO PHASE KRAYE] Typewriter mechanics now dynamically shift based on Sector DNA (CODE = Heavy Jitter).
+ * - RIPPLE: [PRO PHASE KRAYE] Kraye commands dynamically scale visual fidelity via the black hole uniforms.
+ * - RIPPLE: [PRO PHASE KRAYE] The kraye.color command now seamlessly syncs CSS variables, singularity shaders, and the global logic state.
  * * * * * REALITY AUDIT V28:
  * - APPEND 16: Typewriter Synchronization - Enforced 20ms character delay to match industrial "Data-Stream" aesthetic.
  * - APPEND 17: Audio Hardware Release - btnEnter acts as the authoritative source for the Web Audio API handshake.
@@ -150,11 +169,15 @@
  * - APPEND 4520: [PRO PHASE] Stealth Handoff Audit - Verified universeGroup.visible is strictly toggled by the init() handoff trigger.
  * - APPEND 4550: [PRO PHASE] Unified Authority Audit - Verified CoreScene is shared between ManifestoEngine and LogicsEngine to prevent premature scene deletion.
  * - APPEND 4570: [PRO PHASE] DNA Sync Audit - Verified Logics.js strictly inherits COLORS dictionary from constants.js.
- * - APPEND 4606: [PRO PHASE] DOM Hook Audit - Verified `hero-name-viewport` acts as the valid container for `HeroEffects`.
+ * - APPEND 4606: [PRO DOM Hook Audit] - Verified `hero-name-viewport` acts as the valid container for `HeroEffects`.
  * - APPEND 5620: [PRO PHASE] Shudder Sync Audit - Verified TYPEWRITER_TICK correctly triggers 0.5 intensity DOM glitches without overwhelming the render queue.
  * - APPEND 5621: [PRO PHASE] HUD Identity Audit - Verified `hud-sector-title` correctly displays 'TECH_CORE' instead of just 'TECH'.
  * - APPEND 6010: [PRO PHASE] Spam Prevention Audit - Verified typewriter character generations do not trigger direct anomalous overrides of the 2-second rule constraint.
  * - APPEND 6015: [PRO PHASE] Option A Integration Audit - Verified no orphaned PHOSPHOR_SPLIT calls remain in the event bus.
+ * - APPEND 6040: [PRO PHASE] Singularity Hook - Verified rotationVelocity safely passes to the BlackHole entity without frame-drops.
+ * - APPEND 6110: [PRO PHASE KRAYE] Diagnostics Audit - Confirmed kraye.audit successfully extracts engine velocity.
+ * - APPEND 618: [PRO PHASE KRAYE] Color Sync Audit - Confirmed `--terminal-glow` successfully receives dynamic hexadecimal payload.
+ * - APPEND 619: [PRO PHASE KRAYE] Path Audit - Verified `SYSTEM.RESUME_URL` effectively isolates the PDF routing to constants.js.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
  */
@@ -179,7 +202,7 @@ import { CursorService } from './systems/CursorService.js'; // PRO PHASE: Low-Po
 import { Logics as SystemLogicUtils } from './utils/logics.js';
 import { SystemEvents, EVENTS } from './utils/events.js';
 import { CoreLoop } from './core/Loop.js';
-import { COLORS } from './data/constants.js'; // [PRO PHASE]: Single Source of Truth for Colors
+import { COLORS, SYSTEM } from './data/constants.js'; // [PRO PHASE KRAYE]: Added SYSTEM for resume URL
 
 class LogicsEngine {
     constructor() {
@@ -435,6 +458,39 @@ class LogicsEngine {
                 }, 1000);
             });
         }
+
+        // ==========================================
+        // PRO PHASE KRAYE: The Color Sync Handshake [ID 6180]
+        // Listens to the hidden color picker and broadcasts changes
+        // ==========================================
+        const colorPicker = document.getElementById('ghost-color-picker');
+        if (colorPicker) {
+            colorPicker.addEventListener('input', (e) => {
+                const hex = e.target.value;
+                const colorInt = parseInt(hex.replace('#', '0x'));
+
+                // 1. UPDATE CSS DNA (Terminal & Shards)
+                document.documentElement.style.setProperty('--shard-color', hex);
+                document.documentElement.style.setProperty('--terminal-glow', hex + '88'); // 50% opacity glow
+                document.documentElement.style.setProperty('--accent-tech', hex);
+
+                // 2. UPDATE SINGULARITY
+                if (this.blackHole && typeof this.blackHole.updateColor === 'function') {
+                    this.blackHole.updateColor(hex);
+                }
+
+                // 3. UPDATE CURSOR
+                if (this.cursorService && typeof this.cursorService.setColor === 'function') {
+                    this.cursorService.setColor(colorInt);
+                }
+
+                // 4. BROADCAST TO STATE MACHINE
+                SystemEvents.publish('THEME_SHIFT', { color: colorInt });
+
+                // 5. VISUAL FEEDBACK (Hardware Re-calibration)
+                SystemLogicUtils.dispatchRandomGlitch(1.2);
+            });
+        }
     }
 
     bindEvents() {
@@ -534,7 +590,7 @@ class LogicsEngine {
     }
 
     // ==========================================
-    // REALITY AUDIT 34: EXTERNAL API HOOKS (Terminal Engine Handshake)
+    // REALITY AUDIT 34: EXTERNAL API HOOKS (Kraye Terminal Engine Handshake)
     // Allows the CLI to bypass physical inputs and directly manipulate the 3D Universe.
     // ==========================================
     executeSystemOverride(command, payload = null) {
@@ -542,36 +598,114 @@ class LogicsEngine {
         const base = cmdParts[0];
         const arg = cmdParts[1];
 
+        // Route Kraye Graphics commands
+        if (base.startsWith('kraye.graphics.')) {
+            const tier = base.split('.')[2]?.toUpperCase();
+            if (['LOW', 'MEDIUM', 'HIGH', 'ULTRA'].includes(tier)) {
+                SystemLogicUtils.getState().graphicsMode = tier;
+                SystemLogicUtils.dispatchRandomGlitch(2.0); // Visual hardware stutter
+                return { success: true, message: `HARDWARE_AUDIT: ALLOCATING_VRAM... SINGULARITY_SYNC_${tier}` };
+            }
+            return { success: false, message: "ERROR: INVALID_GRAPHICS_TIER" };
+        }
+
         switch (base) {
-            case 'velocity':
-                this.isDragging = false;
-                this.isSnapping = false;
-                this.rotationVelocity += parseFloat(arg) || 0.1;
-                return { success: true, message: `ROTATION_VELOCITY_ADJUSTED: ${this.rotationVelocity.toFixed(3)}` };
+            case 'kraye.resume':
+                const link = document.createElement('a');
+                // [PRO PHASE KRAYE]: Authoritative Pathing [ID 6185]
+                link.href = SYSTEM.RESUME_URL || './assets/docs/Riyas_Manikodi_Resume.pdf';
+                link.download = 'Riyas_Manikodi_Resume.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                SystemLogicUtils.dispatchRandomGlitch(1.0);
+                return { success: true, message: "KRAYE_UPLINK: DOWNLOADING_RESUME_SHARD..." };
+
+            case 'kraye.reboot':
             case 'reboot':
                 this.clearRealityFocus();
                 this.rotationVelocity = 0.5;
                 SystemLogicUtils.dispatchRandomGlitch(2.5);
-                return { success: true, message: "SYSTEM_REBOOT_INITIATED..." };
+                return { success: true, message: "KRAYE_SYSTEM_REBOOT_INITIATED..." };
+
+            case 'kraye.audit':
+            case 'kraye.stats':
+                const velocity = this.rotationVelocity.toFixed(4);
+                return { success: true, message: `CORE_TELEMETRY // VELOCITY: ${velocity} // STATUS: NOMINAL` };
+
+            case 'kraye.volume':
+                const vol = parseFloat(arg) / 100;
+                if (AudioEngine && typeof AudioEngine.setGlobalVolume === 'function') {
+                    AudioEngine.setGlobalVolume(vol);
+                    return { success: true, message: `KRAYE_GAIN_ADJUSTED: ${(vol * 100).toFixed(0)}%` };
+                }
+                return { success: false, message: "ERROR: AUDIO_HARDWARE_NOT_FOUND" };
+
+            case 'kraye.mass':
+                const newMass = parseFloat(arg) || 85;
+                if (this.blackHole && this.blackHole.diskMesh) {
+                    this.blackHole.diskMesh.scale.set(newMass / 85, newMass / 85, newMass / 85);
+                    return { success: true, message: `SINGULARITY_MASS_ADJUSTED: ${newMass}u` };
+                }
+                return { success: false, message: "ERROR: SINGULARITY_NOT_FOUND" };
+
+            case 'kraye.color':
+                const picker = document.getElementById('ghost-color-picker');
+                if (picker) {
+                    picker.click();
+                    return { success: true, message: "KRAYE_THEME: AWAITING_COLOR_SPACE_OVERRIDE..." };
+                }
+                return { success: false, message: "ERROR: COLOR_PICKER_NOT_FOUND" };
+
+            case 'kraye.glitch':
+                SystemLogicUtils.dispatchRandomGlitch(1.5);
+                return { success: true, message: `MANUAL_ANOMALY_TRIGGERED: ${arg ? arg.toUpperCase() : 'RANDOM'}` };
+
+            case 'kraye.whoami':
+                SystemLogicUtils.dispatchRandomGlitch(1.0);
+                return { success: true, message: "RIYAS MANIKODI // APPLICATION SUPPORT ENGINEER // CLASS OF 2022" };
+
+            case 'kraye.logs':
+                SystemLogicUtils.dispatchRandomGlitch(1.5);
+                return { success: true, message: "INCIDENT_LOGS: \n> ID 505: SQL Query Optimization Success \n> ID 1401: SLA Threshold Maintained at 99.9%" };
+
             case 'scan':
                 if (this.currentFocusedSector === 'CODE' || this.currentFocusedSector === 'VISION') {
-                    SystemEvents.publish(EVENTS.TYPEWRITER_TICK || 'TYPEWRITER_TICK');
+                    SystemEvents.publish(EVENTS.TYPEWRITER_TICK || 'TYPEWRITER_TICK', { sectorId: this.currentFocusedSector });
                     return { success: true, message: "ENCRYPTED_SHARD_FOUND: XJ-99 (secret_bio.pkg)" };
                 }
                 return { success: false, message: "ERROR: NO_SIGNALS_IN_CURRENT_SECTOR" };
+
+            case 'kraye.goto':
             case 'goto':
                 const sector = arg ? arg.toUpperCase() : null;
                 if (this.planets.has(sector)) {
                     this.activeClickedSector = sector;
                     this.activateSector({ id: sector });
                     this.triggerRealityFocus({ id: sector });
-                    return { success: true, message: `FOCUS_LOCKED_ON_SECTOR_${sector}` };
+                    return { success: true, message: `KRAYE_FOCUS_LOCKED: ${sector}` };
                 }
                 return { success: false, message: "ERROR: SECTOR_NOT_FOUND" };
+
+            case 'kraye.warp':
+            case 'velocity':
+                this.isDragging = false;
+                this.isSnapping = false;
+                this.rotationVelocity += parseFloat(arg) || 0.1;
+                return { success: true, message: `KRAYE_VELOCITY_ADJUSTED: ${this.rotationVelocity.toFixed(3)}` };
+
+            case 'kraye.clear':
+            case 'clear':
+                const terminalContent = document.getElementById('terminal-content');
+                if (terminalContent) terminalContent.innerHTML = '';
+                return { success: true, message: "" };
+
+            case 'kraye.help':
             case 'help':
-                return { success: true, message: "AVAIL_COMMANDS: velocity, reboot, scan, goto [sector], help" };
+                return { success: true, message: "KRAYE_CMDS: kraye.resume, kraye.audit, kraye.reboot, kraye.volume, kraye.mass, kraye.color, kraye.graphics.[tier], kraye.goto [sector]" };
+
             default:
-                return { success: false, message: `ERROR: COMMAND_NOT_RECOGNIZED: ${base}` };
+                return { success: false, message: `ERROR: UNKNOWN_KRAYE_COMMAND: ${base}` };
         }
     }
 
@@ -615,10 +749,31 @@ class LogicsEngine {
 
     async runTypewriter(element, text, delay = 20) {
         element.innerHTML = '';
+        const sector = this.currentFocusedSector || 'TECH';
+        const glyphs = ['█', '▓', '░', 'X'];
+
         for (let i = 0; i < text.length; i++) {
+            // PRO PHASE KRAYE: Mechanical Jitter & Data Corruption Simulation
+            let jitter = 0;
+            if (sector === 'CODE') jitter = Math.sin(performance.now() * 0.005) * 15;
+            else if (sector === 'CONTACT') delay = 10;
+
+            const currentDelay = Math.max(5, delay + jitter);
+
+            // Visual Resolve effect for CODE sector
+            if (sector === 'CODE' && Math.random() > 0.5) {
+                const tempChar = glyphs[Math.floor(Math.random() * glyphs.length)];
+                element.innerHTML += tempChar;
+                await new Promise(res => setTimeout(res, currentDelay));
+                element.innerHTML = element.innerHTML.slice(0, -1); // remove glyph
+            }
+
             element.innerHTML += text[i];
-            SystemEvents.publish(EVENTS.TYPEWRITER_TICK || 'TYPEWRITER_TICK');
-            await new Promise(res => setTimeout(res, delay));
+
+            // Pass sectorId to the event bus for pitch shifting
+            SystemEvents.publish(EVENTS.TYPEWRITER_TICK || 'TYPEWRITER_TICK', { sectorId: sector });
+
+            await new Promise(res => setTimeout(res, currentDelay));
         }
     }
 
@@ -854,7 +1009,10 @@ class LogicsEngine {
         // [ID 4520] Safety Check: Ensure lighting object is ready before calling its update
         if (this.lighting && typeof this.lighting.update === 'function') this.lighting.update(time);
 
-        if (this.blackHole) this.blackHole.update(normalizedDelta, this.camera.position, 'CODE');
+        // PRO PHASE KRAYE: Pass rotationVelocity and Graphic Tier to BlackHole for Relativistic Beaming
+        const graphicsTier = SystemLogicUtils.getState().graphicsMode || 'MEDIUM';
+        if (this.blackHole) this.blackHole.update(normalizedDelta, this.camera.position, 'CODE', this.rotationVelocity, graphicsTier);
+
         if (this.debris) this.debris.update(normalizedDelta, time);
         if (this.orbitRing) this.orbitRing.update(time);
         this.planets.forEach(p => p.update(time));

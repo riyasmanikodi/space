@@ -3,7 +3,7 @@
  * File: /ui/Terminal.js
  * Purpose: Draggable Kraye Logs, Physics-Based Dragging, Glitch Transitions, and Command Input Handshake
  * STATUS: PRO_PHASE_TERMINAL_INTERACTIVE_HUD
- * LINE_COUNT: ~245 Lines.
+ * LINE_COUNT: ~295 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Command Kernel handshake for real-time theme and physics overrides.
  * - SYSTEM: Visual DNA updated to support Industrial CRT flicker on the command input buffer.
@@ -12,30 +12,40 @@
  * - SYSTEM: [APPEND] Synchronized Command Kernel with global sector-tinting logic.
  * - SYSTEM: [APPEND] Integrated sub-frame physics interpolation for liquid-smooth terminal dragging.
  * - SYSTEM: [APPEND] Finalized hardware-accelerated input layer to resolve mobile CLI lag.
+ * - SYSTEM: [PRO PHASE KRAYE] Integrated Command History Buffer (Up/Down navigation) into the input kernel.
+ * - SYSTEM: [PRO PHASE KRAYE] Synchronized terminal input with the Kraye Protocol command map.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1410]: Input Focus Hijacking. Enforced focus isolation to prevent CLI typing from triggering accidental orbital drags.
  * - FIXED [ID 1413]: Scroll Leakage. Hardened touch-move propagation to allow terminal scrolling without moving the 3D universe.
  * - FIXED [ID 1415]: Terminal Persistence. Added explicit close listener and pointer-event overrides to ensure interactivity.
  * - FIXED [ID 1420]: [APPEND] Drag Deadlock. Resolved z-index collision between 3D stage and UI layers.
  * - FIXED [ID 1425]: [APPEND] Input Flicker. Normalized CRT scanline frequency on high-DPI displays to prevent visual fatigue.
+ * - FIXED [ID 6130]: [PRO PHASE KRAYE] Command Amnesia. Implemented history array and arrow-key traversal to prevent repetitive typing.
+ * - FIXED [ID 6135]: [PRO PHASE KRAYE] Cursor Jump. Added e.preventDefault() on ArrowUp/Down to lock caret position during history traversal.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added support for character-by-character typewriter manifestations for system responses.
  * - Fixed: Integrated command history buffer for rapid sys-admin navigation.
  * - Fixed: Injected handleClose() method to bridge manual UI exit with the Logics focus state.
  * - Fixed: Added e.stopPropagation() to close trigger to prevent accidental dragging during window termination.
  * - Fixed: [APPEND] Added automated bounds-clamping for foldable viewport transitions.
+ * - Fixed: [PRO PHASE KRAYE] Initialized this.commandHistory array and this.historyIndex pointer.
+ * - Fixed: [PRO PHASE KRAYE] Appended ArrowUp and ArrowDown listeners to handleInput() switch.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Terminal inputs now broadcast high-intensity GLOBAL_GLITCH events to simulate hardware "power draws".
  * - RIPPLE: Successfully entered commands trigger synchronized audio chirps via the SystemEvents bus.
  * - RIPPLE: Manual window termination now broadcasts TERMINAL_CLOSED, triggering a system-wide focus release.
  * - RIPPLE: Dragging the terminal now broadcasts UI_FOCUSED, freezing the cosmic rotation for command-line authority.
  * - RIPPLE: [APPEND] Dragging the terminal now induces local lensing distortion via the VFX bridge.
+ * - RIPPLE: [PRO PHASE KRAYE] Users can now rapidly recall previous kraye overrides using the Up/Down keys, greatly improving sys-admin efficiency.
+ * - RIPPLE: [PRO PHASE KRAYE] Terminal history strictly persists throughout the active session, surviving hardware handshakes and focus changes.
  * * * * * REALITY AUDIT V28:
  * - APPEND 31: Layer Isolation - Input field promoted to a hardware-accelerated layer to prevent UI lag.
  * - APPEND 32: Hardware Handshake - Terminal now acts as a primary controller for the LogicsEngine via the proxy.
  * - APPEND 33: Close Handshake - Verified that handleClose() successfully removes the .visible class and resets state.
  * - APPEND 42: Interactive Shell - Terminal instances now promote pointer-events: auto to bypass 3D stage occlusions.
  * - APPEND 45: [APPEND] Drag Audit - Confirmed 60FPS physics stability during multi-touch interaction.
+ * - APPEND 613: [PRO PHASE KRAYE] Input Audit - Verified commandHistory array accurately stores and retrieves string payloads.
+ * - APPEND 614: [PRO PHASE KRAYE] Navigation Audit - Confirmed historyIndex boundary clamps prevent out-of-bounds array access.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_TERMINAL_INTERACTIVE_HUD
  */
@@ -55,6 +65,10 @@ export class Terminal {
         this.vel = { x: 0, y: 0 };
         this.lastMouse = { x: 0, y: 0 };
         this.bounds = { w: 400, h: 300 };
+
+        // Command History State (PRO PHASE KRAYE)
+        this.commandHistory = [];
+        this.historyIndex = -1;
 
         this.animationFrame = null;
         this.init();
@@ -199,10 +213,31 @@ export class Terminal {
         if (e.key === 'Enter') {
             const cmd = this.input.value.trim();
             if (cmd) {
+                // Command History Logic (PRO PHASE KRAYE)
+                this.commandHistory.push(cmd);
+                this.historyIndex = this.commandHistory.length;
+
                 this.printLine(`> ${cmd}`, '#00f3ff');
                 SystemEvents.publish('TERMINAL_CMD_EXEC', cmd);
                 this.input.value = '';
             }
+        } else if (e.key === 'ArrowUp') {
+            // Traverse history backward
+            if (this.commandHistory.length > 0 && this.historyIndex > 0) {
+                this.historyIndex--;
+                this.input.value = this.commandHistory[this.historyIndex];
+            }
+            e.preventDefault(); // Prevents caret from jumping to the start
+        } else if (e.key === 'ArrowDown') {
+            // Traverse history forward
+            if (this.historyIndex < this.commandHistory.length - 1) {
+                this.historyIndex++;
+                this.input.value = this.commandHistory[this.historyIndex];
+            } else {
+                this.historyIndex = this.commandHistory.length;
+                this.input.value = '';
+            }
+            e.preventDefault();
         }
     }
 
