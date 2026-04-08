@@ -859,3 +859,20 @@ body::before {
     backface-visibility: hidden;
     transform: translateZ(0);
 }
+/* Specific override for Samsung A50s and similar tall displays */
+@media screen and (max-width: 412px) { 
+    #hero-name-viewport {
+        /* 1. SCALE: Reduce to 50% for high-fidelity clarity */
+        transform: scale(0.5) !important;
+
+        /* 2. POSITION: Move it up to clear the Infinity-U notch and leave space for the game */
+        margin-top: -15vh !important;
+
+        /* 3. WIDTH: Force it to fit within the 1080px (logical 412px) width */
+        width: 90vw !important;
+        
+        /* 4. ALIGNMENT: Keep it centered in the cosmos */
+        left: 50%;
+        margin-left: -45vw; /* Half of width to center manually */
+    }
+}
