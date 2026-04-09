@@ -3,7 +3,7 @@
  * File: /greeting.css
  * Purpose: Procedural Space Matrix, Holo-Ignition UI, Hardware-Accelerated Anomaly Layers, and 8bit.ai Styling
  * STATUS: PRO_PHASE_DOM_KINETIC_ANOMALIES_LOCKED
- * LINE_COUNT: ~395 Lines.
+ * LINE_COUNT: ~375 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated hardware-accelerated starfield backdrop using radial-gradient drifts.
  * - SYSTEM: Visual DNA finalized for Industrial CRT aesthetic with scanline jitter.
@@ -51,6 +51,7 @@
  * - FIXED [ID 4604]: [PRO PHASE] DOM Text Ghosting. Surgically purged `.hero-name-wrapper` and related keyframes from `greeting.css` to prevent rendering conflicts with the new WebGL `TextGlitchMaterial`.
  * - FIXED [ID 5625]: [PRO PHASE] UI Hover Disconnect. Verified DOM pointer-events bubble to JS listeners for Cathode Influx.
  * - FIXED [ID 4607]: [PRO PHASE] Purged CSS DNA. Re-injected structural layout and legacy animation keyframes that were incorrectly removed during the WebGL handoff.
+ * - FIXED [ID 9295]: [PRO PHASE] Specificity Lock. Removed hardcoded pixel values from #boot-terminal, #tactical-insight, and #system-stats to defer typographic authority to style.css.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added mask-image to the starfield to ensure clean vignetting in the peripheral void.
  * - Fixed: Bridged .hero-glitch-chromatic to the heavy-chromatic keyframe matrix.
@@ -74,6 +75,7 @@
  * - Fixed: [PRO PHASE] Removed optical ghosting pseudo-elements (`::before` / `::after`) attached to the legacy hero text.
  * - Fixed: [PRO PHASE] Enforced consistent transition easing on terminal UI to match Cathode Influx acceleration.
  * - Fixed: [PRO PHASE] Reinstated `@keyframes` for mirror-unflip, hero-warp-anim, hero-flicker-anim, hero-chromatic-anim.
+ * - Fixed: [PRO PHASE] Removed font-size rules from greeting overlays to obey the Master Typographic Authority Chain.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: .lens-thump provides the physical screen-shake for the unlockSystem transition.
  * - RIPPLE: Animation triggers synchronize with the AudioEngine chirps via the logic bus.
@@ -94,6 +96,7 @@
  * - RIPPLE: [PRO PHASE] Stylesheet size and complexity reduced, accelerating render-tree parsing.
  * - RIPPLE: [PRO PHASE] DOM UI elements now serve as physical triggers for WebGL environmental distortion.
  * - RIPPLE: [PRO PHASE] Legacy DOM anomalies now function flawlessly alongside the new JS-driven Space Realism glitches. The Hero Name layout is permanently locked to a single horizontal axis.
+ * - RIPPLE: [PRO PHASE] The greeting sequence now strictly inherits font sizes from style.css, ensuring Universal Hardware Autonomy without hardcoded pixel conflicts.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Promotion - will-change applied to all high-frequency transition layers.
  * - APPEND 2: Mobile Parity - Optimized font-scaling and padding for fisheye mobile view.
@@ -116,6 +119,7 @@
  * - APPEND 4604: [PRO PHASE] CSS Purge Audit - Verified complete removal of `hero-glitch-anim`, `hero-chromatic-anim`, `hero-base-shake`, and `hero-heavy-chromatic` keyframes.
  * - APPEND 5625: [PRO PHASE] Cathode Influx Audit - Verified z-index and pointer-events support global input interception.
  * - APPEND 4607: [PRO PHASE] Layout Synchronization - Confirmed CSS wrapper explicitly defines absolute constraints as a baseline before JS overrides.
+ * - APPEND 9295: [PRO PHASE] Authority Audit - Verified greeting.css no longer dictates `font-size` for `#boot-terminal`, `#tactical-insight`, or `#system-stats`.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_DOM_KINETIC_ANOMALIES_LOCKED
  */
@@ -252,7 +256,7 @@
 }
 
 #tactical-insight-header {
-    font-size: 10px;
+    /* REMOVED: font-size */
     color: rgba(255, 255, 255, 0.5);
     letter-spacing: 2px;
     margin-bottom: 8px;
@@ -260,7 +264,7 @@
 }
 
 #tactical-insight {
-    font-size: 13px;
+    /* REMOVED: font-size */
     color: #fff;
     line-height: 1.5;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
@@ -292,7 +296,7 @@
 #boot-terminal {
     width: 85%;
     max-width: 600px;
-    font-size: 14px;
+    /* REMOVED: font-size */
     line-height: 1.8;
     text-shadow: 0 0 10px var(--terminal-glow);
     z-index: 10;
@@ -375,7 +379,7 @@
     position: absolute;
     top: 30px;
     left: 30px;
-    font-size: 11px;
+    /* REMOVED: font-size */
     letter-spacing: 2px;
     opacity: 0.5;
     text-transform: uppercase;
@@ -563,8 +567,9 @@
 
 /* 9. MOBILE OPTIMIZATION */
 @media (max-width: 768px) {
+
+    /* REMOVED #boot-terminal font-size constraint */
     #boot-terminal {
-        font-size: 12px;
         width: 90%;
     }
 

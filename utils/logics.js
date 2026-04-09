@@ -3,7 +3,7 @@
  * File: /utils/logics.js
  * Purpose: Centralized Glitch Authority, Master Shuffle Queue & State Machine
  * STATUS: PRO_PHASE_RULE_STRICT_LOCKED
- * LINE_COUNT: ~525 Lines.
+ * LINE_COUNT: ~535 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Master state machine kernel finalized for PRO PHASE deployment.
  * - SYSTEM: Integrated ENTITY_HEARTBEAT synchronization for model-level update cycles.
@@ -27,6 +27,7 @@
  * - SYSTEM: [PRO PHASE KRAYE] Synchronized handleTerminalOverride with authoritative Kraye Protocol.
  * - SYSTEM: [PRO PHASE KRAYE] Injected graphicsMode into the global state for SystemLogic UI throttling.
  * - SYSTEM: [PRO PHASE KRAYE] Restored isCoolingDown semaphore to prevent anomaly spamming.
+ * - SYSTEM: [PRO PHASE] Enforced strict 1500ms synchronization across the global glitch dispatcher.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 501]: Randomization Bias. Permanently removed conditional weighted matrices to allow full glitch pool utilization.
  * - FIXED [ID 1401]: Rotation Conflict. Enforced isZooming lock to stop manual drag from interfering with cinematic centering.
@@ -48,6 +49,7 @@
  * - FIXED [ID 6008]: [PRO PHASE] Double Queue Bug. Moved master shuffle queue into Logics.js to ensure interactions don't bypass the 15-effect non-repeating cycle.
  * - FIXED [ID 6110]: [PRO PHASE KRAYE] Unrecognized Commands. Updated terminal override switch to intercept 'kraye.' prefixed commands.
  * - FIXED [ID 6115]: [PRO PHASE KRAYE] Glitch Overlap. Re-injected isCoolingDown into the 10-second heartbeat to enforce strict intervals.
+ * - FIXED [ID 9360]: [PRO PHASE] Asynchronous State Deadlock. Reduced isGlitching semaphore fallback to 1500ms to perfectly align with the CSS and WebGL termination phases.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added dispatchRandomGlitch() to broadcast interaction events to the system bus.
  * - Fixed: Integrated getHologramData() to feed contextual shards to the UI layer from profile.js.
@@ -69,6 +71,7 @@
  * - Fixed: [PRO PHASE] Added 10-second heartbeat setInterval directly into Logics.js init().
  * - Fixed: [PRO PHASE KRAYE] Added graphicsMode: 'MEDIUM' to the single source of truth state.
  * - Fixed: [PRO PHASE KRAYE] Updated switch cases for kraye.reboot, kraye.audit, and kraye.anomaly_full.
+ * - Fixed: [PRO PHASE] Updated fallback setTimeout in dispatchRandomGlitch to 1500ms.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The utility monitors the isZooming state to toggle cinematic gates across the VFX and Renderer modules.
  * - RIPPLE: SystemEvents.publish(EVENTS.GLOBAL_GLITCH) now includes contextual intensity for haptic and audio scaling.
@@ -89,6 +92,7 @@
  * - RIPPLE: [PRO PHASE] Interactions and heartbeats now pull from the exact same non-repeating queue, strictly enforcing the cycle.
  * - RIPPLE: [PRO PHASE KRAYE] Changing the graphics tier via the terminal now safely references the central state machine without triggering race conditions.
  * - RIPPLE: [PRO PHASE KRAYE] The 10-second heartbeat safely aborts if the system is manually cooling down from a terminal override.
+ * - RIPPLE: [PRO PHASE] The global dispatch semaphore now cleanly releases at 1.5s, preventing subsequent interaction drops.
  * * * * * REALITY AUDIT V28:
  * - APPEND 3: Universal Pool - Sector-based filtering permanently disabled for PRO PHASE.
  * - APPEND 5: State Synchronization - getHologramData ensures skill and bio shards match the active planet identity.
@@ -105,6 +109,7 @@
  * - APPEND 6008: [PRO PHASE] Master Queue Audit - Verified no anomaly repetition occurs across any interaction vector until 15 effects clear.
  * - APPEND 6110: [PRO PHASE KRAYE] Protocol Audit - Verified handleTerminalOverride correctly maps Kraye commands to physical velocity overrides.
  * - APPEND 6115: [PRO PHASE KRAYE] Semaphore Audit - Confirmed isCoolingDown strictly locks the dispatchRandomGlitch timeline to 10000ms.
+ * - APPEND 9360: [PRO PHASE] Semaphore Audit - Verified dispatchRandomGlitch releases the isGlitching lock at exactly 1500ms.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
  */
@@ -284,7 +289,7 @@ class SystemLogic {
         // Block interactions until the manifestation duration ends
         setTimeout(() => {
             this.state.isGlitching = false;
-        }, ANOMALY_CONFIG.GLITCH_DURATION || 2000);
+        }, ANOMALY_CONFIG.GLITCH_DURATION || 1500); // [PRO PHASE] 1500ms bounds
 
         // Block all future anomalies (interactions & heartbeats) until cycle completes
         setTimeout(() => {
