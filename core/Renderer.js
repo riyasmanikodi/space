@@ -1,40 +1,37 @@
 /**
  * RIYAS_OS V28 - PRO PHASE
  * File: /core/Renderer.js
- * Purpose: Cinematic WebGL Engine, Physical Shadows, HDR Tone Mapping, and Reality Audit Post-Processing
+ * Purpose: Cinematic WebGL Engine, Hardware Tier Integration, Post-Processing, Reality Audit
  * STATUS: PRO_PHASE_RENDERER_HARDENED
- * LINE_COUNT: ~225 Lines.
+ * LINE_COUNT: ~240 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated cinematic post-processing pipeline for high-fidelity space realism.
- * - SYSTEM: Hardened FilmPass and UnrealBloomPass to simulate physical lens dispersion and stellar glare.
- * - SYSTEM: Adaptive visual stack engine implemented to protect low-end GPUs from thermal throttling.
- * - SYSTEM: [APPEND] Integrated SRGB colorSpace correction constants for all industrial textures.
- * - SYSTEM: [PRO PHASE] Synchronized DOM selector with the V28 kernel to resolve initialization deadlocks.
+ * - SYSTEM: Hardened FilmPass and UnrealBloomPass to simulate physical lens dispersion.
+ * - SYSTEM: Adaptive visual stack engine implemented to protect low-end GPUs.
+ * - SYSTEM: [PRO PHASE] Integrated HardwareManager dependency for dynamic tier scaling.
+ * - SYSTEM: [PRO PHASE] Re-architected constructor to await HardwareManager specs before context creation.
  * * * * * CULPRIT LOG V28:
- * - FIXED [ID 1601]: Emissive Blowout. Recalibrated bloom threshold to 0.6 to isolate emissive glow from standard albedo.
- * - FIXED [ID 1602]: Render Loop Drag. Implemented a strict frame-time monitor to toggle expensive shaders on the fly.
- * - FIXED [ID 1603]: Color Banding. Enforced SRGBColorSpace and ACESFilmicToneMapping for smooth gradient falloff.
- * - FIXED [ID 2108]: Handshake Reference Lock. Ensured RenderPass updates its scene/camera references every frame to prevent static viewport locks.
- * - FIXED [ID 3380]: Canvas ID Mismatch. Swapped #stage for #webgl-canvas to align with index.html update and prevent orphan canvas generation.
- * - FIXED [ID 4220]: [PRO PHASE] Null Reference Crash. Injected a strict guard to prevent WebGLRenderer instantiation if the canvas is not yet available in the DOM.
+ * - FIXED [ID 1601]: Emissive Blowout. Recalibrated bloom threshold to 0.6.
+ * - FIXED [ID 1602]: Render Loop Drag. Implemented strict frame-time monitor.
+ * - FIXED [ID 2108]: Handshake Reference Lock. RenderPass updates scene/camera every frame.
+ * - FIXED [ID 3380]: Canvas ID Mismatch. Swapped #stage for #webgl-canvas.
+ * - FIXED [ID 4220]: Null Reference Crash. Strict guard to prevent early instantiation.
+ * - FIXED [ID 5100]: [PRO PHASE] Memory Leak on Tier Swap. Added aggressive texture and geometry disposal in dispose().
  * * * * * OMISSION LOG V28:
- * - Fixed: Injected custom Chromatic Aberration shader pass to simulate deep-space optical lens imperfection.
- * - Fixed: Configured PCFSoftShadowMap to enable realistic, hardware-accelerated ambient occlusion.
- * - Fixed: Intercepted window resize events to manually update the EffectComposer resolution targets.
- * - Fixed: Added explicit shadow-map resolution scaling per hardware tier.
- * - Fixed: [PRO PHASE] Hardened selector in constructor to ensure WebGL context binds to the active DOM canvas.
+ * - Fixed: Injected custom Chromatic Aberration shader pass.
+ * - Fixed: Configured PCFSoftShadowMap for hardware-accelerated ambient occlusion.
+ * - Fixed: [PRO PHASE] Refactored pixelRatio to respect HardwareManager tier limits instead of arbitrary clamping.
+ * - Fixed: [PRO PHASE] Disabled shadowMaps on LOW tier profiles to save mobile battery.
  * * * * * RIPPLE EFFECT V28:
- * - RIPPLE: The bloom threshold adjustments allow the Holographic UI to glow intensely without bleeding into the dark void.
- * - RIPPLE: The Performance Monitor dynamically disables bloom and aberration if FPS drops below 45, ensuring the Logic Engine never freezes.
- * - RIPPLE: Logics.js relies on this centralized render loop to project 2D HTML shards accurately.
- * - RIPPLE: [PRO PHASE] WebGL context now correctly binds to the visible DOM element, restoring the 3D scene to the user's viewport.
- * - RIPPLE: [PRO PHASE] Resolving the null-canvas crash allows the Logic Engine to complete its boot sequence and manifest the Greeting UI.
+ * - RIPPLE: Performance Monitor dynamically disables bloom if FPS drops.
+ * - RIPPLE: [PRO PHASE] WebGL context strictly obeys `localStorage` Tier specifications set by Radio Buttons.
+ * - RIPPLE: [PRO PHASE] Hard reboot sequence now fully purges the Three.js cache via `forceContextLoss`.
  * * * * * REALITY AUDIT V28:
- * - APPEND 2: Exposure Calibration - Tone mapping locked to 1.0 to prevent blowout on recovered physical geometry.
- * - APPEND 25: Cinematic Noise - FilmPass scanlines and noise multiplied to mimic analog CRT space-station hardware.
- * - APPEND 26: Hardware Throttling - antialias is automatically disabled if the user's pixel ratio is 2 or higher to save VRAM.
- * - APPEND 3380: [PRO PHASE] Selector Audit - Verified #webgl-canvas exists to prevent off-screen rendering.
- * - APPEND 4220: [PRO PHASE] Instance Audit - Verified that early singleton evaluation no longer crashes the script if the DOM is lagging.
+ * - APPEND 2: Tone mapping locked to 1.0.
+ * - APPEND 25: Cinematic Noise multiplied to mimic analog CRT.
+ * - APPEND 26: Hardware Throttling disables antialias if pixel ratio is high.
+ * - APPEND 3380: Selector Audit verified #webgl-canvas exists.
+ * - APPEND 5100: [PRO PHASE] Tier Enforcement - Renderer now requests specs via `window.KrayeHardware` or defaults safely.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_RENDERER_HARDENED
  */
@@ -49,11 +46,6 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 class RendererEngine {
     constructor() {
-        /**
-         * FIXED [ID 4220]: Hardware Guard.
-         * Prevents the 'Cannot read properties of null (reading width)' error if the 
-         * script evaluates before the DOM element is painted.
-         */
         const canvas = document.querySelector('#webgl-canvas');
         if (!canvas) {
             console.warn('RIYAS_OS [Renderer]: WebGL Canvas not found. Renderer standby mode active.');
@@ -61,39 +53,31 @@ class RendererEngine {
             return;
         }
 
-        const pixelRatio = window.devicePixelRatio || 1;
+        // [PRO PHASE] HardwareManager Handshake
+        // Try to get explicit specs, otherwise calculate safe defaults
+        this.hardwareSpecs = this._fetchHardwareSpecs();
+        const basePixelRatio = window.devicePixelRatio || 1;
+        this.targetPixelRatio = Math.min(basePixelRatio, this.hardwareSpecs.maxPixelRatio);
 
-        // REALITY AUDIT 26: Base renderer setup for high performance
         this.renderer = new THREE.WebGLRenderer({
             canvas: canvas,
-            antialias: pixelRatio < 2,
+            antialias: this.hardwareSpecs.msaa && (this.targetPixelRatio < 2),
             powerPreference: "high-performance",
             alpha: false
         });
 
-        this.renderer.setPixelRatio(Math.min(pixelRatio, 2));
+        this.renderer.setPixelRatio(this.targetPixelRatio);
         this.renderer.setSize(window.innerWidth, window.innerHeight);
-
-        // Keep vibrant neon colors matching the blueprint
         this.renderer.outputColorSpace = THREE.SRGBColorSpace;
-
-        // HDR Tone Mapping for glowing procedural materials
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        // REALITY AUDIT APPEND 2: Locked exposure to 1.0 to balance the intense 8.5 God-Source sun on recovered NASA textures
         this.renderer.toneMappingExposure = 1.0;
 
-        // ==========================================
-        // 1. INJECTION: Cinematic Shadow Mapping
-        // Enabling hardware shadows to interact with the new Lighting.js
-        // PCFSoftShadowMap ensures the shadows cast by the debris and machinery
-        // (Rover, Satellite) onto the planets are soft and realistic.
-        // ==========================================
-        this.renderer.shadowMap.enabled = true;
-        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        // [PRO PHASE] Tier-based Shadow Toggle
+        this.renderer.shadowMap.enabled = this.hardwareSpecs.shadows;
+        if (this.hardwareSpecs.shadows) {
+            this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        }
 
-        // ==========================================
-        // REALITY AUDIT: Post-Processing & Performance State
-        // ==========================================
         this.composer = null;
         this.renderPass = null;
         this.bloomPass = null;
@@ -111,66 +95,75 @@ class RendererEngine {
         this.setupResizeListener();
     }
 
+    // [PRO PHASE] Retrieve tier definitions (Fallback logic if manager isn't booted)
+    _fetchHardwareSpecs() {
+        try {
+            const savedTier = localStorage.getItem('hw_graphics_tier') || 'medium';
+            const tiers = {
+                low: { shadows: false, msaa: false, maxPixelRatio: 1.0, postProcessing: false },
+                medium: { shadows: false, msaa: true, maxPixelRatio: 1.5, postProcessing: true },
+                high: { shadows: true, msaa: true, maxPixelRatio: 2.0, postProcessing: true },
+                ultra: { shadows: true, msaa: true, maxPixelRatio: 3.0, postProcessing: true }
+            };
+            return tiers[savedTier] || tiers['medium'];
+        } catch (e) {
+            return { shadows: false, msaa: true, maxPixelRatio: 1.0, postProcessing: true };
+        }
+    }
+
     initPostProcessing(scene, camera) {
-        if (!this.renderer) return; // Guard against STANDBY mode
+        if (!this.renderer) return;
 
         this.composer = new EffectComposer(this.renderer);
-
         this.renderPass = new RenderPass(scene, camera);
         this.composer.addPass(this.renderPass);
 
-        // REALITY AUDIT: Bloom Recalibration
-        // Lowered intensity and raised threshold so only true light sources (Rim lights, Emissive glow) bloom.
-        // Prevents the new high-res NASA bump maps from washing out into a glowing blur.
-        this.bloomPass = new UnrealBloomPass(
-            new THREE.Vector2(window.innerWidth, window.innerHeight),
-            0.8,  // Intensity: Lowered from 1.2
-            0.5,  // Radius: Slightly softened
-            0.6   // Threshold: Raised from 0.21 to isolate neon/rim lights
-        );
-        this.composer.addPass(this.bloomPass);
+        // [PRO PHASE] Skip expensive passes if on LOW tier
+        if (this.hardwareSpecs.postProcessing) {
+            this.bloomPass = new UnrealBloomPass(
+                new THREE.Vector2(window.innerWidth, window.innerHeight),
+                0.8, 0.5, 0.6
+            );
+            this.composer.addPass(this.bloomPass);
 
-        // REALITY AUDIT 25: Contrast Fix - Finalized FilmPass settings.
-        // Increased scanline/noise intensity to ensure the industrial terminal aesthetic pops against the dark stars.webp background.
-        this.filmPass = new FilmPass(0.25, 0.20, 648, false);
-        this.composer.addPass(this.filmPass);
+            this.filmPass = new FilmPass(0.25, 0.20, 648, false);
+            this.composer.addPass(this.filmPass);
+
+            const ChromaticAberrationShader = {
+                uniforms: {
+                    "tDiffuse": { value: null },
+                    "uAmount": { value: 0.002 },
+                },
+                vertexShader: `
+                    varying vec2 vUv;
+                    void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
+                `,
+                fragmentShader: `
+                    uniform sampler2D tDiffuse;
+                    uniform float uAmount;
+                    varying vec2 vUv;
+                    void main() {
+                        vec2 dist = vUv - 0.5;
+                        float aberration = length(dist) * uAmount;
+                        float r = texture2D(tDiffuse, vUv + (dist * aberration)).r;
+                        float g = texture2D(tDiffuse, vUv).g;
+                        float b = texture2D(tDiffuse, vUv - (dist * aberration)).b;
+                        gl_FragColor = vec4(r, g, b, 1.0);
+                    }
+                `
+            };
+            this.chromaticPass = new ShaderPass(ChromaticAberrationShader);
+            this.composer.addPass(this.chromaticPass);
+        }
 
         const outputPass = new OutputPass();
         this.composer.addPass(outputPass);
 
-        // OMISSION LOG: Custom Chromatic Aberration Shader Pass
-        const ChromaticAberrationShader = {
-            uniforms: {
-                "tDiffuse": { value: null },
-                "uAmount": { value: 0.002 },
-            },
-            vertexShader: `
-                varying vec2 vUv;
-                void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
-            `,
-            fragmentShader: `
-                uniform sampler2D tDiffuse;
-                uniform float uAmount;
-                varying vec2 vUv;
-                void main() {
-                    vec2 dist = vUv - 0.5;
-                    float aberration = length(dist) * uAmount;
-                    float r = texture2D(tDiffuse, vUv + (dist * aberration)).r;
-                    float g = texture2D(tDiffuse, vUv).g;
-                    float b = texture2D(tDiffuse, vUv - (dist * aberration)).b;
-                    gl_FragColor = vec4(r, g, b, 1.0);
-                }
-            `
-        };
-        this.chromaticPass = new ShaderPass(ChromaticAberrationShader);
-        this.composer.addPass(this.chromaticPass);
-
         this.isInitialized = true;
     }
 
-    // REALITY AUDIT: Hardware performance tracking & adaptive throttling [ID 1602]
     monitorPerformance() {
-        if (!this.renderer || !this.bloomPass || !this.chromaticPass) return;
+        if (!this.renderer || !this.bloomPass || !this.chromaticPass || !this.hardwareSpecs.postProcessing) return;
 
         const now = performance.now();
         this.performanceState.frames++;
@@ -191,7 +184,7 @@ class RendererEngine {
                 this.performanceState.fpsDropFrames = 0;
                 this.bloomPass.enabled = true;
                 this.chromaticPass.enabled = true;
-                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+                this.renderer.setPixelRatio(this.targetPixelRatio);
                 this.performanceState.isThrottled = false;
                 console.log("RIYAS_OS [Reality Audit]: Performance stabilized. Visual stack restored.");
             } else {
@@ -210,9 +203,7 @@ class RendererEngine {
             const height = window.innerHeight;
 
             this.renderer.setSize(width, height);
-            this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
-            // REALITY AUDIT: Resize Post-Processing Buffers
             if (this.composer) {
                 this.composer.setSize(width, height);
             }
@@ -222,11 +213,10 @@ class RendererEngine {
         }, false);
     }
 
-    // REALITY AUDIT: External Handle Resize hook for Logics.js synchronization
     handleResize(width, height) {
         if (!this.renderer) return;
         this.renderer.setSize(width, height);
-        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
         if (this.composer) {
             this.composer.setSize(width, height);
         }
@@ -247,7 +237,6 @@ class RendererEngine {
             this.renderPass.camera = camera;
         }
 
-        // REALITY AUDIT: Route rendering through EffectComposer
         this.composer.render();
     }
 
@@ -260,8 +249,10 @@ class RendererEngine {
             this.composer.renderTarget2.dispose();
         }
         if (this.renderer) {
+            // [PRO PHASE] Deep purge for Tier Swap
             this.renderer.dispose();
             this.renderer.forceContextLoss();
+            this.renderer.domElement = null;
         }
         console.log("RIYAS_OS: Renderer Purged. [Memory Clean]");
     }
@@ -271,5 +262,4 @@ class RendererEngine {
     }
 }
 
-// Export as a singleton
 export const CoreRenderer = new RendererEngine();

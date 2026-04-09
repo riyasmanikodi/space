@@ -3,147 +3,76 @@
  * File: /data/constants.js
  * Purpose: Global DNA, Performance Weighting, and Anomaly Timing Registry
  * STATUS: PRO_PHASE_SINGULARITY_LOCKED
- * LINE_COUNT: ~385 Lines.
+ * LINE_COUNT: ~435 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Global DNA registry finalized. Unified sector mapping and brand color-space established.
  * - SYSTEM: Transitioned from image-based assets to mathematical procedural geometry for the cursor.
  * - SYSTEM: Integrated high-fidelity procedural "Meteor on Fire" physics into the centralized DNA registry.
  * - SYSTEM: [APPEND] Synchronized Sector DNA with uppercase Logics constants to resolve dictionary lookup failures.
  * - SYSTEM: [PRO PHASE] Registered Lava.webp surface texture for the procedural 3D cursor.
- * - SYSTEM: [PRO PHASE] Finalized asset registry for cursor texture integration.
- * - SYSTEM: [PRO PHASE] Verified local asset pipeline paths to resolve 404 fetch failures.
- * - SYSTEM: [PRO PHASE] Registered KERNEL_INSIGHTS tactical registry for Call of Duty style boot sequence.
- * - SYSTEM: [PRO PHASE] Integrated MANIFESTO_CONFIG for looping 8bit.ai visual styles (Streaks & Tunnel).
- * - SYSTEM: [PRO PHASE] Calibrated MANIFESTO_CONFIG for Radial Warp Kernel velocities.
- * - SYSTEM: [PRO PHASE] Recalibrated bloom and warp intensities to meet biological safety thresholds.
- * - SYSTEM: [PRO PHASE] Implemented Temporal Throttling via BOOT_FRAME_CAP to eliminate Dual-Engine GPU pressure.
- * - SYSTEM: [PRO PHASE] Integrated dynamic hardware-tiering for STREAK_COUNT to resolve bandwidth contention.
- * - SYSTEM: [PRO PHASE] Synchronized COLORS dictionary to enforce a single source of truth for all modules.
- * - SYSTEM: [PRO PHASE] Injected Application Support engineering metrics into KERNEL_INSIGHTS.
- * - SYSTEM: [PRO PHASE] Injected SHRED_CONFIG to centralize vertex displacement logic for 3D typography.
- * - SYSTEM: [PRO PHASE] Synchronized KERNEL_INSIGHTS with strictly partitioned planetary data.
- * - SYSTEM: [PRO PHASE] Injected 'System Configuration', 'HTML5/CSS3', 'Godot', and 'Formspree' lore.
- * - SYSTEM: [PRO PHASE] Configured HOVER_WARP_INTENSITY for 'Cathode Influx' terminal effect.
- * - SYSTEM: [PRO PHASE] Reverted typography engine to DOM-based HeroEffects to restore Space Realism.
- * - SYSTEM: [PRO PHASE] Injected "HELLO" sequence anomaly thresholds (Block Scramble, Slice Drift, Phosphor Split).
  * - SYSTEM: [PRO PHASE] Configured ANOMALY_CONFIG parameters for character scrambling and structural slicing.
- * - SYSTEM: [PRO PHASE] Calibrated global anomaly duration to a sustained 4.0-second lifecycle.
- * - SYSTEM: [PRO PHASE] Recalibrated glitch duration to 2.5 seconds to balance structural tears with visual stability.
- * - SYSTEM: [PRO PHASE] Calibrated switching interval to 10.0 seconds.
- * - SYSTEM: [PRO PHASE] Expanded anomaly pool to 15 unique archetypes.
  * - SYSTEM: [PRO PHASE] Calibrated glitch duration strictly to 2.0 seconds.
- * - SYSTEM: [PRO PHASE] Excised DATA_SKEW and LUMA_STUTTER to restore original isolation archetypes.
- * - SYSTEM: [PRO PHASE] Restored BLOCK_SCRAMBLE and PHOSPHOR_SPLIT for contextual identity targeting.
  * - SYSTEM: [PRO PHASE SINGULARITY] Integrated BLACKHOLE_CONFIG to govern volumetric rendering and relativistic parameters.
- * - SYSTEM: [PRO PHASE KRAYE PROTOCOL] Appended AUDIO_CONFIG to support sector-aware, pitch-shifted typewriter mechanics.
- * - SYSTEM: [PRO PHASE KRAYE PROTOCOL] Registered blackhole.glb into ASSET_PATHS.
  * - SYSTEM: [PRO PHASE KRAYE PROTOCOL] Added QUALITY_PRESETS for dynamic terminal-driven graphics throttling.
+ * - SYSTEM: [PRO PHASE] Hardened BBL Neon color paths to support the Tetris Game HUD.
+ * - SYSTEM: [PRO PHASE] Abstracted native font sizing into NATIVE_FONT_SIZES dictionary to serve as a typographic source of truth.
+ * - SYSTEM: [PRO PHASE] Hardened Anomaly duration limits to precisely 1.5 seconds.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 05]: Angle Offset Jitter. Enforced strict radians for sector distribution.
  * - FIXED [ID 202]: Color Space Delta. Swapped legacy hex strings for numeric values.
- * - FIXED [ID 3010]: Asset Dependency. Removed reliance on external PNG files by generating the cursor via geometry math.
- * - FIXED [ID 3030]: Blue Dot Error. Resolved by igniting the procedural 3D Meteor geometry independently.
- * - FIXED [ID 3055]: Viewport Visibility. Swapped arbitrary coordinate multipliers for Camera Unprojection math to ensure 1:1 tracking.
  * - FIXED [ID 2120]: Capitalization Lock-Out. Normalized Sector IDs to UPPERCASE to match Logics.js and Profile.js authority keys.
  * - FIXED [ID 3130]: [PRO PHASE] Missing Asset Warning. Registered Lava.webp to prevent AssetLoader bypass.
- * - FIXED [ID 4120]: [PRO PHASE] Resource Fetch Failure. Verified ASSET_PATHS relative routing to ensure Lava.webp resolves locally without 404 errors.
  * - FIXED [ID 4305]: [PRO PHASE] Insight Starvation. Added diverse technical lore to the KERNEL_INSIGHTS array.
- * - FIXED [ID 4315]: [PRO PHASE] Static Manifesto. Abstracted loop timings into global constants to support rhythmic style swapping.
- * - FIXED [ID 4390]: [PRO PHASE] Low Density Streaks. Increased STREAK_COUNT from 40 to 800 for the light ribbon effect.
- * - FIXED [ID 4420]: [PRO PHASE] Motion Sickness Trigger. Lowered WARP_INTENSITY and BLOOM_STRENGTH to prevent high-velocity edge-smearing and visual fatigue.
- * - FIXED [ID 4501]: [PRO PHASE] Parallel Ignition Fatigue. Hardened boot sequence by injecting a 30FPS cap to prevent Main-Thread blocking during texture uploads.
- * - FIXED [ID 4595]: [PRO PHASE] Golden Line Disconnect. Updated COLORS.VISION to Matrix Green to ensure HUD and Physical Entity (Satellite/Singularity) are aesthetically unified across the entire stack.
- * - FIXED [ID 4605]: [PRO PHASE] Hardcoded Shaders. Abstracted TextGlitchMaterial magic numbers into SHRED_CONFIG for global kinetic tuning.
- * - FIXED [ID 5510]: [PRO PHASE] Generic Lore. Replaced default placeholder tips with Active Directory, SLA, and SQL diagnostic insights.
- * - FIXED [ID 5605]: [PRO PHASE] Insight Overlap. Purged generic SQL/AD logs to ensure strict sector uniqueness in the boot sequence.
- * - FIXED [ID 4606]: [PRO PHASE] Aesthetic Reversion. Excised WebGL TextGlitchMaterial references to restore original brand identity.
- * - FIXED [ID 5631]: [PRO PHASE] Config Orphan. Added DOM-specific glitch timing constants to replace legacy shader uniforms.
- * - FIXED [ID 6001]: [PRO PHASE] Transient Anomalies. Centralized glitch duration to 4000ms to ensure structural deformations remain legible.
- * - FIXED [ID 6005]: [PRO PHASE] Timing Desync. Synchronized GLITCH_DURATION (2500) and GLITCH_INTERVAL (10000) to match the 15-effect non-repeating cycle.
- * - FIXED [ID 6008]: [PRO PHASE] Timing Drift. Locked GLITCH_DURATION precisely to 2000ms to enforce the 2s visual rule.
- * - FIXED [ID 6015]: [PRO PHASE] Duration Violation. Replaced typewriter-sensitive effects with structural skews and luma stutters.
+ * - FIXED [ID 4501]: [PRO PHASE] Parallel Ignition Fatigue. Hardened boot sequence by injecting a 30FPS cap to prevent Main-Thread blocking.
+ * - FIXED [ID 4595]: [PRO PHASE] Golden Line Disconnect. Updated COLORS.VISION to Matrix Green.
  * - FIXED [ID 6016]: [PRO PHASE] Timing Drift. Locked GLITCH_DURATION precisely to 2000ms.
- * - FIXED [ID 6035]: [PRO PHASE] Hardcoded Physics. Abstracted IOR and Disk parameters from BlackHole.js into BLACKHOLE_CONFIG for centralized control.
  * - FIXED [ID 6100]: [PRO PHASE KRAYE] Missing Resume Link. Registered authoritative resume path in global constants.
+ * - FIXED [ID 9210]: [PRO PHASE] Font Size Hardcoding. Moved explicit string values from HeroEffects and style.css into the centralized constants registry.
+ * - FIXED [ID 9300]: [PRO PHASE] Greeting Element Disconnect. Added TACTICAL_INSIGHT and SYSTEM_STATS to NATIVE_FONT_SIZES registry.
+ * - FIXED [ID 9320]: [PRO PHASE] Visual Cutoff. Scaled GLITCH_DURATION strictly down to 1500ms to synchronize with CSS bounds and prevent zombie animations.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected METEOR_CONFIG to define procedural vertex displacement and ignition thresholds.
  * - Fixed: Added HARDWARE_PROFILES to support Low/Medium/High performance tiers.
- * - Fixed: Injected sRGB colorSpace correction constants for all industrial textures.
  * - Fixed: Normalized sector identifiers to prevent undefined data-shard manifestations.
  * - Fixed: [PRO PHASE] Injected LAVA path into ASSET_PATHS.TEXTURES to establish single source of truth.
- * - Fixed: [PRO PHASE] Hardened relative path prefixes ('./') for web-server compatibility.
- * - Fixed: [PRO PHASE] Injected MANIFESTO_CONFIG to define loop durations and particle densities.
  * - Fixed: [PRO PHASE] Added KERNEL_INSIGHTS to support randomized tactical feedback during asset mounting.
- * - Fixed: [PRO PHASE] Injected WARP_INTENSITY, STREAK_STRETCH_FACTOR, and RADIAL_ACCELERATION into MANIFESTO_CONFIG.
- * - Fixed: [PRO PHASE] Adjusted MANIFESTO_CONFIG visual comfort boundaries.
  * - Fixed: [PRO PHASE] Injected BOOT_FRAME_CAP into the PERFORMANCE registry to throttle early render loops.
- * - Fixed: [PRO PHASE] Recalibrated STREAK_COUNT dynamically based on viewport to respect mobile fill-rates.
- * - Fixed: [PRO PHASE] Modified COLORS.VISION from 0xffcc00 to 0x0aff0a to resolve color DNA conflict.
- * - Fixed: [PRO PHASE] Added SHRED_CONFIG to manage horizontal band density, slice intensity, and RGB kinetic split.
  * - Fixed: [PRO PHASE] Appended SLA threshold and SQL execution diagnostic strings to KERNEL_INSIGHTS.
- * - Fixed: [PRO PHASE] Appended HOVER_WARP_INTENSITY and HOVER_BLOOM_STRENGTH to MANIFESTO_CONFIG.
- * - Fixed: [PRO PHASE] Appended PHOSPHOR_BLEED_DECAY to SHRED_CONFIG.
- * - Fixed: [PRO PHASE] Injected ANOMALY_CONFIG to govern data corruption density and slice jitter frequency.
- * - Fixed: [PRO PHASE] Appended BLOCK_SCRAMBLE, SLICE_DRIFT, and PHOSPHOR_SPLIT to the GLITCH registry.
- * - Fixed: [PRO PHASE] Added GLITCH_DURATION to ANOMALY_CONFIG to serve as the global timing authority.
  * - Fixed: [PRO PHASE] Added NOISE_SHIVER to the anomaly registry to achieve the 15-effect minimum requirement.
- * - Fixed: [PRO PHASE] Added GLITCH_INTERVAL to ANOMALY_CONFIG.
- * - Fixed: [PRO PHASE] Hardcoded GLITCH_DURATION to 2000.
- * - Fixed: [PRO PHASE] Re-registered BLOCK_SCRAMBLE and PHOSPHOR_SPLIT to support HeroEffects isolation protocols.
  * - Fixed: [PRO PHASE] Injected BLACKHOLE_CONFIG containing LENSING_STRENGTH, DISK_RADIUS, and NOISE_SCALE.
  * - Fixed: [PRO PHASE KRAYE] Added QUALITY_PRESETS array for `kraye.graphics` kernel override.
- * - Fixed: [PRO PHASE KRAYE] Added AUDIO_CONFIG to govern acoustic output and mechanical jitter.
+ * - Fixed: [PRO PHASE] Added BBL_COLORS explicitly to support KrayeGame.js neon surges.
+ * - Fixed: [PRO PHASE] Added NATIVE_FONT_SIZES registry mapped to Mobile and PC hardware states.
+ * - Fixed: [PRO PHASE] Added TACTICAL_INSIGHT and SYSTEM_STATS typographic constants for Universal Autonomy scaling.
+ * - Fixed: [PRO PHASE] Registered GAME_STOP_REQUESTED signal inside GLITCH events for defragmenter lifecycle authority.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The system is now 100% independent of external cursor assets, increasing boot speed.
- * - RIPPLE: Procedural geometry allows for unique asteroid topography on every system initialization.
  * - RIPPLE: The decoupled renderer ensures that cursor crashes do not impact planetary rotation.
- * - RIPPLE: Synchronizing IDs allows holographic shards to correctly manifest bio-data and skill levels.
  * - RIPPLE: [PRO PHASE] AssetLoader can now pre-fetch the cursor texture to prevent a "Black Box" flash on ignition.
- * - RIPPLE: [PRO PHASE] Texture paths map cleanly on both dev servers and production builds.
  * - RIPPLE: [PRO PHASE] The boot sequence now provides technical lore, increasing immersion during the load phase.
- * - RIPPLE: [PRO PHASE] Animation transitions are now deterministic and easily tunable via global constants.
- * - RIPPLE: [PRO PHASE] Global manifesto parameters now directly drive the GPU-instanced Radial Warp shader.
- * - RIPPLE: [PRO PHASE] Lower bloom prevents edge-smearing, allowing crisp 8bit.ai aesthetics without strobe discomfort.
- * - RIPPLE: [PRO PHASE] Capping the boot frame rate at 30FPS saves 50% of GPU cycles, dramatically smoothing background asset decryption.
- * - RIPPLE: [PRO PHASE] Changing COLORS.VISION to Matrix Green ensures the Central Singularity (Black Hole Jet) and HUD Progress Track glow correctly without breaking CSS variable inheritance.
- * - RIPPLE: [PRO PHASE] Tuning SHRED_CONFIG now globally adjusts the Valentin-style kinetic text shredding across all physical interactions.
+ * - RIPPLE: [PRO PHASE] Changing COLORS.VISION to Matrix Green ensures the Central Singularity (Black Hole Jet) and HUD Progress Track glow correctly.
  * - RIPPLE: [PRO PHASE] The boot sequence now provides verified, professional tactical lore, reflecting actual support engineer experience.
- * - RIPPLE: [PRO PHASE] The boot sequence now acts as a primer for the specific, partitioned professional data the user will encounter.
- * - RIPPLE: [PRO PHASE] Terminal hover states can now trigger Cathode Influx background warping.
- * - RIPPLE: [PRO PHASE] System variables now govern physical DOM manipulation rather than WebGL fragment discarding.
- * - RIPPLE: [PRO PHASE] The "HELLO" glitch sequence runs completely independent of the CoreLoop rendering cycle.
- * - RIPPLE: [PRO PHASE] The extended 4-second duration allows complex block-scrambling and structural slicing to remain legible during high-velocity drifts.
- * - RIPPLE: [PRO PHASE] The system now enforces a strict 15-glitch non-repeating cycle.
  * - RIPPLE: [PRO PHASE] 2.5s glitch duration with 10s intervals establishes a rhythmic, industrial ambient pulse.
- * - RIPPLE: [PRO PHASE] The visual anomalies now perfectly align with the 2-second rule, eliminating duration drift.
- * - RIPPLE: [PRO PHASE] Reverting to the core glitch array ensures both the Greeting Button and Main Identity can utilize the precise Space Realism physical anomalies.
  * - RIPPLE: [PRO PHASE] Centralizing BLACKHOLE_CONFIG allows real-time tuning of the cinematic black hole without digging into shader code.
  * - RIPPLE: [PRO PHASE KRAYE] QUALITY_PRESETS allows instantaneous CPU/GPU load balancing directly from the terminal layer.
+ * - RIPPLE: [PRO PHASE] HeroEffects and other typographic modules now strictly pull from NATIVE_FONT_SIZES, preventing UI desync.
+ * - RIPPLE: [PRO PHASE] The tactical box and system stats overlay scale harmoniously alongside the central terminal logs.
+ * - RIPPLE: [PRO PHASE] Glitch engine ensures all states cleanly resolve exactly at 1.5s bounds, matching heavy CSS cinematic timing.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Circular Wraparound - WRAP_LIMIT enforced at 2PI.
  * - APPEND 123: Tier Calibration - Verified Anisotropy limits (4x Low / 16x High).
- * - APPEND 180: Geometry Audit - Verified vertex displacement math (offset 0.8-1.2) creates unique rocky surface.
- * - APPEND 185: Light Audit - Confirmed point light intensity constants scale with movement velocity.
  * - APPEND 205: Viewport Audit - Replaced legacy NDC-to-World mapping with Vector3.unproject() for precision.
  * - APPEND 212: DNA Audit - Verified that all sector keys match the global state machine's case-sensitive lookups.
- * - APPEND 220: Texture Audit - Verified Lava.webp path maps correctly to the surfaces directory.
- * - APPEND 225: [PRO PHASE] Path Sync Audit - Confirmed local server resolution for `./assets/textures/surfaces/Lava.webp`.
  * - APPEND 4310: [PRO PHASE] Insight Audit - Verified array length supports randomized selection without immediate repetition.
- * - APPEND 4320: [PRO PHASE] Manifesto Audit - Confirmed timing constants align with standard GPU refresh cycles.
- * - APPEND 4395: [PRO PHASE] Radial Math Audit - Verified high-density particle counts do not overflow the buffer limits.
- * - APPEND 4420: [PRO PHASE] Comfort Audit - Verified BLOOM_STRENGTH and RADIAL_ACCELERATION meet safety thresholds.
  * - APPEND 4500: [PRO PHASE] Performance Audit - Verified BOOT_FRAME_CAP allows planetary WebP textures to upload without main-thread stutter.
- * - APPEND 4595: [PRO PHASE] DNA Propagation Audit - Verified that modifying `COLORS.VISION` securely propagates the `0x0aff0a` integer to `Logics.js` and the physical engine rendering loop.
- * - APPEND 4606: [PRO PHASE] Shader Config Audit - Confirmed SHRED_CONFIG scales vertex displacement boundaries safely within camera frustum.
+ * - APPEND 4595: [PRO PHASE] DNA Propagation Audit - Verified that modifying `COLORS.VISION` securely propagates the `0x0aff0a` integer.
  * - APPEND 5510: [PRO PHASE] Telemetry Audit - Verified KERNEL_INSIGHTS correctly loads Active Directory and SQL data without overflow.
- * - APPEND 5600: [PRO PHASE] Insight Audit - Verified KERNEL_INSIGHTS accurately reflect the 4 distinct sector domains.
- * - APPEND 4606: [PRO PHASE] Aesthetic Audit - Verified configuration parameters map to CSS and JS properties instead of GLSL floats.
- * - APPEND 5635: [PRO PHASE] Glitch Config Audit - Confirmed ANOMALY_CONFIG provides strict boundaries to prevent DOM layout wrapping.
  * - APPEND 6001: [PRO PHASE] Duration Audit - Verified that GLITCH_DURATION is securely set to 4000ms across the configuration registry.
- * - APPEND 6005: [PRO PHASE] Timing Audit - Verified GLITCH_DURATION is securely set to 2500ms and GLITCH_INTERVAL to 10000ms.
- * - APPEND 6008: [PRO PHASE] Timing Audit - Verified GLITCH_DURATION is securely set to 2000ms.
- * - APPEND 6035: [PRO PHASE] Black Hole Config Audit - Verified BLACKHOLE_CONFIG parameters match cinematic references and correctly pipe into BlackHole.js material instantiation.
+ * - APPEND 6035: [PRO PHASE] Black Hole Config Audit - Verified BLACKHOLE_CONFIG parameters match cinematic references.
  * - APPEND 6110: [PRO PHASE KRAYE] Data Audit - Verified QUALITY_PRESETS correctly map to float values required by WebGL uniforms.
+ * - APPEND 9210: [PRO PHASE] Typographic Source of Truth - Verified NATIVE_FONT_SIZES aligns perfectly with physical A50s specifications.
+ * - APPEND 9300: [PRO PHASE] Layout Authority Audit - Verified TACTICAL_INSIGHT and SYSTEM_STATS are safely embedded within the PC/Mobile dictionary.
+ * - APPEND 9320: [PRO PHASE] Duration Sync Audit - Confirmed GLITCH_DURATION exactly matches 1500ms global safety limit.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_SINGULARITY_LOCKED
  */
@@ -155,7 +84,7 @@ export const SYSTEM = {
     VERSION: "28.0.0_PRO_PHASE",
     AUTHOR: "RIYAS MANIKODI",
     DEBUG_MODE: true,
-    RESUME_URL: './assets/docs/Riyas_Manikodi_Resume.pdf' // [PRO PHASE KRAYE] Secure uplink path
+    RESUME_URL: './assets/docs/Riyas_Manikodi_Resume.pdf'
 };
 
 // ==========================================
@@ -170,13 +99,20 @@ export const COLORS = {
     UI_GLASS: "rgba(10, 15, 25, 0.7)"
 };
 
+// [PRO PHASE] High-Intensity Game UI Colors
+export const BBL_COLORS = {
+    CYAN: '#00FFFF',
+    PINK: '#FF007F',
+    WARNING: '#FF003C'
+};
+
 // ==========================================
 // 3. PERFORMANCE & HARDWARE TIERS
 // ==========================================
 export const PERFORMANCE = {
     MAX_CONCURRENT_REQUESTS: 4,
     STAGGERED_LOAD_INTERVAL: 100,
-    BOOT_FRAME_CAP: 30, // [PRO PHASE]: Temporal Throttling to save GPU during asset fetch
+    BOOT_FRAME_CAP: 30,
     HARDWARE_PROFILES: {
         LOW: { anisotropy: 4, shadows: false, particles: 500, streaks: 150 },
         MEDIUM: { anisotropy: 8, shadows: true, particles: 1200, streaks: 300 },
@@ -184,7 +120,6 @@ export const PERFORMANCE = {
     }
 };
 
-// [PRO PHASE KRAYE] Terminal-Driven Quality Governance
 export const QUALITY_PRESETS = {
     LOW: { octaves: 1, lensing: 1.1, bloom: 0.0, scanlines: 'static' },
     MEDIUM: { octaves: 3, lensing: 2.8, bloom: 0.5, scanlines: 'pulsing' },
@@ -211,34 +146,10 @@ export const ORBIT = {
 // 5. SECTOR METADATA MAPPING (CULPRIT 2120)
 // ==========================================
 export const SECTORS = {
-    TECH: {
-        id: "TECH",
-        name: "TECH_CORE",
-        type: "ROVER",
-        color: COLORS.TECH,
-        angleOffset: 0
-    },
-    CODE: {
-        id: "CODE",
-        name: "CODE_BASE",
-        type: "RADAR",
-        color: COLORS.CODE,
-        angleOffset: Math.PI / 2
-    },
-    VISION: {
-        id: "VISION",
-        name: "VISION_SAT",
-        type: "SATELLITE",
-        color: COLORS.VISION,
-        angleOffset: Math.PI
-    },
-    CONTACT: {
-        id: "CONTACT",
-        name: "COMM_LINK",
-        type: "ROCKET",
-        color: COLORS.CONTACT,
-        angleOffset: (Math.PI * 3) / 2
-    }
+    TECH: { id: "TECH", name: "TECH_CORE", type: "ROVER", color: COLORS.TECH, angleOffset: 0 },
+    CODE: { id: "CODE", name: "CODE_BASE", type: "RADAR", color: COLORS.CODE, angleOffset: Math.PI / 2 },
+    VISION: { id: "VISION", name: "VISION_SAT", type: "SATELLITE", color: COLORS.VISION, angleOffset: Math.PI },
+    CONTACT: { id: "CONTACT", name: "COMM_LINK", type: "ROCKET", color: COLORS.CONTACT, angleOffset: (Math.PI * 3) / 2 }
 };
 
 // ==========================================
@@ -250,7 +161,7 @@ export const ASSET_PATHS = {
         SATELLITE: './assets/models/satellite.glb',
         RADAR: './assets/models/radar_dish.glb',
         ROCKET: './assets/models/rocket.glb',
-        BLACKHOLE: './assets/models/blackhole.glb' // [PRO PHASE KRAYE] Registered Hybrid Singularity
+        BLACKHOLE: './assets/models/blackhole.glb'
     },
     TEXTURES: {
         SKY: './assets/textures/environment/stars.webp',
@@ -271,7 +182,6 @@ export const ASSET_PATHS = {
 // ==========================================
 // 7. GLITCH EFFECT REGISTRY
 // ==========================================
-// [PRO PHASE]: Restored 15 Unique Effects for Targeted Isolation & Dual-Context
 export const GLITCH = {
     HEX_SHRED: 'HEX_SHRED',
     BINARY_FLICKER: 'BINARY_FLICKER',
@@ -287,7 +197,11 @@ export const GLITCH = {
     SLICE_DRIFT: 'SLICE_DRIFT',
     NOISE_SHIVER: 'NOISE_SHIVER',
     BLOCK_SCRAMBLE: 'BLOCK_SCRAMBLE',
-    PHOSPHOR_SPLIT: 'PHOSPHOR_SPLIT'
+    PHOSPHOR_SPLIT: 'PHOSPHOR_SPLIT',
+    GLITCH_SLIDE: 'GLITCH_SLIDE', // [PRO PHASE] Tetris
+    PIECE_ROTATE: 'PIECE_ROTATE', // [PRO PHASE] Tetris
+    POWER_SURGE_CLEAR: 'POWER_SURGE_CLEAR', // [PRO PHASE] Tetris
+    GAME_STOP_REQUESTED: 'GAME_STOP_REQUESTED' // [PRO PHASE] Engine Halt
 };
 
 // ==========================================
@@ -304,11 +218,11 @@ export const UI = {
 // 9. PROCEDURAL METEOR CONFIG (PRO PHASE)
 // ==========================================
 export const METEOR_CONFIG = {
-    DETAIL: 1, // Jagged low-poly facets
+    DETAIL: 1,
     BASE_SCALE: 0.25,
-    NOISE_RANGE: [0.8, 1.2], // Topography variation
-    IGNITION_MULTIPLIER: 30, // Velocity to fire glow factor
-    EMISSIVE_BASE: 1.0, // High visibility visibility
+    NOISE_RANGE: [0.8, 1.2],
+    IGNITION_MULTIPLIER: 30,
+    EMISSIVE_BASE: 1.0,
     LERP_WEIGHT: 0.15
 };
 
@@ -317,17 +231,17 @@ export const METEOR_CONFIG = {
 // ==========================================
 export const KERNEL_INSIGHTS = [
     "[TIP] Use the Industrial Terminal (`) for direct kernel overrides.",
+    "[TIP] Tap the Hero Name 8 times on mobile to access BIOS.",
     "[INFO] System Configuration: Linux and Active Directory nominal.",
     "[DATA] HTML5/CSS3 rendering kernels stabilized.",
     "[STRAT] Godot and Unreal engines initialized for spatial rendering.",
-    "[INFO] Formspree uplink standing by for identity handshake.",
     "[DATA] SLA threshold at 99.9%—Maintaining system uptime.",
-    "[DEBUG] Secret Shards available via 'kraye.logs' and 'kraye.audit'.",
+    "[DEBUG] Run 'kraye.game' in the terminal to initiate defragmentation.",
     "[INFO] Liquid Fire cursor response is gated by real-time GPU latency.",
     "[DATA] V28 uses PCFSoftShadowMap for hardware-accelerated realism.",
     "[STRAT] Hold SHIFT while dragging for high-velocity sector orbits.",
     "[KERN] Sector DNA is hard-coded to 64-bit industrial identifiers.",
-    "[ALRT] Event Horizon drag coefficients exceed standard safety limits.",
+    "[TIP] Use 'kraye.graphics.ultra' to bypass hardware limits.",
     "[TIP] 10-second cycle detected.",
     "[INFO] Universal anomaly pool active."
 ];
@@ -353,19 +267,19 @@ export const MANIFESTO_CONFIG = {
 // 12. TEXT GLITCH CONFIG (PRO PHASE)
 // ==========================================
 export const SHRED_CONFIG = {
-    BAND_DENSITY: 2.5,        // Number of horizontal slices
-    SLICE_INTENSITY: 8.0,     // Max horizontal displacement multiplier
-    SHIVER_SPEED: 10.0,       // Frequency of the X-axis noise
-    RGB_OFFSET_STRENGTH: 0.8, // Chromatic aberration distance multiplier
-    DECAY_RATE: 0.05,         // Speed at which the glitch fades after trigger
-    PHOSPHOR_BLEED_DECAY: 0.02 // [PRO PHASE]: Rate of text trailing decay for terminal interactions
+    BAND_DENSITY: 2.5,
+    SLICE_INTENSITY: 8.0,
+    SHIVER_SPEED: 10.0,
+    RGB_OFFSET_STRENGTH: 0.8,
+    DECAY_RATE: 0.05,
+    PHOSPHOR_BLEED_DECAY: 0.02
 };
 
 // ==========================================
 // 13. DOM SPACE REALISM ANOMALY CONFIG (PRO PHASE)
 // ==========================================
 export const ANOMALY_CONFIG = {
-    GLITCH_DURATION: 2000,
+    GLITCH_DURATION: 1500, // [PRO PHASE] Scaled strictly down to 1.5s
     GLITCH_INTERVAL: 10000,
     ANOMALY_DENSITY: 0.15,
     SCRAMBLE_THRESHOLD: 100,
@@ -379,12 +293,12 @@ export const ANOMALY_CONFIG = {
 // 14. SINGULARITY CONFIG (PRO PHASE)
 // ==========================================
 export const BLACKHOLE_CONFIG = {
-    DISK_RADIUS: 85,              // Scale of the primary volumetric accretion disk
-    PHOTON_RING_RADIUS: 5.4,      // Absolute distance for high-heat light loop
-    LENSING_STRENGTH: 2.8,        // Index of Refraction (IOR) for Einstein Ring simulation
-    NOISE_SCALE: 2.0,             // Multiplier for Simplex Noise turbulence on the disk
-    SPIN_MULTIPLIER: 5.0,         // Reactivity to global UI rotation
-    WOBBLE_SPEED: 0.5             // Speed of sine/cosine structural deformation
+    DISK_RADIUS: 85,
+    PHOTON_RING_RADIUS: 5.4,
+    LENSING_STRENGTH: 2.8,
+    NOISE_SCALE: 2.0,
+    SPIN_MULTIPLIER: 5.0,
+    WOBBLE_SPEED: 0.5
 };
 
 // ==========================================
@@ -394,9 +308,39 @@ export const AUDIO_CONFIG = {
     MASTER_GAIN: 0.8,
     SFX_ENABLED: true,
     PITCH_MAP: {
-        TECH: { base: 1.2, jitter: 0.05 }, // Clean, high-pitched mechanical clack
-        CODE: { base: 0.7, jitter: 0.15 }, // Deep, resonant mass-based thud
-        VISION: { base: 1.0, jitter: 0.10 }, // Mid-range ghost shimmer
-        CONTACT: { base: 1.5, jitter: 0.02 } // Rapid binary chirp
+        TECH: { base: 1.2, jitter: 0.05 },
+        CODE: { base: 0.7, jitter: 0.15 },
+        VISION: { base: 1.0, jitter: 0.10 },
+        CONTACT: { base: 1.5, jitter: 0.02 }
     }
+};
+
+
+// ==========================================
+// 16. TYPOGRAPHIC KERNEL CONFIG (PRO PHASE)
+// ==========================================
+export const NATIVE_FONT_SIZES = {
+    MOBILE: {
+        HERO_MAIN: '2.8rem',
+        HERO_GREETING: '1.8rem',
+        HERO_STATIC: '0.9rem',
+        HUD_MAIN_TITLE: '1.5rem',
+        HUD_SECTOR_TITLE: '1rem',
+        BOOT_READY: '1.1rem',
+        BOOT_LOGS: '5rem',
+        TACTICAL_INSIGHT: '0.8rem',
+        SYSTEM_STATS: '0.7rem'
+    },
+    PC: {
+        HERO_MAIN: '5.0rem',
+        HERO_GREETING: '2.5rem',
+        HERO_STATIC: '1.2rem',
+        HUD_MAIN_TITLE: '2rem',
+        HUD_SECTOR_TITLE: '1.0rem',
+        BOOT_READY: '1.5rem',
+        BOOT_LOGS: '5.0rem',
+        TACTICAL_INSIGHT: '1.2rem',
+        SYSTEM_STATS: '1.0rem'
+    }
+
 };
