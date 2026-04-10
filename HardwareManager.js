@@ -3,35 +3,30 @@
  * File: /systems/HardwareManager.js
  * Purpose: Hardware abstraction, BIOS overrides, Device Detection, Persistence
  * STATUS: PRO_PHASE_HARDWARE_AUTONOMY_LOCKED
- * LINE_COUNT: ~185 Lines.
+ * LINE_COUNT: ~175 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Bootstrapped HardwareManager interface.
  * - SYSTEM: [PRO PHASE] Implemented Three-Tier Device Detection hierarchy.
  * - SYSTEM: [PRO PHASE] Enforced absolute authority of localStorage over physical constraints.
  * - SYSTEM: [PRO PHASE] Integrated Physical Authority Injection directly into document body.
- * - SYSTEM: [PRO PHASE] Implemented Dynamic Viewport Height (DVH) normalization for mobile browsers.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 9100]: Font-Locking Bug. Physical width previously overrode virtual BIOS overrides.
  * - FIXED [ID 9105]: Detection Mismatch. Replaced naive window width checks with UserAgent regex.
  * - FIXED [ID 9240]: [PRO PHASE] Typographic Desync. Injected physical kernel classes directly into document body on load.
- * - FIXED [ID 9390]: [PRO PHASE] Mobile Address Bar Clipping. Bound normalizeViewport() to window resize to dynamically calculate exact 100vh equivalents.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added UserAgent polling for Android/iPhone explicit detection.
  * - Fixed: Synchronized systemState.isMobile determination synchronously during evaluateProfile.
  * - Fixed: Exposed getNativeFontSize() to act as a typographic source of truth.
  * - Fixed: [PRO PHASE] Added DOM manipulation to evaluateProfile to announce kernel state to style.css.
- * - Fixed: [PRO PHASE] Added `normalizeViewport` method to calculate `--vh` variable.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: systemState.isMobile is now an absolute truth locked by the user or hardware agent.
  * - RIPPLE: HeroEffects.js now safely pulls fixed typography sizes without CSS clamp distortion.
  * - RIPPLE: Media queries in CSS are bypassed if 'mobile' profile is forced.
  * - RIPPLE: [PRO PHASE] CSS typographic blocks now activate instantly upon evaluateProfile execution.
- * - RIPPLE: [PRO PHASE] The mobile UI now ignores the browser's address bar height, preventing content from being pushed off-screen.
  * * * * * REALITY AUDIT V28:
  * - APPEND 910: Boot Authority - Verified User-Agent strings override CSS media queries.
  * - APPEND 915: State Integrity - Confirmed isMobile flag locks before UI rendering sequence.
  * - APPEND 924: [PRO PHASE] Boot Authority - Verified document.body receives correct kernel class instantly.
- * - APPEND 9390: [PRO PHASE] Viewport Normalization - Verified the `--vh` variable correctly scales to the active innerHeight on Chrome/Safari/Brave.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_HARDWARE_AUTONOMY_LOCKED
  */
@@ -69,10 +64,6 @@ export class HardwareManager {
         this.performRealityAudit();
         this.loadPersistence();
         this.evaluateProfile();
-        this.normalizeViewport();
-
-        // Listen for orientation changes to re-normalize
-        window.addEventListener('resize', () => this.normalizeViewport());
     }
 
     // ==========================================
@@ -132,20 +123,7 @@ export class HardwareManager {
             document.body.classList.remove('pc-kernel', 'mobile-kernel');
             document.body.classList.add(kernelClass);
             this._recordKraye('PROFILE_EVAL', `Kernel Class Injected: ${kernelClass.toUpperCase()}`);
-
-            // Inject physical safe area variables for style.css 
-            const doc = document.documentElement;
-            doc.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
         }
-    }
-
-    /**
-     * Fixes the "100vh" bug in mobile browsers where address bars 
-     * hide content or cause unwanted scrolling.
-     */
-    normalizeViewport() {
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
 
     // ==========================================

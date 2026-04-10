@@ -922,7 +922,7 @@ body::before {
     line-height: 1.4;
 }
 
-placeholder #terminal-content::-webkit-scrollbar {
+#terminal-content::-webkit-scrollbar {
     width: 5px;
 }
 
@@ -932,21 +932,9 @@ placeholder #terminal-content::-webkit-scrollbar {
 
 #terminal-input-wrapper {
     display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    border-top: 1px solid rgba(0, 243, 255, 0.2);
-    background: rgba(0, 0, 0, 0.6);
-    /* Ensure it stays above the content */
-    z-index: 5;
-}
-
-/* [PRO PHASE] Visual Prompt for Command Input */
-#terminal-input-wrapper::before {
-    content: '>';
-    color: var(--shard-color, var(--accent-tech));
-    margin-right: 10px;
-    font-weight: bold;
-    font-family: var(--font-mono);
+    padding: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 #terminal-input {
@@ -956,14 +944,7 @@ placeholder #terminal-content::-webkit-scrollbar {
     font-family: var(--font-mono);
     flex-grow: 1;
     outline: none;
-    font-size: 16px !important;
-    line-height: 1.2;
-    padding: 2px 0;
-}
-
-#terminal-input::placeholder {
-    color: rgba(0, 243, 255, 0.3);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 /* BIOS Menu Interactivity */
@@ -988,9 +969,6 @@ placeholder #terminal-content::-webkit-scrollbar {
 #terminal-window.force-mobile-view {
     width: 100vw !important;
     height: 100vh !important;
-    height: calc(var(--vh, 1vh) * 100);
-    display: flex;
-    flex-direction: column;
     max-width: none !important;
     max-height: none !important;
     border: none !important;
