@@ -15,6 +15,7 @@
  * - SYSTEM: [PRO PHASE KRAYE] Replaced generic terminal kernel with authoritative Kraye Protocol.
  * - SYSTEM: [PRO PHASE] Integrated Three-Layer Hardware Detection handshake into the stealth boot sequence.
  * - SYSTEM: [PRO PHASE] Integrated `kraye.game.stop` logic into the terminal interpreter.
+ * - SYSTEM: [PRO PHASE] Integrated Mobile-Only Black Hole terminal access gateway.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static innerHTML injection with a character-by-character typewriter loop.
  * - FIXED [ID 1412]: Orbital Stutter. Scaled anomaly intensity by rotation velocity to simulate physical camera strain.
@@ -29,6 +30,7 @@
  * - FIXED [ID 9280]: [PRO PHASE] UI Navigation. Added maximize and minimize to the command registry for terminal-driven window management.
  * - FIXED [ID 9285]: [PRO PHASE] Protocol Handshake Failure. Subscribed to GAME_ROW_CLEAR to bridge game logic with OS glitch engine.
  * - FIXED [ID 9340]: [PRO PHASE] Zombie Processes. Implemented `kraye.game.stop` to forcefully unmount the defragmenter from DOM and memory.
+ * - FIXED [ID 9380]: [PRO PHASE] Gateway Accessibility. Appended `checkIntersection` to accept `SINGULARITY` intercepts for mobile device unlocks.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected Typewriter-synced events into activateSector() to populate shards dynamically.
  * - Fixed: Delegated `mountAssets` payload to `ModelManager` to reduce file complexity.
@@ -39,6 +41,7 @@
  * - Fixed: [PRO PHASE] Added GAME_RESET_REQUESTED and GAME_ROW_CLEAR subscriptions. Added window state overrides.
  * - Fixed: [PRO PHASE] Appended `kraye.game.stop` and `stop` to the command switch block.
  * - Fixed: [PRO PHASE] Appended `kraye.game.stop` to the generated `help` menu readout.
+ * - Fixed: [PRO PHASE] Exposed the `this.blackHole` mesh array to the `this.raycaster` sequence.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Swiping down on mobile clears the activeClickedSector, dismissing the holograms and unlocking orbit physics.
  * - RIPPLE: High-speed swiping now directly controls the intensity of the GLOBAL_GLITCH dispatcher.
@@ -46,6 +49,7 @@
  * - RIPPLE: [PRO PHASE] Core logic now delegates all physical constraints (like targetZ) to the HardwareManager's absolute truth.
  * - RIPPLE: [PRO PHASE] Game engine state can be manipulated via terminal. Row clears trigger physical background distortions. Maximize triggers window resizing for accurate gameplay boundaries.
  * - RIPPLE: [PRO PHASE] Users can now abort the defragmenter cleanly, returning the terminal to a standard logging interface without reloading.
+ * - RIPPLE: [PRO PHASE] Mobile users can physically tap the central singularity to spawn the terminal without needing the 8-tap identity trigger.
  * * * * * REALITY AUDIT V28:
  * - APPEND 16: Typewriter Synchronization - Enforced 20ms character delay to match industrial "Data-Stream" aesthetic.
  * - APPEND 48: ModelManager Integration - Safely decoupled mounting protocols to specialized hardware pipeline.
@@ -56,6 +60,7 @@
  * - APPEND 9250: [PRO PHASE] UI Audit - Verified sector labels display correctly without undefined states.
  * - APPEND 9270: [PRO PHASE] User Onboarding Audit - Verified help menu displays correctly formatted categories.
  * - APPEND 9340: [PRO PHASE] Defrag Halt Audit - Verified `stop` command publishes `GAME_STOP_REQUESTED` to trigger garbage collection.
+ * - APPEND 9380: [PRO PHASE] Mobile Access Audit - Verified singularity tap ignores desktop users, preserving pure mobile functionality.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
  */
@@ -580,19 +585,43 @@ KRAYE_OS // V28 COMMAND_REGISTRY
 
         this.raycaster.setFromCamera(this.pointer, this.camera);
 
-        const planetMeshes = Array.from(this.planets.values())
+        // Include the black hole mesh in the intersection check array
+        const objectsToCheck = Array.from(this.planets.values())
             .map(p => p.planetMesh)
             .filter(mesh => mesh !== undefined && mesh !== null);
 
-        if (planetMeshes.length === 0) return;
+        // [PRO PHASE] Mobile-Only Gateway: Expose singularity to the raycaster
+        if (this.blackHole && this.blackHole.diskMesh) {
+            objectsToCheck.push(this.blackHole.diskMesh);
+        }
 
-        const intersects = this.raycaster.intersectObjects(planetMeshes, false);
+        if (objectsToCheck.length === 0) return;
+
+        const intersects = this.raycaster.intersectObjects(objectsToCheck, false);
 
         this.planets.forEach(p => p.setHoverState(false));
         document.body.style.cursor = 'crosshair';
 
         if (intersects.length > 0) {
             const hitObject = intersects[0].object;
+
+            // [PRO PHASE] Handle Mobile Singularity Tap
+            if (hitObject.userData && hitObject.userData.id === 'SINGULARITY') {
+                if (isClick) {
+                    const isMobileProfile = this.hardwareManager && this.hardwareManager.getIsMobileHardware();
+                    if (isMobileProfile) {
+                        SystemEvents.publish(EVENTS.GLOBAL_GLITCH || 'GLOBAL_GLITCH', { effectId: 'CHROMATIC_SPLIT', intensity: 2.0 });
+                        SystemEvents.publish(EVENTS.DRAWER_TOGGLED || 'DRAWER_TOGGLED', 'TERMINAL');
+                        SystemEvents.publish('ADMIN_ACCESS_GRANTED', true);
+                    } else {
+                        // Desktop feedback (Optional: spin the hole faster instead)
+                        this.rotationVelocity += 0.1;
+                    }
+                }
+                document.body.style.cursor = 'pointer';
+                return; // Exit early so it doesn't process as a planet
+            }
+
             const parentPlanet = this.planets.get(hitObject.userData.id);
 
             if (parentPlanet) {
