@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE (MULTI-MODE IDENTITY & PREFIX RESTORATION)
  * File: /effects/HeroEffects.js
  * Purpose: Kinetic Anomaly Execution Engine, Contextual Switching, and Hardware Gateway
- * STATUS: PRO_PHASE_RULE_STRICT_LOCKED
- * LINE_COUNT: ~500 Lines.
+ * STATUS: PRO_PHASE_INTERACTION_AUTHORITY_LOCKED
+ * LINE_COUNT: ~520 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated dual-context capability for Main OS vs Greeting UI.
  * - SYSTEM: Linked typography to GLOBAL_GLITCH bus for real-time haptic vibration.
@@ -25,6 +25,7 @@
  * - SYSTEM: [PRO PHASE] Abstracted raw typographic values to centralized NATIVE_FONT_SIZES registry.
  * - SYSTEM: [PRO PHASE] Enforced Master Typographic Authority Chain via HardwareManager class injection.
  * - SYSTEM: [PRO PHASE] Enforced strict 1500ms bounds on all Identity Glitch loops to prevent visual hang.
+ * - SYSTEM: [PRO PHASE] Strengthened tap detection with event propagation control to isolate Z-Index layers.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 305]: Layer Desync. Enforced hardware-accelerated stacking (z-index) to prevent text clipping.
  * - FIXED [ID 1801]: Static Displacement. Replaced static multi-div structure with a single-node "Optical Ghosting" architecture.
@@ -46,6 +47,7 @@
  * - FIXED [ID 9260]: [PRO PHASE] Identity Scaling Desync. Ensured HeroEffects polls the dynamically injected body classes for physical hardware truth.
  * - FIXED [ID 9360]: [PRO PHASE] Animation Bleed. Scaled fallback GLITCH_DURATION down to 1500ms to guarantee termination of CSS anomalies.
  * - FIXED [ID 9375]: [PRO PHASE] Selection Interference. Added preventDefault() to handleDeveloperTap to stop mobile OS from focusing text nodes and spawning keyboards.
+ * - FIXED [ID 9440]: [PRO PHASE] Event Bleed. Added e.stopPropagation() to handleDeveloperTap listeners to prevent clicks from reaching the terminal container below.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added immediate reaction to the "Thump" effect during planet snaps and clicks.
  * - Fixed: Integrated weighted randomization for sector-specific character corruption.
@@ -65,6 +67,7 @@
  * - Fixed: [PRO PHASE] Imported NATIVE_FONT_SIZES from constants.js to enforce single source of truth.
  * - Fixed: [PRO PHASE] Hardened isMobileKernel checks to read absolute DOM truth set by HardwareManager.
  * - Fixed: [PRO PHASE] Updated anomaly frame-loop math to seamlessly digest the shortened 1.5s global window.
+ * - Fixed: [PRO PHASE] Appended `e.stopPropagation()` to touch and click detection.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The hero name vibrates in sync with the AudioEngine chirps.
  * - RIPPLE: High-speed orbital drags now physically "tear" the name apart using the CHROMATIC_SPLIT pass.
@@ -83,6 +86,7 @@
  * - RIPPLE: [PRO PHASE] Typography scaling across Greeting and Main sequences now strictly synchronizes with the HardwareManager's pre-render DOM injection.
  * - RIPPLE: [PRO PHASE] Glitches now abruptly and cleanly terminate exactly at 1.5s, removing lingering text fragments or jitter.
  * - RIPPLE: [PRO PHASE] 8-tap developer unlock works flawlessly on mobile devices without spawning the virtual keyboard.
+ * - RIPPLE: [PRO PHASE] Identity taps are now isolated from the terminal container below via event propagation shielding.
  * * * * * REALITY AUDIT V28:
  * - APPEND 30: Semantic Glitching - TECH triggers ASCII/Hex corruption, CODE triggers lens warping.
  * - APPEND 31: Optical Ghosting - Consolidated to a single wrapper using pseudo-elements to simulate physical dispersion.
@@ -100,8 +104,9 @@
  * - APPEND 9260: [PRO PHASE] Typographic Authority - Verified HeroEffects perfectly synchronizes with NATIVE_FONT_SIZES across all kernel states.
  * - APPEND 9360: [PRO PHASE] Glitch Timing Audit - Verified frame loops and timeouts perfectly align with 1500ms limit.
  * - APPEND 9375: [PRO PHASE] Touch Filtering Audit - Verified preventDefault correctly halts text-selection API.
+ * - APPEND 9440: [PRO PHASE] Propagation Audit - Verified stopPropagation prevents event leakage into the Terminal focus loop.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
+ * - STATUS: PRO_PHASE_INTERACTION_AUTHORITY_LOCKED
  */
 
 import { PROFILE } from '../data/profile.js';
@@ -189,9 +194,17 @@ export class HeroEffects {
 
         // [PRO PHASE] Hardware Gateway Interaction
         if (this.container) {
-            this.container.addEventListener('click', (e) => this.handleDeveloperTap(e));
-            // CULPRIT [ID 9375] FIXED: Ensure passive is false to allow preventDefault
-            this.container.addEventListener('touchstart', (e) => this.handleDeveloperTap(e), { passive: false });
+            this.container.addEventListener('click', (e) => {
+                // [PRO PHASE] Prevent tap bleed through to Terminal
+                e.stopPropagation();
+                this.handleDeveloperTap(e);
+            });
+
+            this.container.addEventListener('touchstart', (e) => {
+                // [PRO PHASE] Prevent tap bleed through to Terminal
+                e.stopPropagation();
+                this.handleDeveloperTap(e);
+            }, { passive: false });
         }
     }
 

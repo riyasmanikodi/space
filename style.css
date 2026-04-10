@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE (FULL ARCHITECTURE)
  * File: /style.css
  * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, Mobile Kinetics, and Universal Hardware Autonomy
- * STATUS: PRO_PHASE_UNIVERSAL_AUTONOMY_LOCKED
- * LINE_COUNT: ~645 Lines.
+ * STATUS: PRO_PHASE_INTERACTION_LOCK_LOCKED
+ * LINE_COUNT: ~660 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
  * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
@@ -21,6 +21,7 @@
  * - SYSTEM: [PRO PHASE] Extended Universal Hardware Autonomy to `#tactical-insight` and `#system-stats`.
  * - SYSTEM: [PRO PHASE] Removed pointer-events lock on `.hero-name-wrapper` to restore Developer 8-Click gateway.
  * - SYSTEM: [PRO PHASE] Enforced rigid transform clearing for maximized terminal states.
+ * - SYSTEM: [PRO PHASE] Integrated physical touch-action constraints for identity interaction stability.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 305]: Z-Index Conflict. Confined #hero-name-viewport below scanlines (z-index: 5) to maintain screen depth.
  * - FIXED [ID 1408]: Mobile Viewport Trap. Removed full-screen overlay and enabled Pass-Through touching.
@@ -35,6 +36,9 @@
  * - FIXED [ID 9285]: [PRO PHASE] Gateway Lockout. Reinstated `pointer-events: auto` to `.hero-name-wrapper` to unblock touch listeners.
  * - FIXED [ID 9290]: [PRO PHASE] Specificity Lock. Elevated adaptive profile selectors for `#boot-terminal`, `#tactical-insight`, and `#system-stats` to ID level to overpower greeting.css.
  * - FIXED [ID 9330]: [PRO PHASE] Draggable Maximize Lock. Injected transform: none !important to override inline JS physics when maximized.
+ * - FIXED [ID 9390]: [PRO PHASE] Mobile Address Bar Clipping. Switched from 100vh to dynamic --vh variable for 1:1 viewport precision.
+ * - FIXED [ID 9400]: [PRO PHASE] Viewport Zooming. Forced input font-size to 16px to prevent OS auto-zoom on mobile focus.
+ * - FIXED [ID 9425]: [PRO PHASE] Viewport Shifting. Added touch-action: none to hero-name-viewport to prevent browser-level scrolling during tap sequences.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
  * - Fixed: Converted mobile shard layout to a horizontally scrolling carousel.
@@ -48,6 +52,7 @@
  * - Fixed: [PRO PHASE] Added `#terminal-window.maximized` constraints to commandeer entire viewport for Tetris execution.
  * - Fixed: [PRO PHASE] Added `#terminal-window.minimized` rules to collapse into system tray dock mode.
  * - Fixed: [PRO PHASE] Nullified translate physics inside #terminal-window.maximized.
+ * - Fixed: [PRO PHASE] Added `touch-action: none` to the identity viewport to halt browser kinetic shifts.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The physical meteorite cursor establishes a unified industrial aesthetic across all input methods.
  * - RIPPLE: [PRO PHASE] GPU layer promotion guarantees the cursor canvas operates independently from the DOM layout.
@@ -60,6 +65,7 @@
  * - RIPPLE: [PRO PHASE] The terminal can now execute full-screen takeovers for immersive rendering or dock to the corner for background logging.
  * - RIPPLE: [PRO PHASE] The Tactical Insight and System Stats overlays now strictly scale in sync with the primary typography authority layer.
  * - RIPPLE: [PRO PHASE] The terminal now snaps flawlessly to 100vw/100vh regardless of its previous dragged position.
+ * - RIPPLE: [PRO PHASE] Hero name now prevents browser-level scrolling and sliding during tap sequences, ensuring a locked industrial interface.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter`.
  * - APPEND 159: Z-Index Audit - Verified `100000` priority on `#cursor-3d-overlay`.
@@ -72,8 +78,9 @@
  * - APPEND 9285: Gateway Pointer Audit - Verified clicks traverse `#hero-name-viewport` correctly to register on the wrapper element.
  * - APPEND 9290: Selectivity Override Audit - Verified ID `#` rules in style.css outrank the legacy `px` definitions in greeting.css.
  * - APPEND 9330: [PRO PHASE] Window State Audit - Verified inline JS transforms do not cascade into the .maximized CSS block.
+ * - APPEND 9425: [PRO PHASE] Interaction Shield Audit - Verified that touch-action: none prevents viewport-taskbar shifts in Brave/Mobile.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_UNIVERSAL_AUTONOMY_LOCKED
+ * - STATUS: PRO_PHASE_INTERACTION_LOCK_LOCKED
  */
 
 :root {
@@ -118,15 +125,20 @@
     -webkit-user-drag: none;
 }
 
+html,
 body {
-    width: 100vw;
+    /* [PRO PHASE] Viewport Authority Calculation */
     height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    width: 100%;
     overflow: hidden;
+    position: fixed;
+    /* Prevents "pull-to-refresh" in mobile browsers */
+    overscroll-behavior: none;
     background-color: var(--bg-color);
     color: var(--text-main);
     font-family: var(--font-mono);
     -webkit-font-smoothing: antialiased;
-    /* PRO PHASE: Enforce custom industrial shard cursor */
     cursor: none !important;
 }
 
@@ -186,6 +198,7 @@ body::before {
     z-index: 10;
     pointer-events: none;
     padding: 2rem;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -361,6 +374,8 @@ body::before {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
     opacity: 0;
     animation: holo-ignition 0.6s cubic-bezier(0.1, 0.7, 0.1, 1) forwards;
+    -webkit-touch-callout: none;
+    touch-action: none;
 }
 
 .holo-shard.delay-1 {
@@ -451,6 +466,8 @@ body::before {
     transition: all 0.3s ease;
     width: 100%;
     margin-top: 15px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .btn-primary:hover {
@@ -476,18 +493,20 @@ body::before {
 /* ==========================================
    5. BOOT SCREEN (Overlay)
    ========================================== */
-#boot-screen {
+#boot-screen,
+#os-greeting {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     background-color: var(--bg-color);
     z-index: 99999;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     transition: opacity 1.2s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
 
@@ -495,7 +514,6 @@ body::before {
     width: 400px;
     max-width: 90%;
     text-align: left;
-    /* font-size: 0.85rem; REMOVED: Managed by Kernel Profiles */
     color: var(--sys-success);
     margin-bottom: 40px;
     line-height: 1.8;
@@ -515,6 +533,8 @@ body::before {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #btn-enter-system:hover {
@@ -532,16 +552,26 @@ body::before {
     left: 50%;
     transform: translateX(-50%);
     z-index: 5;
-    pointer-events: none;
-    /* Keep the block clear of 3D intersection logic */
     width: 100%;
     text-align: center;
+    /* [PRO PHASE] Interaction Shield: Stop browser sliding/taskbar hijacking */
+    touch-action: none !important;
+    pointer-events: auto !important;
 }
 
 .hero-name-base {
     position: relative;
     z-index: 2;
     text-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.hero-name-wrapper {
+    pointer-events: auto !important;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: none;
 }
 
 .hero-name-wrapper::before,
@@ -554,12 +584,6 @@ body::before {
     height: 100%;
     opacity: 0;
     pointer-events: none;
-}
-
-.hero-name-wrapper {
-    pointer-events: auto !important;
-    /* Grant interaction authority to the string only */
-    cursor: pointer;
 }
 
 .hero-name-wrapper::before {
@@ -833,10 +857,8 @@ body::before {
         bottom: 15%;
     }
 
-    /* [PRO PHASE] Realignment for Fisheye Mobile View */
     #hero-name-viewport {
         top: 12%;
-        /* Removed scale(0.85) to allow native kernel profile sizing */
         transform: translateX(-50%);
         transform-origin: top center;
     }
@@ -944,7 +966,8 @@ body::before {
     font-family: var(--font-mono);
     flex-grow: 1;
     outline: none;
-    font-size: 0.9rem;
+    /* [PRO PHASE] Prevent mobile auto-zoom */
+    font-size: 16px !important;
 }
 
 /* BIOS Menu Interactivity */
@@ -969,6 +992,7 @@ body::before {
 #terminal-window.force-mobile-view {
     width: 100vw !important;
     height: 100vh !important;
+    height: calc(var(--vh, 1vh) * 100) !important;
     max-width: none !important;
     max-height: none !important;
     border: none !important;
@@ -985,6 +1009,7 @@ body::before {
 #terminal-window.maximized {
     width: 100vw !important;
     height: 100vh !important;
+    height: calc(var(--vh, 1vh) * 100) !important;
     max-width: none !important;
     max-height: none !important;
     top: 0 !important;
@@ -993,8 +1018,6 @@ body::before {
     border-radius: 0 !important;
     z-index: 10000 !important;
     transform: none !important;
-    /* [PRO PHASE] Draggable override */
-    /* Above all other OS layers */
 }
 
 /* MINIMIZED: Tray/Dock Mode */

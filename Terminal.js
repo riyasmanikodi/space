@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /ui/Terminal.js
  * Purpose: Draggable Kraye Logs, BIOS Hardware Menu, ASCII Game Engine, and Instant Input Engagement
- * STATUS: PRO_PHASE_TERMINAL_INTERACTIVE_HUD
- * LINE_COUNT: ~480 Lines.
+ * STATUS: PRO_PHASE_FOCUS_AUTHORITY_LOCKED
+ * LINE_COUNT: ~495 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Command Kernel handshake for real-time theme and physics overrides.
  * - SYSTEM: Visual DNA updated to support Industrial CRT flicker on the command input buffer.
@@ -15,6 +15,7 @@
  * - SYSTEM: [PRO PHASE] Enforced Kernel-Level Handshake for native font sizing via .mobile-kernel and .pc-kernel body classes.
  * - SYSTEM: [PRO PHASE] Integrated Terminal Window State (Maximize/Minimize) Authority.
  * - SYSTEM: [PRO PHASE] Wired GAME_STOP_REQUESTED to explicitly terminate game and purge DOM.
+ * - SYSTEM: [PRO PHASE] Refined focus authority to prevent invisible keyboard ghosting on mobile.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1410]: Input Focus Hijacking. Enforced focus isolation to prevent CLI typing from triggering accidental orbital drags.
  * - FIXED [ID 1415]: Terminal Persistence. Added explicit close listener and pointer-event overrides.
@@ -25,6 +26,8 @@
  * - FIXED [ID 9310]: [PRO PHASE] Window Constraints. Added maximize toggle to bypass fixed terminal bounds during Tetris execution.
  * - FIXED [ID 9350]: [PRO PHASE] Zombie DOM Nodes. Enhanced terminateGame() to physically remove #kraye-game-renderer from the layout.
  * - FIXED [ID 9370]: [PRO PHASE] Mobile Keyboard Ghosting. Removed inline pointer-events override that was hijacking screen touches while the terminal was invisible.
+ * - FIXED [ID 9430]: [PRO PHASE] Focus Hijack. Restricted global click-to-focus logic to only trigger when the .visible class is active.
+ * - FIXED [ID 9435]: [PRO PHASE] Kinetic Shift. Removed automated scrollIntoView behavior to prevent viewport jumping during tap sequences.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added support for character-by-character typewriter manifestations for system responses.
  * - Fixed: [PRO PHASE] Handled `ADMIN_ACCESS_GRANTED` event to auto-mount the Hardware Configuration menu.
@@ -35,6 +38,7 @@
  * - Fixed: [PRO PHASE] Injected double-click listener on terminal header for instant maximization.
  * - Fixed: [PRO PHASE] Halted drag physics when `.maximized` class is active.
  * - Fixed: [PRO PHASE] Subscribed to GAME_STOP_REQUESTED to handle external halt commands.
+ * - Fixed: [PRO PHASE] Added `this.el.classList.contains('visible')` guard to the focus listener.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Terminal inputs now broadcast high-intensity GLOBAL_GLITCH events to simulate hardware "power draws".
  * - RIPPLE: [PRO PHASE] Selecting a hardware radio button physically commits the choice to `localStorage` and triggers a hard reboot.
@@ -43,6 +47,7 @@
  * - RIPPLE: [PRO PHASE] Committing a BIOS change immediately alters the body class, snapping native typography before the browser reloads.
  * - RIPPLE: [PRO PHASE] Double-clicking the header triggers full-screen OS takeover for immersive gaming.
  * - RIPPLE: [PRO PHASE] Stopping the game now cleanly frees up terminal scroll space and removes the canvas layer entirely.
+ * - RIPPLE: [PRO PHASE] Virtual keyboard now only manifests when the terminal is visually active, unblocking hero identity interactions.
  * * * * * REALITY AUDIT V28:
  * - APPEND 31: Layer Isolation - Input field promoted to a hardware-accelerated layer.
  * - APPEND 815: [PRO PHASE] Game Loop Sync - Verified `requestAnimationFrame` pulls data from `KrayeGame`.
@@ -50,8 +55,9 @@
  * - APPEND 920: BIOS State Integrity - Verified BIOS menu accurately reflects actual memory rather than transient system state.
  * - APPEND 9310: [PRO PHASE] Window State Audit - Verified `.maximized` class successfully escapes dragging physics and bounds constraints.
  * - APPEND 9350: [PRO PHASE] DOM Purge Audit - Verified terminateGame safely destroys the renderer container.
+ * - APPEND 9430: [PRO PHASE] Focus Authority Audit - Verified click listener ignores inputs when visibility class is null.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_TERMINAL_INTERACTIVE_HUD
+ * - STATUS: PRO_PHASE_FOCUS_AUTHORITY_LOCKED
  */
 
 import { SystemEvents, EVENTS } from '../utils/events.js';
@@ -121,7 +127,7 @@ export class Terminal {
             this.el.classList.remove('minimized');
 
             SystemEvents.publish(EVENTS.GLOBAL_GLITCH || 'GLOBAL_GLITCH', { effectId: 'CHROMATIC_SPLIT', intensity: 0.8 });
-            window.dispatchEvent(new Event('resize')); // Force layout recalculation
+            window.dispatchEvent(new Event('resize'));
         });
 
         window.addEventListener('mousemove', this.onDragMove.bind(this));
@@ -144,9 +150,10 @@ export class Terminal {
             this.input.addEventListener('keydown', (e) => this.handleInput(e));
         }
 
-        // [PRO PHASE FIX] Universal Focus Recovery Handshake
+        // [PRO PHASE FIX] Universal Focus Recovery Handshake - REFINED
         this.el.addEventListener('click', () => {
-            if (this.input && document.activeElement !== this.input) {
+            // CULPRIT [ID 9430] FIXED: Strictly gate keyboard manifestation behind visibility class
+            if (this.el.classList.contains('visible') && this.input && document.activeElement !== this.input) {
                 this.input.focus();
 
                 if (this.gameInstance && this.gameInstance.state.isActive) {
