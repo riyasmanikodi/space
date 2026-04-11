@@ -3,7 +3,7 @@
  * File: /style.css
  * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, Mobile Kinetics, and Universal Hardware Autonomy
  * STATUS: PRO_PHASE_INTERACTION_LOCK_LOCKED
- * LINE_COUNT: ~660 Lines.
+ * LINE_COUNT: ~680 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
  * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
@@ -22,6 +22,7 @@
  * - SYSTEM: [PRO PHASE] Removed pointer-events lock on `.hero-name-wrapper` to restore Developer 8-Click gateway.
  * - SYSTEM: [PRO PHASE] Enforced rigid transform clearing for maximized terminal states.
  * - SYSTEM: [PRO PHASE] Integrated physical touch-action constraints for identity interaction stability.
+ * - SYSTEM: [PRO PHASE] Injected dedicated `.mobile-only-btn` class to support physical touch triggers on mobile hardware.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 305]: Z-Index Conflict. Confined #hero-name-viewport below scanlines (z-index: 5) to maintain screen depth.
  * - FIXED [ID 1408]: Mobile Viewport Trap. Removed full-screen overlay and enabled Pass-Through touching.
@@ -39,6 +40,7 @@
  * - FIXED [ID 9390]: [PRO PHASE] Mobile Address Bar Clipping. Switched from 100vh to dynamic --vh variable for 1:1 viewport precision.
  * - FIXED [ID 9400]: [PRO PHASE] Viewport Zooming. Forced input font-size to 16px to prevent OS auto-zoom on mobile focus.
  * - FIXED [ID 9425]: [PRO PHASE] Viewport Shifting. Added touch-action: none to hero-name-viewport to prevent browser-level scrolling during tap sequences.
+ * - FIXED [ID 9480]: [PRO PHASE] Mobile Accessibility. Injected .mobile-only-btn rules to provide a physical touch-point for CLI access on mobile hardware.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
  * - Fixed: Converted mobile shard layout to a horizontally scrolling carousel.
@@ -53,6 +55,7 @@
  * - Fixed: [PRO PHASE] Added `#terminal-window.minimized` rules to collapse into system tray dock mode.
  * - Fixed: [PRO PHASE] Nullified translate physics inside #terminal-window.maximized.
  * - Fixed: [PRO PHASE] Added `touch-action: none` to the identity viewport to halt browser kinetic shifts.
+ * - Fixed: [PRO PHASE] Added `.mobile-only-btn` definition with strictly decoupled hardware constraints.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The physical meteorite cursor establishes a unified industrial aesthetic across all input methods.
  * - RIPPLE: [PRO PHASE] GPU layer promotion guarantees the cursor canvas operates independently from the DOM layout.
@@ -66,6 +69,7 @@
  * - RIPPLE: [PRO PHASE] The Tactical Insight and System Stats overlays now strictly scale in sync with the primary typography authority layer.
  * - RIPPLE: [PRO PHASE] The terminal now snaps flawlessly to 100vw/100vh regardless of its previous dragged position.
  * - RIPPLE: [PRO PHASE] Hero name now prevents browser-level scrolling and sliding during tap sequences, ensuring a locked industrial interface.
+ * - RIPPLE: [PRO PHASE] The mobile console trigger button correctly manifests only when hardware demands touch-level interactions.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter`.
  * - APPEND 159: Z-Index Audit - Verified `100000` priority on `#cursor-3d-overlay`.
@@ -79,6 +83,7 @@
  * - APPEND 9290: Selectivity Override Audit - Verified ID `#` rules in style.css outrank the legacy `px` definitions in greeting.css.
  * - APPEND 9330: [PRO PHASE] Window State Audit - Verified inline JS transforms do not cascade into the .maximized CSS block.
  * - APPEND 9425: [PRO PHASE] Interaction Shield Audit - Verified that touch-action: none prevents viewport-taskbar shifts in Brave/Mobile.
+ * - APPEND 9480: [PRO PHASE] Hardware Gateway Audit - Verified `.mobile-only-btn` is completely purged from rendering on PC hardware profiles.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_INTERACTION_LOCK_LOCKED
  */
@@ -315,10 +320,47 @@ body::before {
 .footer-status {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 0.75rem;
     color: var(--text-muted);
     letter-spacing: 2px;
 }
+
+/* ==========================================
+   MOBILE-ONLY INTERFACE ELEMENTS
+   ========================================== */
+
+.mobile-only-btn {
+    display: none;
+    /* Hidden on PC by default */
+    background: transparent;
+    border: 1px solid var(--shard-color, var(--accent-tech));
+    color: var(--shard-color, var(--accent-tech));
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    margin-left: 10px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Hardware Autonomy: Only manifest button on mobile kernel */
+body.mobile-kernel .mobile-only-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-only-btn:active {
+    background: var(--shard-color, var(--accent-tech));
+    color: #000;
+    box-shadow: 0 0 10px var(--shard-color, var(--accent-tech));
+}
+
 
 /* Interaction Hint (Drag to Orbit) */
 #interaction-hint {

@@ -3,7 +3,7 @@
  * File: /Logics.js
  * Purpose: Central System Brain, Hologram Projection, Mobile Kinetics, Asset Mounting & Adaptive Kernel Handshake
  * STATUS: PRO_PHASE_RULE_STRICT_LOCKED
- * LINE_COUNT: ~435 Lines.
+ * LINE_COUNT: ~460 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Linked "Enter System" interaction to Audio Hardware Unlock.
  * - SYSTEM: Magnetic Wheel protocol integrated for kinetic scroll snapping.
@@ -17,6 +17,7 @@
  * - SYSTEM: [PRO PHASE] Integrated `kraye.game.stop` logic into the terminal interpreter.
  * - SYSTEM: [PRO PHASE] Integrated Mobile-Only Black Hole terminal access gateway.
  * - SYSTEM: [PRO PHASE] Adapted Z-index calculation for dynamic aspect ratios.
+ * - SYSTEM: [PRO PHASE] Added physical button listener for #mobile-terminal-trigger to bypass gesture-only CLI triggers on mobile.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static innerHTML injection with a character-by-character typewriter loop.
  * - FIXED [ID 1412]: Orbital Stutter. Scaled anomaly intensity by rotation velocity to simulate physical camera strain.
@@ -33,6 +34,7 @@
  * - FIXED [ID 9340]: [PRO PHASE] Zombie Processes. Implemented `kraye.game.stop` to forcefully unmount the defragmenter from DOM and memory.
  * - FIXED [ID 9380]: [PRO PHASE] Gateway Accessibility. Appended `checkIntersection` to accept `SINGULARITY` intercepts for mobile device unlocks.
  * - FIXED [ID 9460]: [PRO PHASE] Viewport Squashing. Dynamic calculation added to targetZ to support the elastic mobile keyboard viewport shrink without moving the camera down.
+ * - FIXED [ID 9485]: [PRO PHASE] Interaction Deadlock. Added physical button listener for #mobile-terminal-trigger to bypass gesture-only CLI triggers.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected Typewriter-synced events into activateSector() to populate shards dynamically.
  * - Fixed: Delegated `mountAssets` payload to `ModelManager` to reduce file complexity.
@@ -45,6 +47,7 @@
  * - Fixed: [PRO PHASE] Appended `kraye.game.stop` to the generated `help` menu readout.
  * - Fixed: [PRO PHASE] Exposed the `this.blackHole` mesh array to the `this.raycaster` sequence.
  * - Fixed: [PRO PHASE] Exposed `calculateDynamicTargetZ` method to decouple the focus target from fixed integer Z-values.
+ * - Fixed: [PRO PHASE] Added `btnMobileTerminal` listener with `touchstart` and `click` to trigger `DRAWER_TOGGLED` 'TERMINAL'.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Swiping down on mobile clears the activeClickedSector, dismissing the holograms and unlocking orbit physics.
  * - RIPPLE: High-speed swiping now directly controls the intensity of the GLOBAL_GLITCH dispatcher.
@@ -52,8 +55,8 @@
  * - RIPPLE: [PRO PHASE] Core logic now delegates all physical constraints (like targetZ) to the HardwareManager's absolute truth.
  * - RIPPLE: [PRO PHASE] Game engine state can be manipulated via terminal. Row clears trigger physical background distortions. Maximize triggers window resizing for accurate gameplay boundaries.
  * - RIPPLE: [PRO PHASE] Users can now abort the defragmenter cleanly, returning the terminal to a standard logging interface without reloading.
- * - RIPPLE: [PRO PHASE] Mobile users can physically tap the central singularity to spawn the terminal without needing the 8-tap identity trigger.
  * - RIPPLE: [PRO PHASE] The camera now properly retains vertical alignment when the mobile keyboard spawns, matching the elastic aspect ratio of Camera.js.
+ * - RIPPLE: [PRO PHASE] Mobile users can physically tap the central singularity or the console button to spawn the terminal without needing the 8-tap identity trigger.
  * * * * * REALITY AUDIT V28:
  * - APPEND 16: Typewriter Synchronization - Enforced 20ms character delay to match industrial "Data-Stream" aesthetic.
  * - APPEND 48: ModelManager Integration - Safely decoupled mounting protocols to specialized hardware pipeline.
@@ -66,6 +69,7 @@
  * - APPEND 9340: [PRO PHASE] Defrag Halt Audit - Verified `stop` command publishes `GAME_STOP_REQUESTED` to trigger garbage collection.
  * - APPEND 9380: [PRO PHASE] Mobile Access Audit - Verified singularity tap ignores desktop users, preserving pure mobile functionality.
  * - APPEND 9460: [PRO PHASE] Kinetic Elasticity - Verified that calculateDynamicTargetZ smoothly offsets the Z-axis by measuring the instantaneous viewport ratio.
+ * - APPEND 9485: [PRO PHASE] Mobile Button Audit - Verified `#mobile-terminal-trigger` correctly publishes `DRAWER_TOGGLED` without propagating clicks to the 3D scene.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
  */
@@ -310,6 +314,23 @@ class LogicsEngine {
                 SystemEvents.publish('THEME_SHIFT', { color: colorInt });
                 SystemLogicUtils.dispatchRandomGlitch(1.2);
             });
+        }
+
+        // [PRO PHASE] Mobile Terminal Authority
+        const btnMobileTerminal = document.getElementById('mobile-terminal-trigger');
+        if (btnMobileTerminal) {
+            btnMobileTerminal.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent 3D orbit bleed
+                SystemEvents.publish(EVENTS.DRAWER_TOGGLED || 'DRAWER_TOGGLED', 'TERMINAL');
+                SystemLogicUtils.dispatchRandomGlitch(1.2);
+            });
+
+            // Touchstart for faster response on mobile
+            btnMobileTerminal.addEventListener('touchstart', (e) => {
+                e.stopPropagation();
+                SystemEvents.publish(EVENTS.DRAWER_TOGGLED || 'DRAWER_TOGGLED', 'TERMINAL');
+                SystemLogicUtils.dispatchRandomGlitch(1.2);
+            }, { passive: true });
         }
     }
 
