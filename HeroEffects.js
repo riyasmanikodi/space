@@ -77,7 +77,7 @@
  * - RIPPLE: [PRO PHASE] 2.0s glitch duration precisely establishes a rhythmic, industrial ambient pulse without overlap.
  * - RIPPLE: [PRO PHASE] HeroEffects now strictly executes events dispatched by the Master State Machine, guaranteeing global UI synchronization.
  * - RIPPLE: [PRO PHASE] DOM node text resets cleanly after every glitch, ensuring typewriter data streams are never permanently corrupted by overlapping frame requests.
- * - RIPPLE: [PRO PHASE] The main identity now undergoes full structural corruption while maintaining its professional footprint.
+ * - RIPPLE: [PRO PHASE] The main identity now undergoes full structural corruption while maintaining maintaining its professional footprint.
  * - RIPPLE: [PRO PHASE] All identity rendering is now strictly derived from the context parameter, enforcing clean separation between the boot sequence and the OS.
  * - RIPPLE: [PRO PHASE] The boot sequence reads "VOID HUMS FOR KRAYETOS" seamlessly on one line, with only the brand keyword absorbing physical system anomalies.
  * - RIPPLE: [PRO PHASE] 8-Tap sequence triggers a BBL-style Chromatic Split and opens the Terminal drawer.

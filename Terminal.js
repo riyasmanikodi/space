@@ -28,6 +28,7 @@
  * - FIXED [ID 9370]: [PRO PHASE] Mobile Keyboard Ghosting. Removed inline pointer-events override that was hijacking screen touches while the terminal was invisible.
  * - FIXED [ID 9430]: [PRO PHASE] Focus Hijack. Restricted global click-to-focus logic to only trigger when the .visible class is active.
  * - FIXED [ID 9435]: [PRO PHASE] Kinetic Shift. Removed automated scrollIntoView behavior to prevent viewport jumping during tap sequences.
+ * - FIXED [ID 9445]: [PRO PHASE] Interaction Bleed. Constrained the focus recovery handshake specifically to the #terminal-input-wrapper to prevent screen-wide invisible click capture on mobile.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added support for character-by-character typewriter manifestations for system responses.
  * - Fixed: [PRO PHASE] Handled `ADMIN_ACCESS_GRANTED` event to auto-mount the Hardware Configuration menu.
@@ -39,6 +40,7 @@
  * - Fixed: [PRO PHASE] Halted drag physics when `.maximized` class is active.
  * - Fixed: [PRO PHASE] Subscribed to GAME_STOP_REQUESTED to handle external halt commands.
  * - Fixed: [PRO PHASE] Added `this.el.classList.contains('visible')` guard to the focus listener.
+ * - Fixed: [PRO PHASE] Bound `inputWrapper.addEventListener('click')` instead of `this.el`.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Terminal inputs now broadcast high-intensity GLOBAL_GLITCH events to simulate hardware "power draws".
  * - RIPPLE: [PRO PHASE] Selecting a hardware radio button physically commits the choice to `localStorage` and triggers a hard reboot.
@@ -48,6 +50,7 @@
  * - RIPPLE: [PRO PHASE] Double-clicking the header triggers full-screen OS takeover for immersive gaming.
  * - RIPPLE: [PRO PHASE] Stopping the game now cleanly frees up terminal scroll space and removes the canvas layer entirely.
  * - RIPPLE: [PRO PHASE] Virtual keyboard now only manifests when the terminal is visually active, unblocking hero identity interactions.
+ * - RIPPLE: [PRO PHASE] Terminal window no longer intercepts touches on mobile devices when it is hidden or overlapping other interactive elements.
  * * * * * REALITY AUDIT V28:
  * - APPEND 31: Layer Isolation - Input field promoted to a hardware-accelerated layer.
  * - APPEND 815: [PRO PHASE] Game Loop Sync - Verified `requestAnimationFrame` pulls data from `KrayeGame`.
@@ -56,6 +59,7 @@
  * - APPEND 9310: [PRO PHASE] Window State Audit - Verified `.maximized` class successfully escapes dragging physics and bounds constraints.
  * - APPEND 9350: [PRO PHASE] DOM Purge Audit - Verified terminateGame safely destroys the renderer container.
  * - APPEND 9430: [PRO PHASE] Focus Authority Audit - Verified click listener ignores inputs when visibility class is null.
+ * - APPEND 9445: [PRO PHASE] Touch Bleed Audit - Verified that touches on `.terminal-content` or `.terminal-header` do not arbitrarily trigger the mobile keyboard.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_FOCUS_AUTHORITY_LOCKED
  */
@@ -151,16 +155,19 @@ export class Terminal {
         }
 
         // [PRO PHASE FIX] Universal Focus Recovery Handshake - REFINED
-        this.el.addEventListener('click', () => {
-            // CULPRIT [ID 9430] FIXED: Strictly gate keyboard manifestation behind visibility class
-            if (this.el.classList.contains('visible') && this.input && document.activeElement !== this.input) {
-                this.input.focus();
+        const inputWrapper = document.getElementById('terminal-input-wrapper');
+        if (inputWrapper) {
+            inputWrapper.addEventListener('click', (e) => {
+                // CULPRIT [ID 9445] FIXED: Bound focus specifically to the input area to stop full-screen touch hijack
+                if (this.el.classList.contains('visible') && this.input && document.activeElement !== this.input) {
+                    this.input.focus();
 
-                if (this.gameInstance && this.gameInstance.state.isActive) {
-                    this.printLine('KERNEL_INPUT_RESTORED.', '#00ff00');
+                    if (this.gameInstance && this.gameInstance.state.isActive) {
+                        this.printLine('KERNEL_INPUT_RESTORED.', '#00ff00');
+                    }
                 }
-            }
-        });
+            });
+        }
 
         SystemEvents.subscribe('ADMIN_ACCESS_GRANTED', () => {
             this.show();
