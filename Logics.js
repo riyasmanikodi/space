@@ -3,7 +3,7 @@
  * File: /Logics.js
  * Purpose: Central System Brain, Hologram Projection, Mobile Kinetics, Asset Mounting & Adaptive Kernel Handshake
  * STATUS: PRO_PHASE_RULE_STRICT_LOCKED
- * LINE_COUNT: ~460 Lines.
+ * LINE_COUNT: ~465 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Linked "Enter System" interaction to Audio Hardware Unlock.
  * - SYSTEM: Magnetic Wheel protocol integrated for kinetic scroll snapping.
@@ -16,8 +16,7 @@
  * - SYSTEM: [PRO PHASE] Integrated Three-Layer Hardware Detection handshake into the stealth boot sequence.
  * - SYSTEM: [PRO PHASE] Integrated `kraye.game.stop` logic into the terminal interpreter.
  * - SYSTEM: [PRO PHASE] Integrated Mobile-Only Black Hole terminal access gateway.
- * - SYSTEM: [PRO PHASE] Adapted Z-index calculation for dynamic aspect ratios.
- * - SYSTEM: [PRO PHASE] Added physical button listener for #mobile-terminal-trigger to bypass gesture-only CLI triggers on mobile.
+ * - SYSTEM: [PRO PHASE] Hardened Raycaster authority to prevent 3D canvas interaction bleed from UI layers.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static innerHTML injection with a character-by-character typewriter loop.
  * - FIXED [ID 1412]: Orbital Stutter. Scaled anomaly intensity by rotation velocity to simulate physical camera strain.
@@ -33,8 +32,7 @@
  * - FIXED [ID 9285]: [PRO PHASE] Protocol Handshake Failure. Subscribed to GAME_ROW_CLEAR to bridge game logic with OS glitch engine.
  * - FIXED [ID 9340]: [PRO PHASE] Zombie Processes. Implemented `kraye.game.stop` to forcefully unmount the defragmenter from DOM and memory.
  * - FIXED [ID 9380]: [PRO PHASE] Gateway Accessibility. Appended `checkIntersection` to accept `SINGULARITY` intercepts for mobile device unlocks.
- * - FIXED [ID 9460]: [PRO PHASE] Viewport Squashing. Dynamic calculation added to targetZ to support the elastic mobile keyboard viewport shrink without moving the camera down.
- * - FIXED [ID 9485]: [PRO PHASE] Interaction Deadlock. Added physical button listener for #mobile-terminal-trigger to bypass gesture-only CLI triggers.
+ * - FIXED [ID 9475]: [PRO PHASE] Camera Shift Anomaly. Gated raycaster and drag execution behind strict UI focus and bounding rect checks to prevent phantom clicks.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected Typewriter-synced events into activateSector() to populate shards dynamically.
  * - Fixed: Delegated `mountAssets` payload to `ModelManager` to reduce file complexity.
@@ -46,8 +44,7 @@
  * - Fixed: [PRO PHASE] Appended `kraye.game.stop` and `stop` to the command switch block.
  * - Fixed: [PRO PHASE] Appended `kraye.game.stop` to the generated `help` menu readout.
  * - Fixed: [PRO PHASE] Exposed the `this.blackHole` mesh array to the `this.raycaster` sequence.
- * - Fixed: [PRO PHASE] Exposed `calculateDynamicTargetZ` method to decouple the focus target from fixed integer Z-values.
- * - Fixed: [PRO PHASE] Added `btnMobileTerminal` listener with `touchstart` and `click` to trigger `DRAWER_TOGGLED` 'TERMINAL'.
+ * - Fixed: [PRO PHASE] Appended explicit interaction shielding for the Hero Name viewport within the GlobalInput event handlers.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Swiping down on mobile clears the activeClickedSector, dismissing the holograms and unlocking orbit physics.
  * - RIPPLE: High-speed swiping now directly controls the intensity of the GLOBAL_GLITCH dispatcher.
@@ -55,8 +52,8 @@
  * - RIPPLE: [PRO PHASE] Core logic now delegates all physical constraints (like targetZ) to the HardwareManager's absolute truth.
  * - RIPPLE: [PRO PHASE] Game engine state can be manipulated via terminal. Row clears trigger physical background distortions. Maximize triggers window resizing for accurate gameplay boundaries.
  * - RIPPLE: [PRO PHASE] Users can now abort the defragmenter cleanly, returning the terminal to a standard logging interface without reloading.
- * - RIPPLE: [PRO PHASE] The camera now properly retains vertical alignment when the mobile keyboard spawns, matching the elastic aspect ratio of Camera.js.
- * - RIPPLE: [PRO PHASE] Mobile users can physically tap the central singularity or the console button to spawn the terminal without needing the 8-tap identity trigger.
+ * - RIPPLE: [PRO PHASE] Mobile users can physically tap the central singularity to spawn the terminal without needing the 8-tap identity trigger.
+ * - RIPPLE: [PRO PHASE] Tapping the Hero Name on mobile no longer triggers a sudden camera snap to the horizon.
  * * * * * REALITY AUDIT V28:
  * - APPEND 16: Typewriter Synchronization - Enforced 20ms character delay to match industrial "Data-Stream" aesthetic.
  * - APPEND 48: ModelManager Integration - Safely decoupled mounting protocols to specialized hardware pipeline.
@@ -68,8 +65,7 @@
  * - APPEND 9270: [PRO PHASE] User Onboarding Audit - Verified help menu displays correctly formatted categories.
  * - APPEND 9340: [PRO PHASE] Defrag Halt Audit - Verified `stop` command publishes `GAME_STOP_REQUESTED` to trigger garbage collection.
  * - APPEND 9380: [PRO PHASE] Mobile Access Audit - Verified singularity tap ignores desktop users, preserving pure mobile functionality.
- * - APPEND 9460: [PRO PHASE] Kinetic Elasticity - Verified that calculateDynamicTargetZ smoothly offsets the Z-axis by measuring the instantaneous viewport ratio.
- * - APPEND 9485: [PRO PHASE] Mobile Button Audit - Verified `#mobile-terminal-trigger` correctly publishes `DRAWER_TOGGLED` without propagating clicks to the 3D scene.
+ * - APPEND 9475: [PRO PHASE] Interaction Shielding Audit - Verified inputDown gracefully exits when the Hero Name viewport is targeted.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
  */
@@ -315,23 +311,6 @@ class LogicsEngine {
                 SystemLogicUtils.dispatchRandomGlitch(1.2);
             });
         }
-
-        // [PRO PHASE] Mobile Terminal Authority
-        const btnMobileTerminal = document.getElementById('mobile-terminal-trigger');
-        if (btnMobileTerminal) {
-            btnMobileTerminal.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent 3D orbit bleed
-                SystemEvents.publish(EVENTS.DRAWER_TOGGLED || 'DRAWER_TOGGLED', 'TERMINAL');
-                SystemLogicUtils.dispatchRandomGlitch(1.2);
-            });
-
-            // Touchstart for faster response on mobile
-            btnMobileTerminal.addEventListener('touchstart', (e) => {
-                e.stopPropagation();
-                SystemEvents.publish(EVENTS.DRAWER_TOGGLED || 'DRAWER_TOGGLED', 'TERMINAL');
-                SystemLogicUtils.dispatchRandomGlitch(1.2);
-            }, { passive: true });
-        }
     }
 
     bindEvents() {
@@ -371,17 +350,29 @@ class LogicsEngine {
 
         GlobalInput.on('inputHover', (e) => {
             if (!this.systemActive) return;
+            if (SystemLogicUtils.getState().isUIFocused) return; // [ID 9475] Hardened
             this.checkIntersection(e.detail.x, e.detail.y, false);
         });
 
         GlobalInput.on('inputDown', (e) => {
             if (!this.systemActive) return;
+            if (SystemLogicUtils.getState().isUIFocused) return; // [ID 9475] Hardened
 
             SystemLogicUtils.dispatchRandomGlitch(1.0);
 
             const holo = document.getElementById('hologram-viewport');
             if (holo && !holo.classList.contains('hidden')) {
                 const rect = holo.getBoundingClientRect();
+                if (e.detail.x >= rect.left && e.detail.x <= rect.right &&
+                    e.detail.y >= rect.top && e.detail.y <= rect.bottom) {
+                    return;
+                }
+            }
+
+            // [PRO PHASE] Hero Name Bounding Rect Shield (Prevents Camera Raycaster Hijack)
+            const heroName = document.getElementById('hero-name-viewport');
+            if (heroName) {
+                const rect = heroName.getBoundingClientRect();
                 if (e.detail.x >= rect.left && e.detail.x <= rect.right &&
                     e.detail.y >= rect.top && e.detail.y <= rect.bottom) {
                     return;
@@ -733,33 +724,6 @@ KRAYE_OS // V28 COMMAND_REGISTRY
         });
     }
 
-    /**
-     * [PRO PHASE] Calculates a resilient, dynamic target Z for camera positioning 
-     * based on the active viewport's physical pixel elasticity.
-     */
-    calculateDynamicTargetZ() {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        const aspect = width / height;
-
-        // Base constants for PC viewport depth
-        if (!this.hardwareManager.systemState.isMobile) {
-            return 140;
-        }
-
-        // For mobile, adjust target Z inversely proportional to the active aspect ratio
-        // If height drastically shrinks (aspect grows), we don't snap the camera deeper.
-        const baseMobileZ = 180;
-
-        // Prevent camera dropping: Lock Z to a safe threshold if the aspect ratio suggests 
-        // the keyboard has taken over the screen.
-        if (aspect > 0.8) {
-            return 150; // Squat viewport detected (keyboard active)
-        }
-
-        return baseMobileZ;
-    }
-
     triggerRealityFocus(data) {
         this.realityState.isTransitioning = true;
         this.realityState.focusTarget = new THREE.Vector3(0, 5, 75);
@@ -771,9 +735,7 @@ KRAYE_OS // V28 COMMAND_REGISTRY
     clearRealityFocus() {
         this.activeClickedSector = null;
         this.realityState.isTransitioning = true;
-
-        // CULPRIT [ID 9460] FIXED: Route to the dynamic Z calculation function
-        const targetZ = this.calculateDynamicTargetZ();
+        const targetZ = this.hardwareManager.systemState.isMobile ? 180 : 140;
         this.realityState.focusTarget = new THREE.Vector3(0, 20, targetZ);
 
         if (typeof SystemLogicUtils.setZooming === 'function') {
@@ -863,11 +825,6 @@ KRAYE_OS // V28 COMMAND_REGISTRY
         if (CoreRenderer && typeof CoreRenderer.handleResize === 'function') {
             CoreRenderer.handleResize(width, height);
         }
-
-        // Dynamically update the focus target if we are idling
-        if (!this.activeClickedSector && this.realityState.focusTarget) {
-            this.realityState.focusTarget.z = this.calculateDynamicTargetZ();
-        }
     }
 
     dispose() {
@@ -883,8 +840,7 @@ KRAYE_OS // V28 COMMAND_REGISTRY
 
         if (!this.isBooting && this.camera.position.y > 21 && !this.realityState.focusTarget) {
             this.camera.position.y += (20 - this.camera.position.y) * 0.04;
-            // CULPRIT [ID 9460] FIXED: Route boot transition to dynamic target calculation
-            const targetZ = this.calculateDynamicTargetZ();
+            const targetZ = this.hardwareManager.systemState.isMobile ? 180 : 140;
             this.camera.position.z += (targetZ - this.camera.position.z) * 0.04;
             this.camera.lookAt(0, 0, 0);
         }

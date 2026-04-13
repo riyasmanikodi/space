@@ -3,7 +3,7 @@
  * File: /entities/BlackHole.js
  * Purpose: Cinematic Procedural Singularity (Interstellar-Grade Event Horizon and Accretion Disk)
  * STATUS: PRO_PHASE_SINGULARITY_RECONFIGURED
- * LINE_COUNT: ~265 Lines.
+ * LINE_COUNT: ~270 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Cinematic Procedural Singularity kernel finalized for PRO PHASE deployment.
  * - SYSTEM: Integrated Gravitational Lens using MeshPhysicalMaterial for spacetime refraction.
@@ -15,6 +15,7 @@
  * - SYSTEM: [PRO PHASE KRAYE] Integrated QUALITY_PRESETS handshake to throttle shader octaves and noise complexity.
  * - SYSTEM: [PRO PHASE KRAYE] Synchronized uColor uniform with the kraye.color terminal override bus.
  * - SYSTEM: [PRO PHASE KRAYE] Implemented dynamic LENSING_STRENGTH scaling for kraye.graphics tiers.
+ * - SYSTEM: [PRO PHASE] Configured Mobile-Only Gateway. Singularity now acts as a physical hardware bypass for the terminal.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1530]: Accretion Clipping. Hardened depthWrite: false for the disk to prevent Z-fighting.
  * - FIXED [ID 1531]: Flat Singularity. Transitioned from 2D billboards to a 3D physical Torus for the Photon Ring.
@@ -24,6 +25,7 @@
  * - FIXED [ID 2686]: [PRO PHASE] Core Stasis. Injected "Heat Shimmer" vertex displacement to the Event Horizon boundary.
  * - FIXED [ID 6035]: [PRO PHASE] Hardcoded Physics. Abstracted IOR and Disk parameters into BLACKHOLE_CONFIG.
  * - FIXED [ID 6041]: [PRO PHASE] Singularity Audit. Verified velocity-to-beaming handshake between logics.js and BlackHole.js.
+ * - FIXED [ID 9385]: [PRO PHASE] Undetectable Mesh. Embedded `userData.id = 'SINGULARITY'` directly into the disk geometry to support raycaster intersection logic.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added structural wobble (sine/cosine oscillation) to simulate an active singularity.
  * - Fixed: Injected Index of Refraction (IOR: 2.8) for intense spacetime bending.
@@ -32,6 +34,7 @@
  * - Fixed: [PRO PHASE] Injected updateSectorColor() hook to synchronize singularity emissive with sector DNA.
  * - Fixed: [PRO PHASE KRAYE] Added uOctaves and uNoiseScale uniforms to support kraye.graphics tiers.
  * - Fixed: [PRO PHASE KRAYE] Injected real-time IOR modulation to the lensSphere material.
+ * - Fixed: [PRO PHASE] Exposed diskMesh to raycaster for Mobile-Only terminal unlock sequence.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The Black Hole serves as the primary visual gravity well for the CODE sector.
  * - RIPPLE: The gravitational lens refracts the starfield, creating a high-fidelity cinematic aesthetic.
@@ -39,6 +42,7 @@
  * - RIPPLE: [PRO PHASE] The accretion disk now physically "stretches" and brightens during high-velocity universe rotation.
  * - RIPPLE: [PRO PHASE] The Event Horizon appears to "breathe" in sync with system typewriter ticks and physics pulses.
  * - RIPPLE: [PRO PHASE KRAYE] Switching to 'ULTRA' graphics now dynamically increases shader noise octaves to 8.
+ * - RIPPLE: [PRO PHASE] Mobile users can now tap the singularity accretion disk to forcefully manifest the Kraye Protocol terminal.
  * * * * * REALITY AUDIT V28:
  * - APPEND 131: Lens Audit - Verified IOR: 2.8 provides optimal refraction.
  * - APPEND 133: Shadow Audit - Verified that Additive Blending correctly preserves luminosity.
@@ -46,6 +50,7 @@
  * - APPEND 245: [PRO PHASE] Volumetric Audit - Verified vertex noise scale matches cinematic Interstellar references.
  * - APPEND 246: [PRO PHASE] Momentum Audit - Confirmed relativistic beaming intensity scales with drag velocity.
  * - APPEND 6110: [PRO PHASE KRAYE] Quality Audit - Verified QUALITY_PRESETS correctly map to WebGL uniforms.
+ * - APPEND 9385: [PRO PHASE] Intersection Audit - Verified diskMesh returns valid userData to the central Logics.js raycaster.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_SINGULARITY_RECONFIGURED
  */
@@ -157,6 +162,10 @@ export class BlackHole extends THREE.Group {
 
         // Main horizontal disk
         this.diskMesh = new THREE.Mesh(diskGeo, diskMat);
+
+        // [PRO PHASE] Add identity for mobile tap sequence in Logics.js
+        this.diskMesh.userData = { id: 'SINGULARITY' };
+
         this.diskBaseRotationX = Math.PI / 1.7;
         this.diskBaseRotationY = Math.PI / 8;
         this.diskMesh.rotation.x = this.diskBaseRotationX;
@@ -187,6 +196,10 @@ export class BlackHole extends THREE.Group {
         this.photonRing = new THREE.Mesh(ringGeo, ringMat);
         this.photonRing.rotation.x = this.diskBaseRotationX;
         this.photonRing.rotation.y = this.diskBaseRotationY;
+
+        // [PRO PHASE] Add identity for mobile tap sequence in Logics.js
+        this.photonRing.userData = { id: 'SINGULARITY' };
+
         this.add(this.photonRing);
     }
 
