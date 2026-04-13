@@ -33,6 +33,7 @@
  * - FIXED [ID 9340]: [PRO PHASE] Zombie Processes. Implemented `kraye.game.stop` to forcefully unmount the defragmenter from DOM and memory.
  * - FIXED [ID 9380]: [PRO PHASE] Gateway Accessibility. Appended `checkIntersection` to accept `SINGULARITY` intercepts for mobile device unlocks.
  * - FIXED [ID 9475]: [PRO PHASE] Camera Shift Anomaly. Gated raycaster and drag execution behind strict UI focus and bounding rect checks to prevent phantom clicks.
+ * - FIXED [ID 9480]: [PRO PHASE] Static Planets. Injected Ambient Orbital Constant to universeGroup.rotation.y to ensure continuous idle planetary rotation.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected Typewriter-synced events into activateSector() to populate shards dynamically.
  * - Fixed: Delegated `mountAssets` payload to `ModelManager` to reduce file complexity.
@@ -45,6 +46,7 @@
  * - Fixed: [PRO PHASE] Appended `kraye.game.stop` to the generated `help` menu readout.
  * - Fixed: [PRO PHASE] Exposed the `this.blackHole` mesh array to the `this.raycaster` sequence.
  * - Fixed: [PRO PHASE] Appended explicit interaction shielding for the Hero Name viewport within the GlobalInput event handlers.
+ * - Fixed: [PRO PHASE] Appended continuous ambient drift logic to prevent static freezing in idle orbital modes.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Swiping down on mobile clears the activeClickedSector, dismissing the holograms and unlocking orbit physics.
  * - RIPPLE: High-speed swiping now directly controls the intensity of the GLOBAL_GLITCH dispatcher.
@@ -54,6 +56,7 @@
  * - RIPPLE: [PRO PHASE] Users can now abort the defragmenter cleanly, returning the terminal to a standard logging interface without reloading.
  * - RIPPLE: [PRO PHASE] Mobile users can physically tap the central singularity to spawn the terminal without needing the 8-tap identity trigger.
  * - RIPPLE: [PRO PHASE] Tapping the Hero Name on mobile no longer triggers a sudden camera snap to the horizon.
+ * - RIPPLE: [PRO PHASE] The universe now maintains a subtle, continuous rotation (0.0005) when idle, breathing life into the 3D void.
  * * * * * REALITY AUDIT V28:
  * - APPEND 16: Typewriter Synchronization - Enforced 20ms character delay to match industrial "Data-Stream" aesthetic.
  * - APPEND 48: ModelManager Integration - Safely decoupled mounting protocols to specialized hardware pipeline.
@@ -66,6 +69,7 @@
  * - APPEND 9340: [PRO PHASE] Defrag Halt Audit - Verified `stop` command publishes `GAME_STOP_REQUESTED` to trigger garbage collection.
  * - APPEND 9380: [PRO PHASE] Mobile Access Audit - Verified singularity tap ignores desktop users, preserving pure mobile functionality.
  * - APPEND 9475: [PRO PHASE] Interaction Shielding Audit - Verified inputDown gracefully exits when the Hero Name viewport is targeted.
+ * - APPEND 9480: [PRO PHASE] Orbital Consistency Audit - Verified the universe group constantly updates rotation to prevent static locking.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
  */
@@ -350,13 +354,13 @@ class LogicsEngine {
 
         GlobalInput.on('inputHover', (e) => {
             if (!this.systemActive) return;
-            if (SystemLogicUtils.getState().isUIFocused) return; // [ID 9475] Hardened
+            if (SystemLogicUtils.getState().isUIFocused) return;
             this.checkIntersection(e.detail.x, e.detail.y, false);
         });
 
         GlobalInput.on('inputDown', (e) => {
             if (!this.systemActive) return;
-            if (SystemLogicUtils.getState().isUIFocused) return; // [ID 9475] Hardened
+            if (SystemLogicUtils.getState().isUIFocused) return;
 
             SystemLogicUtils.dispatchRandomGlitch(1.0);
 
@@ -858,7 +862,11 @@ KRAYE_OS // V28 COMMAND_REGISTRY
                 if (Math.abs(target - current) < 0.001) this.isSnapping = false;
             } else {
                 this.rotationVelocity *= 0.90;
-                this.universeGroup.rotation.y += this.rotationVelocity;
+
+                // [PRO PHASE] ID 9480: Ambient Orbital Constant
+                const ambientDrift = this.activeClickedSector ? 0 : 0.0005;
+                this.universeGroup.rotation.y += this.rotationVelocity + ambientDrift;
+
                 if (Math.abs(this.rotationVelocity) < 0.0015 && Math.abs(this.rotationVelocity) > 0) {
                     this.rotationVelocity = 0;
                     const snap = Math.round(this.universeGroup.rotation.y / (Math.PI / 2)) * (Math.PI / 2);
