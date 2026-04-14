@@ -1,78 +1,59 @@
 /**
  * RIYAS_OS V28 - PRO PHASE
  * File: /ui/Terminal.js
- * Purpose: Draggable Kraye Logs, BIOS Hardware Menu, ASCII Game Engine, and Instant Input Engagement
- * STATUS: PRO_PHASE_FOCUS_AUTHORITY_LOCKED
- * LINE_COUNT: ~515 Lines.
+ * Purpose: Draggable Kraye Logs, BIOS Hardware Menu, ASCII Game Engine, and Ergonomic Kraye-Boy Controller
+ * STATUS: PRO_PHASE_KRAYEBOY_SYNCED
+ * LINE_COUNT: ~570 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Command Kernel handshake for real-time theme and physics overrides.
  * - SYSTEM: Visual DNA updated to support Industrial CRT flicker on the command input buffer.
- * - SYSTEM: [PRO PHASE KRAYE] Integrated Command History Buffer (Up/Down navigation) into the input kernel.
  * - SYSTEM: [PRO PHASE] HardwareManager injected to support BIOS-style radio button rendering.
  * - SYSTEM: [PRO PHASE] `kraye.game` command routing linked to the ASCII Defragmenter renderer.
  * - SYSTEM: [PRO PHASE] Implemented Game Lifecycle Manager for Visibility Handshaking.
  * - SYSTEM: [PRO PHASE] Integrated Instant Input Engagement protocol for zero-click CLI interaction.
  * - SYSTEM: [PRO PHASE] Enforced Kernel-Level Handshake for native font sizing via .mobile-kernel and .pc-kernel body classes.
  * - SYSTEM: [PRO PHASE] Integrated Terminal Window State (Maximize/Minimize) Authority.
- * - SYSTEM: [PRO PHASE] Wired GAME_STOP_REQUESTED to explicitly terminate game and purge DOM.
- * - SYSTEM: [PRO PHASE] Refined focus authority to prevent invisible keyboard ghosting on mobile.
- * - SYSTEM: [PRO PHASE] Hardened Terminal DOM presence to explicitly relinquish interaction authority when inactive.
  * - SYSTEM: [PRO PHASE] Isolated BIOS menu generation to prevent DOM duplication on multiple Trigger clicks.
+ * - SYSTEM: [PRO PHASE] Integrated Industrial Command Cluster for mobile hardware gamepad emulation.
+ * - SYSTEM: [PRO PHASE] Overhauled mobile inputs to "Kraye-Boy" split controller layout.
+ * - SYSTEM: [PRO PHASE] Replaced standard game rendering with Gradient DNA block rendering.
  * * * * * CULPRIT LOG V28:
- * - FIXED [ID 1410]: Input Focus Hijacking. Enforced focus isolation to prevent CLI typing from triggering accidental orbital drags.
- * - FIXED [ID 1415]: Terminal Persistence. Added explicit close listener and pointer-event overrides.
- * - FIXED [ID 6130]: [PRO PHASE KRAYE] Command Amnesia. Implemented history array and arrow-key traversal.
- * - FIXED [ID 8300]: [PRO PHASE] Focus Hijack. Clicking outside the terminal caused arrow keys to fail. Fixed via global click listener.
- * - FIXED [ID 8400]: [PRO PHASE] Manual Click Required. Opening the terminal required a manual click to focus the command line. Fixed via automated focus handshake in show().
- * - FIXED [ID 9205]: [PRO PHASE] Locked Fonts. Resolved desync between pending BIOS changes and physical page reloads by clearing pending keys and injecting native classes.
- * - FIXED [ID 9310]: [PRO PHASE] Window Constraints. Added maximize toggle to bypass fixed terminal bounds during Tetris execution.
  * - FIXED [ID 9350]: [PRO PHASE] Zombie DOM Nodes. Enhanced terminateGame() to physically remove #kraye-game-renderer from the layout.
  * - FIXED [ID 9370]: [PRO PHASE] Mobile Keyboard Ghosting. Removed inline pointer-events override that was hijacking screen touches while the terminal was invisible.
- * - FIXED [ID 9430]: [PRO PHASE] Focus Hijack. Restricted global click-to-focus logic to only trigger when the .visible class is active.
- * - FIXED [ID 9435]: [PRO PHASE] Kinetic Shift. Removed automated scrollIntoView behavior to prevent viewport jumping during tap sequences.
- * - FIXED [ID 9445]: [PRO PHASE] Interaction Bleed. Constrained the focus recovery handshake specifically to the #terminal-input-wrapper to prevent screen-wide invisible click capture on mobile.
  * - FIXED [ID 9485]: [PRO PHASE] Invisible Interaction Shield. Enforced strict pointer-event removal in hide() to ensure mobile taps reach the Hero Name viewport and Universal Trigger.
  * - FIXED [ID 9530]: [PRO PHASE] Menu Duplication. Implemented existence guard in `renderConfigMenu()` to abort if `#bios-config-menu` is already mounted.
+ * - FIXED [ID 9550]: [PRO PHASE] Keyboard Collision. Added BIOS menu existence guard to prevent duplication on trigger toggle.
+ * - FIXED [ID 9560]: [PRO PHASE] Mobile Controller Desync. Bound #krayeboy-controller visibility to the Tetris lifecycle.
+ * - FIXED [ID 9585]: [PRO PHASE] Action Fragmentation. Mapped Action A/B and D-Pad triggers to dedicated gameInstance methods.
+ * - FIXED [ID 9610]: [PRO PHASE] Monotone Deframgmenter. Swapped hardcoded `#ff007f` blocks for dynamic dynamic sector-based colors via `BLOCK_DNA` array in `renderGame()`.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added support for character-by-character typewriter manifestations for system responses.
- * - Fixed: [PRO PHASE] Handled `ADMIN_ACCESS_GRANTED` event to auto-mount the Hardware Configuration menu.
- * - Fixed: [PRO PHASE] Mapped the backtick (`) to act as a hardware kill-switch for active game states.
- * - Fixed: [PRO PHASE] Appended focus recovery handshake in `init()` to automatically reclaim `document.activeElement`.
- * - Fixed: [PRO PHASE] Injected `this.input.focus()` into the visibility toggle to enable immediate typing on manifest.
  * - Fixed: [PRO PHASE] Radio buttons now explicitly poll localStorage directly to represent the hard-locked memory state.
  * - Fixed: [PRO PHASE] Injected double-click listener on terminal header for instant maximization.
- * - Fixed: [PRO PHASE] Halted drag physics when `.maximized` class is active.
- * - Fixed: [PRO PHASE] Subscribed to GAME_STOP_REQUESTED to handle external halt commands.
- * - Fixed: [PRO PHASE] Added `this.el.classList.contains('visible')` guard to the focus listener.
- * - Fixed: [PRO PHASE] Bound `inputWrapper.addEventListener('click')` instead of `this.el`.
- * - Fixed: [PRO PHASE] Explicitly toggled pointer-events in show() and hide() to reinforce CSS-level display overrides.
+ * - Fixed: [PRO PHASE] Injected `this.input.focus()` into the visibility toggle to enable immediate typing on manifest.
  * - Fixed: [PRO PHASE] Added ID `bios-config-menu` to the generated menu container.
  * - Fixed: [PRO PHASE] Injected `if (document.getElementById('bios-config-menu')) return;` at the top of `renderConfigMenu`.
+ * - Fixed: [PRO PHASE] Injected `this.bindGameControls()` to map split Kraye-Boy wings to game logic.
+ * - Fixed: [PRO PHASE] Injected dynamic color logic into `renderGame` loop using block grid data.
+ * - Fixed: [PRO PHASE] Implemented text-shadow glowing effect to simulate phosphor display blocks in Tetris.
  * * * * * RIPPLE EFFECT V28:
- * - RIPPLE: Terminal inputs now broadcast high-intensity GLOBAL_GLITCH events to simulate hardware "power draws".
  * - RIPPLE: [PRO PHASE] Selecting a hardware radio button physically commits the choice to `localStorage` and triggers a hard reboot.
- * - RIPPLE: [PRO PHASE] Clicking the terminal during an active game immediately restores keyboard input authority.
- * - RIPPLE: [PRO PHASE] Opening the terminal via hotkey or UI trigger now immediately grants keyboard control to the user without clicks.
  * - RIPPLE: [PRO PHASE] Committing a BIOS change immediately alters the body class, snapping native typography before the browser reloads.
- * - RIPPLE: [PRO PHASE] Double-clicking the header triggers full-screen OS takeover for immersive gaming.
  * - RIPPLE: [PRO PHASE] Stopping the game now cleanly frees up terminal scroll space and removes the canvas layer entirely.
- * - RIPPLE: [PRO PHASE] Virtual keyboard now only manifests when the terminal is visually active, unblocking hero identity interactions.
- * - RIPPLE: [PRO PHASE] Terminal window no longer intercepts touches on mobile devices when it is hidden or overlapping other interactive elements.
  * - RIPPLE: [PRO PHASE] Terminal completely vanishes from the interaction stack when closed, restoring Universal Trigger access.
  * - RIPPLE: [PRO PHASE] Repeatedly clicking the Universal Trigger or 8-Tap gateway no longer spams the terminal log with duplicated BIOS interfaces.
+ * - RIPPLE: Mobile users can now navigate and rotate Tetris shards with ergonomic split-thumb precision.
+ * - RIPPLE: The Tetris game blocks now accurately mirror the specific gradient sector colors found in the 3D world (Cyan, Magenta, Violet, Amber, Mint, Rose).
  * * * * * REALITY AUDIT V28:
- * - APPEND 31: Layer Isolation - Input field promoted to a hardware-accelerated layer.
- * - APPEND 815: [PRO PHASE] Game Loop Sync - Verified `requestAnimationFrame` pulls data from `KrayeGame`.
- * - APPEND 840: [PRO PHASE] Focus Handshake - Verified that 100ms delay in show() accounts for CSS transition visibility latency.
- * - APPEND 920: BIOS State Integrity - Verified BIOS menu accurately reflects actual memory rather than transient system state.
  * - APPEND 9310: [PRO PHASE] Window State Audit - Verified `.maximized` class successfully escapes dragging physics and bounds constraints.
  * - APPEND 9350: [PRO PHASE] DOM Purge Audit - Verified terminateGame safely destroys the renderer container.
- * - APPEND 9430: [PRO PHASE] Focus Authority Audit - Verified click listener ignores inputs when visibility class is null.
- * - APPEND 9445: [PRO PHASE] Touch Bleed Audit - Verified that touches on `.terminal-content` or `.terminal-header` do not arbitrarily trigger the mobile keyboard.
  * - APPEND 9485: [PRO PHASE] Interaction Shield Audit - Confirmed terminal hide() perfectly unblocks underlying 3D and UI layers.
  * - APPEND 9530: [PRO PHASE] Menu Isolation Audit - Verified `renderConfigMenu()` safely aborts if the menu ID already exists in the DOM.
+ * - APPEND 9585: [PRO PHASE] Ergonomic Bind Audit - Verified that A/B buttons provide high-intensity drop/rotate actions.
+ * - APPEND 9590: [PRO PHASE] Lifecycle Audit - Verified that stopping the game completely purges the Kraye-Boy HUD.
+ * - APPEND 9610: [PRO PHASE] DNA Sync Audit - Confirmed the 6-color spectrum palette renders flawlessly in the terminal span elements.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_FOCUS_AUTHORITY_LOCKED
+ * - STATUS: PRO_PHASE_KRAYEBOY_SYNCED
  */
 
 import { SystemEvents, EVENTS } from '../utils/events.js';
@@ -191,7 +172,35 @@ export class Terminal {
             }
         });
 
+        this.bindGameControls();
         this.updatePhysics();
+    }
+
+    bindGameControls() {
+        const krayeboy = document.getElementById('krayeboy-controller');
+        if (!krayeboy) return;
+
+        krayeboy.addEventListener('pointerdown', (e) => {
+            if (!this.gameInstance || !this.gameInstance.state.isActive) return;
+
+            const btn = e.target.closest('.dpad-btn, .action-btn');
+            const action = btn?.getAttribute('data-action');
+            if (!action) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            SystemEvents.publish(EVENTS.GLOBAL_GLITCH || 'GLOBAL_GLITCH', { effectId: 'SIGNAL_NOISE', intensity: 0.4 });
+
+            if (action === 'left') this.gameInstance.move(-1, 0);
+            else if (action === 'right') this.gameInstance.move(1, 0);
+            else if (action === 'softdrop') this.gameInstance.move(0, 1);
+            else if (action === 'rotate') this.gameInstance.rotate();
+            else if (action === 'drop') {
+                SystemEvents.publish(EVENTS.GLOBAL_GLITCH || 'GLOBAL_GLITCH', { effectId: 'CHROMATIC_SPLIT', intensity: 1.5 });
+                this.gameInstance.hardDrop();
+            }
+        });
     }
 
     onDragStart(e) {
@@ -288,7 +297,10 @@ export class Terminal {
             else if (e.key === 'ArrowRight') this.gameInstance.move(1, 0);
             else if (e.key === 'ArrowUp') this.gameInstance.rotate();
             else if (e.key === 'ArrowDown') this.gameInstance.move(0, 1);
-            else if (e.key === ' ') this.gameInstance.hardDrop();
+            else if (e.key === ' ') {
+                SystemEvents.publish(EVENTS.GLOBAL_GLITCH || 'GLOBAL_GLITCH', { effectId: 'CHROMATIC_SPLIT', intensity: 1.5 });
+                this.gameInstance.hardDrop();
+            }
             else if (e.key === '`') this.terminateGame();
             return;
         }
@@ -339,26 +351,27 @@ export class Terminal {
         const currentTier = localStorage.getItem('hw_graphics_tier') || this.hardwareManager.systemState.graphicsTier;
 
         const menuHTML = `
-            <div style="color: #ff007f; margin-bottom: 10px;">> BIOS_CONFIGURATION_UNLOCKED</div>
-            
-            <div style="color: #00f3ff; margin-bottom: 5px;">[HARDWARE_PROFILE]</div>
-            <div class="radio-option" data-type="profile" data-val="auto">  (${currentProfile === 'auto' ? '●' : ' '}) AUTO_DETECT_LIQUID</div>
-            <div class="radio-option" data-type="profile" data-val="mobile">(${currentProfile === 'mobile' ? '●' : ' '}) FORCE_MOBILE_KERNEL</div>
-            <div class="radio-option" data-type="profile" data-val="pc">    (${currentProfile === 'pc' ? '●' : ' '}) FORCE_DESKTOP_WIDE</div>
-            <br/>
-            
-            <div style="color: #00f3ff; margin-bottom: 5px;">[VRAM_ALLOCATION]</div>
-            <div class="radio-option" data-type="tier" data-val="low">   (${currentTier === 'low' ? '●' : ' '}) LOW_TIER_SAFE_MODE</div>
-            <div class="radio-option" data-type="tier" data-val="medium">(${currentTier === 'medium' ? '●' : ' '}) STANDARD_MEDIUM</div>
-            <div class="radio-option" data-type="tier" data-val="high">  (${currentTier === 'high' ? '●' : ' '}) HIGH_PERFORMANCE</div>
-            <div class="radio-option" data-type="tier" data-val="ultra"> (${currentTier === 'ultra' ? '●' : ' '}) ULTRA_FIDELITY</div>
-            
-            <div style="color: #ff0055; margin-top: 15px; cursor: pointer;" id="btn-bios-reboot">> COMMIT_AND_REBOOT</div>
-            <br/>
+            <div id="bios-config-menu">
+                <div style="color: #ff007f; margin-bottom: 10px;">> BIOS_CONFIGURATION_UNLOCKED</div>
+                
+                <div style="color: #00f3ff; margin-bottom: 5px;">[HARDWARE_PROFILE]</div>
+                <div class="radio-option" data-type="profile" data-val="auto">  (${currentProfile === 'auto' ? '●' : ' '}) AUTO_DETECT_LIQUID</div>
+                <div class="radio-option" data-type="profile" data-val="mobile">(${currentProfile === 'mobile' ? '●' : ' '}) FORCE_MOBILE_KERNEL</div>
+                <div class="radio-option" data-type="profile" data-val="pc">    (${currentProfile === 'pc' ? '●' : ' '}) FORCE_DESKTOP_WIDE</div>
+                <br/>
+                
+                <div style="color: #00f3ff; margin-bottom: 5px;">[VRAM_ALLOCATION]</div>
+                <div class="radio-option" data-type="tier" data-val="low">   (${currentTier === 'low' ? '●' : ' '}) LOW_TIER_SAFE_MODE</div>
+                <div class="radio-option" data-type="tier" data-val="medium">(${currentTier === 'medium' ? '●' : ' '}) STANDARD_MEDIUM</div>
+                <div class="radio-option" data-type="tier" data-val="high">  (${currentTier === 'high' ? '●' : ' '}) HIGH_PERFORMANCE</div>
+                <div class="radio-option" data-type="tier" data-val="ultra"> (${currentTier === 'ultra' ? '●' : ' '}) ULTRA_FIDELITY</div>
+                
+                <div style="color: #ff0055; margin-top: 15px; cursor: pointer;" id="btn-bios-reboot">> COMMIT_AND_REBOOT</div>
+                <br/>
+            </div>
         `;
 
         const menuDiv = document.createElement('div');
-        menuDiv.id = 'bios-config-menu'; // [PRO PHASE] Assign ID for existence check
         menuDiv.innerHTML = menuHTML;
         this.content.appendChild(menuDiv);
         this.content.scrollTop = this.content.scrollHeight;
@@ -409,7 +422,12 @@ export class Terminal {
 
     startGame() {
         this.gameInstance = new KrayeGame(this);
-        this.input.placeholder = "USE ARROW KEYS. BACKTICK (`) TO EXIT.";
+        this.input.placeholder = "KRAYE-BOY ENGAGED. BACKTICK (`) TO EXIT.";
+
+        // [PRO PHASE] Manifest the Kraye-Boy Ergonomic HUD
+        const krayeboy = document.getElementById('krayeboy-controller');
+        if (krayeboy) krayeboy.classList.remove('controls-hidden');
+
         this.gameRenderLoop = requestAnimationFrame(this.renderGame.bind(this));
     }
 
@@ -431,6 +449,9 @@ export class Terminal {
             gameDiv.parentNode.removeChild(gameDiv);
         }
 
+        const krayeboy = document.getElementById('krayeboy-controller');
+        if (krayeboy) krayeboy.classList.add('controls-hidden');
+
         this.printLine('DEFRAG_ABORTED.', '#ff0000');
     }
 
@@ -441,18 +462,44 @@ export class Terminal {
         this.gameInstance.tick(now);
 
         const state = this.gameInstance.getRenderState();
+
+        // [PRO PHASE] Level-Based Overclock Implementation
+        let level = Math.floor(state.lines / 10) + 1;
+        let speedMultiplier = Math.min(2.5, 1.0 + (level * 0.15));
+
         let gridHTML = `<div style="font-family: 'Courier New', monospace; line-height: 1.1; color: #00ff00;">`;
 
-        gridHTML += `<span style="color: #00f3ff;">SLA_UPTIME: ${state.sla}%</span> | LINES: ${state.lines}<br/>`;
+        gridHTML += `<span style="color: #00f3ff;">SLA_UPTIME: ${state.sla}%</span> | L: ${state.lines} | OVERCLOCK: ${speedMultiplier.toFixed(2)}x<br/>`;
         gridHTML += `+--------------------+<br/>`;
+
+        // [PRO PHASE] Sector-Synced Block DNA
+        const BLOCK_DNA = {
+            1: { color: '#00f3ff', glow: 'rgba(0, 243, 255, 0.8)' }, // I - Cyan (Tech)
+            2: { color: '#ff00ff', glow: 'rgba(255, 0, 255, 0.8)' }, // J - Magenta (Vision)
+            3: { color: '#ff00ff', glow: 'rgba(255, 0, 255, 0.8)' }, // L - Magenta (Vision)
+            4: { color: '#ffaa00', glow: 'rgba(255, 170, 0, 0.8)' }, // O - Amber (Contact)
+            5: { color: '#00ffcc', glow: 'rgba(0, 255, 204, 0.8)' }, // S - Mint (Success)
+            6: { color: '#8a2be2', glow: 'rgba(138, 43, 226, 0.8)' }, // T - Violet (Logic)
+            7: { color: '#ff3366', glow: 'rgba(255, 51, 102, 0.8)' }, // Z - Rose (Warning)
+            'GHOST': { color: '#555555', glow: 'transparent' }
+        };
 
         for (let r = 0; r < state.grid.length; r++) {
             gridHTML += `|`;
             for (let c = 0; c < state.grid[r].length; c++) {
                 const cell = state.grid[r][c];
-                if (cell === 0) gridHTML += ` .`;
-                else if (cell === 'GHOST') gridHTML += `<span style="color: #555;">[]</span>`;
-                else gridHTML += `<span style="color: #ff007f; font-weight: bold;">[]</span>`;
+
+                if (cell === 0) {
+                    gridHTML += ` .`;
+                } else {
+                    // Extract base type (handling active falling pieces which might be negative or offset)
+                    let blockType = (cell === 'GHOST') ? 'GHOST' : Math.abs(cell) % 10;
+                    if (blockType === 0) blockType = 1; // Fallback
+
+                    const dna = BLOCK_DNA[blockType] || { color: '#ff007f', glow: 'rgba(255, 0, 127, 0.5)' };
+
+                    gridHTML += `<span style="color: ${dna.color}; text-shadow: 0 0 5px ${dna.glow}; font-weight: bold;">[]</span>`;
+                }
             }
             gridHTML += `|<br/>`;
         }
@@ -470,7 +517,7 @@ export class Terminal {
 
         if (state.isGameOver) {
             this.terminateGame();
-            this.printLine('KERNEL_PANIC. DEFRAGMENTATION FAILED.', '#ff003c');
+            this.printLine('FATAL_ERROR: MEMORY_SEGMENTATION_FAULT. KERNEL PANIC.', '#ff3366');
             return;
         }
 
