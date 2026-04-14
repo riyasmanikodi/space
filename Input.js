@@ -3,34 +3,39 @@
  * File: /core/Input.js
  * Purpose: Global Event Delegation, Device Normalization, and Terminal Focus Handshake
  * STATUS: PRO_PHASE_INPUT_ACTIVE
- * LINE_COUNT: ~195 Lines.
+ * LINE_COUNT: ~210 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Global input kernel hardened for multi-device parity.
  * - SYSTEM: Integrated Magnetic Wheel protocol to synchronize scroll-stop events with Logics.js.
  * - SYSTEM: Integrated keyboard interception for Industrial Terminal CLI navigation.
  * - SYSTEM: Integrated Hardware-Accelerated Kinetic Drag and Focus-Locking for the Industrial Terminal.
  * - SYSTEM: [PRO PHASE] Implemented UI Layer Shielding to prevent 3D canvas interaction bleed.
+ * - SYSTEM: [PRO PHASE] Refined UI Layer Shielding to granularly target interactive elements, restoring mobile planetary rotation.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1410]: Wheel Drift. Injected wheel-end detection to notify Logics.js when kinetic momentum should snap.
  * - FIXED [ID 1411]: Scroll Conflict. Refined delta-dominant logic to prevent diagonal jitter during trackpad navigation.
  * - FIXED [ID 1414]: Input Hijacking. Prevented keyboard events from leaking to the 3D world when the terminal is active.
  * - FIXED [ID 2162]: Mobile Normalization. Updated handleMove/Down to access e.touches[0] for touch-device coordinate parity.
  * - FIXED [ID 9470]: [PRO PHASE] Event Bleed. Shielded `mousedown` and `touchstart` from capturing events originating within `#ui-layer`.
+ * - FIXED [ID 9490]: [PRO PHASE] Mobile Drag Lockout. Replaced blunt `#ui-layer` exit condition with explicit interactive element targeting (`#terminal-window`, `.industrial-trigger`, etc.) to allow drag events to reach the canvas on mobile hardware.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added wheel-stop timer to emit a final 'inputUp' signal, triggering the magnetic snap in the brain.
  * - Fixed: Normalized sensitivity for high-DPI mouse wheels to prevent "Hyper-Spin" orbit errors.
  * - Fixed: Added global keyboard listener for backtick (`) to toggle the system terminal visibility.
  * - Fixed: Added check for 'isUIFocused' in input handlers to lock orbital movement during terminal interaction.
  * - Fixed: [PRO PHASE] Injected `e.target.closest('#ui-layer')` guard clause into core pointer events.
+ * - Fixed: [PRO PHASE] Updated `mousedown` and `touchstart` guards to permit empty-space interaction within the UI layer.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Keyboard events are now captured by the TerminalEngine when UI_FOCUSED is active.
  * - RIPPLE: Mobile users can now interact with the 3D universe with 1:1 touch precision.
  * - RIPPLE: Logics.js successfully receives the 'inputUp' signal from the wheel timer to initiate magnetic snapping.
  * - RIPPLE: [PRO PHASE] Tapping UI buttons or identity text no longer triggers 3D raycasting or kinetic physics underlying the DOM.
+ * - RIPPLE: [PRO PHASE] Mobile users can now drag and rotate the universe seamlessly while the UI layer remains active.
  * * * * * REALITY AUDIT V28:
  * - APPEND 37: Block move execution if UI is focused.
  * - APPEND 42: Interactive Shell - Verified UI_FOCUSED properly bypasses rotation checks.
  * - APPEND 9470: [PRO PHASE] Layer Shielding - Confirmed UI interactions are safely ignored by the 3D global input state machine.
+ * - APPEND 9490: [PRO PHASE] Granular Shield Audit - Verified touch events on empty space correctly pipe to `handleDown` without triggering UI traps.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_INPUT_ACTIVE
  */
@@ -59,8 +64,17 @@ class InputManager {
 
         // 1. MOUSE EVENTS
         window.addEventListener('mousedown', (e) => {
-            // CULPRIT [ID 9470] FIXED: Shield 3D events from UI interaction bleed
-            if (e.target.closest('#ui-layer')) return;
+            // CULPRIT [ID 9490] FIXED: Granular targeting prevents UI layer from swallowing entire screen clicks
+            if (
+                e.target.closest('#terminal-window') ||
+                e.target.closest('.industrial-trigger') ||
+                e.target.closest('.mobile-only-btn') ||
+                e.target.closest('.hud-panel') ||
+                e.target.closest('#hero-name-viewport') ||
+                e.target.closest('.holo-shard') ||
+                e.target.closest('.boot-overlay')
+            ) return;
+
             this.handleDown(e.clientX, e.clientY);
         });
 
@@ -69,8 +83,16 @@ class InputManager {
 
         // 2. TOUCH EVENTS (Mobile Normalization [ID 2162])
         window.addEventListener('touchstart', (e) => {
-            // CULPRIT [ID 9470] FIXED: Shield 3D events from UI interaction bleed
-            if (e.target.closest('#ui-layer')) return;
+            // CULPRIT [ID 9490] FIXED: Granular targeting restores dragging functionality on mobile hardware
+            if (
+                e.target.closest('#terminal-window') ||
+                e.target.closest('.industrial-trigger') ||
+                e.target.closest('.mobile-only-btn') ||
+                e.target.closest('.hud-panel') ||
+                e.target.closest('#hero-name-viewport') ||
+                e.target.closest('.holo-shard') ||
+                e.target.closest('.boot-overlay')
+            ) return;
 
             if (e.touches.length > 0) {
                 this.handleDown(e.touches[0].clientX, e.touches[0].clientY);
@@ -81,8 +103,10 @@ class InputManager {
             if (e.touches.length > 0) {
                 this.handleMove(e.touches[0].clientX, e.touches[0].clientY);
             }
-            // Prevent scrolling when dragging the 3D universe
-            if (!this.isUIFocused) e.preventDefault();
+            // Prevent scrolling when dragging the 3D universe, but allow UI scroll (e.g. terminal/shards)
+            if (!this.isUIFocused && !e.target.closest('#terminal-window') && !e.target.closest('.holo-shard')) {
+                if (e.cancelable) e.preventDefault();
+            }
         }, { passive: false });
 
         window.addEventListener('touchend', () => this.handleUp());

@@ -3,7 +3,7 @@
  * File: /style.css
  * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, Mobile Kinetics, and Universal Hardware Autonomy
  * STATUS: PRO_PHASE_INTERACTION_LOCK_LOCKED
- * LINE_COUNT: ~740 Lines.
+ * LINE_COUNT: ~760 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
  * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
@@ -22,8 +22,8 @@
  * - SYSTEM: [PRO PHASE] Removed pointer-events lock on `.hero-name-wrapper` to restore Developer 8-Click gateway.
  * - SYSTEM: [PRO PHASE] Enforced rigid transform clearing for maximized terminal states.
  * - SYSTEM: [PRO PHASE] Integrated physical touch-action constraints for identity interaction stability.
- * - SYSTEM: [PRO PHASE] Injected dedicated `.mobile-only-btn` class to support physical touch triggers on mobile hardware.
  * - SYSTEM: [PRO PHASE] Replaced legacy mobile button with Universal Industrial Terminal Trigger using beveled clip-path aesthetics.
+ * - SYSTEM: [PRO PHASE] Injected Hard-Kill visibility states for the terminal to guarantee interaction pass-through when inactive.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 305]: Z-Index Conflict. Confined #hero-name-viewport below scanlines (z-index: 5) to maintain screen depth.
  * - FIXED [ID 1408]: Mobile Viewport Trap. Removed full-screen overlay and enabled Pass-Through touching.
@@ -41,7 +41,8 @@
  * - FIXED [ID 9390]: [PRO PHASE] Mobile Address Bar Clipping. Switched from 100vh to dynamic --vh variable for 1:1 viewport precision.
  * - FIXED [ID 9400]: [PRO PHASE] Viewport Zooming. Forced input font-size to 16px to prevent OS auto-zoom on mobile focus.
  * - FIXED [ID 9425]: [PRO PHASE] Viewport Shifting. Added touch-action: none to hero-name-viewport to prevent browser-level scrolling during tap sequences.
- * - FIXED [ID 9480]: [PRO PHASE] Mobile Accessibility. Injected .mobile-only-btn rules to provide a physical touch-point for CLI access on mobile hardware.
+ * - FIXED [ID 9480]: [PRO PHASE] Mobile Accessibility. Injected universal rules to provide a physical touch-point for CLI access on all hardware.
+ * - FIXED [ID 9485]: [PRO PHASE] Invisible Interaction Shield. Enforced display:none and pointer-events:none on inactive terminal window to restore mobile 3D rotation and identity tapping.
  * - FIXED [ID 9487]: [PRO PHASE] Hardware Fragmentation. Removed mobile-only constraints to ensure unified cross-platform CLI access.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
@@ -57,8 +58,8 @@
  * - Fixed: [PRO PHASE] Added `#terminal-window.minimized` rules to collapse into system tray dock mode.
  * - Fixed: [PRO PHASE] Nullified translate physics inside #terminal-window.maximized.
  * - Fixed: [PRO PHASE] Added `touch-action: none` to the identity viewport to halt browser kinetic shifts.
- * - Fixed: [PRO PHASE] Added `.mobile-only-btn` definition with strictly decoupled hardware constraints.
  * - Fixed: [PRO PHASE] Injected .industrial-trigger, .trigger-frame, and associated layers for depth-based haptic feedback.
+ * - Fixed: [PRO PHASE] Injected `#terminal-window:not(.visible)` strict display override.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The physical meteorite cursor establishes a unified industrial aesthetic across all input methods.
  * - RIPPLE: [PRO PHASE] GPU layer promotion guarantees the cursor canvas operates independently from the DOM layout.
@@ -72,7 +73,7 @@
  * - RIPPLE: [PRO PHASE] The Tactical Insight and System Stats overlays now strictly scale in sync with the primary typography authority layer.
  * - RIPPLE: [PRO PHASE] The terminal now snaps flawlessly to 100vw/100vh regardless of its previous dragged position.
  * - RIPPLE: [PRO PHASE] Hero name now prevents browser-level scrolling and sliding during tap sequences, ensuring a locked industrial interface.
- * - RIPPLE: [PRO PHASE] The mobile console trigger button correctly manifests only when hardware demands touch-level interactions.
+ * - RIPPLE: [PRO PHASE] Explicit display management of the terminal layer frees the DOM from capturing ghost touches, returning interaction authority to the WebGL canvas.
  * - RIPPLE: [PRO PHASE] The universal trigger maintains 10002 z-index authority, ensuring it never sinks below the orbital HUD.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter`.
@@ -87,7 +88,7 @@
  * - APPEND 9290: Selectivity Override Audit - Verified ID `#` rules in style.css outrank the legacy `px` definitions in greeting.css.
  * - APPEND 9330: [PRO PHASE] Window State Audit - Verified inline JS transforms do not cascade into the .maximized CSS block.
  * - APPEND 9425: [PRO PHASE] Interaction Shield Audit - Verified that touch-action: none prevents viewport-taskbar shifts in Brave/Mobile.
- * - APPEND 9480: [PRO PHASE] Hardware Gateway Audit - Verified `.mobile-only-btn` is completely purged from rendering on PC hardware profiles.
+ * - APPEND 9485: [PRO PHASE] Z-Index Audit - Verified that #terminal-window fully relinquishes DOM presence when inactive.
  * - APPEND 9487: [PRO PHASE] Design Audit - Confirmed HighJinkiesFlip typography and continuous phosphor pulsing on the trigger component.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_INTERACTION_LOCK_LOCKED
@@ -1025,6 +1026,13 @@ body::before {
 #terminal-window.visible {
     opacity: 1;
     pointer-events: auto;
+}
+
+/* [PRO PHASE] Hardware Interaction Hard-Kill Layer isolation */
+#terminal-window:not(.visible) {
+    display: none !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
 }
 
 #terminal-window:focus-within {

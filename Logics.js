@@ -3,7 +3,7 @@
  * File: /Logics.js
  * Purpose: Central System Brain, Hologram Projection, Mobile Kinetics, Asset Mounting & Adaptive Kernel Handshake
  * STATUS: PRO_PHASE_RULE_STRICT_LOCKED
- * LINE_COUNT: ~475 Lines.
+ * LINE_COUNT: ~485 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Linked "Enter System" interaction to Audio Hardware Unlock.
  * - SYSTEM: Magnetic Wheel protocol integrated for kinetic scroll snapping.
@@ -37,6 +37,7 @@
  * - FIXED [ID 9460]: [PRO PHASE] Viewport Squashing. Dynamic calculation added to targetZ to support the elastic mobile keyboard viewport shrink without moving the camera down.
  * - FIXED [ID 9485]: [PRO PHASE] Interaction Deadlock. Added physical button listener for #mobile-terminal-trigger to bypass gesture-only CLI triggers.
  * - FIXED [ID 9487]: [PRO PHASE] Hardware Fragmentation. Swapped listener target to `#terminal-trigger` and added haptic glitch feedback.
+ * - FIXED [ID 9495]: [PRO PHASE] Ambient Rotation Fix. Restored logic to allow constant orbital drift while in idle states, passing `normalizedDelta` to child systems.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected Typewriter-synced events into activateSector() to populate shards dynamically.
  * - Fixed: Delegated `mountAssets` payload to `ModelManager` to reduce file complexity.
@@ -51,6 +52,7 @@
  * - Fixed: [PRO PHASE] Exposed `calculateDynamicTargetZ` method to decouple the focus target from fixed integer Z-values.
  * - Fixed: [PRO PHASE] Added `btnMobileTerminal` listener with `touchstart` and `click` to trigger `DRAWER_TOGGLED` 'TERMINAL'.
  * - Fixed: [PRO PHASE] Bound `pointerdown` and `pointerenter` events to `#terminal-trigger` for universal access and haptic feedback.
+ * - Fixed: [PRO PHASE] Re-implemented continuous ambient drift logic powered by `normalizedDelta`.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Swiping down on mobile clears the activeClickedSector, dismissing the holograms and unlocking orbit physics.
  * - RIPPLE: High-speed swiping now directly controls the intensity of the GLOBAL_GLITCH dispatcher.
@@ -61,6 +63,7 @@
  * - RIPPLE: [PRO PHASE] The camera now properly retains vertical alignment when the mobile keyboard spawns, matching the elastic aspect ratio of Camera.js.
  * - RIPPLE: [PRO PHASE] Mobile users can physically tap the central singularity or the console button to spawn the terminal without needing the 8-tap identity trigger.
  * - RIPPLE: [PRO PHASE] The universal terminal trigger now provides visual haptic feedback on hover/touch via the MIRROR_DESYNC glitch pipeline.
+ * - RIPPLE: [PRO PHASE] The universe maintains a smooth continuous rotation when idle, breathing life into the 3D void.
  * * * * * REALITY AUDIT V28:
  * - APPEND 16: Typewriter Synchronization - Enforced 20ms character delay to match industrial "Data-Stream" aesthetic.
  * - APPEND 48: ModelManager Integration - Safely decoupled mounting protocols to specialized hardware pipeline.
@@ -75,6 +78,7 @@
  * - APPEND 9460: [PRO PHASE] Kinetic Elasticity - Verified that calculateDynamicTargetZ smoothly offsets the Z-axis by measuring the instantaneous viewport ratio.
  * - APPEND 9485: [PRO PHASE] Mobile Button Audit - Verified `#mobile-terminal-trigger` correctly publishes `DRAWER_TOGGLED` without propagating clicks to the 3D scene.
  * - APPEND 9487: [PRO PHASE] Universal Trigger Audit - Verified `#terminal-trigger` broadcasts `DRAWER_TOGGLED` correctly across desktop and mobile browsers.
+ * - APPEND 9495: [PRO PHASE] Ambient Rotation Audit - Verified `normalizedDelta` drives the idle rotation state without causing jitter on focus snap.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
  */
@@ -907,11 +911,16 @@ KRAYE_OS // V28 COMMAND_REGISTRY
                 if (Math.abs(target - current) < 0.001) this.isSnapping = false;
             } else {
                 this.rotationVelocity *= 0.90;
-                this.universeGroup.rotation.y += this.rotationVelocity;
+
                 if (Math.abs(this.rotationVelocity) < 0.0015 && Math.abs(this.rotationVelocity) > 0) {
                     this.rotationVelocity = 0;
                     const snap = Math.round(this.universeGroup.rotation.y / (Math.PI / 2)) * (Math.PI / 2);
                     this.snapToAngle(snap);
+                } else if (this.rotationVelocity === 0 && !this.activeClickedSector) {
+                    // [PRO PHASE] ID 9495: Fixed ambient orbital constant application
+                    this.universeGroup.rotation.y += 0.001 * normalizedDelta;
+                } else {
+                    this.universeGroup.rotation.y += this.rotationVelocity;
                 }
             }
 
@@ -968,7 +977,11 @@ KRAYE_OS // V28 COMMAND_REGISTRY
 
         if (this.debris) this.debris.update(normalizedDelta, time);
         if (this.orbitRing) this.orbitRing.update(time);
-        this.planets.forEach(p => p.update(time));
+
+        // [PRO PHASE] Pass both normalizedDelta and time to satisfy varied Planet update constraints
+        this.planets.forEach(p => {
+            if (typeof p.update === 'function') p.update(time, normalizedDelta);
+        });
     }
 }
 
