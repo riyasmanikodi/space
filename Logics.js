@@ -3,7 +3,7 @@
  * File: /Logics.js
  * Purpose: Central System Brain, Hologram Projection, Mobile Kinetics, Asset Mounting & Adaptive Kernel Handshake
  * STATUS: PRO_PHASE_RULE_STRICT_LOCKED
- * LINE_COUNT: ~485 Lines.
+ * LINE_COUNT: ~490 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Linked "Enter System" interaction to Audio Hardware Unlock.
  * - SYSTEM: Magnetic Wheel protocol integrated for kinetic scroll snapping.
@@ -19,6 +19,7 @@
  * - SYSTEM: [PRO PHASE] Adapted Z-index calculation for dynamic aspect ratios.
  * - SYSTEM: [PRO PHASE] Added physical button listener for #mobile-terminal-trigger to bypass gesture-only CLI triggers on mobile.
  * - SYSTEM: [PRO PHASE] Replaced mobile-only button with Universal Industrial Terminal Trigger logic for cross-platform access.
+ * - SYSTEM: [PRO PHASE] Decoupled ADMIN_ACCESS_GRANTED from the Universal Trigger to restore clean toggle logic.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static innerHTML injection with a character-by-character typewriter loop.
  * - FIXED [ID 1412]: Orbital Stutter. Scaled anomaly intensity by rotation velocity to simulate physical camera strain.
@@ -38,6 +39,7 @@
  * - FIXED [ID 9485]: [PRO PHASE] Interaction Deadlock. Added physical button listener for #mobile-terminal-trigger to bypass gesture-only CLI triggers.
  * - FIXED [ID 9487]: [PRO PHASE] Hardware Fragmentation. Swapped listener target to `#terminal-trigger` and added haptic glitch feedback.
  * - FIXED [ID 9495]: [PRO PHASE] Ambient Rotation Fix. Restored logic to allow constant orbital drift while in idle states, passing `normalizedDelta` to child systems.
+ * - FIXED [ID 9540]: [PRO PHASE] Toggle Collision. Removed ADMIN_ACCESS_GRANTED broadcast from Universal Trigger to prevent overriding the DRAWER_TOGGLED close sequence.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected Typewriter-synced events into activateSector() to populate shards dynamically.
  * - Fixed: Delegated `mountAssets` payload to `ModelManager` to reduce file complexity.
@@ -53,6 +55,7 @@
  * - Fixed: [PRO PHASE] Added `btnMobileTerminal` listener with `touchstart` and `click` to trigger `DRAWER_TOGGLED` 'TERMINAL'.
  * - Fixed: [PRO PHASE] Bound `pointerdown` and `pointerenter` events to `#terminal-trigger` for universal access and haptic feedback.
  * - Fixed: [PRO PHASE] Re-implemented continuous ambient drift logic powered by `normalizedDelta`.
+ * - Fixed: [PRO PHASE] Stripped 'ADMIN_ACCESS_GRANTED' publish from btnTerminalTrigger pointerdown listener.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Swiping down on mobile clears the activeClickedSector, dismissing the holograms and unlocking orbit physics.
  * - RIPPLE: High-speed swiping now directly controls the intensity of the GLOBAL_GLITCH dispatcher.
@@ -64,6 +67,7 @@
  * - RIPPLE: [PRO PHASE] Mobile users can physically tap the central singularity or the console button to spawn the terminal without needing the 8-tap identity trigger.
  * - RIPPLE: [PRO PHASE] The universal terminal trigger now provides visual haptic feedback on hover/touch via the MIRROR_DESYNC glitch pipeline.
  * - RIPPLE: [PRO PHASE] The universe maintains a smooth continuous rotation when idle, breathing life into the 3D void.
+ * - RIPPLE: [PRO PHASE] Clicking the Universal Terminal trigger cleanly toggles the drawer open and closed without forcing recursive configuration menus.
  * * * * * REALITY AUDIT V28:
  * - APPEND 16: Typewriter Synchronization - Enforced 20ms character delay to match industrial "Data-Stream" aesthetic.
  * - APPEND 48: ModelManager Integration - Safely decoupled mounting protocols to specialized hardware pipeline.
@@ -79,6 +83,7 @@
  * - APPEND 9485: [PRO PHASE] Mobile Button Audit - Verified `#mobile-terminal-trigger` correctly publishes `DRAWER_TOGGLED` without propagating clicks to the 3D scene.
  * - APPEND 9487: [PRO PHASE] Universal Trigger Audit - Verified `#terminal-trigger` broadcasts `DRAWER_TOGGLED` correctly across desktop and mobile browsers.
  * - APPEND 9495: [PRO PHASE] Ambient Rotation Audit - Verified `normalizedDelta` drives the idle rotation state without causing jitter on focus snap.
+ * - APPEND 9540: [PRO PHASE] Toggle Parity Audit - Verified that clicking the Universal Trigger while the terminal is open safely closes the window without re-opening it.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
  */
@@ -331,9 +336,9 @@ class LogicsEngine {
             btnTerminalTrigger.addEventListener('pointerdown', (e) => {
                 e.preventDefault();
                 e.stopPropagation(); // Prevent 3D orbit bleed
+                // FIXED [ID 9540]: Removed ADMIN_ACCESS_GRANTED publish to allow clean drawer toggling
                 SystemEvents.publish(EVENTS.DRAWER_TOGGLED || 'DRAWER_TOGGLED', 'TERMINAL');
                 SystemEvents.publish(EVENTS.GLOBAL_GLITCH || 'GLOBAL_GLITCH', { effectId: 'CHROMATIC_SPLIT', intensity: 2.0 });
-                SystemEvents.publish('ADMIN_ACCESS_GRANTED', true);
             });
 
             // Haptic Visual Feedback on Hover/Touch

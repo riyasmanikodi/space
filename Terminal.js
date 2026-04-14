@@ -3,7 +3,7 @@
  * File: /ui/Terminal.js
  * Purpose: Draggable Kraye Logs, BIOS Hardware Menu, ASCII Game Engine, and Instant Input Engagement
  * STATUS: PRO_PHASE_FOCUS_AUTHORITY_LOCKED
- * LINE_COUNT: ~505 Lines.
+ * LINE_COUNT: ~515 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Command Kernel handshake for real-time theme and physics overrides.
  * - SYSTEM: Visual DNA updated to support Industrial CRT flicker on the command input buffer.
@@ -17,6 +17,7 @@
  * - SYSTEM: [PRO PHASE] Wired GAME_STOP_REQUESTED to explicitly terminate game and purge DOM.
  * - SYSTEM: [PRO PHASE] Refined focus authority to prevent invisible keyboard ghosting on mobile.
  * - SYSTEM: [PRO PHASE] Hardened Terminal DOM presence to explicitly relinquish interaction authority when inactive.
+ * - SYSTEM: [PRO PHASE] Isolated BIOS menu generation to prevent DOM duplication on multiple Trigger clicks.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1410]: Input Focus Hijacking. Enforced focus isolation to prevent CLI typing from triggering accidental orbital drags.
  * - FIXED [ID 1415]: Terminal Persistence. Added explicit close listener and pointer-event overrides.
@@ -31,6 +32,7 @@
  * - FIXED [ID 9435]: [PRO PHASE] Kinetic Shift. Removed automated scrollIntoView behavior to prevent viewport jumping during tap sequences.
  * - FIXED [ID 9445]: [PRO PHASE] Interaction Bleed. Constrained the focus recovery handshake specifically to the #terminal-input-wrapper to prevent screen-wide invisible click capture on mobile.
  * - FIXED [ID 9485]: [PRO PHASE] Invisible Interaction Shield. Enforced strict pointer-event removal in hide() to ensure mobile taps reach the Hero Name viewport and Universal Trigger.
+ * - FIXED [ID 9530]: [PRO PHASE] Menu Duplication. Implemented existence guard in `renderConfigMenu()` to abort if `#bios-config-menu` is already mounted.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added support for character-by-character typewriter manifestations for system responses.
  * - Fixed: [PRO PHASE] Handled `ADMIN_ACCESS_GRANTED` event to auto-mount the Hardware Configuration menu.
@@ -44,6 +46,8 @@
  * - Fixed: [PRO PHASE] Added `this.el.classList.contains('visible')` guard to the focus listener.
  * - Fixed: [PRO PHASE] Bound `inputWrapper.addEventListener('click')` instead of `this.el`.
  * - Fixed: [PRO PHASE] Explicitly toggled pointer-events in show() and hide() to reinforce CSS-level display overrides.
+ * - Fixed: [PRO PHASE] Added ID `bios-config-menu` to the generated menu container.
+ * - Fixed: [PRO PHASE] Injected `if (document.getElementById('bios-config-menu')) return;` at the top of `renderConfigMenu`.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Terminal inputs now broadcast high-intensity GLOBAL_GLITCH events to simulate hardware "power draws".
  * - RIPPLE: [PRO PHASE] Selecting a hardware radio button physically commits the choice to `localStorage` and triggers a hard reboot.
@@ -55,6 +59,7 @@
  * - RIPPLE: [PRO PHASE] Virtual keyboard now only manifests when the terminal is visually active, unblocking hero identity interactions.
  * - RIPPLE: [PRO PHASE] Terminal window no longer intercepts touches on mobile devices when it is hidden or overlapping other interactive elements.
  * - RIPPLE: [PRO PHASE] Terminal completely vanishes from the interaction stack when closed, restoring Universal Trigger access.
+ * - RIPPLE: [PRO PHASE] Repeatedly clicking the Universal Trigger or 8-Tap gateway no longer spams the terminal log with duplicated BIOS interfaces.
  * * * * * REALITY AUDIT V28:
  * - APPEND 31: Layer Isolation - Input field promoted to a hardware-accelerated layer.
  * - APPEND 815: [PRO PHASE] Game Loop Sync - Verified `requestAnimationFrame` pulls data from `KrayeGame`.
@@ -65,6 +70,7 @@
  * - APPEND 9430: [PRO PHASE] Focus Authority Audit - Verified click listener ignores inputs when visibility class is null.
  * - APPEND 9445: [PRO PHASE] Touch Bleed Audit - Verified that touches on `.terminal-content` or `.terminal-header` do not arbitrarily trigger the mobile keyboard.
  * - APPEND 9485: [PRO PHASE] Interaction Shield Audit - Confirmed terminal hide() perfectly unblocks underlying 3D and UI layers.
+ * - APPEND 9530: [PRO PHASE] Menu Isolation Audit - Verified `renderConfigMenu()` safely aborts if the menu ID already exists in the DOM.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_FOCUS_AUTHORITY_LOCKED
  */
@@ -325,6 +331,9 @@ export class Terminal {
     renderConfigMenu() {
         if (!this.hardwareManager) return;
 
+        // FIXED [ID 9530]: Prevent multiple BIOS menus from stacking on repeated trigger clicks
+        if (document.getElementById('bios-config-menu')) return;
+
         // [PRO PHASE] Explicitly poll localStorage to represent the hard-locked memory state
         const currentProfile = localStorage.getItem('hw_profile') || this.hardwareManager.systemState.profile;
         const currentTier = localStorage.getItem('hw_graphics_tier') || this.hardwareManager.systemState.graphicsTier;
@@ -349,6 +358,7 @@ export class Terminal {
         `;
 
         const menuDiv = document.createElement('div');
+        menuDiv.id = 'bios-config-menu'; // [PRO PHASE] Assign ID for existence check
         menuDiv.innerHTML = menuHTML;
         this.content.appendChild(menuDiv);
         this.content.scrollTop = this.content.scrollHeight;

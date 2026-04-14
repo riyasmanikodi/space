@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE (FULL ARCHITECTURE)
  * File: /style.css
  * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, Mobile Kinetics, and Universal Hardware Autonomy
- * STATUS: PRO_PHASE_INTERACTION_LOCK_LOCKED
- * LINE_COUNT: ~760 Lines.
+ * STATUS: PRO_PHASE_KEYBOARD_ELASTICITY_LOCKED
+ * LINE_COUNT: ~770 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
  * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
@@ -24,6 +24,8 @@
  * - SYSTEM: [PRO PHASE] Integrated physical touch-action constraints for identity interaction stability.
  * - SYSTEM: [PRO PHASE] Replaced legacy mobile button with Universal Industrial Terminal Trigger using beveled clip-path aesthetics.
  * - SYSTEM: [PRO PHASE] Injected Hard-Kill visibility states for the terminal to guarantee interaction pass-through when inactive.
+ * - SYSTEM: [PRO PHASE] Refactored mobile terminal viewport constraints from static 100vh to fluid 100% bounds.
+ * - SYSTEM: [PRO PHASE] Injected Keyboard-Safe Offset contrast and padding to #terminal-input-wrapper.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 305]: Z-Index Conflict. Confined #hero-name-viewport below scanlines (z-index: 5) to maintain screen depth.
  * - FIXED [ID 1408]: Mobile Viewport Trap. Removed full-screen overlay and enabled Pass-Through touching.
@@ -44,6 +46,7 @@
  * - FIXED [ID 9480]: [PRO PHASE] Mobile Accessibility. Injected universal rules to provide a physical touch-point for CLI access on all hardware.
  * - FIXED [ID 9485]: [PRO PHASE] Invisible Interaction Shield. Enforced display:none and pointer-events:none on inactive terminal window to restore mobile 3D rotation and identity tapping.
  * - FIXED [ID 9487]: [PRO PHASE] Hardware Fragmentation. Removed mobile-only constraints to ensure unified cross-platform CLI access.
+ * - FIXED [ID 9510]: [PRO PHASE] Terminal Occlusion. Replaced rigid 100vh height with 100% on .force-mobile-view to allow the Visual Viewport to resize the DOM when the mobile virtual keyboard manifests.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
  * - Fixed: Converted mobile shard layout to a horizontally scrolling carousel.
@@ -60,6 +63,8 @@
  * - Fixed: [PRO PHASE] Added `touch-action: none` to the identity viewport to halt browser kinetic shifts.
  * - Fixed: [PRO PHASE] Injected .industrial-trigger, .trigger-frame, and associated layers for depth-based haptic feedback.
  * - Fixed: [PRO PHASE] Injected `#terminal-window:not(.visible)` strict display override.
+ * - Fixed: [PRO PHASE] Shifted #terminal-window.force-mobile-view height calculation to 100%.
+ * - Fixed: [PRO PHASE] Upgraded #terminal-input-wrapper background contrast for clear visibility above the keyboard chrome.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The physical meteorite cursor establishes a unified industrial aesthetic across all input methods.
  * - RIPPLE: [PRO PHASE] GPU layer promotion guarantees the cursor canvas operates independently from the DOM layout.
@@ -75,6 +80,7 @@
  * - RIPPLE: [PRO PHASE] Hero name now prevents browser-level scrolling and sliding during tap sequences, ensuring a locked industrial interface.
  * - RIPPLE: [PRO PHASE] Explicit display management of the terminal layer frees the DOM from capturing ghost touches, returning interaction authority to the WebGL canvas.
  * - RIPPLE: [PRO PHASE] The universal trigger maintains 10002 z-index authority, ensuring it never sinks below the orbital HUD.
+ * - RIPPLE: [PRO PHASE] Mobile users can now see the input typing area clearly as it dynamically floats directly above the native virtual keyboard.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter`.
  * - APPEND 159: Z-Index Audit - Verified `100000` priority on `#cursor-3d-overlay`.
@@ -90,8 +96,9 @@
  * - APPEND 9425: [PRO PHASE] Interaction Shield Audit - Verified that touch-action: none prevents viewport-taskbar shifts in Brave/Mobile.
  * - APPEND 9485: [PRO PHASE] Z-Index Audit - Verified that #terminal-window fully relinquishes DOM presence when inactive.
  * - APPEND 9487: [PRO PHASE] Design Audit - Confirmed HighJinkiesFlip typography and continuous phosphor pulsing on the trigger component.
+ * - APPEND 9510: [PRO PHASE] Occlusion Audit - Verified terminal input buffer remains above the fold when iOS/Android keyboards are summoned.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_INTERACTION_LOCK_LOCKED
+ * - STATUS: PRO_PHASE_KEYBOARD_ELASTICITY_LOCKED
  */
 
 :root {
@@ -1082,8 +1089,10 @@ body::before {
 #terminal-input-wrapper {
     display: flex;
     padding: 10px;
+    /* [PRO PHASE] Keyboard-Safe Offset & Contrast */
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.85);
 }
 
 #terminal-input {
@@ -1118,10 +1127,13 @@ body::before {
 /* Universal Hardware Autonomy: Mobile Override */
 #terminal-window.force-mobile-view {
     width: 100vw !important;
-    height: 100vh !important;
-    height: calc(var(--vh, 1vh) * 100) !important;
+    height: 100% !important;
+    /* [PRO PHASE] Swapped 100vh to 100% for keyboard elasticity */
     max-width: none !important;
     max-height: none !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: auto !important;
     border: none !important;
     border-radius: 0 !important;
     padding-top: var(--safe-area-inset-top, env(safe-area-inset-top));
