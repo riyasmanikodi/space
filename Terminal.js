@@ -30,7 +30,7 @@
  * - FIXED [ID 9430]: [PRO PHASE] Focus Hijack. Restricted global click-to-focus logic to only trigger when the .visible class is active.
  * - FIXED [ID 9435]: [PRO PHASE] Kinetic Shift. Removed automated scrollIntoView behavior to prevent viewport jumping during tap sequences.
  * - FIXED [ID 9445]: [PRO PHASE] Interaction Bleed. Constrained the focus recovery handshake specifically to the #terminal-input-wrapper to prevent screen-wide invisible click capture on mobile.
- * - FIXED [ID 9485]: [PRO PHASE] Invisible Interaction Shield. Enforced strict pointer-event removal in hide() to ensure mobile taps reach the Hero Name viewport.
+ * - FIXED [ID 9485]: [PRO PHASE] Invisible Interaction Shield. Enforced strict pointer-event removal in hide() to ensure mobile taps reach the Hero Name viewport and Universal Trigger.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added support for character-by-character typewriter manifestations for system responses.
  * - Fixed: [PRO PHASE] Handled `ADMIN_ACCESS_GRANTED` event to auto-mount the Hardware Configuration menu.
@@ -54,7 +54,7 @@
  * - RIPPLE: [PRO PHASE] Stopping the game now cleanly frees up terminal scroll space and removes the canvas layer entirely.
  * - RIPPLE: [PRO PHASE] Virtual keyboard now only manifests when the terminal is visually active, unblocking hero identity interactions.
  * - RIPPLE: [PRO PHASE] Terminal window no longer intercepts touches on mobile devices when it is hidden or overlapping other interactive elements.
- * - RIPPLE: [PRO PHASE] Terminal completely vanishes from the interaction stack when closed, restoring 8-tap gateway access on mobile hardware.
+ * - RIPPLE: [PRO PHASE] Terminal completely vanishes from the interaction stack when closed, restoring Universal Trigger access.
  * * * * * REALITY AUDIT V28:
  * - APPEND 31: Layer Isolation - Input field promoted to a hardware-accelerated layer.
  * - APPEND 815: [PRO PHASE] Game Loop Sync - Verified `requestAnimationFrame` pulls data from `KrayeGame`.
@@ -110,7 +110,6 @@ export class Terminal {
             this.el.style.transform = `translate(${this.pos.x}px, ${this.pos.y}px)`;
         }
 
-        // CULPRIT [ID 9370] FIXED: Removed this.el.style.pointerEvents = 'auto';
         this.content.style.willChange = 'scroll-position';
         this.el.style.willChange = 'transform';
 
