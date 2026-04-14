@@ -3,7 +3,7 @@
  * File: /ui/Terminal.js
  * Purpose: Draggable Kraye Logs, BIOS Hardware Menu, ASCII Game Engine, and Instant Input Engagement
  * STATUS: PRO_PHASE_FOCUS_AUTHORITY_LOCKED
- * LINE_COUNT: ~495 Lines.
+ * LINE_COUNT: ~505 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Command Kernel handshake for real-time theme and physics overrides.
  * - SYSTEM: Visual DNA updated to support Industrial CRT flicker on the command input buffer.
@@ -16,6 +16,7 @@
  * - SYSTEM: [PRO PHASE] Integrated Terminal Window State (Maximize/Minimize) Authority.
  * - SYSTEM: [PRO PHASE] Wired GAME_STOP_REQUESTED to explicitly terminate game and purge DOM.
  * - SYSTEM: [PRO PHASE] Refined focus authority to prevent invisible keyboard ghosting on mobile.
+ * - SYSTEM: [PRO PHASE] Hardened Terminal DOM presence to explicitly relinquish interaction authority when inactive.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1410]: Input Focus Hijacking. Enforced focus isolation to prevent CLI typing from triggering accidental orbital drags.
  * - FIXED [ID 1415]: Terminal Persistence. Added explicit close listener and pointer-event overrides.
@@ -29,6 +30,7 @@
  * - FIXED [ID 9430]: [PRO PHASE] Focus Hijack. Restricted global click-to-focus logic to only trigger when the .visible class is active.
  * - FIXED [ID 9435]: [PRO PHASE] Kinetic Shift. Removed automated scrollIntoView behavior to prevent viewport jumping during tap sequences.
  * - FIXED [ID 9445]: [PRO PHASE] Interaction Bleed. Constrained the focus recovery handshake specifically to the #terminal-input-wrapper to prevent screen-wide invisible click capture on mobile.
+ * - FIXED [ID 9485]: [PRO PHASE] Invisible Interaction Shield. Enforced strict pointer-event removal in hide() to ensure mobile taps reach the Hero Name viewport.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added support for character-by-character typewriter manifestations for system responses.
  * - Fixed: [PRO PHASE] Handled `ADMIN_ACCESS_GRANTED` event to auto-mount the Hardware Configuration menu.
@@ -41,6 +43,7 @@
  * - Fixed: [PRO PHASE] Subscribed to GAME_STOP_REQUESTED to handle external halt commands.
  * - Fixed: [PRO PHASE] Added `this.el.classList.contains('visible')` guard to the focus listener.
  * - Fixed: [PRO PHASE] Bound `inputWrapper.addEventListener('click')` instead of `this.el`.
+ * - Fixed: [PRO PHASE] Explicitly toggled pointer-events in show() and hide() to reinforce CSS-level display overrides.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Terminal inputs now broadcast high-intensity GLOBAL_GLITCH events to simulate hardware "power draws".
  * - RIPPLE: [PRO PHASE] Selecting a hardware radio button physically commits the choice to `localStorage` and triggers a hard reboot.
@@ -51,6 +54,7 @@
  * - RIPPLE: [PRO PHASE] Stopping the game now cleanly frees up terminal scroll space and removes the canvas layer entirely.
  * - RIPPLE: [PRO PHASE] Virtual keyboard now only manifests when the terminal is visually active, unblocking hero identity interactions.
  * - RIPPLE: [PRO PHASE] Terminal window no longer intercepts touches on mobile devices when it is hidden or overlapping other interactive elements.
+ * - RIPPLE: [PRO PHASE] Terminal completely vanishes from the interaction stack when closed, restoring 8-tap gateway access on mobile hardware.
  * * * * * REALITY AUDIT V28:
  * - APPEND 31: Layer Isolation - Input field promoted to a hardware-accelerated layer.
  * - APPEND 815: [PRO PHASE] Game Loop Sync - Verified `requestAnimationFrame` pulls data from `KrayeGame`.
@@ -60,6 +64,7 @@
  * - APPEND 9350: [PRO PHASE] DOM Purge Audit - Verified terminateGame safely destroys the renderer container.
  * - APPEND 9430: [PRO PHASE] Focus Authority Audit - Verified click listener ignores inputs when visibility class is null.
  * - APPEND 9445: [PRO PHASE] Touch Bleed Audit - Verified that touches on `.terminal-content` or `.terminal-header` do not arbitrarily trigger the mobile keyboard.
+ * - APPEND 9485: [PRO PHASE] Interaction Shield Audit - Confirmed terminal hide() perfectly unblocks underlying 3D and UI layers.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_FOCUS_AUTHORITY_LOCKED
  */
@@ -475,6 +480,7 @@ export class Terminal {
 
     show() {
         this.el.classList.add('visible');
+        this.el.style.pointerEvents = 'auto'; // [PRO PHASE] Un-shield interaction
 
         // [PRO PHASE] Instant Input Engagement: 100ms delay to allow CSS transitions to initialize
         setTimeout(() => {
@@ -499,6 +505,7 @@ export class Terminal {
     hide() {
         this.el.classList.remove('visible');
         this.el.classList.remove('terminal-glitch-active');
+        this.el.style.pointerEvents = 'none'; // [PRO PHASE] Absolute interaction shield
 
         // [PRO PHASE] Visibility Handshake: Pause game loop to prevent zombie execution
         if (this.gameInstance && this.gameInstance.state && this.gameInstance.state.isActive) {

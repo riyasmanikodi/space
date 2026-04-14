@@ -33,27 +33,35 @@
     </script>
 </head>
 
-<body style="margin: 0; padding: 0; overflow: hidden; background: #000;">
-    <canvas id="webgl-canvas"></canvas>
+<body class="industrial-theme">
 
-    <input type="color" id="ghost-color-picker" style="visibility: hidden; position: absolute;">
+    <canvas id="webgl-canvas"></canvas>
 
     <div id="ui-layer" class="hidden">
 
-        <div id="hero-name-viewport" class="top-center" data-text="RIYAS"></div>
+        <div id="hero-name-viewport"></div>
 
-        <div id="hud-header" class="hud-panel top-center">
-            <div class="hud-subtitle">SYSTEM // ONLINE</div>
-            <div id="hud-sector-title" class="glitch-text" data-text="SECTOR // VOID">SECTOR // VOID</div>
+        <div class="hud-top-right">
+            <div id="coordinates" class="hud-data">AXIS: 00.0° Y: 00.0</div>
+            <div class="hud-status">
+                <span class="status-dot"></span>
+                SYSTEM_STABLE
+            </div>
         </div>
 
-        <div id="hud-footer" class="hud-panel bottom-center">
-            <div class="progress-track">
-                <div id="hud-progress-fill" class="progress-fill"></div>
+        <div class="hud-bottom-center">
+            <div id="hud-sector-title">SECTOR // TRANSIT</div>
+            <div id="hud-progress-bar">
+                <div id="hud-progress-fill"></div>
             </div>
-            <div class="footer-status">
-                <span id="coordinates">X: 00.00° Y: 00.00</span>
-                <span class="blink">_SYNCED</span>
+            <div class="hud-meta">
+                <span>ORBITAL_VELOCITY_SYNCED</span>
+            </div>
+        </div>
+
+        <div id="mobile-terminal-trigger" class="mobile-only-btn">
+            <div class="trigger-inner">
+                <span class="trigger-icon">>_</span>
             </div>
         </div>
 
@@ -92,11 +100,13 @@
             <div id="tactical-insight"></div>
         </div>
 
-        <button id="btn-enter-system" class="btn-primary" style="display: none;">INITIALIZE SYSTEM</button>
+        <div class="boot-footer">
+            <input type="color" id="ghost-color-picker" style="display: none;">
+            <button id="btn-enter-system" class="hidden">ENTER_SYSTEM</button>
+        </div>
     </div>
 
     <script type="module" src="./main.js"></script>
-
 </body>
 
 </html>
