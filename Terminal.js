@@ -3,7 +3,7 @@
  * File: /ui/Terminal.js
  * Purpose: Draggable Kraye Logs, BIOS Hardware Menu, ASCII Game Engine, and Ergonomic Kraye-Boy Controller
  * STATUS: PRO_PHASE_KRAYEBOY_SYNCED
- * LINE_COUNT: ~570 Lines.
+ * LINE_COUNT: ~575 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Command Kernel handshake for real-time theme and physics overrides.
  * - SYSTEM: Visual DNA updated to support Industrial CRT flicker on the command input buffer.
@@ -17,6 +17,7 @@
  * - SYSTEM: [PRO PHASE] Integrated Industrial Command Cluster for mobile hardware gamepad emulation.
  * - SYSTEM: [PRO PHASE] Overhauled mobile inputs to "Kraye-Boy" split controller layout.
  * - SYSTEM: [PRO PHASE] Replaced standard game rendering with Gradient DNA block rendering.
+ * - SYSTEM: [PRO PHASE] Injected Score Telemetry into the KrayeGame HUD bar.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 9350]: [PRO PHASE] Zombie DOM Nodes. Enhanced terminateGame() to physically remove #kraye-game-renderer from the layout.
  * - FIXED [ID 9370]: [PRO PHASE] Mobile Keyboard Ghosting. Removed inline pointer-events override that was hijacking screen touches while the terminal was invisible.
@@ -26,6 +27,7 @@
  * - FIXED [ID 9560]: [PRO PHASE] Mobile Controller Desync. Bound #krayeboy-controller visibility to the Tetris lifecycle.
  * - FIXED [ID 9585]: [PRO PHASE] Action Fragmentation. Mapped Action A/B and D-Pad triggers to dedicated gameInstance methods.
  * - FIXED [ID 9610]: [PRO PHASE] Monotone Deframgmenter. Swapped hardcoded `#ff007f` blocks for dynamic dynamic sector-based colors via `BLOCK_DNA` array in `renderGame()`.
+ * - FIXED [ID 9630]: [PRO PHASE] Mobile HUD Clipping. Condensed text and appended state.score to the render string to restore telemetry visibility.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added support for character-by-character typewriter manifestations for system responses.
  * - Fixed: [PRO PHASE] Radio buttons now explicitly poll localStorage directly to represent the hard-locked memory state.
@@ -36,6 +38,7 @@
  * - Fixed: [PRO PHASE] Injected `this.bindGameControls()` to map split Kraye-Boy wings to game logic.
  * - Fixed: [PRO PHASE] Injected dynamic color logic into `renderGame` loop using block grid data.
  * - Fixed: [PRO PHASE] Implemented text-shadow glowing effect to simulate phosphor display blocks in Tetris.
+ * - Fixed: [PRO PHASE] Updated gridHTML string builder to consume state.score.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: [PRO PHASE] Selecting a hardware radio button physically commits the choice to `localStorage` and triggers a hard reboot.
  * - RIPPLE: [PRO PHASE] Committing a BIOS change immediately alters the body class, snapping native typography before the browser reloads.
@@ -44,6 +47,7 @@
  * - RIPPLE: [PRO PHASE] Repeatedly clicking the Universal Trigger or 8-Tap gateway no longer spams the terminal log with duplicated BIOS interfaces.
  * - RIPPLE: Mobile users can now navigate and rotate Tetris shards with ergonomic split-thumb precision.
  * - RIPPLE: The Tetris game blocks now accurately mirror the specific gradient sector colors found in the 3D world (Cyan, Magenta, Violet, Amber, Mint, Rose).
+ * - RIPPLE: [PRO PHASE] Mobile users can now monitor their dynamic technical scoring in real-time.
  * * * * * REALITY AUDIT V28:
  * - APPEND 9310: [PRO PHASE] Window State Audit - Verified `.maximized` class successfully escapes dragging physics and bounds constraints.
  * - APPEND 9350: [PRO PHASE] DOM Purge Audit - Verified terminateGame safely destroys the renderer container.
@@ -52,6 +56,7 @@
  * - APPEND 9585: [PRO PHASE] Ergonomic Bind Audit - Verified that A/B buttons provide high-intensity drop/rotate actions.
  * - APPEND 9590: [PRO PHASE] Lifecycle Audit - Verified that stopping the game completely purges the Kraye-Boy HUD.
  * - APPEND 9610: [PRO PHASE] DNA Sync Audit - Confirmed the 6-color spectrum palette renders flawlessly in the terminal span elements.
+ * - APPEND 9630: [PRO PHASE] Telemetry Sync Audit - Verified the terminal correctly unwraps the score from getRenderState.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_KRAYEBOY_SYNCED
  */
@@ -469,7 +474,8 @@ export class Terminal {
 
         let gridHTML = `<div style="font-family: 'Courier New', monospace; line-height: 1.1; color: #00ff00;">`;
 
-        gridHTML += `<span style="color: #00f3ff;">SLA_UPTIME: ${state.sla}%</span> | L: ${state.lines} | OVERCLOCK: ${speedMultiplier.toFixed(2)}x<br/>`;
+        // [PRO PHASE] Fixed Telemetry Omission & Viewport Cramping
+        gridHTML += `<span style="color: #00f3ff;">SLA: ${state.sla}%</span> | L: ${state.lines} | S: ${state.score || 0} | OC: ${speedMultiplier.toFixed(1)}x<br/>`;
         gridHTML += `+--------------------+<br/>`;
 
         // [PRO PHASE] Sector-Synced Block DNA

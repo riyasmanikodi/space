@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE (FULL ARCHITECTURE)
  * File: /style.css
  * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, Mobile Kinetics, and Universal Hardware Autonomy
- * STATUS: PRO_PHASE_KRAYEBOY_LAYOUT_LOCKED
- * LINE_COUNT: ~900 Lines.
+ * STATUS: PRO_PHASE_VIEWPORT_ANCHOR_LOCKED
+ * LINE_COUNT: ~920 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
  * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
@@ -27,6 +27,7 @@
  * - SYSTEM: [PRO PHASE] Refactored mobile terminal viewport constraints from static 100vh to fluid 100% bounds.
  * - SYSTEM: [PRO PHASE] Injected Keyboard-Safe Offset contrast and padding to #terminal-input-wrapper.
  * - SYSTEM: [PRO PHASE] Transitioned to "Kraye-Boy" Dual-Wing ergonomic controller layout.
+ * - SYSTEM: [PRO PHASE] Hardened Kraye-Boy controller viewport anchoring to resolve mobile browser occlusion.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 305]: Z-Index Conflict. Confined #hero-name-viewport below scanlines (z-index: 5) to maintain screen depth.
  * - FIXED [ID 1408]: Mobile Viewport Trap. Removed full-screen overlay and enabled Pass-Through touching.
@@ -49,6 +50,8 @@
  * - FIXED [ID 9487]: [PRO PHASE] Hardware Fragmentation. Removed mobile-only constraints to ensure unified cross-platform CLI access.
  * - FIXED [ID 9510]: [PRO PHASE] Terminal Occlusion. Replaced rigid 100vh height with 100% on .force-mobile-view to allow the Visual Viewport to resize the DOM when the mobile virtual keyboard manifests.
  * - FIXED [ID 9580]: [PRO PHASE] Controller Interference. Enforced pointer-events: none on controller wings to prevent text-scrolling blockage when game is idle.
+ * - FIXED [ID 9635]: [PRO PHASE] Mobile Controller Occlusion. Transitioned #krayeboy-controller from absolute to fixed positioning to escape the terminal scroll-plane.
+ * - FIXED [ID 9640]: [PRO PHASE] Telemetry Clipping. Injected padding-bottom into #kraye-game-renderer to prevent the fixed controller from overlapping the active matrix grid.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
  * - Fixed: Converted mobile shard layout to a horizontally scrolling carousel.
@@ -69,6 +72,8 @@
  * - Fixed: [PRO PHASE] Upgraded #terminal-input-wrapper background contrast for clear visibility above the keyboard chrome.
  * - Fixed: [PRO PHASE] Added .krayeboy-controller absolute positioning logic.
  * - Fixed: [PRO PHASE] Added .dpad-grid and .action-cluster retro-geometries.
+ * - Fixed: [PRO PHASE] Swapped position: absolute for position: fixed on #krayeboy-controller.
+ * - Fixed: [PRO PHASE] Added env(safe-area-inset-bottom) to controller bottom anchor.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The physical meteorite cursor establishes a unified industrial aesthetic across all input methods.
  * - RIPPLE: [PRO PHASE] GPU layer promotion guarantees the cursor canvas operates independently from the DOM layout.
@@ -86,6 +91,8 @@
  * - RIPPLE: [PRO PHASE] The universal trigger maintains 10002 z-index authority, ensuring it never sinks below the orbital HUD.
  * - RIPPLE: [PRO PHASE] Mobile users can now see the input typing area clearly as it dynamically floats directly above the native virtual keyboard.
  * - RIPPLE: The Kraye-Boy interface manifests as a semi-transparent hardware overlay, allowing for 1:1 gameplay parity with PC.
+ * - RIPPLE: [PRO PHASE] The Kraye-Boy interface now remains permanently glued to the physical hardware viewport regardless of virtual keyboard manifestation.
+ * - RIPPLE: [PRO PHASE] Users can now scroll the game grid without the HUD controls vanishing.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter`.
  * - APPEND 159: Z-Index Audit - Verified `100000` priority on `#cursor-3d-overlay`.
@@ -104,8 +111,10 @@
  * - APPEND 9510: [PRO PHASE] Occlusion Audit - Verified terminal input buffer remains above the fold when iOS/Android keyboards are summoned.
  * - APPEND 9580: [PRO PHASE] Controller Audit - Verified split-wing alignment at terminal bottom corners.
  * - APPEND 9585: [PRO PHASE] Retro Aesthetic Audit - Verified Game Boy inspired A/B circular geometry.
+ * - APPEND 9635: [PRO PHASE] Viewport Lock Audit - Verified fixed positioning bypasses DOM resizing caused by mobile browser address bars.
+ * - APPEND 9640: [PRO PHASE] Padding Audit - Verified 180px bottom-padding allows the terminal scroll boundary to clear the controller height.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_KRAYEBOY_LAYOUT_LOCKED
+ * - STATUS: PRO_PHASE_VIEWPORT_ANCHOR_LOCKED
  */
 
 :root {
@@ -1097,8 +1106,9 @@ body::before {
    [PRO PHASE] KRAYE-BOY ERGONOMIC HUD
    ========================================== */
 #krayeboy-controller {
-    position: absolute;
-    bottom: 20px;
+    position: fixed;
+    /* [PRO PHASE FIX] Escaping absolute scroll plane */
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
     left: 0;
     width: 100%;
     height: 160px;
@@ -1249,6 +1259,8 @@ body.pc-kernel #krayeboy-controller {
     line-height: 1.1 !important;
     white-space: pre !important;
     margin-top: 10px;
+    padding-bottom: 180px;
+    /* [PRO PHASE FIX] Prevent occlusion by the fixed controller */
 }
 
 /* Universal Hardware Autonomy: Mobile Override */
