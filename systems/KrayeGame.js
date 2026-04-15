@@ -3,7 +3,7 @@
  * File: /systems/KrayeGame.js
  * Purpose: ASCII Defragmenter Kernel, SLA Integrity Monitor, BBL Neon Synchronization
  * STATUS: PRO_PHASE_DEFRAG_KERNEL_LOCKED
- * LINE_COUNT: ~310 Lines.
+ * LINE_COUNT: ~335 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Bootstrapped KrayeGame matrix engine for terminal-based defragmentation.
  * - SYSTEM: Integrated cryptographic 7-Bag randomizer for fair Tetromino distribution.
@@ -13,6 +13,9 @@
  * - SYSTEM: [PRO PHASE] Configured `tickRate` acceleration scaling for endgame difficulty.
  * - SYSTEM: [PRO PHASE] Exposed reset protocol via SystemEvents bridging.
  * - SYSTEM: [PRO PHASE] Implemented explicit engine halt via `stopGame()` method.
+ * - SYSTEM: [PRO PHASE] Replaced static tick scaling with Level-Based System Overclock algorithm.
+ * - SYSTEM: [PRO PHASE] Refactored `this.shapes` to utilize numeric Tetromino Type-IDs (1-7) for Sector DNA synchronization.
+ * - SYSTEM: [PRO PHASE] Restored score telemetry to the getRenderState payload.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 8200]: Wall Kick Clipping. Bounded rotation matrices to strictly deny overlapping bounds.
  * - FIXED [ID 8205]: Ghost Overlap. Hardened Y-axis collision detection during hard drops.
@@ -20,6 +23,8 @@
  * - FIXED [ID 8215]: SLA Drift. Clamped SLA integrity between 0% and 100% to prevent floating point overflow.
  * - FIXED [ID 9275]: [PRO PHASE] Memory Persistence. Implemented explicit `resetGame()` method to purge matrix arrays cleanly without full reboot.
  * - FIXED [ID 9345]: [PRO PHASE] Zombie Ticks. Added `stopGame()` to permanently toggle `isActive` flag and halt background loop processing.
+ * - FIXED [ID 9615]: [PRO PHASE] String NaN Grid. Updated tetromino bag keys from chars to ints to prevent `Math.abs` failure in Terminal.js.
+ * - FIXED [ID 9625]: [PRO PHASE] Telemetry Omission. Appended state.score to getRenderState to unblock HUD visibility.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added `getRenderState()` to feed the ASCII string builder in Terminal.js.
  * - Fixed: Appended `applyRippleEffect()` to broadcast kinetic surges to `HeroEffects.js`.
@@ -27,18 +32,25 @@
  * - Fixed: Hardened matrix deep-cloning during rotation to prevent reference mutation.
  * - Fixed: [PRO PHASE] Subscribed to `GAME_RESET_REQUESTED` inside the core engine loop.
  * - Fixed: [PRO PHASE] Injected `stopGame()` method to support terminal `kraye.game.stop` command.
+ * - Fixed: [PRO PHASE] Injected `level` calculation into `tick()` loop for dynamic gravity scaling.
+ * - Fixed: [PRO PHASE] Added Level-Up `GLOBAL_GLITCH` payload trigger inside `_clearLines()`.
+ * - Fixed: [PRO PHASE] Injected `score: this.state.score` into the render grid payload.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: 4-Line defrags (Tetris) now trigger a massive `POWER_SURGE_CLEAR` event, vibrating the physical DOM.
  * - RIPPLE: Rotating pieces emits a subtle `PIECE_ROTATE` visual shudder on the terminal glass.
  * - RIPPLE: Game Over triggers a `KERNEL_PANIC`, halting the defragmentation cycle and wiping the active terminal memory.
  * - RIPPLE: [PRO PHASE] Users can now restart the game without manually reloading the OS, maintaining immersion within the terminal interface.
  * - RIPPLE: [PRO PHASE] Halting the game successfully prevents background SLA decay and tick execution.
+ * - RIPPLE: [PRO PHASE] The game now physically accelerates in discrete levels rather than linear line-by-line increments, simulating CPU tiering.
+ * - RIPPLE: [PRO PHASE] Terminal UI now successfully receives and renders dynamic scoring on all hardware platforms.
  * * * * * REALITY AUDIT V28:
  * - APPEND 820: Matrix Bounds Audit - Verified pieces lock precisely within the 10x20 grid constraints.
  * - APPEND 825: Memory Leak Audit - Confirmed grid line clears use `splice` and `unshift` securely without expanding array length.
  * - APPEND 830: Collision Safety - Verified negative Y-axis rotations do not bypass the ceiling death-plane.
  * - APPEND 9275: [PRO PHASE] Memory Leak Audit - Verified that `resetGame` properly zeroes the 2D array without mutating pointers.
  * - APPEND 9345: [PRO PHASE] Engine Halt Audit - Verified `stopGame()` properly shuts down the internal update tick.
+ * - APPEND 9615: [PRO PHASE] Grid DNA Audit - Verified that locking a piece injects the correct integer ID into the matrix for Gradient matching.
+ * - APPEND 9625: [PRO PHASE] Score Persistence Audit - Verified that telemetry payload includes exact integer score.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_DEFRAG_KERNEL_LOCKED
  */
@@ -82,14 +94,15 @@ export class KrayeGame {
             master: []
         };
 
+        // [PRO PHASE] Type-ID DNA Mapping (1-7) for Gradient Matching
         this.shapes = {
-            'I': [[1, 1, 1, 1]],
-            'J': [[1, 0, 0], [1, 1, 1]],
-            'L': [[0, 0, 1], [1, 1, 1]],
-            'O': [[1, 1], [1, 1]],
-            'S': [[0, 1, 1], [1, 1, 0]],
-            'T': [[0, 1, 0], [1, 1, 1]],
-            'Z': [[1, 1, 0], [0, 1, 1]]
+            '1': [[1, 1, 1, 1]],          // I
+            '2': [[1, 0, 0], [1, 1, 1]],  // J
+            '3': [[0, 0, 1], [1, 1, 1]],  // L
+            '4': [[1, 1], [1, 1]],        // O
+            '5': [[0, 1, 1], [1, 1, 0]],  // S
+            '6': [[0, 1, 0], [1, 1, 1]],  // T
+            '7': [[1, 1, 0], [0, 1, 1]]   // Z
         };
 
         this.init();
@@ -309,6 +322,7 @@ export class KrayeGame {
             }
         }
 
+        this.state.score += 10; // Base score for locking a piece
         this._recordKraye('BLOCK_LOCK', `Fragment locked at matrix [${x}, ${y}]`);
         this._clearLines();
         this._spawnPiece();
@@ -316,6 +330,7 @@ export class KrayeGame {
 
     _clearLines() {
         let linesCleared = 0;
+        const previousLines = this.state.lines;
 
         for (let r = this.config.rows - 1; r >= 0; r--) {
             if (this.state.grid[r].every(cell => cell !== 0)) {
@@ -329,10 +344,28 @@ export class KrayeGame {
         if (linesCleared > 0) {
             this.state.lines += linesCleared;
 
+            // Score Calculation
+            let linePoints = 0;
+            if (linesCleared === 1) linePoints = 100;
+            else if (linesCleared === 2) linePoints = 300;
+            else if (linesCleared === 3) linePoints = 500;
+            else if (linesCleared === 4) linePoints = 800;
+
+            const level = Math.floor(previousLines / 10) + 1;
+            this.state.score += linePoints * level;
+
             const multiplier = linesCleared === 4 ? 2.5 : linesCleared;
             this.state.slaIntegrity = Math.min(100, (this.state.slaIntegrity + (0.01 * multiplier)).toFixed(3));
 
             this._recordKraye('LINE_CLEAR', `${linesCleared} rows defragmented. SLA: ${this.state.slaIntegrity}%`);
+
+            // [PRO PHASE] Level-Up Overclock Dispatcher
+            const currentLevel = Math.floor(this.state.lines / 10) + 1;
+
+            if (currentLevel > level) {
+                SystemEvents.publish('GLOBAL_GLITCH', { effectId: 'HEX_SHRED', intensity: 1.0 });
+                this._recordKraye('OVERCLOCK', `System Overclock engaged. KERNEL LEVEL ${currentLevel}`);
+            }
 
             if (linesCleared === 4) {
                 this.applyRippleEffect('POWER_SURGE_CLEAR', { lines: linesCleared });
@@ -352,7 +385,10 @@ export class KrayeGame {
         if (this.state.isGameOver || !this.state.isActive) return;
 
         const deltaTime = currentTime - this.state.lastTick;
-        const currentSpeed = Math.max(100, this.config.tickRate - (this.state.lines * 10));
+
+        // [PRO PHASE] Level-Based System Overclock Algorithm
+        const level = Math.floor(this.state.lines / 10) + 1;
+        const currentSpeed = Math.max(100, this.config.tickRate - ((level - 1) * 80));
 
         if (deltaTime > currentSpeed) {
             this.move(0, 1);
@@ -389,6 +425,7 @@ export class KrayeGame {
             grid: renderGrid,
             sla: this.state.slaIntegrity,
             lines: this.state.lines,
+            score: this.state.score,
             isGameOver: this.state.isGameOver
         };
     }

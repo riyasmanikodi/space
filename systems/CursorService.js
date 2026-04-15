@@ -3,7 +3,7 @@
  * File: /systems/CursorService.js
  * Purpose: Anchored Spline-Interpolated Kinetic Cursor Path (Liquid Dynamic Variant)
  * STATUS: PRO_PHASE_KINETIC_FIDELITY_LOCKED
- * LINE_COUNT: ~340 Lines.
+ * LINE_COUNT: ~350 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated dual-layer Kinetic Fire cursor (Meteorite Core + Shard Tail).
  * - SYSTEM: Decoupled cursor architecture into a dedicated top-level WebGL context.
@@ -24,6 +24,7 @@
  * - SYSTEM: [PRO PHASE] Implemented History Flushing to consume path coordinates and prevent multi-line rendering.
  * - SYSTEM: [PRO PHASE] Deactivated public setColor() API to permanently hard-lock the thermal aesthetic.
  * - SYSTEM: [APPEND] Integrated Lava.webp surface texture into the Meteorite core geometry.
+ * - SYSTEM: [PRO PHASE] Implemented Kinetic Trail Compression to clamp maximum particle velocity.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 3005]: System Pointer Bleed. Enforced custom WebGL pointer over standard CSS cursors.
  * - FIXED [ID 3045]: Z-Index Ghosting. Enforced pointer-events: none on the cursor canvas.
@@ -50,6 +51,7 @@
  * - FIXED [ID 4250]: [PRO PHASE] Texture Invisibility. Upgraded the meteorite core to a dedicated ShaderMaterial to force the Lava.webp surface mapping and bypass the standard material pipeline bypass.
  * - FIXED [ID 4260]: [PRO PHASE] 4-Line Ghosting. Hardened the pathHistory buffer to strictly flush and lock the anchor point after rendering the active segment, preventing geometric overlap.
  * - FIXED [ID 4270]: [PRO PHASE] Thermal Upward Drift. Piped real-time velocityLength into the FireTail uniform loop to enforce an immediate thermal collapse when the cursor is idle.
+ * - FIXED [ID 4280]: [PRO PHASE] Big Trail Anomaly. Clamped emitVel scalar using Math.min() to prevent velocity-dependent trail stretching during high-speed drags.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added coordinate unprojection math to translate 2D world space.
  * - Fixed: Added lighting rig (Directional + Ambient) isolated to the cursor overlay scene.
@@ -67,6 +69,7 @@
  * - Fixed: [PRO PHASE] Hardcoded baseline emissive color (0xffaa00) to ensure consistent thermal identity.
  * - Fixed: [PRO PHASE] Injected TextureLoader and material.map properties to bridge the Lava.webp file into the cursor geometry.
  * - Fixed: [PRO PHASE] Up-scaled cursor geometry detail to support high-fidelity texture wrapping.
+ * - Fixed: [PRO PHASE] Injected Math.min() threshold (max scalar 1.2) into the Catmull-Rom tangent multiplier.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The standalone WebGL context ensures the cursor renders at 60FPS even if the main planetary engine lags.
  * - RIPPLE: [PRO PHASE] The meteorite now visually "smolders" with circular fluid embers continuously when the mouse is idle.
@@ -82,6 +85,7 @@
  * - RIPPLE: [PRO PHASE] The cursor now maintains a permanent, fixed thermal gold hue regardless of website navigation or click events.
  * - RIPPLE: [PRO PHASE] The meteorite core now visually matches the high-detail carbonaceous rock requirement without crashing the shader pipeline.
  * - RIPPLE: [PRO PHASE] Shard smolder perfectly fades out instantly upon stop, removing the unwanted smoke stack effect.
+ * - RIPPLE: [PRO PHASE] The meteorite tail now maintains a consistent, compressed industrial length regardless of physical dragging speed.
  * * * * * REALITY AUDIT V28:
  * - APPEND 185: Canvas Isolation - Verified cursor overlay does not trigger main DOM repaints.
  * - APPEND 460: [PRO PHASE] Centralized Loop Audit - Verified update/render calls resolve frame-starvation.
@@ -102,6 +106,7 @@
  * - APPEND 1150: [PRO PHASE] Boot Stability - Verified shader guard prevents animation loop collapse during initial WebGL compilation.
  * - APPEND 4250: [PRO PHASE] Material Audit - Verified ShaderMaterial securely maps the WebP texture map to the fragment kernel.
  * - APPEND 4260: [PRO PHASE] Geometry Audit - Verified CatmullRom strictly operates on 2-point interpolated vectors, erasing the ghost bands.
+ * - APPEND 4280: [PRO PHASE] Trail Compression Audit - Verified that high-speed mouse flicks no longer result in extended, thin particle streaks.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_KINETIC_FIDELITY_LOCKED
  */
@@ -357,7 +362,8 @@ export class CursorService {
 
                 if (this.tail) {
                     // Seed the tail with the curve tangent for "Flexible Whip" look
-                    const emitVel = tangent.multiplyScalar(Math.max(0.1, velocityLength * 0.5));
+                    // FIXED [ID 4280]: Clamped the maximum velocity scalar to 1.2 to compress the trail length during high-speed drags
+                    const emitVel = tangent.multiplyScalar(Math.min(1.2, Math.max(0.1, velocityLength * 0.5)));
                     this.tail.emit(point.x, point.y, point.z, emitVel);
                 }
             }

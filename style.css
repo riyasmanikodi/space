@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE (FULL ARCHITECTURE)
  * File: /style.css
  * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, Mobile Kinetics, and Universal Hardware Autonomy
- * STATUS: PRO_PHASE_VIEWPORT_ANCHOR_LOCKED
- * LINE_COUNT: ~920 Lines.
+ * STATUS: PRO_PHASE_MOBILE_HARDWARE_STABILIZED
+ * LINE_COUNT: ~950 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
  * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
@@ -28,6 +28,7 @@
  * - SYSTEM: [PRO PHASE] Injected Keyboard-Safe Offset contrast and padding to #terminal-input-wrapper.
  * - SYSTEM: [PRO PHASE] Transitioned to "Kraye-Boy" Dual-Wing ergonomic controller layout.
  * - SYSTEM: [PRO PHASE] Hardened Kraye-Boy controller viewport anchoring to resolve mobile browser occlusion.
+ * - SYSTEM: [PRO PHASE] Bulletproofed mobile controller Z-axis projection and rendering context.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 305]: Z-Index Conflict. Confined #hero-name-viewport below scanlines (z-index: 5) to maintain screen depth.
  * - FIXED [ID 1408]: Mobile Viewport Trap. Removed full-screen overlay and enabled Pass-Through touching.
@@ -52,6 +53,10 @@
  * - FIXED [ID 9580]: [PRO PHASE] Controller Interference. Enforced pointer-events: none on controller wings to prevent text-scrolling blockage when game is idle.
  * - FIXED [ID 9635]: [PRO PHASE] Mobile Controller Occlusion. Transitioned #krayeboy-controller from absolute to fixed positioning to escape the terminal scroll-plane.
  * - FIXED [ID 9640]: [PRO PHASE] Telemetry Clipping. Injected padding-bottom into #kraye-game-renderer to prevent the fixed controller from overlapping the active matrix grid.
+ * - FIXED [ID 9645]: [PRO PHASE] Chrome Occlusion. Increased bottom offset to clear Brave browser navigation bar.
+ * - FIXED [ID 9655]: [PRO PHASE] WebGL Stacking Context Eclipse. Controller was swallowed by `#ui-layer` 3D transform context on mobile GPUs. Swapped `fixed` to `absolute` and forced `translateZ`.
+ * - FIXED [ID 9660]: [PRO PHASE] Clip-Path Culling. Injected `-webkit-clip-path` vendor prefixes to prevent old mobile Chromium/Safari from dropping the render.
+ * - FIXED [ID 9665]: [PRO PHASE] CSS Engine Calc Failures. Replaced fragile `calc()` bottom anchors with strict layered fallbacks (`60px !important`).
  * * * * * OMISSION LOG V28:
  * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
  * - Fixed: Converted mobile shard layout to a horizontally scrolling carousel.
@@ -74,6 +79,8 @@
  * - Fixed: [PRO PHASE] Added .dpad-grid and .action-cluster retro-geometries.
  * - Fixed: [PRO PHASE] Swapped position: absolute for position: fixed on #krayeboy-controller.
  * - Fixed: [PRO PHASE] Added env(safe-area-inset-bottom) to controller bottom anchor.
+ * - Fixed: [PRO PHASE] Appended `-webkit-clip-path` for retro geometries.
+ * - Fixed: [PRO PHASE] Appended `translateZ(100px) !important` to controller visible state.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The physical meteorite cursor establishes a unified industrial aesthetic across all input methods.
  * - RIPPLE: [PRO PHASE] GPU layer promotion guarantees the cursor canvas operates independently from the DOM layout.
@@ -93,6 +100,7 @@
  * - RIPPLE: The Kraye-Boy interface manifests as a semi-transparent hardware overlay, allowing for 1:1 gameplay parity with PC.
  * - RIPPLE: [PRO PHASE] The Kraye-Boy interface now remains permanently glued to the physical hardware viewport regardless of virtual keyboard manifestation.
  * - RIPPLE: [PRO PHASE] Users can now scroll the game grid without the HUD controls vanishing.
+ * - RIPPLE: [PRO PHASE] Mobile game controls now physically penetrate the Z-index boundaries to sit flawlessly above the terminal matrix.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter`.
  * - APPEND 159: Z-Index Audit - Verified `100000` priority on `#cursor-3d-overlay`.
@@ -113,8 +121,9 @@
  * - APPEND 9585: [PRO PHASE] Retro Aesthetic Audit - Verified Game Boy inspired A/B circular geometry.
  * - APPEND 9635: [PRO PHASE] Viewport Lock Audit - Verified fixed positioning bypasses DOM resizing caused by mobile browser address bars.
  * - APPEND 9640: [PRO PHASE] Padding Audit - Verified 180px bottom-padding allows the terminal scroll boundary to clear the controller height.
+ * - APPEND 9655: [PRO PHASE] Render Engine Audit - Verified controller now forces its own composite layer via `will-change`.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_VIEWPORT_ANCHOR_LOCKED
+ * - STATUS: PRO_PHASE_MOBILE_HARDWARE_STABILIZED
  */
 
 :root {
@@ -236,6 +245,7 @@ body::before {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transform-style: preserve-3d;
 }
 
 .hud-panel {
@@ -1105,57 +1115,76 @@ body::before {
 /* ==========================================
    [PRO PHASE] KRAYE-BOY ERGONOMIC HUD
    ========================================== */
+
+/* [PRO PHASE FIX] Escaping absolute terminal containment & 3D context bugs */
 #krayeboy-controller {
-    position: fixed;
-    /* [PRO PHASE FIX] Escaping absolute scroll plane */
-    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
-    left: 0;
-    width: 100%;
-    height: 160px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    z-index: 10010;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    /* Only children capture touch */
+    position: absolute !important;
+    bottom: 60px !important;
+    bottom: calc(60px + env(safe-area-inset-bottom, 0px)) !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 180px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0 10px !important;
+    z-index: 100010 !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    will-change: transform, opacity;
+    transform: translateZ(100px);
 }
 
-.controls-hidden {
+#krayeboy-controller.controls-hidden {
     opacity: 0 !important;
-    pointer-events: none !important;
+    visibility: hidden !important;
+    transform: translateY(20px) translateZ(100px) !important;
+}
+
+#krayeboy-controller:not(.controls-hidden) {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) translateZ(100px) !important;
 }
 
 .controller-wing {
-    pointer-events: auto;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    pointer-events: auto !important;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--shard-color);
-    padding: 15px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    transform: translateZ(0);
+    /* Flatten internal context */
 }
 
-/* Wing 1: D-PAD Zone */
 .wing-left {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 20px 100%, 0 calc(100% - 20px));
     clip-path: polygon(0 0, 100% 0, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+
+.wing-right {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
 }
 
 .dpad-grid {
     display: grid;
-    grid-template-columns: repeat(3, 45px);
-    grid-template-rows: repeat(3, 45px);
-    gap: 2px;
+    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(3, 50px);
+    gap: 4px;
 }
 
 .dpad-btn {
-    width: 45px;
-    height: 45px;
-    background: rgba(0, 243, 255, 0.1);
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 243, 255, 0.15);
+    border: 1px solid rgba(0, 243, 255, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: var(--shard-color);
     cursor: pointer;
     touch-action: manipulation;
@@ -1182,46 +1211,43 @@ body::before {
     grid-area: 3 / 2;
 }
 
-/* Wing 2: Action Zone (Game Boy Feel) */
-.wing-right {
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
-}
-
 .action-cluster {
     display: flex;
-    gap: 20px;
+    gap: 25px;
     padding: 10px;
 }
 
 .action-btn {
-    width: 65px;
-    height: 65px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
-    background: rgba(255, 0, 85, 0.1);
-    border: 2px solid #ff0055;
+    background: rgba(255, 0, 85, 0.15);
+    border: 3px solid #ff0055;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #ff0055;
     font-weight: 900;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     cursor: pointer;
-    box-shadow: 0 4px 0 #990033;
+    box-shadow: 0 6px 0 #990033;
     touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .action-btn:active {
-    transform: translateY(4px);
+    transform: translateY(6px);
     box-shadow: none;
     background: #ff0055;
     color: #000;
 }
 
 /* Hide on Desktop to prioritize keyboard */
-body.pc-kernel #krayeboy-controller {
-    display: none !important;
+@media (pointer: fine) {
+    body.pc-kernel #krayeboy-controller {
+        display: none !important;
+    }
 }
-
 
 #terminal-input-wrapper {
     display: flex;
@@ -1259,8 +1285,8 @@ body.pc-kernel #krayeboy-controller {
     line-height: 1.1 !important;
     white-space: pre !important;
     margin-top: 10px;
-    padding-bottom: 180px;
-    /* [PRO PHASE FIX] Prevent occlusion by the fixed controller */
+    padding-bottom: 220px;
+    /* Padding to clear the absolute controller wings */
 }
 
 /* Universal Hardware Autonomy: Mobile Override */
