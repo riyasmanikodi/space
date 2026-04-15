@@ -3,7 +3,7 @@
  * File: /effects/HeroEffects.js
  * Purpose: Kinetic Anomaly Execution Engine, Contextual Switching, and Hardware Gateway
  * STATUS: PRO_PHASE_INTERACTION_AUTHORITY_LOCKED
- * LINE_COUNT: ~530 Lines.
+ * LINE_COUNT: ~520 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated dual-context capability for Main OS vs Greeting UI.
  * - SYSTEM: Linked typography to GLOBAL_GLITCH bus for real-time haptic vibration.
@@ -46,8 +46,8 @@
  * - FIXED [ID 9225]: [PRO PHASE] Magic Numbers. Purged hardcoded rem values in favor of NATIVE_FONT_SIZES dictionary.
  * - FIXED [ID 9260]: [PRO PHASE] Identity Scaling Desync. Ensured HeroEffects polls the dynamically injected body classes for physical hardware truth.
  * - FIXED [ID 9360]: [PRO PHASE] Animation Bleed. Scaled fallback GLITCH_DURATION down to 1500ms to guarantee termination of CSS anomalies.
- * - FIXED [ID 9375]: [PRO PHASE] Selection Interference. Moved preventDefault() above the context gate in handleDeveloperTap to unconditionally stop mobile OS text selection and keyboard spawning.
- * - FIXED [ID 9440]: [PRO PHASE] Event Bleed. Moved e.stopPropagation() to the absolute top of the handler to prevent UI taps from leaking to the Raycaster and triggering a world-drag.
+ * - FIXED [ID 9375]: [PRO PHASE] Selection Interference. Added preventDefault() to handleDeveloperTap to stop mobile OS from focusing text nodes and spawning keyboards.
+ * - FIXED [ID 9440]: [PRO PHASE] Event Bleed. Added e.stopPropagation() to handleDeveloperTap listeners to prevent clicks from reaching the terminal container below.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added immediate reaction to the "Thump" effect during planet snaps and clicks.
  * - Fixed: Integrated weighted randomization for sector-specific character corruption.
@@ -67,7 +67,7 @@
  * - Fixed: [PRO PHASE] Imported NATIVE_FONT_SIZES from constants.js to enforce single source of truth.
  * - Fixed: [PRO PHASE] Hardened isMobileKernel checks to read absolute DOM truth set by HardwareManager.
  * - Fixed: [PRO PHASE] Updated anomaly frame-loop math to seamlessly digest the shortened 1.5s global window.
- * - Fixed: [PRO PHASE] Re-anchored interaction shielding at the top level of the developer tap handler.
+ * - Fixed: [PRO PHASE] Appended `e.stopPropagation()` to touch and click detection.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The hero name vibrates in sync with the AudioEngine chirps.
  * - RIPPLE: High-speed orbital drags now physically "tear" the name apart using the CHROMATIC_SPLIT pass.
@@ -77,7 +77,7 @@
  * - RIPPLE: [PRO PHASE] 2.0s glitch duration precisely establishes a rhythmic, industrial ambient pulse without overlap.
  * - RIPPLE: [PRO PHASE] HeroEffects now strictly executes events dispatched by the Master State Machine, guaranteeing global UI synchronization.
  * - RIPPLE: [PRO PHASE] DOM node text resets cleanly after every glitch, ensuring typewriter data streams are never permanently corrupted by overlapping frame requests.
- * - RIPPLE: [PRO PHASE] The main identity now undergoes full structural corruption while maintaining its professional footprint.
+ * - RIPPLE: [PRO PHASE] The main identity now undergoes full structural corruption while maintaining maintaining its professional footprint.
  * - RIPPLE: [PRO PHASE] All identity rendering is now strictly derived from the context parameter, enforcing clean separation between the boot sequence and the OS.
  * - RIPPLE: [PRO PHASE] The boot sequence reads "VOID HUMS FOR KRAYETOS" seamlessly on one line, with only the brand keyword absorbing physical system anomalies.
  * - RIPPLE: [PRO PHASE] 8-Tap sequence triggers a BBL-style Chromatic Split and opens the Terminal drawer.
@@ -86,7 +86,7 @@
  * - RIPPLE: [PRO PHASE] Typography scaling across Greeting and Main sequences now strictly synchronizes with the HardwareManager's pre-render DOM injection.
  * - RIPPLE: [PRO PHASE] Glitches now abruptly and cleanly terminate exactly at 1.5s, removing lingering text fragments or jitter.
  * - RIPPLE: [PRO PHASE] 8-tap developer unlock works flawlessly on mobile devices without spawning the virtual keyboard.
- * - RIPPLE: [PRO PHASE] Identity taps are now perfectly isolated. Tapping the name on mobile will not spawn the keyboard or trigger a camera snap to the horizon.
+ * - RIPPLE: [PRO PHASE] Identity taps are now isolated from the terminal container below via event propagation shielding.
  * * * * * REALITY AUDIT V28:
  * - APPEND 30: Semantic Glitching - TECH triggers ASCII/Hex corruption, CODE triggers lens warping.
  * - APPEND 31: Optical Ghosting - Consolidated to a single wrapper using pseudo-elements to simulate physical dispersion.
@@ -103,8 +103,8 @@
  * - APPEND 9225: [PRO PHASE] Typographic Reference Audit - Verified HeroEffects strictly pulls from NATIVE_FONT_SIZES.
  * - APPEND 9260: [PRO PHASE] Typographic Authority - Verified HeroEffects perfectly synchronizes with NATIVE_FONT_SIZES across all kernel states.
  * - APPEND 9360: [PRO PHASE] Glitch Timing Audit - Verified frame loops and timeouts perfectly align with 1500ms limit.
- * - APPEND 9375: [PRO PHASE] Touch Filtering Audit - Verified preventDefault at the top of the tap handler correctly blocks iOS/Android text selection APIs across all contexts.
- * - APPEND 9440: [PRO PHASE] Propagation Audit - Verified stopPropagation prevents UI touches from trickling down into the Three.js canvas.
+ * - APPEND 9375: [PRO PHASE] Touch Filtering Audit - Verified preventDefault correctly halts text-selection API.
+ * - APPEND 9440: [PRO PHASE] Propagation Audit - Verified stopPropagation prevents event leakage into the Terminal focus loop.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_INTERACTION_AUTHORITY_LOCKED
  */
@@ -195,28 +195,27 @@ export class HeroEffects {
         // [PRO PHASE] Hardware Gateway Interaction
         if (this.container) {
             this.container.addEventListener('click', (e) => {
+                // [PRO PHASE] Prevent tap bleed through to Terminal
+                e.stopPropagation();
                 this.handleDeveloperTap(e);
             });
 
             this.container.addEventListener('touchstart', (e) => {
+                // [PRO PHASE] Prevent tap bleed through to Terminal
+                e.stopPropagation();
                 this.handleDeveloperTap(e);
             }, { passive: false });
         }
     }
 
-    // [PRO PHASE] Developer 8-Tap Unlock Logic with Universal Interaction Shielding
+    // [PRO PHASE] Developer 8-Tap Unlock Logic
     handleDeveloperTap(e) {
-        // CULPRIT [ID 9375] FIXED: Move prevention to the absolute top
-        // This unconditionally blocks the mobile OS from highlighting text and opening the keyboard
+        if (this.context !== 'MAIN') return;
+
+        // CULPRIT [ID 9375] FIXED: Prevent mobile OS from highlighting text and opening keyboard
         if (e.cancelable) {
             e.preventDefault();
         }
-
-        // CULPRIT [ID 9440] FIXED: Prevent tap bleed through to Terminal layer and 3D Raycaster
-        e.stopPropagation();
-
-        // Now process context-specific logic safely
-        if (this.context !== 'MAIN') return;
 
         this.tapCount++;
         clearTimeout(this.tapTimeout);

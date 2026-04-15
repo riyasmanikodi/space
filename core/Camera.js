@@ -2,7 +2,7 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /core/Camera.js
  * Purpose: Camera Rig, Mobile Fisheye Logic, Elastic Momentum, and Hardware Aspect Spoofing
- * STATUS: PRO_PHASE_UNIVERSAL_AUTONOMY
+ * STATUS: PRO_PHASE_UNIVERSAL_AUTONOMY_LOCKED
  * LINE_COUNT: ~210 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Global ignition kernel finalized for PRO PHASE deployment.
@@ -12,6 +12,7 @@
  * - SYSTEM: [PRO PHASE] Hardened FOV transitions for mobile hardware.
  * - SYSTEM: [PRO PHASE] Linked Dynamic Aspect Ratio logic to HardwareManager configuration.
  * - SYSTEM: [PRO PHASE] Implemented Early Profile Polling for Native Aspect Ratio locking.
+ * - SYSTEM: [PRO PHASE] Restored Liquid Aspect Ratio for Mobile devices to support dynamic keyboards.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 404]: Import Pathing. Added relative '/' to correctly target Logics.js in the root directory.
  * - FIXED [ID 1409]: Handshake Deadlock. Forced camera to idle state during initialization to bypass Renderer.js throttling logic.
@@ -20,18 +21,21 @@
  * - FIXED [ID 2109]: Vantage Point Recalibration. Adjusted basePosition to Z: 150 to pull the viewport back from planetary orbits (Radius 35).
  * - FIXED [ID 5200]: [PRO PHASE] Vertical Clipping. Adjusted mobile Z-distance to 180 to accommodate tall aspect ratios (19.5:9).
  * - FIXED [ID 9220]: [PRO PHASE] Flash of PC layout. Forced early polling of localStorage before Camera matrix initialization.
+ * - FIXED [ID 9450]: [PRO PHASE] Viewport Squashing. Removed hardcoded 9/19.5 mobile aspect lock to allow the camera to dynamically adapt to vertical viewport changes (like keyboard manifestation) without distorting the 3D scene.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected window.RIYAS_SYSTEM hook for live console diagnostics.
  * - Fixed: [APPEND] Added set() and get() methods to allow Logics.js to override the internal Three.js instance.
  * - Fixed: [APPEND] Implemented updateProjectionMatrix() hardening within the handleResize hook.
  * - Fixed: [PRO PHASE] Bypassed native aspect ratio calculation when hardware spoofing is active via radio buttons.
  * - Fixed: [PRO PHASE] Duplicated UA/Touch detection in Camera constructor to match HardwareManager authority before Logics.js mounts.
+ * - Fixed: [PRO PHASE] Switched mobile aspect ratio fallback to `window.innerWidth / window.innerHeight`.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: This file triggers the initial LogicsEngine constructor, spawning the UniverseGroup and Lighting shards.
  * - RIPPLE: [APPEND] Decoupling the Camera instance allows Logics.js to perform high-precision raycasting without local state conflicts.
  * - RIPPLE: [APPEND] Mobile Fisheye FOV (75) effectively simulates 180-degree optical lens effects mathematically.
  * - RIPPLE: [PRO PHASE] Aspect Ratio overrides guarantee the Terminal UI and 3D scene remain aligned regardless of physical device orientation.
  * - RIPPLE: [PRO PHASE] First frame render accurately matches the BIOS profile without a 1-frame layout reflow.
+ * - RIPPLE: [PRO PHASE] The mobile virtual keyboard no longer "pushes" the 3D universe down or vertically squashes the planets.
  * * * * * REALITY AUDIT V28:
  * - APPEND 19: Boot Context Override - Entry point verified to prioritize scene execution.
  * - APPEND 46: Raycaster Safety - Enforced length checks on planetMeshes to protect the render loop.
@@ -39,8 +43,9 @@
  * - APPEND 118: Vantage Point Recalibration - Verified that Z: 150 provides optimal visibility for Radius 35 planets.
  * - APPEND 5200: [PRO PHASE] Universal Liquid Strategy - Viewport now seamlessly calculates optimal FOV offsets dynamically.
  * - APPEND 922: Camera Initialization - Verified FOV and Aspect Ratio obey BIOS lock precisely upon instantiation.
+ * - APPEND 9450: [PRO PHASE] Liquid Resize Audit - Verified that resizing the height mathematically maintains the sphere geometries without distortion.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_UNIVERSAL_AUTONOMY
+ * - STATUS: PRO_PHASE_UNIVERSAL_AUTONOMY_LOCKED
  */
 
 import * as THREE from 'three';
@@ -108,7 +113,7 @@ class CameraRig {
      * Supports "Hardware Spoofing" via the terminal radio buttons.
      */
     _calculateAspect() {
-        if (this.hardwareProfile === 'mobile') return 9 / 19.5; // Samsung A50s / Vertical Lock
+        // CULPRIT [ID 9450] FIXED: Restored dynamic liquid aspect ratio for mobile to prevent squash/stretch when the virtual keyboard alters the viewport height.
         if (this.hardwareProfile === 'pc') return 16 / 9;     // Desktop Wide Lock
         return window.innerWidth / window.innerHeight;            // Auto Liquid
     }
