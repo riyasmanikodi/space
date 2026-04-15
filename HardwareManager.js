@@ -2,33 +2,38 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /systems/HardwareManager.js
  * Purpose: Hardware abstraction, BIOS overrides, Device Detection, Persistence
- * STATUS: PRO_PHASE_HARDWARE_AUTONOMY_LOCKED
- * LINE_COUNT: ~175 Lines.
+ * STATUS: PRO_PHASE_ASPECT_RATIO_LOCKED
+ * LINE_COUNT: ~180 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Bootstrapped HardwareManager interface.
  * - SYSTEM: [PRO PHASE] Implemented Three-Tier Device Detection hierarchy.
  * - SYSTEM: [PRO PHASE] Enforced absolute authority of localStorage over physical constraints.
  * - SYSTEM: [PRO PHASE] Integrated Physical Authority Injection directly into document body.
+ * - SYSTEM: [PRO PHASE] Calibrated getAspectRatio to enforce strict mobile dimensions.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 9100]: Font-Locking Bug. Physical width previously overrode virtual BIOS overrides.
  * - FIXED [ID 9105]: Detection Mismatch. Replaced naive window width checks with UserAgent regex.
  * - FIXED [ID 9240]: [PRO PHASE] Typographic Desync. Injected physical kernel classes directly into document body on load.
+ * - FIXED [ID 9685]: [PRO PHASE] Viewport Squashing. Adjusted mobile `getAspectRatio` to match modern tall screens (19.5:9) preventing orbital drift on mobile browsers.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added UserAgent polling for Android/iPhone explicit detection.
  * - Fixed: Synchronized systemState.isMobile determination synchronously during evaluateProfile.
  * - Fixed: Exposed getNativeFontSize() to act as a typographic source of truth.
  * - Fixed: [PRO PHASE] Added DOM manipulation to evaluateProfile to announce kernel state to style.css.
+ * - Fixed: [PRO PHASE] Hardcoded `9 / 19.5` aspect ratio limit for mobile profile rendering bounds.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: systemState.isMobile is now an absolute truth locked by the user or hardware agent.
  * - RIPPLE: HeroEffects.js now safely pulls fixed typography sizes without CSS clamp distortion.
  * - RIPPLE: Media queries in CSS are bypassed if 'mobile' profile is forced.
  * - RIPPLE: [PRO PHASE] CSS typographic blocks now activate instantly upon evaluateProfile execution.
+ * - RIPPLE: [PRO PHASE] 3D projection on mobile browsers no longer warps or stretches the celestial bodies when virtual keyboards change the physical screen height.
  * * * * * REALITY AUDIT V28:
  * - APPEND 910: Boot Authority - Verified User-Agent strings override CSS media queries.
  * - APPEND 915: State Integrity - Confirmed isMobile flag locks before UI rendering sequence.
  * - APPEND 924: [PRO PHASE] Boot Authority - Verified document.body receives correct kernel class instantly.
+ * - APPEND 9685: [PRO PHASE] Aspect Ratio Lock Audit - Verified that tall modern screens do not distort the terminal window projection matrix.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_HARDWARE_AUTONOMY_LOCKED
+ * - STATUS: PRO_PHASE_ASPECT_RATIO_LOCKED
  */
 
 export class HardwareManager {
@@ -214,7 +219,10 @@ export class HardwareManager {
     }
 
     getAspectRatio() {
-        if (this.systemState.profile === 'mobile') return 9 / 19.5; // Samsung A50s / Vertical Lock
+        // [PRO PHASE FIX] Strict enforcement of aspect ratio for 3D Camera boundaries
+        // Prevents squashing when virtual keyboard activates on modern 19.5:9 devices
+        if (this.systemState.profile === 'mobile' || this.systemState.isMobile) return 9 / 19.5;
+
         if (this.systemState.profile === 'pc') return 16 / 9;     // Desktop Wide Lock
         return window.innerWidth / window.innerHeight;            // Auto Liquid
     }

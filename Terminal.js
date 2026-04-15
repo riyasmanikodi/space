@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /ui/Terminal.js
  * Purpose: Draggable Kraye Logs, BIOS Hardware Menu, ASCII Game Engine, and Ergonomic Kraye-Boy Controller
- * STATUS: PRO_PHASE_KRAYEBOY_SYNCED
- * LINE_COUNT: ~575 Lines.
+ * STATUS: PRO_PHASE_MOBILE_HARDWARE_STABILIZED
+ * LINE_COUNT: ~595 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Command Kernel handshake for real-time theme and physics overrides.
  * - SYSTEM: Visual DNA updated to support Industrial CRT flicker on the command input buffer.
@@ -18,6 +18,7 @@
  * - SYSTEM: [PRO PHASE] Overhauled mobile inputs to "Kraye-Boy" split controller layout.
  * - SYSTEM: [PRO PHASE] Replaced standard game rendering with Gradient DNA block rendering.
  * - SYSTEM: [PRO PHASE] Injected Score Telemetry into the KrayeGame HUD bar.
+ * - SYSTEM: [PRO PHASE] Synchronized standalone Kraye-Boy controller DOM reference for independent visibility toggling.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 9350]: [PRO PHASE] Zombie DOM Nodes. Enhanced terminateGame() to physically remove #kraye-game-renderer from the layout.
  * - FIXED [ID 9370]: [PRO PHASE] Mobile Keyboard Ghosting. Removed inline pointer-events override that was hijacking screen touches while the terminal was invisible.
@@ -28,6 +29,7 @@
  * - FIXED [ID 9585]: [PRO PHASE] Action Fragmentation. Mapped Action A/B and D-Pad triggers to dedicated gameInstance methods.
  * - FIXED [ID 9610]: [PRO PHASE] Monotone Deframgmenter. Swapped hardcoded `#ff007f` blocks for dynamic dynamic sector-based colors via `BLOCK_DNA` array in `renderGame()`.
  * - FIXED [ID 9630]: [PRO PHASE] Mobile HUD Clipping. Condensed text and appended state.score to the render string to restore telemetry visibility.
+ * - FIXED [ID 9670]: [PRO PHASE] Zombie Controller. Added visibility toggles for `#krayeboy-controller` within `show()` and `hide()` to prevent floating buttons when terminal is dismissed.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added support for character-by-character typewriter manifestations for system responses.
  * - Fixed: [PRO PHASE] Radio buttons now explicitly poll localStorage directly to represent the hard-locked memory state.
@@ -39,6 +41,7 @@
  * - Fixed: [PRO PHASE] Injected dynamic color logic into `renderGame` loop using block grid data.
  * - Fixed: [PRO PHASE] Implemented text-shadow glowing effect to simulate phosphor display blocks in Tetris.
  * - Fixed: [PRO PHASE] Updated gridHTML string builder to consume state.score.
+ * - Fixed: [PRO PHASE] Added Kraye-Boy visibility state management to terminal lifecycle methods.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: [PRO PHASE] Selecting a hardware radio button physically commits the choice to `localStorage` and triggers a hard reboot.
  * - RIPPLE: [PRO PHASE] Committing a BIOS change immediately alters the body class, snapping native typography before the browser reloads.
@@ -48,6 +51,7 @@
  * - RIPPLE: Mobile users can now navigate and rotate Tetris shards with ergonomic split-thumb precision.
  * - RIPPLE: The Tetris game blocks now accurately mirror the specific gradient sector colors found in the 3D world (Cyan, Magenta, Violet, Amber, Mint, Rose).
  * - RIPPLE: [PRO PHASE] Mobile users can now monitor their dynamic technical scoring in real-time.
+ * - RIPPLE: [PRO PHASE] Hiding the terminal while a game is active now safely stows the mobile controller until the terminal is restored.
  * * * * * REALITY AUDIT V28:
  * - APPEND 9310: [PRO PHASE] Window State Audit - Verified `.maximized` class successfully escapes dragging physics and bounds constraints.
  * - APPEND 9350: [PRO PHASE] DOM Purge Audit - Verified terminateGame safely destroys the renderer container.
@@ -57,8 +61,9 @@
  * - APPEND 9590: [PRO PHASE] Lifecycle Audit - Verified that stopping the game completely purges the Kraye-Boy HUD.
  * - APPEND 9610: [PRO PHASE] DNA Sync Audit - Confirmed the 6-color spectrum palette renders flawlessly in the terminal span elements.
  * - APPEND 9630: [PRO PHASE] Telemetry Sync Audit - Verified the terminal correctly unwraps the score from getRenderState.
+ * - APPEND 9670: [PRO PHASE] Lifecycle Audit - Verified independent Kraye-Boy controller gracefully hides when terminal is closed via Universal Trigger.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_KRAYEBOY_SYNCED
+ * - STATUS: PRO_PHASE_MOBILE_HARDWARE_STABILIZED
  */
 
 import { SystemEvents, EVENTS } from '../utils/events.js';
@@ -184,6 +189,13 @@ export class Terminal {
     bindGameControls() {
         const krayeboy = document.getElementById('krayeboy-controller');
         if (!krayeboy) return;
+
+        // [PRO PHASE FIX] Prevent native mobile browser behaviors on controller interaction
+        krayeboy.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.dpad-btn, .action-btn')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
 
         krayeboy.addEventListener('pointerdown', (e) => {
             if (!this.gameInstance || !this.gameInstance.state.isActive) return;
@@ -559,6 +571,10 @@ export class Terminal {
                 this.gameInstance.state.isPaused = false;
             }
 
+            // [PRO PHASE FIX] Restore detached controller visibility
+            const krayeboy = document.getElementById('krayeboy-controller');
+            if (krayeboy) krayeboy.classList.remove('controls-hidden');
+
             this.gameRenderLoop = requestAnimationFrame(this.renderGame.bind(this));
             this.printLine('SYSTEM_RESUMED.', '#00ff00');
         }
@@ -576,6 +592,11 @@ export class Terminal {
             } else {
                 this.gameInstance.state.isPaused = true;
             }
+
+            // [PRO PHASE FIX] Hide detached controller to prevent ghost UI
+            const krayeboy = document.getElementById('krayeboy-controller');
+            if (krayeboy) krayeboy.classList.add('controls-hidden');
+
             cancelAnimationFrame(this.gameRenderLoop);
         }
     }
