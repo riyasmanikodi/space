@@ -489,7 +489,7 @@ export class Terminal {
         let level = Math.floor(state.lines / 10) + 1;
         let speedMultiplier = Math.min(2.5, 1.0 + (level * 0.15));
 
-        let gridHTML = `<div style="font-family: 'Courier New', monospace; font-size: 1.6rem; line-height: 1.4; color: #00ff00;">`;
+        let gridHTML = `<div style="font-family: 'Courier New', monospace; font-size: 1.5rem; line-height: 1.4; color: #00ff00;">`;
 
         // [PRO PHASE] Fixed Telemetry Omission & Viewport Cramping
         gridHTML += `<span style="color: #00f3ff; font-size: 1rem;">SLA: ${state.sla}% | L: ${state.lines} | S: ${state.score || 0} | OC: ${speedMultiplier.toFixed(1)}x</span><br/>`;
