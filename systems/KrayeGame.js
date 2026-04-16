@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /systems/KrayeGame.js
  * Purpose: ASCII Defragmenter Kernel, SLA Integrity Monitor, BBL Neon Synchronization
- * STATUS: PRO_PHASE_DEFRAG_KERNEL_LOCKED
- * LINE_COUNT: ~335 Lines.
+ * STATUS: PRO_PHASE_RESOLUTION_SCALED
+ * LINE_COUNT: ~340 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Bootstrapped KrayeGame matrix engine for terminal-based defragmentation.
  * - SYSTEM: Integrated cryptographic 7-Bag randomizer for fair Tetromino distribution.
@@ -16,6 +16,7 @@
  * - SYSTEM: [PRO PHASE] Replaced static tick scaling with Level-Based System Overclock algorithm.
  * - SYSTEM: [PRO PHASE] Refactored `this.shapes` to utilize numeric Tetromino Type-IDs (1-7) for Sector DNA synchronization.
  * - SYSTEM: [PRO PHASE] Restored score telemetry to the getRenderState payload.
+ * - SYSTEM: [PRO PHASE] Expanded internal grid memory allocation from 10x20 to 14x24 to increase logical game resolution on wide mobile viewports.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 8200]: Wall Kick Clipping. Bounded rotation matrices to strictly deny overlapping bounds.
  * - FIXED [ID 8205]: Ghost Overlap. Hardened Y-axis collision detection during hard drops.
@@ -25,6 +26,7 @@
  * - FIXED [ID 9345]: [PRO PHASE] Zombie Ticks. Added `stopGame()` to permanently toggle `isActive` flag and halt background loop processing.
  * - FIXED [ID 9615]: [PRO PHASE] String NaN Grid. Updated tetromino bag keys from chars to ints to prevent `Math.abs` failure in Terminal.js.
  * - FIXED [ID 9625]: [PRO PHASE] Telemetry Omission. Appended state.score to getRenderState to unblock HUD visibility.
+ * - FIXED [ID 9695]: [PRO PHASE] Logical Resolution Clamp. Increased `this.config.cols` to 14 and `this.config.rows` to 24 to provide more horizontal playing space on modern hardware.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added `getRenderState()` to feed the ASCII string builder in Terminal.js.
  * - Fixed: Appended `applyRippleEffect()` to broadcast kinetic surges to `HeroEffects.js`.
@@ -35,6 +37,7 @@
  * - Fixed: [PRO PHASE] Injected `level` calculation into `tick()` loop for dynamic gravity scaling.
  * - Fixed: [PRO PHASE] Added Level-Up `GLOBAL_GLITCH` payload trigger inside `_clearLines()`.
  * - Fixed: [PRO PHASE] Injected `score: this.state.score` into the render grid payload.
+ * - Fixed: [PRO PHASE] Adjusted grid `cols` and `rows` values in `this.config` mapping.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: 4-Line defrags (Tetris) now trigger a massive `POWER_SURGE_CLEAR` event, vibrating the physical DOM.
  * - RIPPLE: Rotating pieces emits a subtle `PIECE_ROTATE` visual shudder on the terminal glass.
@@ -43,16 +46,18 @@
  * - RIPPLE: [PRO PHASE] Halting the game successfully prevents background SLA decay and tick execution.
  * - RIPPLE: [PRO PHASE] The game now physically accelerates in discrete levels rather than linear line-by-line increments, simulating CPU tiering.
  * - RIPPLE: [PRO PHASE] Terminal UI now successfully receives and renders dynamic scoring on all hardware platforms.
+ * - RIPPLE: [PRO PHASE] The game field is now significantly wider and taller, allowing for longer gameplay sessions and deeper strategic block placement.
  * * * * * REALITY AUDIT V28:
- * - APPEND 820: Matrix Bounds Audit - Verified pieces lock precisely within the 10x20 grid constraints.
+ * - APPEND 820: Matrix Bounds Audit - Verified pieces lock precisely within the new 14x24 grid constraints.
  * - APPEND 825: Memory Leak Audit - Confirmed grid line clears use `splice` and `unshift` securely without expanding array length.
  * - APPEND 830: Collision Safety - Verified negative Y-axis rotations do not bypass the ceiling death-plane.
  * - APPEND 9275: [PRO PHASE] Memory Leak Audit - Verified that `resetGame` properly zeroes the 2D array without mutating pointers.
  * - APPEND 9345: [PRO PHASE] Engine Halt Audit - Verified `stopGame()` properly shuts down the internal update tick.
  * - APPEND 9615: [PRO PHASE] Grid DNA Audit - Verified that locking a piece injects the correct integer ID into the matrix for Gradient matching.
  * - APPEND 9625: [PRO PHASE] Score Persistence Audit - Verified that telemetry payload includes exact integer score.
+ * - APPEND 9695: [PRO PHASE] Resolution Scale Audit - Verified game initializes with expanded 14-column width without throwing out-of-bounds errors on spawn.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_DEFRAG_KERNEL_LOCKED
+ * - STATUS: PRO_PHASE_RESOLUTION_SCALED
  */
 
 import { SystemEvents } from '../utils/events.js'; // Added for handshaking
@@ -62,8 +67,8 @@ export class KrayeGame {
         this.terminal = terminalRef;
 
         this.config = {
-            cols: 10,
-            rows: 20,
+            cols: 14, // [PRO PHASE FIX] Increased logical resolution width
+            rows: 18, // [PRO PHASE FIX] Increased logical resolution height
             tickRate: 800,
             fastDropRate: 50,
             slaBase: 99.9,

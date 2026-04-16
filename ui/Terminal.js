@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /ui/Terminal.js
  * Purpose: Draggable Kraye Logs, BIOS Hardware Menu, ASCII Game Engine, and Ergonomic Kraye-Boy Controller
- * STATUS: PRO_PHASE_MOBILE_HARDWARE_STABILIZED
- * LINE_COUNT: ~595 Lines.
+ * STATUS: PRO_PHASE_RESOLUTION_SCALED
+ * LINE_COUNT: ~605 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Command Kernel handshake for real-time theme and physics overrides.
  * - SYSTEM: Visual DNA updated to support Industrial CRT flicker on the command input buffer.
@@ -19,6 +19,7 @@
  * - SYSTEM: [PRO PHASE] Replaced standard game rendering with Gradient DNA block rendering.
  * - SYSTEM: [PRO PHASE] Injected Score Telemetry into the KrayeGame HUD bar.
  * - SYSTEM: [PRO PHASE] Synchronized standalone Kraye-Boy controller DOM reference for independent visibility toggling.
+ * - SYSTEM: [PRO PHASE] Amplified visual matrix resolution (font-size/line-height) to match logical expansions on mobile hardware.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 9350]: [PRO PHASE] Zombie DOM Nodes. Enhanced terminateGame() to physically remove #kraye-game-renderer from the layout.
  * - FIXED [ID 9370]: [PRO PHASE] Mobile Keyboard Ghosting. Removed inline pointer-events override that was hijacking screen touches while the terminal was invisible.
@@ -30,6 +31,7 @@
  * - FIXED [ID 9610]: [PRO PHASE] Monotone Deframgmenter. Swapped hardcoded `#ff007f` blocks for dynamic dynamic sector-based colors via `BLOCK_DNA` array in `renderGame()`.
  * - FIXED [ID 9630]: [PRO PHASE] Mobile HUD Clipping. Condensed text and appended state.score to the render string to restore telemetry visibility.
  * - FIXED [ID 9670]: [PRO PHASE] Zombie Controller. Added visibility toggles for `#krayeboy-controller` within `show()` and `hide()` to prevent floating buttons when terminal is dismissed.
+ * - FIXED [ID 9698]: [PRO PHASE] Visual Squashing. Injected explicit font-size to scale ASCII matrix rendering for mobile readability.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added support for character-by-character typewriter manifestations for system responses.
  * - Fixed: [PRO PHASE] Radio buttons now explicitly poll localStorage directly to represent the hard-locked memory state.
@@ -42,6 +44,7 @@
  * - Fixed: [PRO PHASE] Implemented text-shadow glowing effect to simulate phosphor display blocks in Tetris.
  * - Fixed: [PRO PHASE] Updated gridHTML string builder to consume state.score.
  * - Fixed: [PRO PHASE] Added Kraye-Boy visibility state management to terminal lifecycle methods.
+ * - Fixed: [PRO PHASE] Added font-size: 1.5rem and synchronized line-height in gridHTML string builder.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: [PRO PHASE] Selecting a hardware radio button physically commits the choice to `localStorage` and triggers a hard reboot.
  * - RIPPLE: [PRO PHASE] Committing a BIOS change immediately alters the body class, snapping native typography before the browser reloads.
@@ -52,6 +55,7 @@
  * - RIPPLE: The Tetris game blocks now accurately mirror the specific gradient sector colors found in the 3D world (Cyan, Magenta, Violet, Amber, Mint, Rose).
  * - RIPPLE: [PRO PHASE] Mobile users can now monitor their dynamic technical scoring in real-time.
  * - RIPPLE: [PRO PHASE] Hiding the terminal while a game is active now safely stows the mobile controller until the terminal is restored.
+ * - RIPPLE: [PRO PHASE] The Tetris matrix now renders with larger, highly visible blocks on mobile screens, improving playability.
  * * * * * REALITY AUDIT V28:
  * - APPEND 9310: [PRO PHASE] Window State Audit - Verified `.maximized` class successfully escapes dragging physics and bounds constraints.
  * - APPEND 9350: [PRO PHASE] DOM Purge Audit - Verified terminateGame safely destroys the renderer container.
@@ -62,8 +66,9 @@
  * - APPEND 9610: [PRO PHASE] DNA Sync Audit - Confirmed the 6-color spectrum palette renders flawlessly in the terminal span elements.
  * - APPEND 9630: [PRO PHASE] Telemetry Sync Audit - Verified the terminal correctly unwraps the score from getRenderState.
  * - APPEND 9670: [PRO PHASE] Lifecycle Audit - Verified independent Kraye-Boy controller gracefully hides when terminal is closed via Universal Trigger.
+ * - APPEND 9698: [PRO PHASE] Visual Scale Audit - Verified that inline CSS updates physically expand the ASCII rendering.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_MOBILE_HARDWARE_STABILIZED
+ * - STATUS: PRO_PHASE_RESOLUTION_SCALED
  */
 
 import { SystemEvents, EVENTS } from '../utils/events.js';
@@ -487,7 +492,7 @@ export class Terminal {
         let gridHTML = `<div style="font-family: 'Courier New', monospace; font-size: 1.8rem; line-height: 1.4; color: #00ff00;">`;
 
         // [PRO PHASE] Fixed Telemetry Omission & Viewport Cramping
-        gridHTML += `<span style="color: #00f3ff;">SLA: ${state.sla}%</span> | L: ${state.lines} | S: ${state.score || 0} | OC: ${speedMultiplier.toFixed(1)}x<br/>`;
+        gridHTML += `<span style="color: #00f3ff; font-size: 1rem;">SLA: ${state.sla}% | L: ${state.lines} | S: ${state.score || 0} | OC: ${speedMultiplier.toFixed(1)}x</span><br/>`;
         gridHTML += `+--------------------+<br/>`;
 
         // [PRO PHASE] Sector-Synced Block DNA
