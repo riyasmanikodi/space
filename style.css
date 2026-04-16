@@ -1285,7 +1285,7 @@ body::before {
     line-height: 1.1 !important;
     white-space: pre !important;
     margin-top: 10px;
-    padding-bottom: 220px;
+    padding-bottom: 350px;
     /* Padding to clear the absolute controller wings */
 }
 
