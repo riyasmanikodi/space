@@ -67,8 +67,8 @@ export class KrayeGame {
         this.terminal = terminalRef;
 
         this.config = {
-            cols: 10, // [PRO PHASE FIX] Increased logical resolution width
-            rows: 10, // [PRO PHASE FIX] Increased logical resolution height
+            cols: 18, // [PRO PHASE FIX] Increased logical resolution width
+            rows: 14, // [PRO PHASE FIX] Increased logical resolution height
             tickRate: 800,
             fastDropRate: 50,
             slaBase: 99.9,
