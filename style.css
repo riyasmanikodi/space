@@ -1284,7 +1284,7 @@ body::before {
 #kraye-game-renderer {
     line-height: 1.1 !important;
     white-space: pre !important;
-    margin-top: 100px;
+    margin-top: 200px;
     padding-bottom: 350px;
     /* Padding to clear the absolute controller wings */
 }
