@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /systems/KrayeGame.js
  * Purpose: ASCII Defragmenter Kernel, SLA Integrity Monitor, BBL Neon Synchronization
- * STATUS: PRO_PHASE_RESOLUTION_SCALED
- * LINE_COUNT: ~340 Lines.
+ * STATUS: PRO_PHASE_STACKED_MOBILE_UI_SYNCED
+ * LINE_COUNT: ~350 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Bootstrapped KrayeGame matrix engine for terminal-based defragmentation.
  * - SYSTEM: Integrated cryptographic 7-Bag randomizer for fair Tetromino distribution.
@@ -17,6 +17,7 @@
  * - SYSTEM: [PRO PHASE] Refactored `this.shapes` to utilize numeric Tetromino Type-IDs (1-7) for Sector DNA synchronization.
  * - SYSTEM: [PRO PHASE] Restored score telemetry to the getRenderState payload.
  * - SYSTEM: [PRO PHASE] Expanded internal grid memory allocation from 10x20 to 14x24 to increase logical game resolution on wide mobile viewports.
+ * - SYSTEM: [PRO PHASE] Expanded matrix vertical capacity to achieve center-screen physical alignment.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 8200]: Wall Kick Clipping. Bounded rotation matrices to strictly deny overlapping bounds.
  * - FIXED [ID 8205]: Ghost Overlap. Hardened Y-axis collision detection during hard drops.
@@ -27,6 +28,7 @@
  * - FIXED [ID 9615]: [PRO PHASE] String NaN Grid. Updated tetromino bag keys from chars to ints to prevent `Math.abs` failure in Terminal.js.
  * - FIXED [ID 9625]: [PRO PHASE] Telemetry Omission. Appended state.score to getRenderState to unblock HUD visibility.
  * - FIXED [ID 9695]: [PRO PHASE] Logical Resolution Clamp. Increased `this.config.cols` to 14 and `this.config.rows` to 24 to provide more horizontal playing space on modern hardware.
+ * - FIXED [ID 9720]: [PRO PHASE] Vertical Void. Increased matrix row count to 22 to physically bridge the gap between the sticky header and bottom controls.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added `getRenderState()` to feed the ASCII string builder in Terminal.js.
  * - Fixed: Appended `applyRippleEffect()` to broadcast kinetic surges to `HeroEffects.js`.
@@ -38,6 +40,7 @@
  * - Fixed: [PRO PHASE] Added Level-Up `GLOBAL_GLITCH` payload trigger inside `_clearLines()`.
  * - Fixed: [PRO PHASE] Injected `score: this.state.score` into the render grid payload.
  * - Fixed: [PRO PHASE] Adjusted grid `cols` and `rows` values in `this.config` mapping.
+ * - Fixed: [PRO PHASE] Reverted `this.config.rows` from 10 to 22 to restore full-screen gameplay area.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: 4-Line defrags (Tetris) now trigger a massive `POWER_SURGE_CLEAR` event, vibrating the physical DOM.
  * - RIPPLE: Rotating pieces emits a subtle `PIECE_ROTATE` visual shudder on the terminal glass.
@@ -47,6 +50,7 @@
  * - RIPPLE: [PRO PHASE] The game now physically accelerates in discrete levels rather than linear line-by-line increments, simulating CPU tiering.
  * - RIPPLE: [PRO PHASE] Terminal UI now successfully receives and renders dynamic scoring on all hardware platforms.
  * - RIPPLE: [PRO PHASE] The game field is now significantly wider and taller, allowing for longer gameplay sessions and deeper strategic block placement.
+ * - RIPPLE: [PRO PHASE] The Tetris grid now organically fills the central viewport, perfectly stacking between the score telemetry and Kraye-Boy interface without massive CSS paddings.
  * * * * * REALITY AUDIT V28:
  * - APPEND 820: Matrix Bounds Audit - Verified pieces lock precisely within the new 14x24 grid constraints.
  * - APPEND 825: Memory Leak Audit - Confirmed grid line clears use `splice` and `unshift` securely without expanding array length.
@@ -56,8 +60,9 @@
  * - APPEND 9615: [PRO PHASE] Grid DNA Audit - Verified that locking a piece injects the correct integer ID into the matrix for Gradient matching.
  * - APPEND 9625: [PRO PHASE] Score Persistence Audit - Verified that telemetry payload includes exact integer score.
  * - APPEND 9695: [PRO PHASE] Resolution Scale Audit - Verified game initializes with expanded 14-column width without throwing out-of-bounds errors on spawn.
+ * - APPEND 9720: [PRO PHASE] Layout Flow Audit - Verified 22-row grid consumes optimal vertical space on high-aspect mobile displays.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_RESOLUTION_SCALED
+ * - STATUS: PRO_PHASE_STACKED_MOBILE_UI_SYNCED
  */
 
 import { SystemEvents } from '../utils/events.js'; // Added for handshaking
@@ -68,7 +73,7 @@ export class KrayeGame {
 
         this.config = {
             cols: 13, // [PRO PHASE FIX] Increased logical resolution width
-            rows: 10, // [PRO PHASE FIX] Increased logical resolution height
+            rows: 22, // [PRO PHASE FIX] Expanded logical resolution height for center-stack UI
             tickRate: 800,
             fastDropRate: 50,
             slaBase: 99.9,
