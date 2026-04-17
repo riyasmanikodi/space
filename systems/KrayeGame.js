@@ -78,7 +78,7 @@ export class KrayeGame {
 
         this.config = {
             cols: 11, // [PRO PHASE FIX] Increased logical resolution width
-            rows: 16, // [PRO PHASE FIX] Expanded logical resolution height for center-stack UI
+            rows: 15, // [PRO PHASE FIX] Expanded logical resolution height for center-stack UI
             tickRate: 800,
             fastDropRate: 50,
             slaBase: 99.9,
