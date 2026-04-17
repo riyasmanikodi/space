@@ -1125,7 +1125,7 @@ body::before {
 /* [PRO PHASE FIX] Escaping absolute terminal containment & 3D context bugs */
 #krayeboy-controller {
     position: absolute !important;
-    bottom: calc(40px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: calc(100px + env(safe-area-inset-bottom, 0px)) !important;
     left: 0 !important;
     width: 100% !important;
     height: 180px !important;
