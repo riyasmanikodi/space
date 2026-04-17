@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /ui/Terminal.js
  * Purpose: Draggable Kraye Logs, BIOS Hardware Menu, ASCII Game Engine, and Ergonomic Kraye-Boy Controller
- * STATUS: PRO_PHASE_STACKED_MOBILE_UI_SYNCED
- * LINE_COUNT: ~625 Lines.
+ * STATUS: PRO_PHASE_DYNAMIC_BORDER_SYNCED
+ * LINE_COUNT: ~635 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Command Kernel handshake for real-time theme and physics overrides.
  * - SYSTEM: Visual DNA updated to support Industrial CRT flicker on the command input buffer.
@@ -22,6 +22,7 @@
  * - SYSTEM: [PRO PHASE] Amplified visual matrix resolution (font-size/line-height) to match logical expansions on mobile hardware.
  * - SYSTEM: [PRO PHASE] Refactored renderGame string builder to isolate Score Telemetry into a sticky top-layer header.
  * - SYSTEM: [PRO PHASE] Enforced CSS Flexbox alignment natively within the matrix generator to guarantee perfect viewport centering.
+ * - SYSTEM: [PRO PHASE] Refactored matrix border rendering to dynamically adapt to variable column logic.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 9350]: [PRO PHASE] Zombie DOM Nodes. Enhanced terminateGame() to physically remove #kraye-game-renderer from the layout.
  * - FIXED [ID 9370]: [PRO PHASE] Mobile Keyboard Ghosting. Removed inline pointer-events override that was hijacking screen touches while the terminal was invisible.
@@ -35,6 +36,7 @@
  * - FIXED [ID 9698]: [PRO PHASE] Visual Squashing. Injected explicit font-size to scale ASCII matrix rendering for mobile readability.
  * - FIXED [ID 9710]: [PRO PHASE] UI Overlap. Segregated telemetry from the scrolling matrix using sticky positioning to maintain constant visibility.
  * - FIXED [ID 9715]: [PRO PHASE] Off-Center Matrix. Wrapped the rendered ASCII grid in a column flex-container to lock it horizontally dead-center.
+ * - FIXED [ID 9740]: [PRO PHASE] Border Truncation. Replaced hardcoded 20-character matrix border with dynamic width calculation based on grid state to fix right-side missing column gaps.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added support for character-by-character typewriter manifestations for system responses.
  * - Fixed: [PRO PHASE] Radio buttons now explicitly poll localStorage directly to represent the hard-locked memory state.
@@ -50,6 +52,7 @@
  * - Fixed: [PRO PHASE] Added font-size: 1.5rem and synchronized line-height in gridHTML string builder.
  * - Fixed: [PRO PHASE] Elevated font-size to 1.8rem and squashed line-height to 1.1 for denser vertical rendering.
  * - Fixed: [PRO PHASE] Wrapped terminal telemetry span in a sticky div with an opaque background.
+ * - Fixed: [PRO PHASE] Injected dynamic `'-'.repeat()` logic for matrix top and bottom boundaries based on column density.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: [PRO PHASE] Selecting a hardware radio button physically commits the choice to `localStorage` and triggers a hard reboot.
  * - RIPPLE: [PRO PHASE] Committing a BIOS change immediately alters the body class, snapping native typography before the browser reloads.
@@ -62,6 +65,7 @@
  * - RIPPLE: [PRO PHASE] Hiding the terminal while a game is active now safely stows the mobile controller until the terminal is restored.
  * - RIPPLE: [PRO PHASE] The Tetris matrix now renders with larger, highly visible blocks on mobile screens, improving playability.
  * - RIPPLE: [PRO PHASE] The game score now permanently anchors to the top of the viewport, while the active ASCII grid remains perfectly centered and scrollable below it.
+ * - RIPPLE: [PRO PHASE] The ASCII UI border now perfectly encloses the matrix regardless of the underlying logical resolution.
  * * * * * REALITY AUDIT V28:
  * - APPEND 9310: [PRO PHASE] Window State Audit - Verified `.maximized` class successfully escapes dragging physics and bounds constraints.
  * - APPEND 9350: [PRO PHASE] DOM Purge Audit - Verified terminateGame safely destroys the renderer container.
@@ -75,8 +79,9 @@
  * - APPEND 9698: [PRO PHASE] Visual Scale Audit - Verified that inline CSS updates physically expand the ASCII rendering.
  * - APPEND 9710: [PRO PHASE] Viewport Hierarchy Audit - Confirmed `position: sticky` securely locks the telemetry header during intense matrix scrolling.
  * - APPEND 9715: [PRO PHASE] Layout Flow Audit - Verified standard matrix strings align to true-center regardless of device width.
+ * - APPEND 9740: [PRO PHASE] Matrix Border Audit - Verified that dynamic string builder correctly matches the 13-column (26-character) width of the mobile viewport.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_STACKED_MOBILE_UI_SYNCED
+ * - STATUS: PRO_PHASE_DYNAMIC_BORDER_SYNCED
  */
 
 import { SystemEvents, EVENTS } from '../utils/events.js';
@@ -505,9 +510,13 @@ export class Terminal {
         gridHTML += `<span style="color: #00f3ff; font-size: 1rem; font-weight: bold; letter-spacing: 1px; text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);">SLA: ${state.sla}% | L: ${state.lines} | S: ${state.score || 0} | OC: ${speedMultiplier.toFixed(1)}x</span>`;
         gridHTML += `</div>`;
 
+        // [PRO PHASE] Dynamic Matrix Border Calculation
+        const colCount = state.grid.length > 0 ? state.grid[0].length : 10;
+        const matrixBorder = '+' + '-'.repeat(colCount * 2) + '+<br/>';
+
         // Wrapper for Matrix to ensure consistent block alignment
         gridHTML += `<div>`;
-        gridHTML += `+--------------------+<br/>`;
+        gridHTML += matrixBorder;
 
         // [PRO PHASE] Sector-Synced Block DNA
         const BLOCK_DNA = {
@@ -540,7 +549,7 @@ export class Terminal {
             }
             gridHTML += `|<br/>`;
         }
-        gridHTML += `+--------------------+<br/></div></div>`; // Close grid and flex container
+        gridHTML += matrixBorder + `</div></div>`; // Close dynamic border and flex container
 
         let gameDiv = document.getElementById('kraye-game-renderer');
         if (!gameDiv) {
