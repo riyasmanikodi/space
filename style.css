@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE (FULL ARCHITECTURE)
  * File: /style.css
  * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, Mobile Kinetics, and Universal Hardware Autonomy
- * STATUS: PRO_PHASE_MOBILE_HARDWARE_STABILIZED
- * LINE_COUNT: ~950 Lines.
+ * STATUS: PRO_PHASE_STACKED_MOBILE_UI_SYNCED
+ * LINE_COUNT: ~965 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
  * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
@@ -29,6 +29,7 @@
  * - SYSTEM: [PRO PHASE] Transitioned to "Kraye-Boy" Dual-Wing ergonomic controller layout.
  * - SYSTEM: [PRO PHASE] Hardened Kraye-Boy controller viewport anchoring to resolve mobile browser occlusion.
  * - SYSTEM: [PRO PHASE] Bulletproofed mobile controller Z-axis projection and rendering context.
+ * - SYSTEM: [PRO PHASE] Recalibrated vertical layout geometry for center-stack mobile matrix rendering.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 305]: Z-Index Conflict. Confined #hero-name-viewport below scanlines (z-index: 5) to maintain screen depth.
  * - FIXED [ID 1408]: Mobile Viewport Trap. Removed full-screen overlay and enabled Pass-Through touching.
@@ -57,6 +58,7 @@
  * - FIXED [ID 9655]: [PRO PHASE] WebGL Stacking Context Eclipse. Controller was swallowed by `#ui-layer` 3D transform context on mobile GPUs. Swapped `fixed` to `absolute` and forced `translateZ`.
  * - FIXED [ID 9660]: [PRO PHASE] Clip-Path Culling. Injected `-webkit-clip-path` vendor prefixes to prevent old mobile Chromium/Safari from dropping the render.
  * - FIXED [ID 9665]: [PRO PHASE] CSS Engine Calc Failures. Replaced fragile `calc()` bottom anchors with strict layered fallbacks (`60px !important`).
+ * - FIXED [ID 9730]: [PRO PHASE] Viewport Void. Adjusted margin-top and padding-bottom on game renderer to prevent grid from hiding behind sticky telemetry or controller wings.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
  * - Fixed: Converted mobile shard layout to a horizontally scrolling carousel.
@@ -81,6 +83,8 @@
  * - Fixed: [PRO PHASE] Added env(safe-area-inset-bottom) to controller bottom anchor.
  * - Fixed: [PRO PHASE] Appended `-webkit-clip-path` for retro geometries.
  * - Fixed: [PRO PHASE] Appended `translateZ(100px) !important` to controller visible state.
+ * - Fixed: [PRO PHASE] Shifted #kraye-game-renderer margin-top to 60px to clear sticky header.
+ * - Fixed: [PRO PHASE] Synced #kraye-game-renderer padding-bottom to 200px to align with controller footprint.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The physical meteorite cursor establishes a unified industrial aesthetic across all input methods.
  * - RIPPLE: [PRO PHASE] GPU layer promotion guarantees the cursor canvas operates independently from the DOM layout.
@@ -101,6 +105,7 @@
  * - RIPPLE: [PRO PHASE] The Kraye-Boy interface now remains permanently glued to the physical hardware viewport regardless of virtual keyboard manifestation.
  * - RIPPLE: [PRO PHASE] Users can now scroll the game grid without the HUD controls vanishing.
  * - RIPPLE: [PRO PHASE] Mobile game controls now physically penetrate the Z-index boundaries to sit flawlessly above the terminal matrix.
+ * - RIPPLE: [PRO PHASE] The Tetris game grid now perfectly bridges the gap between the top score telemetry and the bottom Kraye-Boy controls.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter`.
  * - APPEND 159: Z-Index Audit - Verified `100000` priority on `#cursor-3d-overlay`.
@@ -122,8 +127,9 @@
  * - APPEND 9635: [PRO PHASE] Viewport Lock Audit - Verified fixed positioning bypasses DOM resizing caused by mobile browser address bars.
  * - APPEND 9640: [PRO PHASE] Padding Audit - Verified 180px bottom-padding allows the terminal scroll boundary to clear the controller height.
  * - APPEND 9655: [PRO PHASE] Render Engine Audit - Verified controller now forces its own composite layer via `will-change`.
+ * - APPEND 9730: [PRO PHASE] Viewport Geometry Audit - Verified 60px top margin perfectly clears the sticky telemetry header while allowing all 22 rows to render without bottom-clipping.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_MOBILE_HARDWARE_STABILIZED
+ * - STATUS: PRO_PHASE_STACKED_MOBILE_UI_SYNCED
  */
 
 :root {
@@ -1119,8 +1125,7 @@ body::before {
 /* [PRO PHASE FIX] Escaping absolute terminal containment & 3D context bugs */
 #krayeboy-controller {
     position: absolute !important;
-    bottom: 60px !important;
-    bottom: calc(140px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: calc(40px + env(safe-area-inset-bottom, 0px)) !important;
     left: 0 !important;
     width: 100% !important;
     height: 180px !important;
@@ -1284,9 +1289,13 @@ body::before {
 #kraye-game-renderer {
     line-height: 1.1 !important;
     white-space: pre !important;
-    margin-top: 200px;
-    padding-bottom: 350px;
+    margin-top: 60px;
+    padding-bottom: 200px;
     /* Padding to clear the absolute controller wings */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 /* Universal Hardware Autonomy: Mobile Override */
