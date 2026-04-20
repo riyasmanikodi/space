@@ -53,8 +53,8 @@ import { SystemEvents } from '../utils/events.js';
 
 class AudioManager {
     constructor() {
-        this.palette = localStorage.getItem('hw_audio_palette') || 'industrial';
-        this.ambientPalette = localStorage.getItem('hw_ambient_palette') || 'nebula_brown';
+        this.palette = localStorage.getItem('hw_audio_palette') || 'retro';
+        this.ambientPalette = localStorage.getItem('hw_ambient_palette') || 'pulsar-beat';
 
         this.context = null;
         this.masterVolume = 0.5;
