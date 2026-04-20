@@ -569,8 +569,8 @@ export class Terminal {
 
         const currentProfile = localStorage.getItem('hw_profile') || this.hardwareManager.systemState.profile;
         const currentTier = localStorage.getItem('hw_graphics_tier') || this.hardwareManager.systemState.graphicsTier;
-        const currentAudio = localStorage.getItem('hw_audio_palette') || 'industrial'; // [PRO PHASE]
-        const currentAmbient = localStorage.getItem('hw_ambient_palette') || 'nebula_brown'; // [PRO PHASE]
+        const currentAudio = localStorage.getItem('hw_audio_palette') || 'retro'; // [PRO PHASE]
+        const currentAmbient = localStorage.getItem('hw_ambient_palette') || 'pulsar_beat'; // [PRO PHASE]
 
         const menuHTML = `
             <div id="bios-config-menu">
