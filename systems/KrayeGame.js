@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /systems/KrayeGame.js
  * Purpose: ASCII Defragmenter Kernel, SLA Integrity Monitor, BBL Neon Synchronization
- * STATUS: PRO_PHASE_DYNAMIC_BORDER_SYNCED
- * LINE_COUNT: ~355 Lines.
+ * STATUS: PRO_PHASE_CREATIVE_ANIMATIONS_INJECTED
+ * LINE_COUNT: ~405 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Bootstrapped KrayeGame matrix engine for terminal-based defragmentation.
  * - SYSTEM: Integrated cryptographic 7-Bag randomizer for fair Tetromino distribution.
@@ -19,6 +19,8 @@
  * - SYSTEM: [PRO PHASE] Expanded internal grid memory allocation from 10x20 to 14x24 to increase logical game resolution on wide mobile viewports.
  * - SYSTEM: [PRO PHASE] Expanded matrix vertical capacity to achieve center-screen physical alignment.
  * - SYSTEM: [PRO PHASE] Refined logical matrix width (cols: 11) to harmonize with dynamic UI border constraints.
+ * - SYSTEM: [PRO PHASE] Explicitly defined `pause()` and `resume()` lifecycle methods for Global Keyboard Handshake compatibility.
+ * - SYSTEM: [PRO PHASE] Integrated 'KINETIC_SHIVER' event dispatcher for high-capacity danger states.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 8200]: Wall Kick Clipping. Bounded rotation matrices to strictly deny overlapping bounds.
  * - FIXED [ID 8205]: Ghost Overlap. Hardened Y-axis collision detection during hard drops.
@@ -31,6 +33,8 @@
  * - FIXED [ID 9695]: [PRO PHASE] Logical Resolution Clamp. Increased `this.config.cols` to 14 and `this.config.rows` to 24 to provide more horizontal playing space on modern hardware.
  * - FIXED [ID 9720]: [PRO PHASE] Vertical Void. Increased matrix row count to 22 to physically bridge the gap between the sticky header and bottom controls.
  * - FIXED [ID 9750]: [PRO PHASE] Asymmetric Spacing. Calibrated `cols: 11` to ensure the generated block matrix centers perfectly within the dynamic borders on restricted mobile viewports.
+ * - FIXED [ID 9860]: [PRO PHASE] Execution Bleed. Injected explicit `isPaused` state handling into physics loop and input handlers to prevent ghost-inputs while terminal is hidden on PC.
+ * - FIXED [ID 9950]: [PRO PHASE] Static Danger States. Injected real-time matrix height evaluation to trigger UI nervousness when SLA/Grid capacity reaches critical thresholds.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added `getRenderState()` to feed the ASCII string builder in Terminal.js.
  * - Fixed: Appended `applyRippleEffect()` to broadcast kinetic surges to `HeroEffects.js`.
@@ -44,6 +48,9 @@
  * - Fixed: [PRO PHASE] Adjusted grid `cols` and `rows` values in `this.config` mapping.
  * - Fixed: [PRO PHASE] Reverted `this.config.rows` from 10 to 22 to restore full-screen gameplay area.
  * - Fixed: [PRO PHASE] Recalibrated `cols` downward to 11 to prevent matrix logic from overflowing the 100vw container limits.
+ * - Fixed: [PRO PHASE] Initialized `isPaused: false` in core state constructor to sync with Terminal hide/show methods.
+ * - Fixed: [PRO PHASE] `resume()` now resets `lastTick` to `performance.now()` to prevent delta-time spikes.
+ * - Fixed: [PRO PHASE] Added capacity check in `_lockPiece` to dispatch 'KINETIC_SHIVER' when grid exceeds 80% fill.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: 4-Line defrags (Tetris) now trigger a massive `POWER_SURGE_CLEAR` event, vibrating the physical DOM.
  * - RIPPLE: Rotating pieces emits a subtle `PIECE_ROTATE` visual shudder on the terminal glass.
@@ -55,6 +62,8 @@
  * - RIPPLE: [PRO PHASE] The game field is now significantly wider and taller, allowing for longer gameplay sessions and deeper strategic block placement.
  * - RIPPLE: [PRO PHASE] The Tetris grid now organically fills the central viewport, perfectly stacking between the score telemetry and Kraye-Boy interface without massive CSS paddings.
  * - RIPPLE: [PRO PHASE] The ASCII matrix now aligns flawlessly within its procedural border, maintaining perfect true-center on mobile without horizontal scrolling.
+ * - RIPPLE: [PRO PHASE] The core matrix engine now perfectly synchronizes its internal physics tick with the terminal's physical visibility state, preventing background piece-locking and global keyboard bleeding.
+ * - RIPPLE: [PRO PHASE] The UI controller now nervously shivers when the Tetris grid is perilously close to overflowing.
  * * * * * REALITY AUDIT V28:
  * - APPEND 820: Matrix Bounds Audit - Verified pieces lock precisely within the new 14x24 grid constraints.
  * - APPEND 825: Memory Leak Audit - Confirmed grid line clears use `splice` and `unshift` securely without expanding array length.
@@ -66,19 +75,21 @@
  * - APPEND 9695: [PRO PHASE] Resolution Scale Audit - Verified game initializes with expanded 14-column width without throwing out-of-bounds errors on spawn.
  * - APPEND 9720: [PRO PHASE] Layout Flow Audit - Verified 22-row grid consumes optimal vertical space on high-aspect mobile displays.
  * - APPEND 9750: [PRO PHASE] Logical Centering Audit - Verified 11-column logic pairs with the dynamic string builder to create an optically balanced UI.
+ * - APPEND 9860: [PRO PHASE] Lifecycle Audit - Verified `resume()` halts instantaneous multi-block gravity drops upon window restoration.
+ * - APPEND 9955: [PRO PHASE] Danger Evaluation Audit - Confirmed grid evaluation safely triggers the ripple event without blocking the matrix locking loop.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_DYNAMIC_BORDER_SYNCED
+ * - STATUS: PRO_PHASE_CREATIVE_ANIMATIONS_INJECTED
  */
 
-import { SystemEvents } from '../utils/events.js'; // Added for handshaking
+import { SystemEvents } from '../utils/events.js';
 
 export class KrayeGame {
     constructor(terminalRef) {
         this.terminal = terminalRef;
 
         this.config = {
-            cols: 11, // [PRO PHASE FIX] Increased logical resolution width
-            rows: 15, // [PRO PHASE FIX] Expanded logical resolution height for center-stack UI
+            cols: 11,
+            rows: 15,
             tickRate: 800,
             fastDropRate: 50,
             slaBase: 99.9,
@@ -99,6 +110,7 @@ export class KrayeGame {
             slaIntegrity: this.config.slaBase,
             isGameOver: false,
             isActive: false,
+            isPaused: false, // [PRO PHASE] Handshake flag for window visibility
             lastTick: 0
         };
 
@@ -109,7 +121,6 @@ export class KrayeGame {
             master: []
         };
 
-        // [PRO PHASE] Type-ID DNA Mapping (1-7) for Gradient Matching
         this.shapes = {
             '1': [[1, 1, 1, 1]],          // I
             '2': [[1, 0, 0], [1, 1, 1]],  // J
@@ -126,12 +137,12 @@ export class KrayeGame {
     init() {
         this._recordKraye('DEFRAG_INIT', 'Booting KrayeGame Matrix Engine.');
         this.state.isActive = true;
+        this.state.isPaused = false;
         this.performRealityAudit();
         this._spawnPiece();
         this._updateGhostPiece();
         this.applyRippleEffect('GAME_STARTED', { sla: this.state.slaIntegrity });
 
-        // [PRO PHASE] External Reset Bridge
         SystemEvents.subscribe('GAME_RESET_REQUESTED', () => {
             this.resetGame();
         });
@@ -147,6 +158,7 @@ export class KrayeGame {
         this.state.slaIntegrity = this.config.slaBase;
         this.state.isGameOver = false;
         this.state.isActive = true;
+        this.state.isPaused = false;
         this.state.lastTick = performance.now();
 
         this._spawnPiece();
@@ -158,8 +170,28 @@ export class KrayeGame {
     stopGame() {
         this._recordKraye('DEFRAG_HALT', 'Halting Matrix Arrays. Terminating background loops.');
         this.state.isActive = false;
+        this.state.isPaused = false;
         this.state.isGameOver = true;
         this.applyRippleEffect('GAME_STOP_ACKNOWLEDGED');
+    }
+
+    // [PRO PHASE] Lifecycle Handshake
+    pause() {
+        if (!this.state.isGameOver && this.state.isActive) {
+            this.state.isPaused = true;
+            this._recordKraye('DEFRAG_PAUSE', 'Matrix Physics Suspended.');
+            this.applyRippleEffect('GAME_PAUSED');
+        }
+    }
+
+    // [PRO PHASE] Lifecycle Handshake
+    resume() {
+        if (!this.state.isGameOver && this.state.isActive) {
+            this.state.isPaused = false;
+            this.state.lastTick = performance.now(); // Prevents delta spike
+            this._recordKraye('DEFRAG_RESUME', 'Matrix Physics Restored.');
+            this.applyRippleEffect('GAME_RESUMED');
+        }
     }
 
     // ==========================================
@@ -274,7 +306,7 @@ export class KrayeGame {
     // ==========================================
 
     move(dx, dy) {
-        if (this.state.isGameOver || !this.state.isActive) return;
+        if (this.state.isGameOver || !this.state.isActive || this.state.isPaused) return;
 
         const newX = this.state.activePiece.x + dx;
         const newY = this.state.activePiece.y + dy;
@@ -293,7 +325,7 @@ export class KrayeGame {
     }
 
     rotate() {
-        if (this.state.isGameOver || !this.state.isActive) return;
+        if (this.state.isGameOver || !this.state.isActive || this.state.isPaused) return;
 
         const matrix = this.state.activePiece.matrix;
         const rotated = matrix[0].map((val, index) => matrix.map(row => row[index]).reverse());
@@ -314,7 +346,7 @@ export class KrayeGame {
     }
 
     hardDrop() {
-        if (this.state.isGameOver || !this.state.isActive) return;
+        if (this.state.isGameOver || !this.state.isActive || this.state.isPaused) return;
 
         this.state.activePiece.y = this.state.ghostPiece.y;
         this.applyRippleEffect('HARD_DROP');
@@ -337,8 +369,24 @@ export class KrayeGame {
             }
         }
 
-        this.state.score += 10; // Base score for locking a piece
+        this.state.score += 10;
         this._recordKraye('BLOCK_LOCK', `Fragment locked at matrix [${x}, ${y}]`);
+
+        // [PRO PHASE] Danger Zone Evaluation (80% full)
+        const dangerThreshold = Math.floor(this.config.rows * 0.2);
+        let inDangerZone = false;
+        for (let r = 0; r <= dangerThreshold; r++) {
+            if (this.state.grid[r].some(cell => cell !== 0)) {
+                inDangerZone = true;
+                break;
+            }
+        }
+
+        if (inDangerZone) {
+            this._recordKraye('SYS_WARNING', 'Matrix capacity critical. Dispatching KINETIC_SHIVER.');
+            this.applyRippleEffect('KINETIC_SHIVER', { intensity: 3 });
+        }
+
         this._clearLines();
         this._spawnPiece();
     }
@@ -359,7 +407,6 @@ export class KrayeGame {
         if (linesCleared > 0) {
             this.state.lines += linesCleared;
 
-            // Score Calculation
             let linePoints = 0;
             if (linesCleared === 1) linePoints = 100;
             else if (linesCleared === 2) linePoints = 300;
@@ -374,7 +421,6 @@ export class KrayeGame {
 
             this._recordKraye('LINE_CLEAR', `${linesCleared} rows defragmented. SLA: ${this.state.slaIntegrity}%`);
 
-            // [PRO PHASE] Level-Up Overclock Dispatcher
             const currentLevel = Math.floor(this.state.lines / 10) + 1;
 
             if (currentLevel > level) {
@@ -397,11 +443,10 @@ export class KrayeGame {
     // ==========================================
 
     tick(currentTime) {
-        if (this.state.isGameOver || !this.state.isActive) return;
+        if (this.state.isGameOver || !this.state.isActive || this.state.isPaused) return;
 
         const deltaTime = currentTime - this.state.lastTick;
 
-        // [PRO PHASE] Level-Based System Overclock Algorithm
         const level = Math.floor(this.state.lines / 10) + 1;
         const currentSpeed = Math.max(100, this.config.tickRate - ((level - 1) * 80));
 

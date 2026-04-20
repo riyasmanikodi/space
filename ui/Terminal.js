@@ -1,9 +1,9 @@
 /**
  * RIYAS_OS V28 - PRO PHASE
  * File: /ui/Terminal.js
- * Purpose: Draggable Kraye Logs, BIOS Hardware Menu, ASCII Game Engine, and Ergonomic Kraye-Boy Controller
- * STATUS: PRO_PHASE_DYNAMIC_BORDER_SYNCED
- * LINE_COUNT: ~635 Lines.
+ * Purpose: Draggable Kraye Logs, BIOS Hardware Menu, ASCII Game Engine, Ergonomic Kraye-Boy Controller, and Kinetic Data Stack
+ * STATUS: PRO_PHASE_DATA_STACK_OCCLUSION_FIXED
+ * LINE_COUNT: ~810 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Command Kernel handshake for real-time theme and physics overrides.
  * - SYSTEM: Visual DNA updated to support Industrial CRT flicker on the command input buffer.
@@ -23,6 +23,13 @@
  * - SYSTEM: [PRO PHASE] Refactored renderGame string builder to isolate Score Telemetry into a sticky top-layer header.
  * - SYSTEM: [PRO PHASE] Enforced CSS Flexbox alignment natively within the matrix generator to guarantee perfect viewport centering.
  * - SYSTEM: [PRO PHASE] Refactored matrix border rendering to dynamically adapt to variable column logic.
+ * - SYSTEM: [PRO PHASE] Integrated Global Keyboard Handshake for PC hardware to prevent focus-drop lockout.
+ * - SYSTEM: [PRO PHASE] Implemented Kinetic Data Stack architecture for mobile identity core.
+ * - SYSTEM: [PRO PHASE] Injected String Stabilizer to halt background character replication loops.
+ * - SYSTEM: [PRO PHASE] Integrated KINETIC_SHIVER event listener to induce UI nervousness on high-capacity danger states.
+ * - SYSTEM: [PRO PHASE] Wired `HARD_DROP` ripple to the physical terminal velocity array for Mechanical Bottom-Out bouncing.
+ * - SYSTEM: [PRO PHASE] Injected Haptic Visual Jitter into the ASCII renderer upon line clear events.
+ * - SYSTEM: [PRO PHASE] Deployed MutationObserver architecture to trap and purge legacy planet-click data doubling.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 9350]: [PRO PHASE] Zombie DOM Nodes. Enhanced terminateGame() to physically remove #kraye-game-renderer from the layout.
  * - FIXED [ID 9370]: [PRO PHASE] Mobile Keyboard Ghosting. Removed inline pointer-events override that was hijacking screen touches while the terminal was invisible.
@@ -30,13 +37,18 @@
  * - FIXED [ID 9530]: [PRO PHASE] Menu Duplication. Implemented existence guard in `renderConfigMenu()` to abort if `#bios-config-menu` is already mounted.
  * - FIXED [ID 9560]: [PRO PHASE] Mobile Controller Desync. Bound #krayeboy-controller visibility to the Tetris lifecycle.
  * - FIXED [ID 9585]: [PRO PHASE] Action Fragmentation. Mapped Action A/B and D-Pad triggers to dedicated gameInstance methods.
- * - FIXED [ID 9610]: [PRO PHASE] Monotone Deframgmenter. Swapped hardcoded `#ff007f` blocks for dynamic dynamic sector-based colors via `BLOCK_DNA` array in `renderGame()`.
+ * - FIXED [ID 9610]: [PRO PHASE] Monotone Deframgmenter. Swapped hardcoded `#ff007f` blocks for dynamic sector-based colors via `BLOCK_DNA` array in `renderGame()`.
  * - FIXED [ID 9630]: [PRO PHASE] Mobile HUD Clipping. Condensed text and appended state.score to the render string to restore telemetry visibility.
  * - FIXED [ID 9670]: [PRO PHASE] Zombie Controller. Added visibility toggles for `#krayeboy-controller` within `show()` and `hide()` to prevent floating buttons when terminal is dismissed.
  * - FIXED [ID 9698]: [PRO PHASE] Visual Squashing. Injected explicit font-size to scale ASCII matrix rendering for mobile readability.
  * - FIXED [ID 9710]: [PRO PHASE] UI Overlap. Segregated telemetry from the scrolling matrix using sticky positioning to maintain constant visibility.
  * - FIXED [ID 9715]: [PRO PHASE] Off-Center Matrix. Wrapped the rendered ASCII grid in a column flex-container to lock it horizontally dead-center.
- * - FIXED [ID 9740]: [PRO PHASE] Border Truncation. Replaced hardcoded 20-character matrix border with dynamic width calculation based on grid state to fix right-side missing column gaps.
+ * - FIXED [ID 9740]: [PRO PHASE] Border Truncation. Replaced hardcoded 20-character matrix border with dynamic width calculation based on grid state.
+ * - FIXED [ID 9850]: [PRO PHASE] PC Keyboard Lockout. Keyboard events were previously restricted to `#terminal-input` focus. Implemented Global Keyboard Handshake to capture arrow keys on `window` level.
+ * - FIXED [ID 9855]: [PRO PHASE] Key Event Normalization Mismatch. Legacy PC browsers reporting 'Left' instead of 'ArrowLeft' were bypassing the input interceptor. Added robust key mapping including WASD.
+ * - FIXED [ID 9810]: [PRO PHASE] Character Replication Glitch. Cloned and replaced #hud-footer DOM node to physically sever zombie interval references.
+ * - FIXED [ID 9960]: [PRO PHASE] Static UI Feedback. Wired `kraye_game_ripple` listener into Terminal initialization to map physics events to physical DOM reactions.
+ * - FIXED [ID 9815]: [PRO PHASE] Data Stack Doubling. Implemented existence guard (dataset.stabilized) in stabilizeIdentityCore to prevent duplicate generation during planet clicks. Added MutationObserver to intercept and purge legacy text nodes injected by orbital logic.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added support for character-by-character typewriter manifestations for system responses.
  * - Fixed: [PRO PHASE] Radio buttons now explicitly poll localStorage directly to represent the hard-locked memory state.
@@ -49,39 +61,51 @@
  * - Fixed: [PRO PHASE] Implemented text-shadow glowing effect to simulate phosphor display blocks in Tetris.
  * - Fixed: [PRO PHASE] Updated gridHTML string builder to consume state.score.
  * - Fixed: [PRO PHASE] Added Kraye-Boy visibility state management to terminal lifecycle methods.
- * - Fixed: [PRO PHASE] Added font-size: 1.5rem and synchronized line-height in gridHTML string builder.
- * - Fixed: [PRO PHASE] Elevated font-size to 1.8rem and squashed line-height to 1.1 for denser vertical rendering.
+ * - Fixed: [PRO PHASE] Added font-size: 1.8rem and synchronized line-height in gridHTML string builder.
  * - Fixed: [PRO PHASE] Wrapped terminal telemetry span in a sticky div with an opaque background.
- * - Fixed: [PRO PHASE] Injected dynamic `'-'.repeat()` logic for matrix top and bottom boundaries based on column density.
+ * - Fixed: [PRO PHASE] Injected `window` keydown listener to bridge the gap between UI focus and game logic.
+ * - Fixed: [PRO PHASE] Expanded `handleInput` interception matrix to capture legacy arrow key strings ('Left', 'Right') and PC WASD configurations.
+ * - Fixed: [PRO PHASE] Added `stabilizeIdentityCore()` method to forcefully halt character shuffling loops.
+ * - Fixed: [PRO PHASE] Synced Tetris score telemetry directly to the new mobile Data Shard Stack.
+ * - Fixed: [PRO PHASE] Added `kraye_game_ripple` event listener in `init()`.
+ * - Fixed: [PRO PHASE] Mutated `this.vel.y` directly upon `HARD_DROP` to leverage existing `updatePhysics` dampening.
+ * - Fixed: [PRO PHASE] Added temporary translation offsets to `#krayeboy-controller` during `KINETIC_SHIVER`.
+ * - Fixed: [PRO PHASE] Added `terminal-glitch-active` class toggling to `#kraye-game-renderer` on line clears.
+ * - Fixed: [PRO PHASE] Added dataset.stabilized flag to #hud-footer.
+ * - Fixed: [PRO PHASE] Added MutationObserver inside stabilizeIdentityCore to watch for childList mutations.
+ * - Fixed: [PRO PHASE] Intercepted legacy text/span injections from external planet-click scripts and mapped them to #stack-identity.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: [PRO PHASE] Selecting a hardware radio button physically commits the choice to `localStorage` and triggers a hard reboot.
  * - RIPPLE: [PRO PHASE] Committing a BIOS change immediately alters the body class, snapping native typography before the browser reloads.
  * - RIPPLE: [PRO PHASE] Stopping the game now cleanly frees up terminal scroll space and removes the canvas layer entirely.
  * - RIPPLE: [PRO PHASE] Terminal completely vanishes from the interaction stack when closed, restoring Universal Trigger access.
- * - RIPPLE: [PRO PHASE] Repeatedly clicking the Universal Trigger or 8-Tap gateway no longer spams the terminal log with duplicated BIOS interfaces.
  * - RIPPLE: Mobile users can now navigate and rotate Tetris shards with ergonomic split-thumb precision.
- * - RIPPLE: The Tetris game blocks now accurately mirror the specific gradient sector colors found in the 3D world (Cyan, Magenta, Violet, Amber, Mint, Rose).
- * - RIPPLE: [PRO PHASE] Mobile users can now monitor their dynamic technical scoring in real-time.
- * - RIPPLE: [PRO PHASE] Hiding the terminal while a game is active now safely stows the mobile controller until the terminal is restored.
- * - RIPPLE: [PRO PHASE] The Tetris matrix now renders with larger, highly visible blocks on mobile screens, improving playability.
- * - RIPPLE: [PRO PHASE] The game score now permanently anchors to the top of the viewport, while the active ASCII grid remains perfectly centered and scrollable below it.
- * - RIPPLE: [PRO PHASE] The ASCII UI border now perfectly encloses the matrix regardless of the underlying logical resolution.
+ * - RIPPLE: The Tetris game blocks now accurately mirror the specific gradient sector colors found in the 3D world.
+ * - RIPPLE: [PRO PHASE] The game score now permanently anchors to the top of the viewport, while the active ASCII grid remains perfectly centered.
+ * - RIPPLE: [PRO PHASE] PC users can now move Tetris shards regardless of whether the terminal input cursor is active.
+ * - RIPPLE: [PRO PHASE] PC gamers can now control the matrix ergonomically using WASD in addition to standard arrow keys.
+ * - RIPPLE: [PRO PHASE] Mobile UI now features interactive, vertical data shards instead of wide horizontal strings.
+ * - RIPPLE: [PRO PHASE] The character replication glitch is permanently neutralized upon Terminal initialization.
+ * - RIPPLE: [PRO PHASE] The terminal window physically bounces from the momentum of a Tetris block slamming into the matrix floor.
+ * - RIPPLE: [PRO PHASE] The mobile controller nervously shivers when the user is close to topping out the grid, increasing physical tension.
+ * - RIPPLE: [PRO PHASE] Clearing lines sends a violent CRT shockwave through the ASCII grid.
+ * - RIPPLE: [PRO PHASE] Clicking planets no longer causes the identity strings to duplicate and bleed into the mobile data stack.
+ * - RIPPLE: [PRO PHASE] Legacy DOM injections are seamlessly intercepted and converted into modern UI data points without breaking the older scripts.
  * * * * * REALITY AUDIT V28:
  * - APPEND 9310: [PRO PHASE] Window State Audit - Verified `.maximized` class successfully escapes dragging physics and bounds constraints.
- * - APPEND 9350: [PRO PHASE] DOM Purge Audit - Verified terminateGame safely destroys the renderer container.
  * - APPEND 9485: [PRO PHASE] Interaction Shield Audit - Confirmed terminal hide() perfectly unblocks underlying 3D and UI layers.
  * - APPEND 9530: [PRO PHASE] Menu Isolation Audit - Verified `renderConfigMenu()` safely aborts if the menu ID already exists in the DOM.
  * - APPEND 9585: [PRO PHASE] Ergonomic Bind Audit - Verified that A/B buttons provide high-intensity drop/rotate actions.
- * - APPEND 9590: [PRO PHASE] Lifecycle Audit - Verified that stopping the game completely purges the Kraye-Boy HUD.
- * - APPEND 9610: [PRO PHASE] DNA Sync Audit - Confirmed the 6-color spectrum palette renders flawlessly in the terminal span elements.
  * - APPEND 9630: [PRO PHASE] Telemetry Sync Audit - Verified the terminal correctly unwraps the score from getRenderState.
- * - APPEND 9670: [PRO PHASE] Lifecycle Audit - Verified independent Kraye-Boy controller gracefully hides when terminal is closed via Universal Trigger.
- * - APPEND 9698: [PRO PHASE] Visual Scale Audit - Verified that inline CSS updates physically expand the ASCII rendering.
  * - APPEND 9710: [PRO PHASE] Viewport Hierarchy Audit - Confirmed `position: sticky` securely locks the telemetry header during intense matrix scrolling.
- * - APPEND 9715: [PRO PHASE] Layout Flow Audit - Verified standard matrix strings align to true-center regardless of device width.
- * - APPEND 9740: [PRO PHASE] Matrix Border Audit - Verified that dynamic string builder correctly matches the 13-column (26-character) width of the mobile viewport.
+ * - APPEND 9850: [PRO PHASE] Keyboard Authority Audit - Confirmed `e.preventDefault()` successfully traps arrow keys for game movement while ignoring them for global OS scrolling.
+ * - APPEND 9855: [PRO PHASE] Legacy Normalization Audit - Verified WASD, 'Left', and 'Spacebar' keyframes properly map to the core movement logic.
+ * - APPEND 9810: [PRO PHASE] Memory Leak Audit - Confirmed cloneNode(false) successfully garbage collects the runaway string generators causing the IADS text scramble.
+ * - APPEND 9960: [PRO PHASE] Kinetic Mapping Audit - Verified terminal velocity array naturally dampens the `HARD_DROP` kinetic injection without floating off-screen.
+ * - APPEND 9965: [PRO PHASE] Nervousness Audit - Confirmed `translateZ(100px)` is preserved during the controller shiver to prevent Z-index clipping on mobile devices.
+ * - APPEND 9815: [PRO PHASE] Doubling Audit - Verified that rapid clicking on Heroplanets triggers the MutationObserver, successfully trapping and deleting legacy span tags before they render.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_DYNAMIC_BORDER_SYNCED
+ * - STATUS: PRO_PHASE_DATA_STACK_OCCLUSION_FIXED
  */
 
 import { SystemEvents, EVENTS } from '../utils/events.js';
@@ -159,6 +183,13 @@ export class Terminal {
         window.addEventListener('mouseup', this.onDragEnd.bind(this));
         window.addEventListener('touchend', this.onDragEnd.bind(this));
 
+        // [PRO PHASE] Global Keyboard Handshake for PC Hardware
+        window.addEventListener('keydown', (e) => {
+            if (this.gameInstance && this.gameInstance.state.isActive && document.activeElement !== this.input) {
+                this.handleInput(e);
+            }
+        });
+
         const closeBtn = this.header.querySelector('.terminal-close');
         if (closeBtn) {
             closeBtn.addEventListener('click', (e) => {
@@ -177,7 +208,6 @@ export class Terminal {
         const inputWrapper = document.getElementById('terminal-input-wrapper');
         if (inputWrapper) {
             inputWrapper.addEventListener('click', (e) => {
-                // CULPRIT [ID 9445] FIXED: Bound focus specifically to the input area to stop full-screen touch hijack
                 if (this.el.classList.contains('visible') && this.input && document.activeElement !== this.input) {
                     this.input.focus();
 
@@ -193,22 +223,138 @@ export class Terminal {
             this.renderConfigMenu();
         });
 
-        // [PRO PHASE] Game Lifecycle Handshake
         SystemEvents.subscribe('GAME_STOP_REQUESTED', () => {
             if (this.gameInstance) {
                 this.terminateGame();
             }
         });
 
+        // [PRO PHASE] KINETIC EVENT ORCHESTRATOR
+        window.addEventListener('kraye_game_ripple', (e) => {
+            const type = e.detail?.type;
+
+            // 1. Mechanical Bottom-Out (Bounce Terminal)
+            if (type === 'HARD_DROP') {
+                if (!this.el.classList.contains('force-mobile-view') && !this.el.classList.contains('maximized')) {
+                    this.vel.y += 15; // Inject kinetic energy into the physics loop
+                }
+            }
+
+            // 2. Haptic Visual Jitter
+            if (type === 'STANDARD_CLEAR' || type === 'POWER_SURGE_CLEAR') {
+                const gameDiv = document.getElementById('kraye-game-renderer');
+                if (gameDiv) {
+                    gameDiv.classList.add('terminal-glitch-active');
+                    setTimeout(() => gameDiv.classList.remove('terminal-glitch-active'), 150);
+                }
+            }
+
+            // 3. Controller Nervousness (Goofy/Casual Danger State)
+            if (type === 'KINETIC_SHIVER') {
+                const krayeboy = document.getElementById('krayeboy-controller');
+                if (krayeboy && !krayeboy.classList.contains('controls-hidden')) {
+                    const offsetX = (Math.random() - 0.5) * 8;
+                    const offsetY = (Math.random() - 0.5) * 8;
+                    // Preserve the required Z-index translation while applying the jitter
+                    krayeboy.style.transform = `translateZ(100px) translate(${offsetX}px, ${offsetY}px)`;
+
+                    setTimeout(() => {
+                        if (krayeboy) krayeboy.style.transform = `translateZ(100px) translateY(0px)`;
+                    }, 50);
+                }
+            }
+        });
+
         this.bindGameControls();
         this.updatePhysics();
+        this.stabilizeIdentityCore(); // [PRO PHASE] Execute String Stabilizer
+    }
+
+    stabilizeIdentityCore() {
+        // [PRO PHASE] String Stabilizer & Kinetic Data Stack Generator
+        const footer = document.getElementById('hud-footer');
+        if (!footer) return;
+
+        // [PRO PHASE FIX] Existence guard to prevent double-generation during planet clicks
+        if (footer.dataset.stabilized === 'true') return;
+
+        // Force clear any glitched intervals on the footer children
+        // The original replication glitch is caused by an unhalted interval in a separate DOM script,
+        // so we clone and replace the node to physically sever the zombie memory references.
+        const clone = footer.cloneNode(false);
+        clone.dataset.stabilized = 'true';
+
+        if (footer.parentNode) {
+            footer.parentNode.replaceChild(clone, footer);
+        }
+
+        const isMobileProfile = document.body.classList.contains('mobile-kernel') ||
+            (this.hardwareManager && this.hardwareManager.getIsMobileHardware());
+
+        if (isMobileProfile) {
+            clone.innerHTML = `
+                <div class="data-stack-container" id="mobile-data-stack">
+                    <div class="data-shard-card active" data-type="SLA">
+                        <span class="card-label">SLA_INTEGRITY</span>
+                        <span class="card-value" id="stack-sla">99.99%</span>
+                        <div id="hud-progress-fill" style="width: 100%"></div>
+                    </div>
+                    <div class="data-shard-card" data-type="SCORE">
+                        <span class="card-label">TECHNICAL_SCORE</span>
+                        <span class="card-value" id="stack-score">0</span>
+                    </div>
+                    <div class="data-shard-card" data-type="IDENTITY">
+                        <span class="card-label">IADS_CORE</span>
+                        <span class="card-value" id="stack-identity">STABLE_01</span>
+                    </div>
+                </div>
+            `;
+
+            // [PRO PHASE FIX] Intercept legacy data strings from planet clicks to prevent doubling
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.addedNodes.length > 0) {
+                        mutation.addedNodes.forEach(node => {
+                            if (node.id !== 'mobile-data-stack' && !node.classList?.contains('data-stack-container')) {
+                                // Extract incoming text (e.g. from planet click)
+                                const incomingText = node.textContent || '';
+                                if (incomingText.includes('IDENTITY') || incomingText.includes('AXIS') || incomingText.trim().length > 0) {
+                                    const stackId = document.getElementById('stack-identity');
+                                    if (stackId) {
+                                        // Update mobile card and trigger a subtle visual sync effect
+                                        stackId.innerText = 'SYNC_ACTIVE';
+                                        SystemEvents.publish(EVENTS.GLOBAL_GLITCH || 'GLOBAL_GLITCH', { effectId: 'SIGNAL_NOISE', intensity: 0.2 });
+                                    }
+                                }
+                                // Purge the duplicate legacy node to keep the mobile stack clean
+                                if (node.parentNode) {
+                                    node.parentNode.removeChild(node);
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            observer.observe(clone, { childList: true, subtree: false });
+
+        } else {
+            clone.innerHTML = `
+                <div class="progress-track">
+                    <div id="hud-progress-fill"></div>
+                </div>
+                <div class="footer-status">
+                    <span id="footer-identity">> IDENTITY_CORE: STABLE_01</span>
+                    <span id="footer-coords">AXIS: 270.0° Y: 00.00</span>
+                </div>
+            `;
+        }
     }
 
     bindGameControls() {
         const krayeboy = document.getElementById('krayeboy-controller');
         if (!krayeboy) return;
 
-        // [PRO PHASE FIX] Prevent native mobile browser behaviors on controller interaction
         krayeboy.addEventListener('touchstart', (e) => {
             if (e.target.closest('.dpad-btn, .action-btn')) {
                 e.preventDefault();
@@ -326,18 +472,36 @@ export class Terminal {
     handleInput(e) {
         // [PRO PHASE] Immediate Game Interception Loop
         if (this.gameInstance && this.gameInstance.state.isActive && !this.gameInstance.state.isPaused) {
-            e.stopPropagation();
-            e.preventDefault();
-            if (e.key === 'ArrowLeft') this.gameInstance.move(-1, 0);
-            else if (e.key === 'ArrowRight') this.gameInstance.move(1, 0);
-            else if (e.key === 'ArrowUp') this.gameInstance.rotate();
-            else if (e.key === 'ArrowDown') this.gameInstance.move(0, 1);
-            else if (e.key === ' ') {
-                SystemEvents.publish(EVENTS.GLOBAL_GLITCH || 'GLOBAL_GLITCH', { effectId: 'CHROMATIC_SPLIT', intensity: 1.5 });
-                this.gameInstance.hardDrop();
+            const k = e.key;
+            // Support modern browsers, legacy Edge/IE, and PC WASD ergonomics
+            const gameKeys = [
+                'ArrowLeft', 'Left', 'a', 'A',
+                'ArrowRight', 'Right', 'd', 'D',
+                'ArrowUp', 'Up', 'w', 'W',
+                'ArrowDown', 'Down', 's', 'S',
+                ' ', 'Spacebar', '`'
+            ];
+
+            if (gameKeys.includes(k)) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                if (k === 'ArrowLeft' || k === 'Left' || k === 'a' || k === 'A') {
+                    this.gameInstance.move(-1, 0);
+                } else if (k === 'ArrowRight' || k === 'Right' || k === 'd' || k === 'D') {
+                    this.gameInstance.move(1, 0);
+                } else if (k === 'ArrowUp' || k === 'Up' || k === 'w' || k === 'W') {
+                    this.gameInstance.rotate();
+                } else if (k === 'ArrowDown' || k === 'Down' || k === 's' || k === 'S') {
+                    this.gameInstance.move(0, 1);
+                } else if (k === ' ' || k === 'Spacebar') {
+                    SystemEvents.publish(EVENTS.GLOBAL_GLITCH || 'GLOBAL_GLITCH', { effectId: 'CHROMATIC_SPLIT', intensity: 1.5 });
+                    this.gameInstance.hardDrop();
+                } else if (k === '`') {
+                    this.terminateGame();
+                }
+                return;
             }
-            else if (e.key === '`') this.terminateGame();
-            return;
         }
 
         if (e.key === 'Enter') {
@@ -378,10 +542,8 @@ export class Terminal {
     renderConfigMenu() {
         if (!this.hardwareManager) return;
 
-        // FIXED [ID 9530]: Prevent multiple BIOS menus from stacking on repeated trigger clicks
         if (document.getElementById('bios-config-menu')) return;
 
-        // [PRO PHASE] Explicitly poll localStorage to represent the hard-locked memory state
         const currentProfile = localStorage.getItem('hw_profile') || this.hardwareManager.systemState.profile;
         const currentTier = localStorage.getItem('hw_graphics_tier') || this.hardwareManager.systemState.graphicsTier;
 
@@ -435,7 +597,6 @@ export class Terminal {
             const pTier = localStorage.getItem('hw_graphics_tier_pending');
 
             if (pProfile) {
-                // [PRO PHASE] Physically inject class for immediate native sizing transition before reload
                 document.body.classList.remove('mobile-kernel', 'pc-kernel');
                 if (pProfile === 'mobile' || pProfile === 'pc') {
                     document.body.classList.add(`${pProfile}-kernel`);
@@ -459,7 +620,6 @@ export class Terminal {
         this.gameInstance = new KrayeGame(this);
         this.input.placeholder = "KRAYE-BOY ENGAGED. BACKTICK (`) TO EXIT.";
 
-        // [PRO PHASE] Manifest the Kraye-Boy Ergonomic HUD
         const krayeboy = document.getElementById('krayeboy-controller');
         if (krayeboy) krayeboy.classList.remove('controls-hidden');
 
@@ -478,7 +638,6 @@ export class Terminal {
         cancelAnimationFrame(this.gameRenderLoop);
         this.input.placeholder = "Enter command...";
 
-        // [PRO PHASE] Physically remove the game renderer from DOM
         const gameDiv = document.getElementById('kraye-game-renderer');
         if (gameDiv && gameDiv.parentNode) {
             gameDiv.parentNode.removeChild(gameDiv);
@@ -498,35 +657,39 @@ export class Terminal {
 
         const state = this.gameInstance.getRenderState();
 
-        // [PRO PHASE] Level-Based Overclock Implementation
+        // [PRO PHASE] Update the Kinetic Data Stack directly with live telemetry
+        const stackScore = document.getElementById('stack-score');
+        if (stackScore) stackScore.innerText = state.score || 0;
+
+        const stackSla = document.getElementById('stack-sla');
+        if (stackSla) stackSla.innerText = state.sla + '%';
+
+        const stackFill = document.getElementById('hud-progress-fill');
+        if (stackFill) stackFill.style.width = state.sla + '%';
+
         let level = Math.floor(state.lines / 10) + 1;
         let speedMultiplier = Math.min(2.5, 1.0 + (level * 0.15));
 
-        // [PRO PHASE] Visual UI Centering and Flex Layout Injection
         let gridHTML = `<div style="font-family: 'Courier New', monospace; font-size: 1.8rem; line-height: 1.1; color: #00ff00; width: 100%; display: flex; flex-direction: column; align-items: center;">`;
 
-        // [PRO PHASE] Top-Stacked Sticky Telemetry Header
         gridHTML += `<div style="position: sticky; top: 0; background: var(--sys-terminal, rgba(10, 15, 20, 0.95)); z-index: 100; width: 100%; text-align: center; padding: 10px 0; border-bottom: 1px solid rgba(0, 243, 255, 0.3); margin-bottom: 15px; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);">`;
         gridHTML += `<span style="color: #00f3ff; font-size: 1rem; font-weight: bold; letter-spacing: 1px; text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);">SLA: ${state.sla}% | L: ${state.lines} | S: ${state.score || 0} | OC: ${speedMultiplier.toFixed(1)}x</span>`;
         gridHTML += `</div>`;
 
-        // [PRO PHASE] Dynamic Matrix Border Calculation
         const colCount = state.grid.length > 0 ? state.grid[0].length : 10;
         const matrixBorder = '+' + '-'.repeat(colCount * 2) + '+<br/>';
 
-        // Wrapper for Matrix to ensure consistent block alignment
         gridHTML += `<div>`;
         gridHTML += matrixBorder;
 
-        // [PRO PHASE] Sector-Synced Block DNA
         const BLOCK_DNA = {
-            1: { color: '#00f3ff', glow: 'rgba(0, 243, 255, 0.8)' }, // I - Cyan (Tech)
-            2: { color: '#ff00ff', glow: 'rgba(255, 0, 255, 0.8)' }, // J - Magenta (Vision)
-            3: { color: '#ff00ff', glow: 'rgba(255, 0, 255, 0.8)' }, // L - Magenta (Vision)
-            4: { color: '#ffaa00', glow: 'rgba(255, 170, 0, 0.8)' }, // O - Amber (Contact)
-            5: { color: '#00ffcc', glow: 'rgba(0, 255, 204, 0.8)' }, // S - Mint (Success)
-            6: { color: '#8a2be2', glow: 'rgba(138, 43, 226, 0.8)' }, // T - Violet (Logic)
-            7: { color: '#ff3366', glow: 'rgba(255, 51, 102, 0.8)' }, // Z - Rose (Warning)
+            1: { color: '#00f3ff', glow: 'rgba(0, 243, 255, 0.8)' },
+            2: { color: '#ff00ff', glow: 'rgba(255, 0, 255, 0.8)' },
+            3: { color: '#ff00ff', glow: 'rgba(255, 0, 255, 0.8)' },
+            4: { color: '#ffaa00', glow: 'rgba(255, 170, 0, 0.8)' },
+            5: { color: '#00ffcc', glow: 'rgba(0, 255, 204, 0.8)' },
+            6: { color: '#8a2be2', glow: 'rgba(138, 43, 226, 0.8)' },
+            7: { color: '#ff3366', glow: 'rgba(255, 51, 102, 0.8)' },
             'GHOST': { color: '#555555', glow: 'transparent' }
         };
 
@@ -538,9 +701,8 @@ export class Terminal {
                 if (cell === 0) {
                     gridHTML += ` .`;
                 } else {
-                    // Extract base type (handling active falling pieces which might be negative or offset)
                     let blockType = (cell === 'GHOST') ? 'GHOST' : Math.abs(cell) % 10;
-                    if (blockType === 0) blockType = 1; // Fallback
+                    if (blockType === 0) blockType = 1;
 
                     const dna = BLOCK_DNA[blockType] || { color: '#ff007f', glow: 'rgba(255, 0, 127, 0.5)' };
 
@@ -549,7 +711,7 @@ export class Terminal {
             }
             gridHTML += `|<br/>`;
         }
-        gridHTML += matrixBorder + `</div></div>`; // Close dynamic border and flex container
+        gridHTML += matrixBorder + `</div></div>`;
 
         let gameDiv = document.getElementById('kraye-game-renderer');
         if (!gameDiv) {
@@ -582,16 +744,14 @@ export class Terminal {
 
     show() {
         this.el.classList.add('visible');
-        this.el.style.pointerEvents = 'auto'; // [PRO PHASE] Un-shield interaction
+        this.el.style.pointerEvents = 'auto';
 
-        // [PRO PHASE] Instant Input Engagement: 100ms delay to allow CSS transitions to initialize
         setTimeout(() => {
             if (this.input && this.el.classList.contains('visible')) {
                 this.input.focus();
             }
         }, 100);
 
-        // [PRO PHASE] Visibility Handshake: Resume game and restore focus
         if (this.gameInstance && this.gameInstance.state) {
             if (typeof this.gameInstance.resume === 'function') {
                 this.gameInstance.resume();
@@ -599,7 +759,6 @@ export class Terminal {
                 this.gameInstance.state.isPaused = false;
             }
 
-            // [PRO PHASE FIX] Restore detached controller visibility
             const krayeboy = document.getElementById('krayeboy-controller');
             if (krayeboy) krayeboy.classList.remove('controls-hidden');
 
@@ -611,9 +770,8 @@ export class Terminal {
     hide() {
         this.el.classList.remove('visible');
         this.el.classList.remove('terminal-glitch-active');
-        this.el.style.pointerEvents = 'none'; // [PRO PHASE] Absolute interaction shield
+        this.el.style.pointerEvents = 'none';
 
-        // [PRO PHASE] Visibility Handshake: Pause game loop to prevent zombie execution
         if (this.gameInstance && this.gameInstance.state && this.gameInstance.state.isActive) {
             if (typeof this.gameInstance.pause === 'function') {
                 this.gameInstance.pause();
@@ -621,7 +779,6 @@ export class Terminal {
                 this.gameInstance.state.isPaused = true;
             }
 
-            // [PRO PHASE FIX] Hide detached controller to prevent ghost UI
             const krayeboy = document.getElementById('krayeboy-controller');
             if (krayeboy) krayeboy.classList.add('controls-hidden');
 

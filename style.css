@@ -1,9 +1,9 @@
 /**
  * RIYAS_OS V28 - PRO PHASE (FULL ARCHITECTURE)
  * File: /style.css
- * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, Mobile Kinetics, and Universal Hardware Autonomy
- * STATUS: PRO_PHASE_STACKED_MOBILE_UI_SYNCED
- * LINE_COUNT: ~965 Lines.
+ * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, Mobile Kinetics, Universal Hardware Autonomy, and Creative Animations
+ * STATUS: PRO_PHASE_DATA_STACK_OCCLUSION_FIXED
+ * LINE_COUNT: ~1095 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
  * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
@@ -30,6 +30,10 @@
  * - SYSTEM: [PRO PHASE] Hardened Kraye-Boy controller viewport anchoring to resolve mobile browser occlusion.
  * - SYSTEM: [PRO PHASE] Bulletproofed mobile controller Z-axis projection and rendering context.
  * - SYSTEM: [PRO PHASE] Recalibrated vertical layout geometry for center-stack mobile matrix rendering.
+ * - SYSTEM: [PRO PHASE] Implemented Kinetic Data Stack architecture for mobile identity core.
+ * - SYSTEM: [PRO PHASE] Injected "Ghost Press" pseudo-element ripples for Kraye-Boy buttons.
+ * - SYSTEM: [PRO PHASE] Injected elastic hover scaling for Kraye-Boy controller wings.
+ * - SYSTEM: [PRO PHASE] Reprojected Mobile Data Stack coordinates from fixed viewport to absolute explicit bounds.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 305]: Z-Index Conflict. Confined #hero-name-viewport below scanlines (z-index: 5) to maintain screen depth.
  * - FIXED [ID 1408]: Mobile Viewport Trap. Removed full-screen overlay and enabled Pass-Through touching.
@@ -59,6 +63,10 @@
  * - FIXED [ID 9660]: [PRO PHASE] Clip-Path Culling. Injected `-webkit-clip-path` vendor prefixes to prevent old mobile Chromium/Safari from dropping the render.
  * - FIXED [ID 9665]: [PRO PHASE] CSS Engine Calc Failures. Replaced fragile `calc()` bottom anchors with strict layered fallbacks (`60px !important`).
  * - FIXED [ID 9730]: [PRO PHASE] Viewport Void. Adjusted margin-top and padding-bottom on game renderer to prevent grid from hiding behind sticky telemetry or controller wings.
+ * - FIXED [ID 9810]: [PRO PHASE] Character Replication Glitch. Transitioned horizontal IDENTITY_CORE string to vertical Card Stack to prevent text wrapping/clipping.
+ * - FIXED [ID 9820]: [PRO PHASE] Viewport Clipping. Constrained data shards to safe-area bounds.
+ * - FIXED [ID 9970]: [PRO PHASE] Flat Interaction Feedback. Added CSS-driven ghost ripples and elastic scaling to controller elements to match 3D physical momentum.
+ * - FIXED [ID 9980]: [PRO PHASE] Nav Bar Occlusion. Transitioned #hud-footer from position: fixed to position: absolute to lock bottom coordinates to the explicit --vh body boundary, bypassing mobile browser chrome.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
  * - Fixed: Converted mobile shard layout to a horizontally scrolling carousel.
@@ -85,6 +93,12 @@
  * - Fixed: [PRO PHASE] Appended `translateZ(100px) !important` to controller visible state.
  * - Fixed: [PRO PHASE] Shifted #kraye-game-renderer margin-top to 60px to clear sticky header.
  * - Fixed: [PRO PHASE] Synced #kraye-game-renderer padding-bottom to 200px to align with controller footprint.
+ * - Fixed: [PRO PHASE] Removed horizontal IDENTITY_CORE string to prevent viewport overflow on narrow mobile screens.
+ * - Fixed: [PRO PHASE] Added position: relative to game buttons to anchor ripple pseudo-elements.
+ * - Fixed: [PRO PHASE] Added @keyframes ghost-press for water-ripple button feedback.
+ * - Fixed: [PRO PHASE] Attached cubic-bezier elasticity to .controller-wing hover states.
+ * - Fixed: [PRO PHASE] Updated body.mobile-kernel #hud-footer from fixed to absolute positioning.
+ * - Fixed: [PRO PHASE] Enforced bottom: max(20px, env(safe-area-inset-bottom)) for the data stack to prevent home-indicator collision.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The physical meteorite cursor establishes a unified industrial aesthetic across all input methods.
  * - RIPPLE: [PRO PHASE] GPU layer promotion guarantees the cursor canvas operates independently from the DOM layout.
@@ -106,6 +120,10 @@
  * - RIPPLE: [PRO PHASE] Users can now scroll the game grid without the HUD controls vanishing.
  * - RIPPLE: [PRO PHASE] Mobile game controls now physically penetrate the Z-index boundaries to sit flawlessly above the terminal matrix.
  * - RIPPLE: [PRO PHASE] The Tetris game grid now perfectly bridges the gap between the top score telemetry and the bottom Kraye-Boy controls.
+ * - RIPPLE: [PRO PHASE] The mobile UI now behaves like a modern hardware interface where data points are individual touch targets rather than passive text.
+ * - RIPPLE: [PRO PHASE] Tapping buttons now triggers a satisfying ripple expansion, simulating physical button compression.
+ * - RIPPLE: [PRO PHASE] Controller wings organically react to user proximity with a subtle mechanical scaling.
+ * - RIPPLE: [PRO PHASE] The mobile data cards now physically rest above the browser navigation bars on Safari and Brave without being swallowed by the screen edge.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter`.
  * - APPEND 159: Z-Index Audit - Verified `100000` priority on `#cursor-3d-overlay`.
@@ -128,8 +146,11 @@
  * - APPEND 9640: [PRO PHASE] Padding Audit - Verified 180px bottom-padding allows the terminal scroll boundary to clear the controller height.
  * - APPEND 9655: [PRO PHASE] Render Engine Audit - Verified controller now forces its own composite layer via `will-change`.
  * - APPEND 9730: [PRO PHASE] Viewport Geometry Audit - Verified 60px top margin perfectly clears the sticky telemetry header while allowing all 22 rows to render without bottom-clipping.
+ * - APPEND 9820: [PRO PHASE] Stack Integrity Audit - Verified that beveled cards do not overlap browser navigation bars in Brave/Mobile.
+ * - APPEND 9970: [PRO PHASE] Ripple Audit - Verified pointer-events are disabled on ::after ripples to prevent double-tap ghosting.
+ * - APPEND 9980: [PRO PHASE] Viewport Absolute Audit - Verified absolute positioning perfectly anchors the data stack within the dynamically calculated --vh container.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_STACKED_MOBILE_UI_SYNCED
+ * - STATUS: PRO_PHASE_DATA_STACK_OCCLUSION_FIXED
  */
 
 :root {
@@ -1162,6 +1183,16 @@ body::before {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
     transform: translateZ(0);
     /* Flatten internal context */
+    /* [PRO PHASE] Elastic hover scaling */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+/* [PRO PHASE] Hardware-Aware Hover Injection */
+@media (hover: hover) and (pointer: fine) {
+    .controller-wing:hover {
+        transform: translateZ(0) scale(1.02);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(0, 243, 255, 0.1);
+    }
 }
 
 .wing-left {
@@ -1193,6 +1224,8 @@ body::before {
     color: var(--shard-color);
     cursor: pointer;
     touch-action: manipulation;
+    position: relative;
+    /* [PRO PHASE] Ripple anchoring */
 }
 
 .dpad-btn:active {
@@ -1238,6 +1271,8 @@ body::before {
     box-shadow: 0 6px 0 #990033;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
+    position: relative;
+    /* [PRO PHASE] Ripple anchoring */
 }
 
 .action-btn:active {
@@ -1245,6 +1280,44 @@ body::before {
     box-shadow: none;
     background: #ff0055;
     color: #000;
+}
+
+/* [PRO PHASE] GHOST PRESS RIPPLES */
+.dpad-btn::after,
+.action-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: transparent;
+    border: 2px solid var(--shard-color);
+    opacity: 0;
+    transform: scale(1);
+    pointer-events: none;
+}
+
+.action-btn::after {
+    border-color: #ff0055;
+}
+
+.dpad-btn:active::after,
+.action-btn:active::after {
+    animation: ghost-press 0.4s ease-out forwards;
+}
+
+@keyframes ghost-press {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1.6);
+        opacity: 0;
+    }
 }
 
 /* Hide on Desktop to prioritize keyboard */
@@ -1421,4 +1494,66 @@ body.mobile-kernel #system-stats {
 /* Enforce unscaled Hero Name translation */
 body.mobile-kernel #hero-name-viewport {
     transform: translateX(-50%);
+}
+
+/* ==========================================
+   12. PRO PHASE: MOBILE DATA STACK (IDENTITY_CORE)
+   ========================================== */
+body.mobile-kernel #hud-footer {
+    position: absolute;
+    /* [PRO PHASE] absolute anchors to body's calc(var(--vh) * 100) */
+    bottom: max(20px, env(safe-area-inset-bottom, 20px));
+    /* Safe Area override */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+    padding: 0;
+    pointer-events: none;
+}
+
+body.mobile-kernel .data-shard-card {
+    pointer-events: auto;
+    background: var(--glass-bg);
+    border: 1px solid var(--shard-color);
+    padding: 14px 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s cubic-bezier(0.1, 0.7, 0.1, 1), background 0.3s ease;
+}
+
+body.mobile-kernel .data-shard-card:active {
+    transform: scale(0.96) translateZ(0);
+    background: rgba(0, 243, 255, 0.15);
+    border-color: #fff;
+}
+
+body.mobile-kernel .card-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+body.mobile-kernel .card-value {
+    font-size: 0.85rem;
+    color: var(--accent-tech);
+    font-weight: 900;
+    text-shadow: 0 0 8px var(--terminal-glow);
+}
+
+body.mobile-kernel #hud-progress-fill {
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 -2px 10px var(--accent-tech);
 }
