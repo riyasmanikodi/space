@@ -1,6 +1,17 @@
 im in pro phase, 
-ui/Terminal.js
+systems/AudioManager.js
 i upoaded the existing file, append the kraye log, omission log, culprit log, ripple effect,reality audit, master log, generate only code dont generate any summary. But before generating the code check existing code so you cant omit any existing previous lines of code and also keep an eye in the number of lines of code.
+
+systems/AudioManager.js
+ui/Terminal.js
+systems/KrayeGame.js
+systems/TerminalEngine.js
+main.js
+
+
+
+
+
 
 style.css
 systems/ResponsiveService.js

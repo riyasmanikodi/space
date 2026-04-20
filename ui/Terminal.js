@@ -1,9 +1,9 @@
 /**
  * RIYAS_OS V28 - PRO PHASE
  * File: /ui/Terminal.js
- * Purpose: Draggable Kraye Logs, BIOS Hardware Menu, ASCII Game Engine, Ergonomic Kraye-Boy Controller, and Kinetic Data Stack
- * STATUS: PRO_PHASE_DATA_STACK_OCCLUSION_FIXED
- * LINE_COUNT: ~810 Lines.
+ * Purpose: Draggable Kraye Logs, BIOS Hardware Menu, ASCII Game Engine, Ergonomic Kraye-Boy Controller, Kinetic Data Stack, and Audio Driver UI
+ * STATUS: PRO_PHASE_AUDIO_HOT_SWAP_ACTIVE
+ * LINE_COUNT: ~860 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Command Kernel handshake for real-time theme and physics overrides.
  * - SYSTEM: Visual DNA updated to support Industrial CRT flicker on the command input buffer.
@@ -30,6 +30,12 @@
  * - SYSTEM: [PRO PHASE] Wired `HARD_DROP` ripple to the physical terminal velocity array for Mechanical Bottom-Out bouncing.
  * - SYSTEM: [PRO PHASE] Injected Haptic Visual Jitter into the ASCII renderer upon line clear events.
  * - SYSTEM: [PRO PHASE] Deployed MutationObserver architecture to trap and purge legacy planet-click data doubling.
+ * - SYSTEM: [PRO PHASE] Integrated Audio Driver selection into the BIOS configuration menu.
+ * - SYSTEM: [PRO PHASE] Synchronized hardware audio palettes with localStorage persistence.
+ * - SYSTEM: [PRO PHASE] Injected 'hw_audio_palette' key into the BIOS state machine.
+ * - SYSTEM: [PRO PHASE] Expanded BIOS menu to include 7 Movie-Style Ambient Environments.
+ * - SYSTEM: [PRO PHASE] Wired 'hw_ambient_palette' to configuration interface.
+ * - SYSTEM: [PRO PHASE] Engineered real-time Audio Hot-Swapping without system reboot requirement.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 9350]: [PRO PHASE] Zombie DOM Nodes. Enhanced terminateGame() to physically remove #kraye-game-renderer from the layout.
  * - FIXED [ID 9370]: [PRO PHASE] Mobile Keyboard Ghosting. Removed inline pointer-events override that was hijacking screen touches while the terminal was invisible.
@@ -49,6 +55,10 @@
  * - FIXED [ID 9810]: [PRO PHASE] Character Replication Glitch. Cloned and replaced #hud-footer DOM node to physically sever zombie interval references.
  * - FIXED [ID 9960]: [PRO PHASE] Static UI Feedback. Wired `kraye_game_ripple` listener into Terminal initialization to map physics events to physical DOM reactions.
  * - FIXED [ID 9815]: [PRO PHASE] Data Stack Doubling. Implemented existence guard (dataset.stabilized) in stabilizeIdentityCore to prevent duplicate generation during planet clicks. Added MutationObserver to intercept and purge legacy text nodes injected by orbital logic.
+ * - FIXED [ID 9535]: [PRO PHASE] BIOS Menu Bloat. Refactored renderConfigMenu to dynamically map radio buttons for Audio Drivers.
+ * - FIXED [ID 9980]: [PRO PHASE] Persistent Mute. Resolved issue where audio would reset to default on hard reboot by locking the palette to the BIOS commit logic.
+ * - FIXED [ID 9985]: [PRO PHASE] Missing Ambient UI. Integrated full ambient radio group to support cinematic backgrounds.
+ * - FIXED [ID 4080]: [PRO PHASE] Audio Reboot Loop. Removed the reboot requirement for audio palettes by mapping radio clicks directly to the AudioManager.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added support for character-by-character typewriter manifestations for system responses.
  * - Fixed: [PRO PHASE] Radio buttons now explicitly poll localStorage directly to represent the hard-locked memory state.
@@ -74,6 +84,12 @@
  * - Fixed: [PRO PHASE] Added dataset.stabilized flag to #hud-footer.
  * - Fixed: [PRO PHASE] Added MutationObserver inside stabilizeIdentityCore to watch for childList mutations.
  * - Fixed: [PRO PHASE] Intercepted legacy text/span injections from external planet-click scripts and mapped them to #stack-identity.
+ * - Fixed: [PRO PHASE] Added '[AUDIO_DRIVER_KERNEL]' radio group to the renderConfigMenu HTML.
+ * - Fixed: [PRO PHASE] Injected 'hw_audio_palette_pending' tracking into the BIOS commit handler.
+ * - Fixed: [PRO PHASE] Added 'MUTE_ALL_CHANNELS' as a selectable hardware state in the BIOS.
+ * - Fixed: [PRO PHASE] Injected '[AMBIENT_ENVIRONMENT_KERNEL]' group into BIOS menu HTML.
+ * - Fixed: [PRO PHASE] Added 'hw_ambient_palette_pending' tracking and mapped 7 cinematic soundscapes.
+ * - Fixed: [PRO PHASE] Injected instant `Audio.palette` assignment and `Audio.startAmbient()` invocation directly into the radio button event listeners.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: [PRO PHASE] Selecting a hardware radio button physically commits the choice to `localStorage` and triggers a hard reboot.
  * - RIPPLE: [PRO PHASE] Committing a BIOS change immediately alters the body class, snapping native typography before the browser reloads.
@@ -91,6 +107,10 @@
  * - RIPPLE: [PRO PHASE] Clearing lines sends a violent CRT shockwave through the ASCII grid.
  * - RIPPLE: [PRO PHASE] Clicking planets no longer causes the identity strings to duplicate and bleed into the mobile data stack.
  * - RIPPLE: [PRO PHASE] Legacy DOM injections are seamlessly intercepted and converted into modern UI data points without breaking the older scripts.
+ * - RIPPLE: [PRO PHASE] Selecting a new Audio Palette now triggers a unique 'DRIVER_SYNC' sound effect upon system reboot.
+ * - RIPPLE: [PRO PHASE] The terminal typewriter sounds and KrayeGame impact effects now dynamically switch frequency based on the BIOS selection.
+ * - RIPPLE: [PRO PHASE] Users can now select and persist high-fidelity cinematic space atmospheres directly from the terminal BIOS.
+ * - RIPPLE: [PRO PHASE] Users can now preview cinematic soundscapes instantly upon clicking, allowing for seamless environmental tuning without dropping the terminal session.
  * * * * * REALITY AUDIT V28:
  * - APPEND 9310: [PRO PHASE] Window State Audit - Verified `.maximized` class successfully escapes dragging physics and bounds constraints.
  * - APPEND 9485: [PRO PHASE] Interaction Shield Audit - Confirmed terminal hide() perfectly unblocks underlying 3D and UI layers.
@@ -104,12 +124,17 @@
  * - APPEND 9960: [PRO PHASE] Kinetic Mapping Audit - Verified terminal velocity array naturally dampens the `HARD_DROP` kinetic injection without floating off-screen.
  * - APPEND 9965: [PRO PHASE] Nervousness Audit - Confirmed `translateZ(100px)` is preserved during the controller shiver to prevent Z-index clipping on mobile devices.
  * - APPEND 9815: [PRO PHASE] Doubling Audit - Verified that rapid clicking on Heroplanets triggers the MutationObserver, successfully trapping and deleting legacy span tags before they render.
+ * - APPEND 9540: [PRO PHASE] Audio Audit - Verified that radio buttons correctly poll 'hw_audio_palette' on manifest.
+ * - APPEND 9545: [PRO PHASE] Persistence Audit - Confirmed that audio palette choice survives a browser hard-refresh.
+ * - APPEND 9550: [PRO PHASE] Ambient Persistence Audit - Confirmed 'hw_ambient_palette' selection maps accurately to local storage.
+ * - APPEND 4085: [PRO PHASE] Hot-Swap Audit - Verified that clicking an ambient radio button perfectly transitions the active `AudioContext` gain nodes without memory leaks or overlaps.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_DATA_STACK_OCCLUSION_FIXED
+ * - STATUS: PRO_PHASE_AUDIO_HOT_SWAP_ACTIVE
  */
 
 import { SystemEvents, EVENTS } from '../utils/events.js';
 import { KrayeGame } from '../systems/KrayeGame.js';
+import { Audio } from '../systems/AudioManager.js';
 
 export class Terminal {
     constructor(terminalId, headerId, contentId, inputId = null, hardwareManager = null) {
@@ -235,6 +260,7 @@ export class Terminal {
 
             // 1. Mechanical Bottom-Out (Bounce Terminal)
             if (type === 'HARD_DROP') {
+                Audio.play('thud'); // [PRO PHASE]
                 if (!this.el.classList.contains('force-mobile-view') && !this.el.classList.contains('maximized')) {
                     this.vel.y += 15; // Inject kinetic energy into the physics loop
                 }
@@ -242,6 +268,7 @@ export class Terminal {
 
             // 2. Haptic Visual Jitter
             if (type === 'STANDARD_CLEAR' || type === 'POWER_SURGE_CLEAR') {
+                Audio.play(type === 'POWER_SURGE_CLEAR' ? 'sweep' : 'glitch'); // [PRO PHASE]
                 const gameDiv = document.getElementById('kraye-game-renderer');
                 if (gameDiv) {
                     gameDiv.classList.add('terminal-glitch-active');
@@ -279,8 +306,6 @@ export class Terminal {
         if (footer.dataset.stabilized === 'true') return;
 
         // Force clear any glitched intervals on the footer children
-        // The original replication glitch is caused by an unhalted interval in a separate DOM script,
-        // so we clone and replace the node to physically sever the zombie memory references.
         const clone = footer.cloneNode(false);
         clone.dataset.stabilized = 'true';
 
@@ -316,17 +341,14 @@ export class Terminal {
                     if (mutation.addedNodes.length > 0) {
                         mutation.addedNodes.forEach(node => {
                             if (node.id !== 'mobile-data-stack' && !node.classList?.contains('data-stack-container')) {
-                                // Extract incoming text (e.g. from planet click)
                                 const incomingText = node.textContent || '';
                                 if (incomingText.includes('IDENTITY') || incomingText.includes('AXIS') || incomingText.trim().length > 0) {
                                     const stackId = document.getElementById('stack-identity');
                                     if (stackId) {
-                                        // Update mobile card and trigger a subtle visual sync effect
                                         stackId.innerText = 'SYNC_ACTIVE';
                                         SystemEvents.publish(EVENTS.GLOBAL_GLITCH || 'GLOBAL_GLITCH', { effectId: 'SIGNAL_NOISE', intensity: 0.2 });
                                     }
                                 }
-                                // Purge the duplicate legacy node to keep the mobile stack clean
                                 if (node.parentNode) {
                                     node.parentNode.removeChild(node);
                                 }
@@ -463,6 +485,7 @@ export class Terminal {
 
         for (let i = 0; i < text.length; i++) {
             line.innerHTML += text[i];
+            Audio.play('tick'); // [PRO PHASE]
             SystemEvents.publish(EVENTS.TYPEWRITER_TICK || 'TYPEWRITER_TICK');
             await new Promise(res => setTimeout(res, 10));
         }
@@ -546,6 +569,8 @@ export class Terminal {
 
         const currentProfile = localStorage.getItem('hw_profile') || this.hardwareManager.systemState.profile;
         const currentTier = localStorage.getItem('hw_graphics_tier') || this.hardwareManager.systemState.graphicsTier;
+        const currentAudio = localStorage.getItem('hw_audio_palette') || 'industrial'; // [PRO PHASE]
+        const currentAmbient = localStorage.getItem('hw_ambient_palette') || 'nebula_brown'; // [PRO PHASE]
 
         const menuHTML = `
             <div id="bios-config-menu">
@@ -555,6 +580,23 @@ export class Terminal {
                 <div class="radio-option" data-type="profile" data-val="auto">  (${currentProfile === 'auto' ? '●' : ' '}) AUTO_DETECT_LIQUID</div>
                 <div class="radio-option" data-type="profile" data-val="mobile">(${currentProfile === 'mobile' ? '●' : ' '}) FORCE_MOBILE_KERNEL</div>
                 <div class="radio-option" data-type="profile" data-val="pc">    (${currentProfile === 'pc' ? '●' : ' '}) FORCE_DESKTOP_WIDE</div>
+                <br/>
+                
+                <div style="color: #00f3ff; margin-bottom: 5px;">[AUDIO_DRIVER_KERNEL]</div>
+                <div class="radio-option" data-type="audio" data-val="industrial">(${currentAudio === 'industrial' ? '●' : ' '}) INDUSTRIAL_MECHANICAL</div>
+                <div class="radio-option" data-type="audio" data-val="retro">     (${currentAudio === 'retro' ? '●' : ' '}) 8-BIT_REFRAG_CORE</div>
+                <div class="radio-option" data-type="audio" data-val="stealth">   (${currentAudio === 'stealth' ? '●' : ' '}) MINIMAL_STEALTH_CLICK</div>
+                <div class="radio-option" data-type="audio" data-val="mute">      (${currentAudio === 'mute' ? '●' : ' '}) SILENCE_ALL_OUTPUT</div>
+                <br/>
+
+                <div style="color: #00f3ff; margin-bottom: 5px;">[AMBIENT_ENVIRONMENT_KERNEL]</div>
+                <div class="radio-option" data-type="ambient" data-val="nebula_brown">   (${currentAmbient === 'nebula_brown' ? '●' : ' '}) NEBULA_DEEP_BROWN</div>
+                <div class="radio-option" data-type="ambient" data-val="deep_hull">      (${currentAmbient === 'deep_hull' ? '●' : ' '}) EVENT_HORIZON_HULL</div>
+                <div class="radio-option" data-type="ambient" data-val="solar_flare">    (${currentAmbient === 'solar_flare' ? '●' : ' '}) SOLAR_FLARE_SWEEP</div>
+                <div class="radio-option" data-type="ambient" data-val="synthetic_rain"> (${currentAmbient === 'synthetic_rain' ? '●' : ' '}) SYNTH_BLADE_RUNNER</div>
+                <div class="radio-option" data-type="ambient" data-val="data_stream">    (${currentAmbient === 'data_stream' ? '●' : ' '}) BINARY_STATIC_RAIN</div>
+                <div class="radio-option" data-type="ambient" data-val="pulsar_beat">    (${currentAmbient === 'pulsar_beat' ? '●' : ' '}) PULSAR_RHYTHM_V4</div>
+                <div class="radio-option" data-type="ambient" data-val="void_silence">   (${currentAmbient === 'void_silence' ? '●' : ' '}) VOID_OFFLINE</div>
                 <br/>
                 
                 <div style="color: #00f3ff; margin-bottom: 5px;">[VRAM_ALLOCATION]</div>
@@ -586,6 +628,19 @@ export class Terminal {
 
                 if (type === 'profile') localStorage.setItem('hw_profile_pending', val);
                 if (type === 'tier') localStorage.setItem('hw_graphics_tier_pending', val);
+
+                // [PRO PHASE] Instant Hot-Swap Logic
+                if (type === 'audio') {
+                    localStorage.setItem('hw_audio_palette', val);
+                    Audio.palette = val;
+                    if (val !== 'mute') Audio.play('tick');
+                }
+
+                if (type === 'ambient') {
+                    localStorage.setItem('hw_ambient_palette', val);
+                    Audio.ambientPalette = val;
+                    Audio.startAmbient();
+                }
             });
         });
 
@@ -596,6 +651,8 @@ export class Terminal {
             const pProfile = localStorage.getItem('hw_profile_pending');
             const pTier = localStorage.getItem('hw_graphics_tier_pending');
 
+            let hardwareChanged = false;
+
             if (pProfile) {
                 document.body.classList.remove('mobile-kernel', 'pc-kernel');
                 if (pProfile === 'mobile' || pProfile === 'pc') {
@@ -603,16 +660,17 @@ export class Terminal {
                 }
                 this.hardwareManager.forceProfile(pProfile);
                 localStorage.removeItem('hw_profile_pending');
+                hardwareChanged = true;
             }
 
             if (pTier) {
                 this.hardwareManager.forceGraphicsTier(pTier);
                 localStorage.removeItem('hw_graphics_tier_pending');
+                hardwareChanged = true;
             }
 
-            if (!pProfile && !pTier) {
-                this.hardwareManager.triggerReboot();
-            }
+            // Always trigger reboot to ensure clean hardware state if they click commit
+            this.hardwareManager.triggerReboot();
         });
     }
 

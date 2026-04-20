@@ -1,9 +1,9 @@
 /**
  * RIYAS_OS V28 - PRO PHASE
  * File: /systems/KrayeGame.js
- * Purpose: ASCII Defragmenter Kernel, SLA Integrity Monitor, BBL Neon Synchronization
- * STATUS: PRO_PHASE_CREATIVE_ANIMATIONS_INJECTED
- * LINE_COUNT: ~405 Lines.
+ * Purpose: ASCII Defragmenter Kernel, SLA Integrity Monitor, BBL Neon Synchronization, and Cinematic Modulation
+ * STATUS: PRO_PHASE_EXPANDED_CINEMATIC_KERNELS
+ * LINE_COUNT: ~435 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Bootstrapped KrayeGame matrix engine for terminal-based defragmentation.
  * - SYSTEM: Integrated cryptographic 7-Bag randomizer for fair Tetromino distribution.
@@ -21,6 +21,8 @@
  * - SYSTEM: [PRO PHASE] Refined logical matrix width (cols: 11) to harmonize with dynamic UI border constraints.
  * - SYSTEM: [PRO PHASE] Explicitly defined `pause()` and `resume()` lifecycle methods for Global Keyboard Handshake compatibility.
  * - SYSTEM: [PRO PHASE] Integrated 'KINETIC_SHIVER' event dispatcher for high-capacity danger states.
+ * - SYSTEM: [PRO PHASE] Integrated Audio Kernel for direct haptic sound dispatch.
+ * - SYSTEM: [PRO PHASE] Integrated dynamic ambient audio modulation tied to SLA Integrity.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 8200]: Wall Kick Clipping. Bounded rotation matrices to strictly deny overlapping bounds.
  * - FIXED [ID 8205]: Ghost Overlap. Hardened Y-axis collision detection during hard drops.
@@ -35,6 +37,8 @@
  * - FIXED [ID 9750]: [PRO PHASE] Asymmetric Spacing. Calibrated `cols: 11` to ensure the generated block matrix centers perfectly within the dynamic borders on restricted mobile viewports.
  * - FIXED [ID 9860]: [PRO PHASE] Execution Bleed. Injected explicit `isPaused` state handling into physics loop and input handlers to prevent ghost-inputs while terminal is hidden on PC.
  * - FIXED [ID 9950]: [PRO PHASE] Static Danger States. Injected real-time matrix height evaluation to trigger UI nervousness when SLA/Grid capacity reaches critical thresholds.
+ * - FIXED [ID 9990]: [PRO PHASE] Silent Mechanics. Injected Audio.play() calls to establish acoustic feedback for grid operations.
+ * - FIXED [ID 9995]: [PRO PHASE] Static Ambience. Wired SLA decay to Audio.ambientGainNode to dynamically build acoustic tension.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added `getRenderState()` to feed the ASCII string builder in Terminal.js.
  * - Fixed: Appended `applyRippleEffect()` to broadcast kinetic surges to `HeroEffects.js`.
@@ -51,6 +55,8 @@
  * - Fixed: [PRO PHASE] Initialized `isPaused: false` in core state constructor to sync with Terminal hide/show methods.
  * - Fixed: [PRO PHASE] `resume()` now resets `lastTick` to `performance.now()` to prevent delta-time spikes.
  * - Fixed: [PRO PHASE] Added capacity check in `_lockPiece` to dispatch 'KINETIC_SHIVER' when grid exceeds 80% fill.
+ * - Fixed: [PRO PHASE] Imported AudioManager and injected Audio.play('tick') into rotate and move bounds.
+ * - Fixed: [PRO PHASE] Created `_modulateAmbientState()` to bridge matrix difficulty with cinematic environment volume.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: 4-Line defrags (Tetris) now trigger a massive `POWER_SURGE_CLEAR` event, vibrating the physical DOM.
  * - RIPPLE: Rotating pieces emits a subtle `PIECE_ROTATE` visual shudder on the terminal glass.
@@ -64,6 +70,8 @@
  * - RIPPLE: [PRO PHASE] The ASCII matrix now aligns flawlessly within its procedural border, maintaining perfect true-center on mobile without horizontal scrolling.
  * - RIPPLE: [PRO PHASE] The core matrix engine now perfectly synchronizes its internal physics tick with the terminal's physical visibility state, preventing background piece-locking and global keyboard bleeding.
  * - RIPPLE: [PRO PHASE] The UI controller now nervously shivers when the Tetris grid is perilously close to overflowing.
+ * - RIPPLE: [PRO PHASE] Moving and rotating Tetris blocks now produces latency-free mechanical soundscapes synchronized with the BIOS audio palette.
+ * - RIPPLE: [PRO PHASE] As the defragmenter's SLA drops, the cinematic background rumble organically intensifies, increasing player tension.
  * * * * * REALITY AUDIT V28:
  * - APPEND 820: Matrix Bounds Audit - Verified pieces lock precisely within the new 14x24 grid constraints.
  * - APPEND 825: Memory Leak Audit - Confirmed grid line clears use `splice` and `unshift` securely without expanding array length.
@@ -77,11 +85,14 @@
  * - APPEND 9750: [PRO PHASE] Logical Centering Audit - Verified 11-column logic pairs with the dynamic string builder to create an optically balanced UI.
  * - APPEND 9860: [PRO PHASE] Lifecycle Audit - Verified `resume()` halts instantaneous multi-block gravity drops upon window restoration.
  * - APPEND 9955: [PRO PHASE] Danger Evaluation Audit - Confirmed grid evaluation safely triggers the ripple event without blocking the matrix locking loop.
+ * - APPEND 9990: [PRO PHASE] Acoustic Sync Audit - Verified 'tick' audio events fire accurately on non-colliding block movements.
+ * - APPEND 9995: [PRO PHASE] Acoustic Tension Audit - Verified background gain ramps smoothly from 0.2 up to 0.55 without clipping as SLA approaches 0%.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_CREATIVE_ANIMATIONS_INJECTED
+ * - STATUS: PRO_PHASE_EXPANDED_CINEMATIC_KERNELS
  */
 
 import { SystemEvents } from '../utils/events.js';
+import { Audio } from '../systems/AudioManager.js';
 
 export class KrayeGame {
     constructor(terminalRef) {
@@ -316,6 +327,7 @@ export class KrayeGame {
             this.state.activePiece.y = newY;
 
             if (dx !== 0) {
+                Audio.play('tick'); // [PRO PHASE]
                 this.applyRippleEffect('GLITCH_SLIDE');
                 this._updateGhostPiece();
             }
@@ -338,6 +350,7 @@ export class KrayeGame {
         if (!this._checkCollision(this.state.activePiece.x + offset, this.state.activePiece.y, rotated)) {
             this.state.activePiece.x += offset;
             this.state.activePiece.matrix = rotated;
+            Audio.play('tick'); // [PRO PHASE]
             this.applyRippleEffect('PIECE_ROTATE');
             this._updateGhostPiece();
         } else {
@@ -435,6 +448,27 @@ export class KrayeGame {
             }
         } else {
             this.state.slaIntegrity = Math.max(0, (this.state.slaIntegrity - 0.001).toFixed(3));
+        }
+
+        // [PRO PHASE] Modulate background tension based on new SLA
+        this._modulateAmbientState();
+    }
+
+    /**
+     * PRO PHASE: Cinematic Modulation
+     * Dynamically shifts the volume of the continuous ambient background loop 
+     * based on the current SLA Integrity value.
+     */
+    _modulateAmbientState() {
+        if (Audio.ambientGainNode && Audio.context) {
+            // As SLA drops from 100 to 0, tension goes from 0.0 to 1.0
+            const tension = 1.0 - (this.state.slaIntegrity / 100);
+
+            // Base ambient volume is 0.2. At 0% SLA, it peaks at 0.55
+            const targetVolume = 0.2 + (tension * 0.35);
+
+            // Smooth linear ramp prevents audio popping during fast piece-locks
+            Audio.ambientGainNode.gain.linearRampToValueAtTime(targetVolume, Audio.context.currentTime + 0.5);
         }
     }
 

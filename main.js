@@ -1,9 +1,9 @@
 /**
  * RIYAS_OS V28 - PRO PHASE
  * File: /main.js
- * Purpose: System Ignition, Kernel Handshake, and 8bit.ai Manifesto Orchestration
- * STATUS: PRO_PHASE_UNIFIED_AUTHORITY_ACTIVE
- * LINE_COUNT: ~255 Lines.
+ * Purpose: System Ignition, Kernel Handshake, 8bit.ai Manifesto Orchestration, and Audio Context Initialization
+ * STATUS: PRO_PHASE_AUDIO_PALETTE_SYNCED
+ * LINE_COUNT: ~265 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Global ignition kernel finalized for PRO PHASE deployment.
  * - SYSTEM: Integrated DOMContentLoaded listener for synchronized WebGL context mounting.
@@ -17,6 +17,7 @@
  * - SYSTEM: [PRO PHASE] Verified Pre-Fetch Handshake instantiation during DOMContentLoaded.
  * - SYSTEM: [PRO PHASE] Realigned kernel reveal to support Stealth Construction architecture.
  * - SYSTEM: [PRO PHASE] Resolved Scene Hijacking by synchronizing CoreScene authority across Manifesto and Logics engines.
+ * - SYSTEM: [PRO PHASE] Integrated Audio Driver Kernel initialization sequence.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 404]: Import Pathing. Added relative '/' to correctly target Logics.js.
  * - FIXED [ID 1409]: Handshake Deadlock. Single entry point enforced.
@@ -29,6 +30,7 @@
  * - FIXED [ID 4510]: [PRO PHASE] Late Loading Stutter. Verified CoreLogics singleton instantiation triggers background cache warming without breaking Phase Separation.
  * - FIXED [ID 4520]: [PRO PHASE] Reveal Delay. Optimized onEnterCallback to trigger the Stealth Build reveal, ensuring zero-lag system entry.
  * - FIXED [ID 4550]: [PRO PHASE] 8bit.ai Erasure. Verified initialization order to ensure CoreScene is established before the Logics constructor adopts it.
+ * - FIXED [ID 4600]: [PRO PHASE] Audio Context Block. Injected Audio.init() into the bootstrap sequence to satisfy browser autoplay policies via user interaction.
  * * * * * OMISSION LOG V28:
  * - Fixed: [PRO PHASE] Injected CoreManifesto.init handshake with CoreScene to ensure background layers mount correctly.
  * - Fixed: [PRO PHASE] Moved RIYAS_OS_READY signal to the enter callback to prevent secondary system early-ignition.
@@ -38,6 +40,7 @@
  * - Fixed: [PRO PHASE] Confirmed CoreLogics import executes the pre-fetch constructor gracefully before the OS ignition.
  * - Fixed: [PRO PHASE] Optimized ignition handshake to strictly reveal the pre-constructed stealth universe.
  * - Fixed: [PRO PHASE] Realigned CoreScene handoff to support Unified Authority architecture.
+ * - Fixed: [PRO PHASE] Imported Audio from AudioManager and invoked Audio.init() during kernel startup.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The 8bit.ai Warp Kernel now renders with 100% GPU priority during the greeting phase.
  * - RIPPLE: Planets and galaxies now "blink-in" precisely as the greeting overlay fades, creating a seamless entry.
@@ -47,6 +50,7 @@
  * - RIPPLE: [PRO PHASE] Background caching operates silently during the 8bit.ai manifesto greeting.
  * - RIPPLE: [PRO PHASE] System entry is instantaneous as the world is pre-constructed behind the 8bit.ai curtain.
  * - RIPPLE: [PRO PHASE] The 8bit.ai Manifesto animation now plays uninterrupted for its full duration during the greeting window.
+ * - RIPPLE: [PRO PHASE] The entire system is now pre-wired for haptic acoustic feedback upon the first 'ENTER SYSTEM' interaction.
  * * * * * REALITY AUDIT V28:
  * - APPEND 19: Boot Context Override - Entry point verified to bypass legacy loading screens.
  * - APPEND 4340: [PRO PHASE] Manifesto Audit - Verified CoreManifesto mounts successfully to the backgroundGroup.
@@ -57,8 +61,9 @@
  * - APPEND 4510: [PRO PHASE] Pre-Fetch Audit - Confirmed main.js safely bridges the singleton without forcing early WebGL mounts.
  * - APPEND 4520: [PRO PHASE] Stealth Construction Audit - Verified that RIYAS_SYSTEM.init() performs a pure visibility reveal during the entry handoff.
  * - APPEND 4550: [PRO PHASE] Unified Authority Audit - Verified CoreScene is shared between ManifestoEngine and LogicsEngine to prevent premature deletion.
+ * - APPEND 4605: [PRO PHASE] Audio Handshake Audit - Confirmed Audio.init() successfully registers the interaction listener prior to planetary OS ignition.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_UNIFIED_AUTHORITY_ACTIVE
+ * - STATUS: PRO_PHASE_AUDIO_PALETTE_SYNCED
  */
 
 import { CoreLogics } from './Logics.js';
@@ -67,7 +72,7 @@ import { CoreManifesto } from './effects/ManifestoEngine.js';
 import { CoreScene } from './core/Scene.js';
 import { CoreCamera } from './core/Camera.js';
 import { Greeting } from './ui/Greeting.js';
-import { AudioEngine } from './systems/audio.js';
+import { Audio } from './systems/AudioManager.js';
 
 /**
  * 1. CORE DOM MOUNTING
@@ -77,7 +82,13 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log(":: SYSTEM_IGNITION_SEQUENCE_STARTING");
 
     /**
-     * 2. KERNEL SINGLETON ASSIGNMENT (PRO PHASE)
+     * 2. AUDIO KERNEL IGNITION (PRO PHASE)
+     * Registers the AudioContext to await the user's first interaction.
+     */
+    Audio.init();
+
+    /**
+     * 3. KERNEL SINGLETON ASSIGNMENT (PRO PHASE)
      * FIXED [ID 3385]: Immediate assignment to prevent reference race conditions.
      * PRE-FETCH: This assignment evaluates CoreLogics, triggering the background asset preload.
      * UNIFIED AUTHORITY: Logics.js now shares CoreScene with ManifestoEngine.
@@ -85,13 +96,13 @@ window.addEventListener('DOMContentLoaded', () => {
     window.RIYAS_SYSTEM = CoreLogics;
 
     /**
-     * 3. TEMPORAL HEARTBEAT INITIALIZATION
+     * 4. TEMPORAL HEARTBEAT INITIALIZATION
      * Starts the central CoreLoop to drive physics and the ManifestoEngine.
      */
     CoreLoop.start();
 
     /**
-     * 4. BACKGROUND MANIFESTO IGNITION (8bit.ai VISUALS)
+     * 5. BACKGROUND MANIFESTO IGNITION (8bit.ai VISUALS)
      * PHASE: GREETING_ONLY_RENDER
      * Note: systemActive remains false here to prevent planetary OS from painting over 
      * the manifesto streaks during the boot sequence.
@@ -101,7 +112,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * 5. UI BRIDGE RESTORATION (PRO PHASE)
+     * 6. UI BRIDGE RESTORATION (PRO PHASE)
      * Orchestrates the transition from background manifesto to planetary OS.
      */
     const greeting = new Greeting(null, () => {
