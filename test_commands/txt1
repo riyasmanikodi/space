@@ -1,6 +1,84 @@
 im in pro phase, 
-systems/GeminiTerminalBridge.js
+systems/DifyBridge.js
 i upoaded the existing file, append the kraye log, omission log, culprit log, ripple effect,reality audit, master log, generate only code dont generate any summary. But before generating the code check existing code so you cant omit any existing previous lines of code and also keep an eye in the number of lines of code.
+
+
+CHECK FOR THE SITE ERROR
+
+
+utils/logics.js
+systems/DifyBridge.js
+utils/DifyParser.js
+ui/GeminiInterface.js
+utils/events.js
+
+
+main.js
+
+index.html
+
+main.js
+utils/DifyParser.js
+
+systems/GeminiTerminalBridge.js
+data/DifyConfig.js
+
+
+data/DifyConfig.js
+systems/DifyBridge.js
+data/GeminiMemory.js
+
+ui/GeminiInterface.js
+systems/GeminiTerminalBridge.js
+data/constants.js
+main.js
+
+data/DifyConfig.js
+data/GeminiMemory.js
+systems/DifyBridge.js
+
+utils/DifyParser.js
+utils/GeminiFormatter.js
+
+ui/GeminiInterface.js
+
+
+
+
+
+Logics.js
+
+
+data/GeminiConfig.js
+systems/GeminiIntelligence.js
+data/GeminiMemory.js
+
+
+
+
+data/GeminiMemory.js
+systems/GeminiIntelligence.js
+
+data/GeminiConfig.js
+systems/GeminiIntelligence.js
+data/GeminiMemory.js
+systems/GeminiTerminalBridge.js
+
+main.js
+
+
+systems/AudioManager.js
+
+
+
+systems/GeminiTerminalBridge.js
+utils/logics.js
+systems/GeminiIntelligence.js
+main.js
+data/GeminiMemory.js
+data/constants.js
+ui/GeminiInterface.js
+systems/AudioManager.js
 
 
 
@@ -21,14 +99,6 @@ ui/Terminal.js
 systems/KrayeGame.js
 systems/TerminalEngine.js
 systems/GeminiTerminalBridge.js
-
-
-
-
-
-
-
-
 
 
 data/GeminiConfig.js
@@ -90,7 +160,7 @@ ui/Terminal.js
 
 
 
-Logics.js
+
 
 
 
