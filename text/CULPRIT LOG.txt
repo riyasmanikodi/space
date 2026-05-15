@@ -1,0 +1,64 @@
+### **/// CULPRIT LOG: MASTER REGISTRY**
+
+**1. Root Brain (`Logics.js`)**
+
+* **FIXED [ID 1401]:** Right-Side Zoom Offset. Removed competing camera rotation logic. The camera now lerps straight to (0, 5, 75) while the universe snaps the planet to the front.
+* **FIXED [ID 1402]:** Viewport Blocking. Purged `#os-terminal` DOM manipulation in favor of the new Hologram Projection matrix.
+* **FIXED [ID 1404]:** Shattered Handshake. Injected the Hologram Builder into `activateSector` to dynamically construct DOM shards from `profile.js` data.
+
+**2. State Machine (`utils/logics.js`)**
+
+* **FIXED [ID 501]:** Randomization Bias. Implemented a weighted matrix for sector-appropriate anomalies.
+* **FIXED [ID 1401]:** Rotation Conflict. Enforced `isZooming` lock to stop manual drag from interfering with cinematic centering.
+
+**3. Central Nervous System (`utils/events.js`)**
+
+* **FIXED [ID 401]:** Event Collision. Strictly defined `GLOBAL_GLITCH` and `TOGGLE_HOLOGRAM` to prevent logic overlapping with sector changes.
+* **FIXED [ID 303]:** Memory Leakage. Hardened the unsubscribe return in the subscribe method to ensure closure-based cleanup.
+
+**4. Global DNA (`data/constants.js`)**
+
+* **FIXED [ID 05]:** Angle Offset Jitter. Enforced strict radians for sector distribution.
+* **FIXED [ID 202]:** Color Space Delta. Swapped legacy hex strings for numeric values.
+* **FIXED [ID 901]:** Monotonous Glitching. Injected isolated effect IDs to support weighted randomization across sectors.
+* **FIXED [ID 1403]:** Magic Numbers. Abstracted hardcoded zoom vectors and UI padding into global constants.
+
+**5. UI Layer & Hologram Matrix (`style.css`)**
+
+* **FIXED [ID 305]:** Z-Index Conflict. Confined `#hero-name-viewport` below scanlines (z-index: 5) to maintain screen depth.
+* **FIXED [ID 12]:** DOM Bloat. Utilized CSS pseudo-elements (`::before`/`::after`) with `data-text` attributes for the 3-layer glitch.
+* **FIXED [ID 1402]:** Viewport Blocking. Purged 2D `#os-terminal` styles in favor of the new Hologram Projection classes.
+* **FIXED [ID 1405]:** Hidden State Override. Evaluated `.hidden` class specificity to ensure it doesn't conflict with inline 3D projection matrices during fade-outs.
+
+**6. Identity Engine (`effects/HeroEffects.js`)**
+
+* **FIXED [ID 305]:** Layer Desync. Enforced hardware-accelerated stacking (z-index) to prevent text clipping behind the CRT scanlines.
+* **FIXED [ID 12]:** DOM Bloat. Uses a single container with pseudo-elements (`:before`/`:after`) for glitch layers to save memory.
+* **FIXED [ID 701]:** Static Triggers. Replaced hardcoded interval calls with a flexible EventBus subscription to reduce main-thread overhead.
+* **FIXED [ID 902]:** Monotonous Glitching. Updated `triggerGlitch` to map specific anomaly IDs to distinct CSS classes (`hero-glitch-chromatic`, `hero-glitch-flicker`).
+
+**7. Identity Data (`data/profile.js`)**
+
+* **FIXED [ID 01]:** Identity Desync. Enforced strict constant for `PROFILE.name` to prevent naming drift in `HeroEffects`.
+* **FIXED [ID 09]:** Avatar Stall. Implemented Zero-Asset fallback to prevent engine hang on missing local JPGs.
+
+**8. Acoustic Synthesizer (`systems/audio.js`)**
+
+* **FIXED [ID 1101]:** Audio Stutter. Increased voice limiter thresholds for high-velocity interaction bursts.
+
+**9. Post-Processing Stack (`systems/vfx.js`)**
+
+* **FIXED [ID 1001]:** Render Pass Desync. Enforced strict composer order to prevent chromatic aberration bleed onto the starfield.
+
+**10. Material Hardening (`loaders/AssetLoader.js`)**
+
+* **FIXED [ID 601]:** Earth Structure Ghosting. Increased roughness to 0.6 and lowered metalness to 0.4 to blur reflections of the background `stars.webp`.
+
+**11. Celestial Logic (`world/Planet.js`)**
+
+* **FIXED [ID 1301]:** Disposal Overlap. Safe-check for pooled displacement maps implemented to prevent premature GPU buffer purging.
+* **FIXED [ID 402]:** LOD Pop-in. Adjusted interpolation thresholds to smooth the transition between high-poly and wireframe states.
+
+---
+
+Are you ready for me to extract the OMISSION LOG or REALITY AUDIT next to complete your system restoration documents?

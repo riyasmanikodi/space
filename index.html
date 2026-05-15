@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#050508">
+
+    <meta name="HandheldFriendly" content="true">
+
+    <title>RIYAS_OS | V28 Industrial</title>
+
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://www.gstatic.com">
+
+    <link rel="icon"
+        href="data:;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==">
+
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./greeting.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+
+<body class="industrial-theme">
+
+    <canvas id="webgl-canvas"></canvas>
+
+    <div id="ui-layer" class="hidden">
+
+        <div id="hero-name-viewport"></div>
+
+        <div class="hud-top-right">
+            <div id="coordinates" class="hud-data">AXIS: 00.0° Y: 00.0</div>
+            <div class="hud-status">
+                <span class="status-dot"></span>
+                SYSTEM_STABLE
+            </div>
+        </div>
+
+        <div class="hud-bottom-center">
+            <div id="hud-sector-title">SECTOR // TRANSIT</div>
+            <div id="hud-progress-bar">
+                <div id="hud-progress-fill"></div>
+            </div>
+            <div class="hud-meta">
+                <span>ORBITAL_VELOCITY_SYNCED</span>
+            </div>
+        </div>
+
+        <div id="terminal-trigger" class="industrial-trigger">
+            <div class="trigger-frame">
+                <div class="trigger-scanlines"></div>
+                <div class="trigger-glow"></div>
+                <div class="trigger-glyph">>_</div>
+            </div>
+        </div>
+
+        <div id="terminal-window" class="terminal-window">
+            <div id="terminal-header" class="terminal-header">
+                <span>RIYAS_OS // SYSTEM_TERMINAL</span>
+                <span class="terminal-close">×</span>
+            </div>
+            <div id="terminal-content" class="terminal-content"></div>
+
+            <div id="terminal-input-wrapper">
+                <span>></span>
+                <input type="text" id="terminal-input" spellcheck="false" autocomplete="off">
+            </div>
+        </div>
+
+        <div id="krayeboy-controller" class="controls-hidden">
+            <div class="controller-wing wing-left">
+                <div class="dpad-grid">
+                    <div class="dpad-btn btn-up" data-action="rotate">▲</div>
+                    <div class="dpad-btn btn-left" data-action="left">◀</div>
+                    <div class="dpad-btn btn-right" data-action="right">▶</div>
+                    <div class="dpad-btn btn-down" data-action="softdrop">▼</div>
+                </div>
+            </div>
+            <div class="controller-wing wing-right">
+                <div class="action-cluster">
+                    <div class="action-btn btn-b" data-action="rotate">B</div>
+                    <div class="action-btn btn-a" data-action="drop">A</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="interaction-hint" class="hint-overlay">
+            <div class="hint-icon">↔</div>
+            <div class="hint-text">DRAG TO ORBIT</div>
+        </div>
+
+    </div>
+
+    <div id="hologram-viewport" class="hidden"></div>
+
+    <div id="os-greeting" class="boot-overlay">
+        <div id="boot-glitch-layer"></div>
+        <div id="boot-scanlines"></div>
+        <div id="boot-grain"></div>
+
+        <div id="system-stats"></div>
+
+        <div id="boot-terminal" class="boot-terminal"></div>
+
+        <div id="tactical-insight-wrap">
+            <div id="tactical-insight-header">KERNEL_SHARD // INSIGHT</div>
+            <div id="tactical-insight"></div>
+        </div>
+
+        <div class="boot-footer">
+            <input type="color" id="ghost-color-picker" style="display: none;">
+            <button id="btn-enter-system" class="hidden">ENTER_SYSTEM</button>
+        </div>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+</body>
+
+</html>

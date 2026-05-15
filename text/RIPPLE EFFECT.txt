@@ -1,0 +1,67 @@
+Here is the detailed, full **RIPPLE EFFECT** compilation for the **RIYAS_OS V28 - PRO PHASE** architecture, extracted directly from the headers of your core system files. This log tracks how specific changes and dispatches cascade across multiple modules to create a synchronized, interactive ecosystem.
+
+### **/// RIPPLE EFFECT: MASTER REGISTRY**
+
+**1. Root Brain (`Logics.js`)**
+
+* **RIPPLE:** `activeClickedSector` now locks the camera directly center, allowing the new holographic shards to orbit the planet cleanly.
+* **RIPPLE:** Clicking empty space now explicitly clears the reality focus, dismisses holograms, and unlocks rotation.
+
+**2. State Machine (`utils/logics.js`)**
+
+* **RIPPLE:** `Logics.js` (Root) monitors the `isZooming` state to toggle cinematic camera lerps and interaction gates.
+* **RIPPLE:** `SystemEvents.publish(EVENTS.GLOBAL_GLITCH)` now includes contextual intensity for haptic scaling.
+
+**3. Central Nervous System (`utils/events.js`)**
+
+* **RIPPLE:** `HeroEffects`, `Audio`, and `VFX` modules now listen to these channels for randomized glitch execution.
+* **RIPPLE:** Holographic shards subscribe to this bus to sync their "Ignition" state with the 3D world.
+* **RIPPLE:** `Logics.js` publishes to this bus during high-velocity drag events, viewport thumps, or planet clicks.
+
+**4. Global DNA (`data/constants.js`)**
+
+* **RIPPLE:** All procedural world shards depend on these physics weights for kinetic fluidity.
+* **RIPPLE:** `utils/logics.js` consumes `GLITCH` constants to calculate weighted probabilities based on active sector gravity.
+* **RIPPLE:** `Logics.js` consumes `ZOOM_RADIUS` to ensure the camera never clips through the planet meshes.
+
+**5. UI Layer & Hologram Matrix (`style.css`)**
+
+* **RIPPLE:** The DOM shards now scale and opacity-fade based on `activeClickedSector` transitions via `Logics.js`.
+* **RIPPLE:** The `GLOBAL_GLITCH` event targets these specific keyframes to match the active sector's physics.
+
+**6. Kernel Entry / HTML Hooks (`index.html`)**
+
+* **RIPPLE:** `Logics.js` projects WebGL coordinates into the `#hologram-viewport` container for perfect alignment.
+* **RIPPLE:** `Logics.js` manages the `display:none` toggle on `#boot-screen` to release the main OS view.
+
+**7. Identity Engine (`effects/HeroEffects.js`)**
+
+* **RIPPLE:** `Logics.js` uses this to reveal the hero name only during the active Main Viewport phase.
+* **RIPPLE:** `Overlay.js` monitors this engine to ensure the HUD doesn't overlap the name on mobile fisheye views.
+* **RIPPLE:** SystemLogic dispatcher triggers randomized anomalies here every time the user thumps the viewport.
+
+**8. Identity Data (`data/profile.js`)**
+
+* **RIPPLE:** `HeroEffects.js` consumes `PROFILE.name` to build the 3-layer industrial text stack.
+* **RIPPLE:** `Logics.js` and `#hologram-viewport` consume this DNA to populate the 3D orbital HUD shards.
+
+**9. Acoustic Synthesizer (`systems/audio.js`)**
+
+* **RIPPLE:** This module now provides the tactile acoustic layer for every viewport thump, ensuring the void feels physical.
+
+**10. Post-Processing Stack (`systems/vfx.js`)**
+
+* **RIPPLE:** The post-processing stack now reacts in real-time to viewport thumps, ensuring the entire "lens" vibrates with the UI.
+
+**11. Material Hardening (`loaders/AssetLoader.js`)**
+
+* **RIPPLE:** Machinery like the ROVER and SATELLITE now maintain their local industrial color without reflecting the deep-space environment map structures.
+
+**12. Celestial Logic (`world/Planet.js`)**
+
+* **RIPPLE:** Proximity scaling in `Logics.js` directly affects the LOD state and wireframe visibility.
+* **RIPPLE:** `uGlitchIntensity` uniform now accepts real-time pulses from the global dispatcher.
+
+---
+
+Whenever you are ready, let me know if you want me to output the **REALITY AUDIT** log to complete your restoration framework.

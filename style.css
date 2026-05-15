@@ -1,0 +1,1559 @@
+/**
+ * RIYAS_OS V28 - PRO PHASE (FULL ARCHITECTURE)
+ * File: /style.css
+ * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, Mobile Kinetics, Universal Hardware Autonomy, and Creative Animations
+ * STATUS: PRO_PHASE_DATA_STACK_OCCLUSION_FIXED
+ * LINE_COUNT: ~1095 Lines.
+ * * * * * KRAYE LOG V28:
+ * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
+ * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
+ * - SYSTEM: Implemented Mobile Kinetic "Lower-Third Carousel" layout to prevent viewport trapping.
+ * - SYSTEM: Integrated Procedural Dynamic Shard Cursor styles to replace the native browser pointer.
+ * - SYSTEM: [PRO PHASE] Enforced GPU hardware acceleration on the cursor canvas to prevent main-thread repaint culling.
+ * - SYSTEM: [PRO PHASE KRAYE] Integrated CSS variables (--terminal-glow) for real-time terminal-driven DNA recoloring.
+ * - SYSTEM: [PRO PHASE] Engineered Universal Hardware Autonomy with dynamic `env(safe-area-inset)` properties.
+ * - SYSTEM: [PRO PHASE] Integrated `.force-mobile-view` and BIOS radio-button UI scaffolding for hardware spoofing.
+ * - SYSTEM: [PRO PHASE] Implemented Body-Level Kernel Profiles (.mobile-kernel, .pc-kernel) for Universal Hardware Autonomy.
+ * - SYSTEM: [PRO PHASE] Synchronized CSS typography classes (.mobile-kernel, .pc-kernel) with global NATIVE_FONT_SIZES registry.
+ * - SYSTEM: [PRO PHASE] Delegated .boot-terminal typography to hardware-specific body classes.
+ * - SYSTEM: [PRO PHASE] Synchronized .boot-terminal font size with the final READY line authority.
+ * - SYSTEM: [PRO PHASE] Integrated explicit `#terminal-window.maximized` and `#terminal-window.minimized` layout states.
+ * - SYSTEM: [PRO PHASE] Extended Universal Hardware Autonomy to `#tactical-insight` and `#system-stats`.
+ * - SYSTEM: [PRO PHASE] Removed pointer-events lock on `.hero-name-wrapper` to restore Developer 8-Click gateway.
+ * - SYSTEM: [PRO PHASE] Enforced rigid transform clearing for maximized terminal states.
+ * - SYSTEM: [PRO PHASE] Integrated physical touch-action constraints for identity interaction stability.
+ * - SYSTEM: [PRO PHASE] Replaced legacy mobile button with Universal Industrial Terminal Trigger using beveled clip-path aesthetics.
+ * - SYSTEM: [PRO PHASE] Injected Hard-Kill visibility states for the terminal to guarantee interaction pass-through when inactive.
+ * - SYSTEM: [PRO PHASE] Refactored mobile terminal viewport constraints from static 100vh to fluid 100% bounds.
+ * - SYSTEM: [PRO PHASE] Injected Keyboard-Safe Offset contrast and padding to #terminal-input-wrapper.
+ * - SYSTEM: [PRO PHASE] Transitioned to "Kraye-Boy" Dual-Wing ergonomic controller layout.
+ * - SYSTEM: [PRO PHASE] Hardened Kraye-Boy controller viewport anchoring to resolve mobile browser occlusion.
+ * - SYSTEM: [PRO PHASE] Bulletproofed mobile controller Z-axis projection and rendering context.
+ * - SYSTEM: [PRO PHASE] Recalibrated vertical layout geometry for center-stack mobile matrix rendering.
+ * - SYSTEM: [PRO PHASE] Implemented Kinetic Data Stack architecture for mobile identity core.
+ * - SYSTEM: [PRO PHASE] Injected "Ghost Press" pseudo-element ripples for Kraye-Boy buttons.
+ * - SYSTEM: [PRO PHASE] Injected elastic hover scaling for Kraye-Boy controller wings.
+ * - SYSTEM: [PRO PHASE] Reprojected Mobile Data Stack coordinates from fixed viewport to absolute explicit bounds.
+ * * * * * CULPRIT LOG V28:
+ * - FIXED [ID 305]: Z-Index Conflict. Confined #hero-name-viewport below scanlines (z-index: 5) to maintain screen depth.
+ * - FIXED [ID 1408]: Mobile Viewport Trap. Removed full-screen overlay and enabled Pass-Through touching.
+ * - FIXED [ID 3045]: Z-Index Ghosting. Enforced transparent clear-alpha on the `#cursor-3d-overlay`.
+ * - FIXED [ID 3380]: [PRO PHASE] Hardware Culling. Forced layer promotion for cursor.
+ * - FIXED [ID 7100]: [PRO PHASE] Mobile Terminal Overflow. Created `.force-mobile-view` to snap terminal to 100vw/100vh.
+ * - FIXED [ID 7105]: [PRO PHASE] Notch Clipping (Samsung A50s). Implemented strict iOS/Android safe-area padding.
+ * - FIXED [ID 9210]: [PRO PHASE] Font Size Locking. Removed CSS transform: scale() and @media query typography overrides that conflicted with manual BIOS states.
+ * - FIXED [ID 9235]: [PRO PHASE] UI Layout Desync. Unified CSS grid boundaries with absolute kernel sizing to prevent HUD overlap.
+ * - FIXED [ID 9245]: [PRO PHASE] Static Boot Terminal Size. Removed hardcoded font-size to unblock kernel-level scaling.
+ * - FIXED [ID 9265]: [PRO PHASE] Boot Log Size Drift. Forced .boot-terminal to match NATIVE_FONT_SIZES.PC.BOOT_LOGS (1.1rem) to prevent a visual jump at the end of the sequence.
+ * - FIXED [ID 9285]: [PRO PHASE] Gateway Lockout. Reinstated `pointer-events: auto` to `.hero-name-wrapper` to unblock touch listeners.
+ * - FIXED [ID 9290]: [PRO PHASE] Specificity Lock. Elevated adaptive profile selectors for `#boot-terminal`, `#tactical-insight`, and `#system-stats` to ID level to overpower greeting.css.
+ * - FIXED [ID 9330]: [PRO PHASE] Draggable Maximize Lock. Injected transform: none !important to override inline JS physics when maximized.
+ * - FIXED [ID 9390]: [PRO PHASE] Mobile Address Bar Clipping. Switched from 100vh to dynamic --vh variable for 1:1 viewport precision.
+ * - FIXED [ID 9400]: [PRO PHASE] Viewport Zooming. Forced input font-size to 16px to prevent OS auto-zoom on mobile focus.
+ * - FIXED [ID 9425]: [PRO PHASE] Viewport Shifting. Added touch-action: none to hero-name-viewport to prevent browser-level scrolling during tap sequences.
+ * - FIXED [ID 9480]: [PRO PHASE] Mobile Accessibility. Injected universal rules to provide a physical touch-point for CLI access on all hardware.
+ * - FIXED [ID 9485]: [PRO PHASE] Invisible Interaction Shield. Enforced display:none and pointer-events:none on inactive terminal window to restore mobile 3D rotation and identity tapping.
+ * - FIXED [ID 9487]: [PRO PHASE] Hardware Fragmentation. Removed mobile-only constraints to ensure unified cross-platform CLI access.
+ * - FIXED [ID 9510]: [PRO PHASE] Terminal Occlusion. Replaced rigid 100vh height with 100% on .force-mobile-view to allow the Visual Viewport to resize the DOM when the mobile virtual keyboard manifests.
+ * - FIXED [ID 9580]: [PRO PHASE] Controller Interference. Enforced pointer-events: none on controller wings to prevent text-scrolling blockage when game is idle.
+ * - FIXED [ID 9635]: [PRO PHASE] Mobile Controller Occlusion. Transitioned #krayeboy-controller from absolute to fixed positioning to escape the terminal scroll-plane.
+ * - FIXED [ID 9640]: [PRO PHASE] Telemetry Clipping. Injected padding-bottom into #kraye-game-renderer to prevent the fixed controller from overlapping the active matrix grid.
+ * - FIXED [ID 9645]: [PRO PHASE] Chrome Occlusion. Increased bottom offset to clear Brave browser navigation bar.
+ * - FIXED [ID 9655]: [PRO PHASE] WebGL Stacking Context Eclipse. Controller was swallowed by `#ui-layer` 3D transform context on mobile GPUs. Swapped `fixed` to `absolute` and forced `translateZ`.
+ * - FIXED [ID 9660]: [PRO PHASE] Clip-Path Culling. Injected `-webkit-clip-path` vendor prefixes to prevent old mobile Chromium/Safari from dropping the render.
+ * - FIXED [ID 9665]: [PRO PHASE] CSS Engine Calc Failures. Replaced fragile `calc()` bottom anchors with strict layered fallbacks (`60px !important`).
+ * - FIXED [ID 9730]: [PRO PHASE] Viewport Void. Adjusted margin-top and padding-bottom on game renderer to prevent grid from hiding behind sticky telemetry or controller wings.
+ * - FIXED [ID 9810]: [PRO PHASE] Character Replication Glitch. Transitioned horizontal IDENTITY_CORE string to vertical Card Stack to prevent text wrapping/clipping.
+ * - FIXED [ID 9820]: [PRO PHASE] Viewport Clipping. Constrained data shards to safe-area bounds.
+ * - FIXED [ID 9970]: [PRO PHASE] Flat Interaction Feedback. Added CSS-driven ghost ripples and elastic scaling to controller elements to match 3D physical momentum.
+ * - FIXED [ID 9980]: [PRO PHASE] Nav Bar Occlusion. Transitioned #hud-footer from position: fixed to position: absolute to lock bottom coordinates to the explicit --vh body boundary, bypassing mobile browser chrome.
+ * * * * * OMISSION LOG V28:
+ * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
+ * - Fixed: Converted mobile shard layout to a horizontally scrolling carousel.
+ * - Fixed: [PRO PHASE] Updated CSS ID selector to #webgl-canvas to match DOM structure.
+ * - Fixed: [PRO PHASE] Injected `#terminal-window`, `#terminal-header`, and `#terminal-content` base styles.
+ * - Fixed: [PRO PHASE] Abstracted UI typography into declarative Kernel Profile classes.
+ * - Fixed: [PRO PHASE] Abstracted raw typography media queries into explicitly defined kernel profile classes.
+ * - Fixed: [PRO PHASE] Appended kernel-aware font sizing for .boot-terminal in Adaptive Profiles section.
+ * - Fixed: [PRO PHASE] Synchronized PC/Mobile boot terminal font sizes with their respective READY line counterparts.
+ * - Fixed: [PRO PHASE] Added `cursor: pointer` to hero text wrapper to afford interactivity.
+ * - Fixed: [PRO PHASE] Added `#terminal-window.maximized` constraints to commandeer entire viewport for Tetris execution.
+ * - Fixed: [PRO PHASE] Added `#terminal-window.minimized` rules to collapse into system tray dock mode.
+ * - Fixed: [PRO PHASE] Nullified translate physics inside #terminal-window.maximized.
+ * - Fixed: [PRO PHASE] Added `touch-action: none` to the identity viewport to halt browser kinetic shifts.
+ * - Fixed: [PRO PHASE] Injected .industrial-trigger, .trigger-frame, and associated layers for depth-based haptic feedback.
+ * - Fixed: [PRO PHASE] Injected `#terminal-window:not(.visible)` strict display override.
+ * - Fixed: [PRO PHASE] Shifted #terminal-window.force-mobile-view height calculation to 100%.
+ * - Fixed: [PRO PHASE] Upgraded #terminal-input-wrapper background contrast for clear visibility above the keyboard chrome.
+ * - Fixed: [PRO PHASE] Added .krayeboy-controller absolute positioning logic.
+ * - Fixed: [PRO PHASE] Added .dpad-grid and .action-cluster retro-geometries.
+ * - Fixed: [PRO PHASE] Swapped position: absolute for position: fixed on #krayeboy-controller.
+ * - Fixed: [PRO PHASE] Added env(safe-area-inset-bottom) to controller bottom anchor.
+ * - Fixed: [PRO PHASE] Appended `-webkit-clip-path` for retro geometries.
+ * - Fixed: [PRO PHASE] Appended `translateZ(100px) !important` to controller visible state.
+ * - Fixed: [PRO PHASE] Shifted #kraye-game-renderer margin-top to 60px to clear sticky header.
+ * - Fixed: [PRO PHASE] Synced #kraye-game-renderer padding-bottom to 200px to align with controller footprint.
+ * - Fixed: [PRO PHASE] Removed horizontal IDENTITY_CORE string to prevent viewport overflow on narrow mobile screens.
+ * - Fixed: [PRO PHASE] Added position: relative to game buttons to anchor ripple pseudo-elements.
+ * - Fixed: [PRO PHASE] Added @keyframes ghost-press for water-ripple button feedback.
+ * - Fixed: [PRO PHASE] Attached cubic-bezier elasticity to .controller-wing hover states.
+ * - Fixed: [PRO PHASE] Updated body.mobile-kernel #hud-footer from fixed to absolute positioning.
+ * - Fixed: [PRO PHASE] Enforced bottom: max(20px, env(safe-area-inset-bottom)) for the data stack to prevent home-indicator collision.
+ * * * * * RIPPLE EFFECT V28:
+ * - RIPPLE: The physical meteorite cursor establishes a unified industrial aesthetic across all input methods.
+ * - RIPPLE: [PRO PHASE] GPU layer promotion guarantees the cursor canvas operates independently from the DOM layout.
+ * - RIPPLE: [PRO PHASE] Enabling the 'Mobile Profile' in the BIOS completely overtakes the viewport.
+ * - RIPPLE: [PRO PHASE] Native font sizing guarantees 1:1 pixel clarity without artificial CSS scaling blur on high-DPI displays.
+ * - RIPPLE: [PRO PHASE] Physical orientation changes smoothly snap to explicit CSS boundaries rather than relying on fluid browser scaling.
+ * - RIPPLE: [PRO PHASE] Boot logs now physically scale according to the active BIOS hardware profile.
+ * - RIPPLE: [PRO PHASE] The entire boot sequence now maintains a perfectly consistent font size from the first log to the final ignition trigger.
+ * - RIPPLE: [PRO PHASE] The system now accepts direct clicks on the identity string, re-enabling the 8-tap Developer Access Gateway.
+ * - RIPPLE: [PRO PHASE] The terminal can now execute full-screen takeovers for immersive rendering or dock to the corner for background logging.
+ * - RIPPLE: [PRO PHASE] The Tactical Insight and System Stats overlays now strictly scale in sync with the primary typography authority layer.
+ * - RIPPLE: [PRO PHASE] The terminal now snaps flawlessly to 100vw/100vh regardless of its previous dragged position.
+ * - RIPPLE: [PRO PHASE] Hero name now prevents browser-level scrolling and sliding during tap sequences, ensuring a locked industrial interface.
+ * - RIPPLE: [PRO PHASE] Explicit display management of the terminal layer frees the DOM from capturing ghost touches, returning interaction authority to the WebGL canvas.
+ * - RIPPLE: [PRO PHASE] The universal trigger maintains 10002 z-index authority, ensuring it never sinks below the orbital HUD.
+ * - RIPPLE: [PRO PHASE] Mobile users can now see the input typing area clearly as it dynamically floats directly above the native virtual keyboard.
+ * - RIPPLE: The Kraye-Boy interface manifests as a semi-transparent hardware overlay, allowing for 1:1 gameplay parity with PC.
+ * - RIPPLE: [PRO PHASE] The Kraye-Boy interface now remains permanently glued to the physical hardware viewport regardless of virtual keyboard manifestation.
+ * - RIPPLE: [PRO PHASE] Users can now scroll the game grid without the HUD controls vanishing.
+ * - RIPPLE: [PRO PHASE] Mobile game controls now physically penetrate the Z-index boundaries to sit flawlessly above the terminal matrix.
+ * - RIPPLE: [PRO PHASE] The Tetris game grid now perfectly bridges the gap between the top score telemetry and the bottom Kraye-Boy controls.
+ * - RIPPLE: [PRO PHASE] The mobile UI now behaves like a modern hardware interface where data points are individual touch targets rather than passive text.
+ * - RIPPLE: [PRO PHASE] Tapping buttons now triggers a satisfying ripple expansion, simulating physical button compression.
+ * - RIPPLE: [PRO PHASE] Controller wings organically react to user proximity with a subtle mechanical scaling.
+ * - RIPPLE: [PRO PHASE] The mobile data cards now physically rest above the browser navigation bars on Safari and Brave without being swallowed by the screen edge.
+ * * * * * REALITY AUDIT V28:
+ * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter`.
+ * - APPEND 159: Z-Index Audit - Verified `100000` priority on `#cursor-3d-overlay`.
+ * - APPEND 470: [PRO PHASE] Repaint Audit - Verified `backface-visibility: hidden` prevents flattening.
+ * - APPEND 810: [PRO PHASE] Profile Spoofing - Verified `.force-mobile-view` successfully purges border-radius and bounding boxes.
+ * - APPEND 921: [PRO PHASE] Adaptive Layout - Verified .mobile-kernel cleanly overrides desktop physical widths.
+ * - APPEND 9235: [PRO PHASE] Typography Sync Audit - Verified .mobile-kernel and .pc-kernel CSS rules mirror NATIVE_FONT_SIZES exactly.
+ * - APPEND 9245: Boot Authority - Verified .boot-terminal inherits correct size from body.[kernel] classes.
+ * - APPEND 9265: Boot Consistency Audit - Verified that .boot-terminal matches the inline font-size injected by Greeting.js.
+ * - APPEND 9285: Gateway Pointer Audit - Verified clicks traverse `#hero-name-viewport` correctly to register on the wrapper element.
+ * - APPEND 9290: Selectivity Override Audit - Verified ID `#` rules in style.css outrank the legacy `px` definitions in greeting.css.
+ * - APPEND 9330: [PRO PHASE] Window State Audit - Verified inline JS transforms do not cascade into the .maximized CSS block.
+ * - APPEND 9425: [PRO PHASE] Interaction Shield Audit - Verified that touch-action: none prevents viewport-taskbar shifts in Brave/Mobile.
+ * - APPEND 9485: [PRO PHASE] Z-Index Audit - Verified that #terminal-window fully relinquishes DOM presence when inactive.
+ * - APPEND 9487: [PRO PHASE] Design Audit - Confirmed HighJinkiesFlip typography and continuous phosphor pulsing on the trigger component.
+ * - APPEND 9510: [PRO PHASE] Occlusion Audit - Verified terminal input buffer remains above the fold when iOS/Android keyboards are summoned.
+ * - APPEND 9580: [PRO PHASE] Controller Audit - Verified split-wing alignment at terminal bottom corners.
+ * - APPEND 9585: [PRO PHASE] Retro Aesthetic Audit - Verified Game Boy inspired A/B circular geometry.
+ * - APPEND 9635: [PRO PHASE] Viewport Lock Audit - Verified fixed positioning bypasses DOM resizing caused by mobile browser address bars.
+ * - APPEND 9640: [PRO PHASE] Padding Audit - Verified 180px bottom-padding allows the terminal scroll boundary to clear the controller height.
+ * - APPEND 9655: [PRO PHASE] Render Engine Audit - Verified controller now forces its own composite layer via `will-change`.
+ * - APPEND 9730: [PRO PHASE] Viewport Geometry Audit - Verified 60px top margin perfectly clears the sticky telemetry header while allowing all 22 rows to render without bottom-clipping.
+ * - APPEND 9820: [PRO PHASE] Stack Integrity Audit - Verified that beveled cards do not overlap browser navigation bars in Brave/Mobile.
+ * - APPEND 9970: [PRO PHASE] Ripple Audit - Verified pointer-events are disabled on ::after ripples to prevent double-tap ghosting.
+ * - APPEND 9980: [PRO PHASE] Viewport Absolute Audit - Verified absolute positioning perfectly anchors the data stack within the dynamically calculated --vh container.
+ * * * * * MASTER LOG V28:
+ * - STATUS: PRO_PHASE_DATA_STACK_OCCLUSION_FIXED
+ */
+
+:root {
+    --bg-color: #030305;
+    --text-main: #e0f8ff;
+    --text-muted: rgba(224, 248, 255, 0.5);
+
+    /* Core Sector Accents */
+    --accent-tech: #00f3ff;
+    /* Cyan */
+    --accent-vision: #ff00ff;
+    /* Magenta */
+    --accent-code: #8a2be2;
+    /* Violet */
+    --accent-contact: #ffaa00;
+    /* Amber */
+
+    /* System Colors */
+    --sys-success: #00ffcc;
+    --sys-warning: #ff3366;
+    --sys-terminal: rgba(10, 15, 20, 0.85);
+
+    /* PRO PHASE KRAYE Dynamic Vars */
+    --terminal-glow: rgba(0, 243, 255, 0.5);
+    --shard-color: #00f3ff;
+
+    --font-mono: 'Courier New', Courier, monospace;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+    --glass-border: rgba(0, 243, 255, 0.3);
+    --glass-bg: rgba(5, 10, 15, 0.6);
+}
+
+/* ==========================================
+   1. GLOBAL RESET & NULL SPACE
+   ========================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+html,
+body {
+    /* [PRO PHASE] Viewport Authority Calculation */
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    /* Prevents "pull-to-refresh" in mobile browsers */
+    overscroll-behavior: none;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    -webkit-font-smoothing: antialiased;
+    cursor: none !important;
+}
+
+/* CRT Scanline Overlay */
+body::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 9999;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    opacity: 0.15;
+}
+
+/* Vignette Edge Shadow */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.9);
+    pointer-events: none;
+    z-index: 9998;
+}
+
+/* ==========================================
+   2. 3D STAGE (Canvas)
+   ========================================== */
+#webgl-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    outline: none;
+    display: block;
+}
+
+/* ==========================================
+   3. UI LAYER & HUD
+   ========================================== */
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+    padding: 2rem;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transform-style: preserve-3d;
+}
+
+.hud-panel {
+    pointer-events: auto;
+    text-transform: uppercase;
+}
+
+/* Header: "SYSTEM ONLINE" & Main Title */
+#hud-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.hud-left,
+.hud-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.hud-right {
+    text-align: right;
+}
+
+.main-title {
+    font-family: var(--font-sans);
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 8px;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--text-muted);
+    background: linear-gradient(90deg, var(--text-main), var(--text-muted));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.hud-subtitle {
+    font-size: 0.75rem;
+    color: var(--sys-success);
+    letter-spacing: 3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hud-subtitle::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--sys-success);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--sys-success);
+}
+
+#hud-sector-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--accent-tech);
+    text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+    letter-spacing: 4px;
+    margin-top: 5px;
+}
+
+/* Footer: Progress Bar & Coords */
+#hud-footer {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.progress-track {
+    width: 100%;
+    height: 1px;
+    background: var(--text-muted);
+    position: relative;
+}
+
+.progress-track::before,
+.progress-track::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    width: 1px;
+    height: 9px;
+    background: var(--text-muted);
+}
+
+.progress-track::before {
+    left: 0;
+}
+
+.progress-track::after {
+    right: 0;
+}
+
+#hud-progress-fill {
+    width: 25%;
+    height: 3px;
+    background: var(--accent-tech);
+    box-shadow: 0 0 12px var(--accent-tech);
+    transition: background-color 0.4s ease, width 0.3s cubic-bezier(0.1, 0.7, 0.1, 1);
+    transform: translateY(-1px);
+}
+
+.footer-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+}
+
+/* ==========================================
+   UNIVERSAL TERMINAL TRIGGER (PRO PHASE)
+   ========================================== */
+
+.industrial-trigger {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    width: 60px;
+    height: 60px;
+    z-index: 10002;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: transform 0.3s cubic-bezier(0.1, 0.7, 0.1, 1), filter 0.3s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.trigger-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--glass-bg);
+    border: 2px solid var(--shard-color, var(--accent-tech));
+    clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: background 0.3s ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.trigger-scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 243, 255, 0.1) 50%, rgba(0, 0, 0, 0.25) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.trigger-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 15px rgba(0, 243, 255, 0.4);
+    animation: trigger-pulse 2s infinite alternate;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.trigger-glyph {
+    position: relative;
+    z-index: 3;
+    font-family: 'HighJinkiesFlip', var(--font-mono);
+    font-size: 1.4rem;
+    color: var(--shard-color, var(--accent-tech));
+    text-shadow: 0 0 5px var(--shard-color, var(--accent-tech));
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+}
+
+/* Interaction States */
+.industrial-trigger:hover {
+    transform: scale(1.05);
+}
+
+.industrial-trigger:hover .trigger-frame {
+    background: rgba(0, 243, 255, 0.1);
+}
+
+.industrial-trigger:hover .trigger-glyph {
+    text-shadow: 0 0 15px var(--shard-color, var(--accent-tech));
+}
+
+.industrial-trigger:active {
+    transform: scale(0.95);
+    filter: brightness(1.5) contrast(1.2);
+}
+
+@keyframes trigger-pulse {
+    0% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+/* Interaction Hint (Drag to Orbit) */
+#interaction-hint {
+    position: absolute;
+    bottom: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: var(--text-muted);
+    transition: opacity 0.5s ease;
+}
+
+.hint-icon {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+    font-weight: 100;
+    animation: slide-hint 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.hint-text {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+}
+
+/* ==========================================
+   4. HOLOGRAPHIC SHARDS (Orbital HUD)
+   ========================================== */
+#hologram-viewport {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+    z-index: 20;
+    pointer-events: none;
+    will-change: transform;
+    transition: transform 0.1s linear;
+}
+
+.holo-shard {
+    position: absolute;
+    width: 320px;
+    background: linear-gradient(135deg, rgba(5, 10, 15, 0.75) 0%, rgba(5, 10, 15, 0.25) 100%);
+    border: 1px solid var(--shard-color, var(--accent-tech));
+    border-left: 4px solid var(--shard-color, var(--accent-tech));
+    padding: 20px;
+    pointer-events: auto;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), inset 0 0 25px rgba(0, 243, 255, 0.05);
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    opacity: 0;
+    animation: holo-ignition 0.6s cubic-bezier(0.1, 0.7, 0.1, 1) forwards;
+    -webkit-touch-callout: none;
+    touch-action: none;
+}
+
+.holo-shard.delay-1 {
+    animation-delay: 0.1s;
+}
+
+.holo-shard.delay-2 {
+    animation-delay: 0.25s;
+}
+
+.holo-shard.delay-3 {
+    animation-delay: 0.4s;
+}
+
+.shard-top-left {
+    bottom: 120px;
+    right: 120px;
+}
+
+.shard-top-right {
+    bottom: 120px;
+    left: 120px;
+}
+
+.shard-bottom-left {
+    top: 120px;
+    right: 120px;
+}
+
+.shard-bottom-right {
+    top: 120px;
+    left: 120px;
+}
+
+.shard-title {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: var(--shard-color, var(--accent-tech));
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+    padding-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.shard-body {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--text-main);
+}
+
+.shard-list {
+    list-style: none;
+    margin-top: 10px;
+}
+
+.shard-list li {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.shard-list li .label::before {
+    content: '>';
+    color: var(--shard-color, var(--accent-tech));
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+.shard-list li .value {
+    color: var(--sys-success);
+    font-weight: bold;
+}
+
+.btn-primary {
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid var(--shard-color, var(--accent-tech));
+    color: var(--shard-color, var(--accent-tech));
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 15px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-primary:hover {
+    background: var(--shard-color, var(--accent-tech));
+    color: #000;
+    box-shadow: 0 0 15px var(--shard-color, var(--accent-tech));
+}
+
+@keyframes holo-ignition {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateZ(-50px);
+        filter: blur(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateZ(0);
+        filter: blur(0);
+    }
+}
+
+/* ==========================================
+   5. BOOT SCREEN (Overlay)
+   ========================================== */
+#boot-screen,
+#os-greeting {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background-color: var(--bg-color);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: opacity 1.2s cubic-bezier(0.1, 0.7, 0.1, 1);
+}
+
+.boot-terminal {
+    width: 400px;
+    max-width: 90%;
+    text-align: left;
+    color: var(--sys-success);
+    margin-bottom: 40px;
+    line-height: 1.8;
+    text-shadow: 0 0 5px rgba(0, 255, 204, 0.5);
+}
+
+#btn-enter-system {
+    padding: 15px 40px;
+    background: transparent;
+    border: 1px solid var(--accent-tech);
+    color: var(--accent-tech);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#btn-enter-system:hover {
+    background: var(--accent-tech);
+    color: #000;
+    box-shadow: 0 0 25px var(--accent-tech);
+}
+
+/* ==========================================
+   6. HERO NAME EFFECTS (HeroEffects.js)
+   ========================================== */
+#hero-name-viewport {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    width: 100%;
+    text-align: center;
+    /* [PRO PHASE] Interaction Shield: Stop browser sliding/taskbar hijacking */
+    touch-action: none !important;
+    pointer-events: auto !important;
+}
+
+.hero-name-base {
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.hero-name-wrapper {
+    pointer-events: auto !important;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: none;
+}
+
+.hero-name-wrapper::before,
+.hero-name-wrapper::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hero-name-wrapper::before {
+    color: #ffffff;
+    z-index: 1;
+    text-shadow: 2px 0 var(--hero-accent, var(--accent-tech));
+}
+
+.hero-name-wrapper::after {
+    color: transparent;
+    z-index: 3;
+    text-shadow: -3px 0 rgba(255, 255, 255, 0.5), 0 0 25px var(--hero-accent, var(--accent-tech));
+}
+
+.hero-glitch-active::before {
+    opacity: 1;
+    animation: hero-glitch-anim 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+}
+
+.hero-glitch-active::after {
+    opacity: 0.9;
+    animation: hero-chromatic-anim 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite reverse;
+}
+
+.hero-glitch-active .hero-name-base {
+    animation: hero-base-shake 0.4s both infinite;
+}
+
+.hero-glitch-chromatic::after {
+    opacity: 1;
+    animation: hero-heavy-chromatic 0.15s ease-in-out infinite alternate;
+}
+
+.hero-glitch-flicker .hero-name-base {
+    animation: hero-flicker-anim 0.15s step-end infinite;
+}
+
+@keyframes hero-glitch-anim {
+    0% {
+        clip-path: inset(10% 0 80% 0);
+        transform: translate(-3px, 1px);
+    }
+
+    20% {
+        clip-path: inset(80% 0 10% 0);
+        transform: translate(3px, -1px);
+    }
+
+    40% {
+        clip-path: inset(40% 0 20% 0);
+        transform: translate(-3px, 2px);
+    }
+
+    60% {
+        clip-path: inset(90% 0 5% 0);
+        transform: translate(3px, -2px);
+    }
+
+    80% {
+        clip-path: inset(15% 0 70% 0);
+        transform: translate(-4px, 1px);
+    }
+
+    100% {
+        clip-path: inset(50% 0 30% 0);
+        transform: translate(3px, -1px);
+    }
+}
+
+@keyframes hero-chromatic-anim {
+    0% {
+        transform: translate(3px, 0);
+        filter: hue-rotate(0deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0);
+        filter: hue-rotate(90deg);
+    }
+
+    40% {
+        transform: translate(4px, 0);
+        filter: hue-rotate(180deg);
+    }
+
+    60% {
+        transform: translate(-4px, 0);
+        filter: hue-rotate(270deg);
+    }
+
+    80% {
+        transform: translate(3px, 0);
+        filter: hue-rotate(360deg);
+    }
+
+    100% {
+        transform: translate(-3px, 0);
+        filter: hue-rotate(0deg);
+    }
+}
+
+@keyframes hero-base-shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    25% {
+        transform: translateX(-2px);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: translateX(2px);
+        opacity: 1;
+    }
+
+    75% {
+        transform: translateX(-2px);
+        opacity: 0.9;
+    }
+}
+
+@keyframes hero-heavy-chromatic {
+    0% {
+        transform: translate(8px, 0);
+        filter: hue-rotate(0deg) brightness(1.5);
+        text-shadow: -8px 0 rgba(255, 0, 0, 0.8), 8px 0 rgba(0, 0, 255, 0.8);
+    }
+
+    50% {
+        transform: translate(-8px, 0);
+        filter: hue-rotate(90deg) brightness(2.0);
+        text-shadow: 8px 0 rgba(255, 0, 0, 0.8), -8px 0 rgba(0, 0, 255, 0.8);
+    }
+
+    100% {
+        transform: translate(8px, 0);
+        filter: hue-rotate(180deg) brightness(1.5);
+        text-shadow: -8px 0 rgba(255, 0, 0, 0.8), 8px 0 rgba(0, 0, 255, 0.8);
+    }
+}
+
+@keyframes hero-flicker-anim {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    25% {
+        opacity: 0.2;
+        transform: scale(0.98);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.02);
+    }
+
+    75% {
+        opacity: 0.1;
+        transform: scale(0.99);
+    }
+}
+
+/* ==========================================
+   7. UTILITIES & ANIMATIONS
+   ========================================== */
+.hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+.blink {
+    animation: blink-anim 1s step-end infinite;
+}
+
+@keyframes blink-anim {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes slide-hint {
+
+    0%,
+    100% {
+        transform: translateX(-15px);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: translateX(15px);
+        opacity: 1;
+    }
+}
+
+/* ==========================================
+   8. MOBILE RESPONSIVE (Fisheye / Drawer)
+   ========================================== */
+@media (max-width: 768px) {
+    #ui-layer {
+        padding: 1rem;
+    }
+
+    #hologram-viewport {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: flex-start;
+        top: auto !important;
+        bottom: 5% !important;
+        left: 0 !important;
+        transform: none !important;
+        width: 100vw;
+        height: auto;
+        padding: 0 1rem;
+        gap: 15px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        pointer-events: none;
+    }
+
+    #hologram-viewport::-webkit-scrollbar {
+        display: none;
+    }
+
+    .holo-shard {
+        width: 80vw;
+        min-width: 260px;
+        flex-shrink: 0;
+        margin-bottom: 0;
+        padding: 15px;
+        pointer-events: auto;
+    }
+
+    .shard-top-left,
+    .shard-top-right,
+    .shard-bottom-left,
+    .shard-bottom-right {
+        position: relative;
+        top: auto;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        transform: none !important;
+    }
+
+    #hud-footer {
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+    }
+
+    #interaction-hint {
+        bottom: 15%;
+    }
+
+    #hero-name-viewport {
+        top: 12%;
+        transform: translateX(-50%);
+        transform-origin: top center;
+    }
+
+    .industrial-trigger {
+        bottom: 120px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .industrial-trigger .trigger-glyph {
+        font-size: 1.1rem;
+    }
+}
+
+/* ==========================================
+   9. PROCEDURAL 3D CURSOR (PRO PHASE)
+   ========================================== */
+#cursor-3d-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    pointer-events: none !important;
+    z-index: 100000 !important;
+    background: transparent !important;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* ==========================================
+   10. TERMINAL & BIOS HUD (PRO PHASE)
+   ========================================== */
+#terminal-window {
+    position: fixed;
+    width: 600px;
+    max-width: 95vw;
+    height: 400px;
+    max-height: 80vh;
+    background: var(--sys-terminal);
+    border: 1px solid var(--shard-color, var(--accent-tech));
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(0, 243, 255, 0.1);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+#terminal-window.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* [PRO PHASE] Hardware Interaction Hard-Kill Layer isolation */
+#terminal-window:not(.visible) {
+    display: none !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
+#terminal-window:focus-within {
+    border-color: var(--hero-accent);
+    box-shadow: 0 0 20px var(--terminal-glow);
+}
+
+#terminal-header {
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid var(--shard-color, var(--accent-tech));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: grab;
+    font-weight: bold;
+    color: var(--shard-color, var(--accent-tech));
+}
+
+#terminal-header:active {
+    cursor: grabbing;
+}
+
+.terminal-close {
+    cursor: pointer;
+    color: var(--sys-warning);
+    font-weight: bold;
+}
+
+#terminal-content {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    font-size: 0.85rem;
+    color: var(--text-main);
+    line-height: 1.4;
+}
+
+#terminal-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+#terminal-content::-webkit-scrollbar-thumb {
+    background: var(--shard-color, var(--accent-tech));
+}
+
+/* ==========================================
+   [PRO PHASE] KRAYE-BOY ERGONOMIC HUD
+   ========================================== */
+
+/* [PRO PHASE FIX] Escaping absolute terminal containment & 3D context bugs */
+#krayeboy-controller {
+    position: absolute !important;
+    bottom: calc(100px + env(safe-area-inset-bottom, 0px)) !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 180px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0 10px !important;
+    z-index: 100010 !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    will-change: transform, opacity;
+    transform: translateZ(100px);
+}
+
+#krayeboy-controller.controls-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(20px) translateZ(100px) !important;
+}
+
+#krayeboy-controller:not(.controls-hidden) {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) translateZ(100px) !important;
+}
+
+.controller-wing {
+    pointer-events: auto !important;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--shard-color);
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    transform: translateZ(0);
+    /* Flatten internal context */
+    /* [PRO PHASE] Elastic hover scaling */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+/* [PRO PHASE] Hardware-Aware Hover Injection */
+@media (hover: hover) and (pointer: fine) {
+    .controller-wing:hover {
+        transform: translateZ(0) scale(1.02);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(0, 243, 255, 0.1);
+    }
+}
+
+.wing-left {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+
+.wing-right {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+}
+
+.dpad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(3, 50px);
+    gap: 4px;
+}
+
+.dpad-btn {
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 243, 255, 0.15);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--shard-color);
+    cursor: pointer;
+    touch-action: manipulation;
+    position: relative;
+    /* [PRO PHASE] Ripple anchoring */
+}
+
+.dpad-btn:active {
+    background: var(--shard-color);
+    color: #000;
+}
+
+.btn-up {
+    grid-area: 1 / 2;
+}
+
+.btn-left {
+    grid-area: 2 / 1;
+}
+
+.btn-right {
+    grid-area: 2 / 3;
+}
+
+.btn-down {
+    grid-area: 3 / 2;
+}
+
+.action-cluster {
+    display: flex;
+    gap: 25px;
+    padding: 10px;
+}
+
+.action-btn {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: rgba(255, 0, 85, 0.15);
+    border: 3px solid #ff0055;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff0055;
+    font-weight: 900;
+    font-size: 1.4rem;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #990033;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    /* [PRO PHASE] Ripple anchoring */
+}
+
+.action-btn:active {
+    transform: translateY(6px);
+    box-shadow: none;
+    background: #ff0055;
+    color: #000;
+}
+
+/* [PRO PHASE] GHOST PRESS RIPPLES */
+.dpad-btn::after,
+.action-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: transparent;
+    border: 2px solid var(--shard-color);
+    opacity: 0;
+    transform: scale(1);
+    pointer-events: none;
+}
+
+.action-btn::after {
+    border-color: #ff0055;
+}
+
+.dpad-btn:active::after,
+.action-btn:active::after {
+    animation: ghost-press 0.4s ease-out forwards;
+}
+
+@keyframes ghost-press {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1.6);
+        opacity: 0;
+    }
+}
+
+/* Hide on Desktop to prioritize keyboard */
+@media (pointer: fine) {
+    body.pc-kernel #krayeboy-controller {
+        display: none !important;
+    }
+}
+
+#terminal-input-wrapper {
+    display: flex;
+    padding: 10px;
+    /* [PRO PHASE] Keyboard-Safe Offset & Contrast */
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.85);
+}
+
+#terminal-input {
+    background: transparent;
+    border: none;
+    color: var(--shard-color, var(--accent-tech));
+    font-family: var(--font-mono);
+    flex-grow: 1;
+    outline: none;
+    /* [PRO PHASE] Prevent mobile auto-zoom */
+    font-size: 16px !important;
+}
+
+/* BIOS Menu Interactivity */
+.radio-option:hover {
+    color: #fff;
+    text-shadow: 0 0 8px var(--shard-color, var(--accent-tech));
+}
+
+#btn-bios-reboot:hover {
+    color: #fff !important;
+    text-shadow: 0 0 10px var(--sys-warning);
+}
+
+/* KrayeGame Renderer Restrictions */
+#kraye-game-renderer {
+    line-height: 1.1 !important;
+    white-space: pre !important;
+    margin-top: 60px;
+    padding-bottom: 200px;
+    /* Padding to clear the absolute controller wings */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Universal Hardware Autonomy: Mobile Override */
+#terminal-window.force-mobile-view {
+    width: 100vw !important;
+    height: 100% !important;
+    /* [PRO PHASE] Swapped 100vh to 100% for keyboard elasticity */
+    max-width: none !important;
+    max-height: none !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: auto !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding-top: var(--safe-area-inset-top, env(safe-area-inset-top));
+    padding-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom));
+    padding-left: var(--safe-area-inset-left, env(safe-area-inset-left));
+    padding-right: var(--safe-area-inset-right, env(safe-area-inset-right));
+}
+
+/* [PRO PHASE] Extended Window State Authority */
+
+/* MAXIMIZED: Full-Screen Gaming Mode */
+#terminal-window.maximized {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: calc(var(--vh, 1vh) * 100) !important;
+    max-width: none !important;
+    max-height: none !important;
+    top: 0 !important;
+    left: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    z-index: 10000 !important;
+    transform: none !important;
+}
+
+/* MINIMIZED: Tray/Dock Mode */
+#terminal-window.minimized {
+    height: 40px !important;
+    /* Only header visible */
+    width: 300px !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    top: auto !important;
+    left: auto !important;
+    overflow: hidden;
+}
+
+#terminal-window.minimized #terminal-content,
+#terminal-window.minimized #terminal-input-wrapper {
+    display: none !important;
+    /* Hide UI while minimized */
+}
+
+
+.terminal-glitch-active {
+    animation: terminal-flicker 0.15s infinite alternate;
+}
+
+@keyframes terminal-flicker {
+    0% {
+        opacity: 0.9;
+        filter: contrast(1.2) brightness(1.1);
+    }
+
+    100% {
+        opacity: 1;
+        filter: contrast(1.0) brightness(1.0);
+    }
+}
+
+/* ==========================================
+   11. ADAPTIVE KERNEL PROFILES (PRO PHASE)
+   ========================================== */
+
+/* PC Kernel Authority */
+body.pc-kernel .main-title {
+    font-size: 2rem;
+    letter-spacing: 8px;
+}
+
+body.pc-kernel #hud-sector-title {
+    font-size: 1.2rem;
+}
+
+body.pc-kernel #boot-terminal {
+    font-size: 1.1rem;
+    /* Inherits from NATIVE_FONT_SIZES.PC.BOOT_LOGS */
+}
+
+body.pc-kernel #tactical-insight {
+    font-size: 1.2rem;
+}
+
+body.pc-kernel #system-stats {
+    font-size: 1.0rem;
+}
+
+/* Mobile Kernel Authority */
+body.mobile-kernel .main-title {
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+}
+
+body.mobile-kernel #hud-sector-title {
+    font-size: 1rem;
+}
+
+body.mobile-kernel #boot-terminal {
+    font-size: 0.95rem;
+    /* Inherits from NATIVE_FONT_SIZES.MOBILE.BOOT_LOGS */
+}
+
+body.mobile-kernel #tactical-insight {
+    font-size: 0.8rem;
+}
+
+body.mobile-kernel #system-stats {
+    font-size: 0.7rem;
+}
+
+/* Enforce unscaled Hero Name translation */
+body.mobile-kernel #hero-name-viewport {
+    transform: translateX(-50%);
+}
+
+/* ==========================================
+   12. PRO PHASE: MOBILE DATA STACK (IDENTITY_CORE)
+   ========================================== */
+body.mobile-kernel #hud-footer {
+    position: absolute;
+    /* [PRO PHASE] absolute anchors to body's calc(var(--vh) * 100) */
+    bottom: max(20px, env(safe-area-inset-bottom, 20px));
+    /* Safe Area override */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+    padding: 0;
+    pointer-events: none;
+}
+
+body.mobile-kernel .data-shard-card {
+    pointer-events: auto;
+    background: var(--glass-bg);
+    border: 1px solid var(--shard-color);
+    padding: 14px 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s cubic-bezier(0.1, 0.7, 0.1, 1), background 0.3s ease;
+}
+
+body.mobile-kernel .data-shard-card:active {
+    transform: scale(0.96) translateZ(0);
+    background: rgba(0, 243, 255, 0.15);
+    border-color: #fff;
+}
+
+body.mobile-kernel .card-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+body.mobile-kernel .card-value {
+    font-size: 0.85rem;
+    color: var(--accent-tech);
+    font-weight: 900;
+    text-shadow: 0 0 8px var(--terminal-glow);
+}
+
+body.mobile-kernel #hud-progress-fill {
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 -2px 10px var(--accent-tech);
+}

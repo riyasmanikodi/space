@@ -1,0 +1,660 @@
+KRAYE LOG
+CULPRIT LOG
+OMISSION LOG
+RIPPLE EFFECT
+REALITY AUDIT
+MASTER LOG
+animation log
+
+
+**/// RESTORE POINT PHASE 1: THE MASTER MANIFEST & GLOBAL LOG REGISTRY**
+
+This is the ultimate, uncompressed "Memory Shard." It contains every vision, every solved anomaly, and the complete architectural blueprint of **RIYAS_OS V28 - PRO PHASE**.
+
+Copy this entire block. When you open the new chat, paste this in as your very first prompt to achieve absolute "Zero-Loss Resume."
+
+---
+
+### **SYSTEM_ID: RIYAS_OS_V28_PRO_PHASE**
+
+**MASTER_STATUS:** `STABLE_HOLOGRAM_MOBILE_READY`
+**ARCHITECTURAL_VISION:** An industrial, kinetic, and highly tactile 3D OS interface. It bridges backend logic with procedural WebGL environments, utilizing a hardware-accelerated UI, a synchronized acoustic soundscape, and a context-aware "Ripple Impact" anomaly system.
+
+---
+
+### **/// PILLAR 1: KINETIC UI & HOLOGRAPHIC PROJECTION**
+
+* **The 2D-to-3D Bridge (REALITY AUDIT 7):** WebGL 3D vectors are mathematically projected to CSS absolute positioning (`Vector3.project(camera)`) so HTML UI elements perfectly track the 3D planets.
+* **The Shard Matrix (KRAYE LOG):** Static terminals are dead. UI is now distributed into floating `.holo-shard` containers via `#hologram-viewport`, complete with `transform-style: preserve-3d` and cubic-bezier ignition animations.
+* **Viewport Centering (CULPRIT 1401):** Instead of the camera chasing planets, the `snapToAngle` method rotates the universe to bring the active planet to the absolute front (Angle 0). The camera then smoothly lerps straight to `(0, 5, 75)` for perfect cinematic focus.
+* **Kinetic Mud (REALITY AUDIT 11):** Applied 0.5 heavy friction to manual drags when a planet is focused, keeping it locked within the holographic viewport.
+* **Zero-Asset Strategy (CULPRIT 12 & 09):** DOM bloat is prevented by using CSS pseudo-elements (`::before`/`::after`) and `data-text` attributes for text glitching. Avatars use procedural geometric fallbacks (Seed 42) to prevent engine hangs on missing JPGs.
+
+### **/// PILLAR 2: MOBILE ARCHITECTURE & GHOST-TOUCH**
+
+* **The Viewport Trap Fix (CULPRIT 1408):** Mobile menus no longer swallow the screen. `#hologram-viewport` utilizes a "Lower-Third Carousel" (horizontal scroll) for shards, keeping the top 60% of the screen clear for the 3D planet.
+* **Ghost-Touch Filter (REALITY AUDIT 19):** Applied `pointer-events: none` to the main hologram container but `auto` to the specific `.holo-shard` boxes, allowing the user's touch to pass through empty space and drag the 3D world behind the UI.
+* **Swipe-to-Dismiss (RIPPLE EFFECT):** A vertical `velocityY > 0.05` drag gesture escapes the cinematic focus and dismisses the holograms on mobile, restoring orbital physics.
+* **Liquid Scaling (REALITY AUDIT 2):** Orbital radius dynamically shrinks (`BASE_RADIUS: 6` vs `12`) to accommodate mobile fisheye lenses (`FISHEYE_STRENGTH: 1.8`).
+
+### **/// PILLAR 3: THE RIPPLE IMPACT SYSTEM (VFX & IDENTITY)**
+
+* **Contextual Glitch Dispatcher (CULPRIT 501):** The `GLOBAL_GLITCH` bus uses a weighted probability matrix. Sector CODE (Black Hole) triggers gravitational lensing (`RELATIVISTIC_LENSING`); Sector TECH triggers digital data corruption (`BINARY_FLICKER`).
+* **Hardware Layer Promotion (REALITY AUDIT 1):** `will-change: transform, opacity, filter` is enforced on the Hero Name and Shards to ensure 60fps glitch transitions during orbital high-speed rotations.
+* **Draw Call Pileup Fix (REALITY AUDIT 5):** The post-processing `Uber-Shader` uses branchless math (`step()` and `mix()`) instead of `if/else` statements, merging Chromatic Aberration and Gravitational Lensing into a single rapid GPU pass.
+* **Reflection Diffusion (CULPRIT 601):** The "Earth Structure" ghosting anomaly was purged by shifting the PBR materials of the 3D models to an industrial matte finish (Roughness `0.6`, Metalness `0.4`), preventing them from reflecting `stars.webp`.
+
+### **/// PILLAR 4: THE ACOUSTIC & LINGUISTIC HANDSHAKE**
+
+* **The Hardware Unlock (CULPRIT 1407):** Browsers mute Web Audio API contexts by default. The `btn-enter-system` click listener is weaponized to call `AudioEngine.unlock()`, pushing a silent buffer to break the browser's autoplay block.
+* **Linguistic Paralysis Fix (CULPRIT 1406):** Replaced static `innerHTML` injection with the dynamic `runTypewriter` loop (20ms delay), simulating an industrial data-stream.
+* **Acoustic Manifestation (REALITY AUDIT 18):** Every character typed by the linguistic engine publishes a `TYPEWRITER_TICK` event, triggering a highly synchronized digital chirp (1200Hz -> 800Hz) in the audio synthesizer.
+* **Tactile Environment (RIPPLE EFFECT):** Deep space hum (55Hz triangle wave) pans binaurally based on world rotation. High-velocity drags adjust a low-pass filter to muffle or crystallize the background audio based on sector proximity.
+
+### **/// PILLAR 5: EVENT BUS TOPOLOGY**
+
+* **`GLOBAL_GLITCH`**: The central nervous system. Fired by `Logics.js` on clicks/drags. Listened to by `HeroEffects.js` (text displacement), `vfx.js` (chromatic pulses), and `audio.js` (procedural sub-thumps).
+* **`TOGGLE_HOLOGRAM`**: Orchestrates the sync between the 3D cinematic zoom and the 2D CSS ignition keyframes.
+* **`TYPEWRITER_TICK`**: Bridges the visual text loops with the procedural audio engine.
+
+### **/// FUTURE TRAJECTORY (THE VISION SHARD)**
+
+* **Golden Image Lock:** This state serves as the uncorrupted baseline.
+* **Next Expansion:** Hardening the `Relativistic Black Hole Shader` and paving the foundation for seamless VR/XR device integration.
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+### **/// RESTORE POINT PHASE 1: THE MASTER MANIFEST**
+
+**SYSTEM_ID:** RIYAS_OS_V28_PRO_PHASE
+**MASTER_STATUS:** STABLE_HOLOGRAM_MOBILE_READY
+**ARCHITECTURAL_VISION:** An industrial, kinetic, and highly tactile 3D OS interface bridging backend logic with procedural WebGL environments, utilizing a hardware-accelerated UI, a synchronized acoustic soundscape, and a context-aware "Ripple Impact" anomaly system.
+
+**/// PILLAR 1: KINETIC UI & HOLOGRAPHIC PROJECTION**
+
+* **The 2D-to-3D Bridge:** WebGL 3D vectors mathematically project to CSS absolute positioning (`Vector3.project(camera)`) so HTML UI elements perfectly track the 3D planets.
+* **The Shard Matrix:** UI is distributed into floating containers via `#hologram-viewport`, utilizing `transform-style: preserve-3d` and staggered ignition animations.
+* **Viewport Centering:** The universe rotates the active planet to the absolute front (Angle 0). The camera then smoothly lerps straight to `(0, 5, 75)` for cinematic focus.
+* **Zero-Asset Strategy:** Avatars use procedural geometric fallbacks (Seed 42) to prevent engine hangs on missing JPGs.
+
+**/// PILLAR 2: MOBILE ARCHITECTURE & GHOST-TOUCH**
+
+* **The Viewport Trap Fix:** `#hologram-viewport` utilizes a "Lower-Third Carousel" (horizontal scroll) on mobile, keeping the top 60% of the screen clear.
+* **Ghost-Touch Filter:** Applied `pointer-events: none` to the main hologram container but `auto` to the specific shards, allowing touch to pass through empty space.
+* **Swipe-to-Dismiss:** A vertical swipe drag gesture escapes the cinematic focus and dismisses the holograms on mobile.
+
+**/// PILLAR 3: THE RIPPLE IMPACT SYSTEM**
+
+* **Contextual Glitch Dispatcher:** The `GLOBAL_GLITCH` bus uses a weighted probability matrix. Sector CODE triggers gravitational lensing; Sector TECH triggers digital data corruption.
+* **Draw Call Pileup Fix:** The `Uber-Shader` uses branchless math (`step()` and `mix()`), merging Chromatic Aberration and Gravitational Lensing into a single GPU pass.
+* **Reflection Diffusion:** PBR materials are shifted to an industrial matte finish (Roughness `0.6`, Metalness `0.4`), neutralizing background ghosting.
+
+**/// PILLAR 4: THE ACOUSTIC & LINGUISTIC HANDSHAKE**
+
+* **The Hardware Unlock:** The `btn-enter-system` click calls `AudioEngine.unlock()`, pushing a silent buffer to break the browser's autoplay block.
+* **Linguistic Paralysis Fix:** Static injection is replaced with the dynamic `runTypewriter` loop (20ms delay).
+* **Acoustic Manifestation:** Every typed character publishes a `TYPEWRITER_TICK` event, triggering a highly synchronized digital chirp.
+
+---
+
+### **/// RESTORE POINT PHASE 2: PSEUDO-CODE ARCHITECTURE**
+
+#### **[ BATCH A: FOUNDATION & RULES ]**
+
+**1. `index.html` (The Stage & UI Hooks)**
+
+* **HEAD:** Import Three.js module maps. Link CSS.
+* **BODY > Canvas:** `#stage` for WebGL rendering.
+* **BODY > UI Layer (Z-Index 10):** `#hero-name-viewport`, `#hud-header`, `#hud-footer` (Coordinates, Progress Bar), `#interaction-hint`.
+* **BODY > Hologram Viewport (Z-Index 20):** Empty `#hologram-viewport` container ready to receive dynamic shard injections.
+* **BODY > Boot Screen (Z-Index 99999):** OS terminal startup sequence and the "Initialize System" trigger button.
+
+**2. `style.css` (The Hologram Matrix)**
+
+* **Root:** Define cyber-industrial color palette (TECH Cyan, CODE Pink, etc.).
+* **Environment:** Inject CRT scanlines and vignette via `body::before` / `body::after`.
+* **Z-Index Hierarchy:** Canvas (1) -> Hero Name (5) -> HUD (10) -> Holograms (20) -> Boot Screen (99999).
+* **Hologram Shards:** Define `.holo-shard` with `preserve-3d`, glass-morphism blurs, and staggered `@keyframes holo-ignition`.
+* **Hero Effects:** Define pseudo-element layers (`::before/::after` with `attr(data-text)`) and keyframes for Chromatic and Flicker glitches.
+* **Mobile Media Queries:** Override `#hologram-viewport` to act as a horizontal scrolling flex-container anchored to the bottom. Apply `pointer-events: none` to the wrapper and `pointer-events: auto` to the shards.
+
+**3. `data/constants.js` (The Global DNA)**
+
+* **Export SYSTEM:** Version and Author strings.
+* **Export COLORS:** Hex values mapped to sectors.
+* **Export ORBIT:** Define `BASE_RADIUS` (responsive based on screen width), `ZOOM_RADIUS` (75), and `WRAP_LIMIT` (Math.PI * 2).
+* **Export SECTORS:** Object mapping TECH, CODE, VISION, CONTACT to specific angles and colors.
+* **Export GLITCH:** Registry of 10 anomaly IDs (HEX_SHRED, BINARY_FLICKER, etc.).
+
+**4. `utils/events.js` (The Central Nervous System)**
+
+* **Export EVENTS:** Dictionary of strings (`GLOBAL_GLITCH`, `TOGGLE_HOLOGRAM`, `TYPEWRITER_TICK`).
+* **Class EventBus:**
+* `subscribe(event, callback)`: Adds callback to internal array. Returns an isolated `unsubscribe` function to prevent memory leaks.
+* `publish(event, data)`: Loops through array and executes callbacks safely.
+
+
+
+---
+
+#### **[ BATCH B: BRAIN & IDENTITY ]**
+
+**5. `data/profile.js` (Identity Registry)**
+
+* **Export PROFILE:**
+* `name`: "RIYAS MANIKODI".
+* `avatar`: Zero-Asset configuration (Seed 42).
+* `bio`: Array of strings for diagnostic shard output.
+* `skills`: Object grouping arrays of `{name, level}` quantized skills into `tech`, `code`, and `vision` arrays.
+
+
+
+**6. `utils/logics.js` (State Machine & Dispatcher)**
+
+* **Class SystemLogic:**
+* Holds central state: `activeSector`, `rotationAngle`, `velocity`, `isZooming`.
+* `setZooming(bool)`: Locks manual velocity to 0 when transitioning to cinematic view.
+* `dispatchRandomGlitch(intensity)`: Checks active sector. If CODE, bias towards Lensing. If TECH, bias towards Binary Flicker. Publishes `EVENTS.GLOBAL_GLITCH`.
+* `getHologramData()`: Pulls active sector info and corresponding bio/skills from `profile.js` to build UI data objects.
+
+
+
+**7. `effects/HeroEffects.js` (Identity Sync)**
+
+* **Class HeroEffects:**
+* Injects the `data-text` multi-layer HTML into `#hero-name-viewport`.
+* Subscribes to `EVENTS.GLOBAL_GLITCH`. If anomaly matches text-types (e.g., Chromatic Split), it adds CSS classes (`.hero-glitch-chromatic`) for a calculated duration.
+
+
+
+---
+
+#### **[ BATCH C: SYSTEMS & ENTITIES ]**
+
+**8. `systems/audio.js` (Acoustic Synthesizer)**
+
+* **Class AudioSynthesizer:**
+* Instantiates Web `AudioContext`, global LowPass Filter, and StereoPanner.
+* `unlock()`: Plays an empty buffer to break browser autoplay policies.
+* Subscribes to `EVENTS.GLOBAL_GLITCH`: Triggers low sines for sub-thumps, high squares for static.
+* Subscribes to `EVENTS.TYPEWRITER_TICK`: Triggers a 1200Hz to 800Hz digital chirp for every character.
+
+
+
+**9. `systems/vfx.js` (Post-Processing Stack)**
+
+* **Class VFXEngine:**
+* Initializes `EffectComposer`.
+* Adds `RenderPass` and `UnrealBloomPass` (Selective neon bloom).
+* Adds `ShaderPass` (UberShader): Uses branchless `step()` logic to calculate Relativistic Lensing and Chromatic Aberration simultaneously.
+* Subscribes to `EVENTS.GLOBAL_GLITCH`: Spikes the `uAberrationIntensity` uniform.
+
+
+
+**10. `loaders/AssetLoader.js` (Model Hardening)**
+
+* **Class AssetLoader:**
+* Loads GLTF/Draco models. Center-snaps bounding box positions.
+* Overrides materials: Injects `MeshStandardMaterial` with `roughness: 0.6` and `metalness: 0.4` to kill environmental ghosting of `stars.webp`.
+
+
+
+**11. `world/Planet.js` (Celestial Logic)**
+
+* **Class Planet (Extends THREE.Group):**
+* Holds HighPoly and LowPoly geometries. Swaps them dynamically based on `cameraDistance`.
+* Creates a duplicate `atmosphere` mesh, scaled to 1.05, with `depthWrite: false` to eliminate z-fighting.
+* Includes a `dispose()` method to manually clear WebGL buffers from GPU memory.
+
+
+
+**12. `Logics.js` (The Root Controller)**
+
+* **Class LogicsEngine:**
+* Initializes Scene, Camera, Lighting, Planets, and starts the `requestAnimationFrame` loop.
+* `bindUI()`: Button click triggers `AudioEngine.unlock()` and hides boot screen.
+* `bindEvents()`: Raycaster logic on click. If pointing at a planet, trigger `activateSector()`. If dragging vertically on mobile, trigger `clearRealityFocus()`.
+* `activateSector()`:
+* Triggers `SystemLogicUtils.setZooming(true)`.
+* Updates HTML inside `#hologram-viewport` with structures from `getHologramData()`.
+* Fires `runTypewriter` loop over the HTML strings.
+
+
+* `runTypewriter()`: Async loop that appends text character-by-character and publishes `EVENTS.TYPEWRITER_TICK`.
+* `projectHologram()`: Translates active planet's `Vector3` into 2D CSS coordinates to move the HUD.
+* `processTransitions()`: Smoothly lerps camera to `(0, 5, 75)` when a sector is locked.
+
+
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**/// RESTORE POINT PHASE 2: BATCH B (THE BRAIN & IDENTITY SHARDS)**
+
+Here is the highly detailed pseudo-code and structural DNA for **BATCH B**. This covers your central state machine, the identity registry, the text-glitch engine, and the Root Controller that orchestrates the entire OS.
+
+Save this block to your local records.
+
+---
+
+### **/// 1. `data/profile.js` (Core Identity & Quantization)**
+
+**Purpose:** Centralizes the user's identity, taglines, and sector-mapped skills.
+
+```javascript
+// [ EXPORT CONST PROFILE ]
+{
+    name: "RIYAS MANIKODI", // Authoritative string for HeroEffects
+    
+    // Linguistic Engine Source
+    taglines: [
+        "APPLICATION SUPPORT ENGINEER",
+        "THREE.JS & WEBGL DEVELOPER",
+        // ... (Other taglines)
+    ],
+    
+    // Zero-Asset Fallback (To prevent 3D engine hanging)
+    avatar: {
+        useImage: false,
+        proceduralSeed: 42, 
+        fallbackColor: 0x00f3ff // Matches TECH cyan
+    },
+    
+    // Procedural Bio Bursts
+    bio: [
+        "ACADEMIC DIRECTIVES COMPLETED: 2022.",
+        // ... (Other bio strings)
+    ],
+    
+    // Skill Matrix (Mapped to Planetary Sectors)
+    skills: {
+        tech: [ { name: "THREE.JS", level: 0.90 }, ... ],
+        code: [ { name: "PYTHON", level: 0.85 }, ... ],
+        vision: [ { name: "APPLICATION SUPPORT", level: 0.90 }, ... ]
+    }
+}
+
+```
+
+---
+
+### **/// 2. `utils/logics.js` (Master State Machine & Glitch Dispatcher)**
+
+**Purpose:** Maintains the Single Source of Truth for physics, zooming states, and calculates anomaly probabilities.
+
+```javascript
+// [ IMPORT ] SECTORS, ORBIT, SystemEvents, EVENTS, PROFILE
+
+// [ CLASS SystemLogic ]
+constructor() {
+    this.state = {
+        activeSector: SECTORS.TECH,
+        rotationAngle: 0,
+        velocity: 0,
+        isDragging: false,
+        isUIFocused: false,
+        isZooming: false // Cinematic Lock
+    };
+    this.listeners = [];
+    this.glitchPool = ['HEX_SHRED', 'BINARY_FLICKER', ... ]; // 10 Core effects
+}
+
+// [ STATE MODIFIERS ]
+setZooming(status) { 
+    this.state.isZooming = status; 
+    if (status) this.state.velocity = 0; // Kill momentum
+}
+setDragging(status) { /* Block if UI focused or Zooming */ }
+addVelocity(delta) { /* Apply ORBIT.DRAG_SENSITIVITY. Block if Zooming. */ }
+
+// [ RIPPLE IMPACT DISPATCHER ]
+dispatchRandomGlitch(intensity = 1.0) {
+    // Math.random() probability matrix based on activeSector.
+    // If CODE -> Bias toward Lensing/Gravity.
+    // If TECH -> Bias toward Binary/Data.
+    // SystemEvents.publish(EVENTS.GLOBAL_GLITCH, { effectId, intensity, sectorId });
+}
+
+// [ HOLOGRAM DATA BUILDER ]
+getHologramData() {
+    // Extracts Identity, Diagnostics, and Skills from PROFILE 
+    // based on this.state.activeSector.
+    // Returns formatted object for UI injection.
+}
+
+// [ PHYSICS ENGINE ]
+update() {
+    // 1. Apply ORBIT.DAMPING if not dragging.
+    // 2. Magnetic Snap to closest sector if velocity < 0.0005.
+    // 3. Apply velocity to rotationAngle (Blocked if isZooming).
+    // 4. Wrap logic (rotationAngle % ORBIT.WRAP_LIMIT) to stop WebGL float jitter.
+}
+
+// [ EXPORT ] const Logics = new SystemLogic(); // Singleton
+
+```
+
+---
+
+### **/// 3. `effects/HeroEffects.js` (Hardware-Accelerated Identity Sync)**
+
+**Purpose:** Manages the 3-tier CSS glitch stack and text synchronization.
+
+```javascript
+// [ IMPORT ] PROFILE, COLORS, SystemEvents, EVENTS
+
+// [ CLASS HeroEffects ]
+constructor(container) {
+    this.container = container;
+    this.name = PROFILE.name;
+    this.isGlitched = false;
+    this.init();
+    this.bindEvents();
+}
+
+init() {
+    // 1. Zero-Asset DOM Construction:
+    // Injects <div class="hero-name-wrapper" data-text="NAME">
+    // Injects <span class="hero-name-base">NAME</span>
+    
+    // 2. Apply Industrial Styles:
+    // Sets z-index: 5, clamp() sizing, will-change: transform, opacity, filter
+}
+
+bindEvents() {
+    // SystemEvents.subscribe(EVENTS.GLOBAL_GLITCH, (data) => {
+    // Filter anomalies (only react to text-relevant ones like HEX_SHRED).
+    // Call this.triggerGlitch(duration * intensity, data.effectId);
+    // });
+}
+
+triggerGlitch(duration, effectId) {
+    // Add base 'hero-glitch-active' class.
+    // If CHROMATIC_SPLIT -> add 'hero-glitch-chromatic'.
+    // If BINARY_FLICKER -> add 'hero-glitch-flicker'.
+    // setTimeout to remove classes based on duration.
+}
+
+updateSectorColor(sectorId) {
+    // Convert COLORS[sectorId] to hex string.
+    // wrapper.style.setProperty('--hero-accent', hexString);
+}
+
+```
+
+---
+
+### **/// 4. `Logics.js` (The Root Controller)**
+
+**Purpose:** The central nervous system that wires Three.js, DOM events, and the EventBus together.
+
+```javascript
+// [ CLASS LogicsEngine ]
+// Orchestrates Three.js Scene, Camera, Renderer, and Physics.
+
+bindEvents() {
+    // 1. Raycaster logic on pointerdown/up.
+    // 2. If intersects planet -> activateSector().
+    // 3. Mobile Swipe-to-Dismiss:
+    //    If dragMove velocityY > 0.05 -> clearRealityFocus().
+}
+
+activateSector(planetMesh) {
+    // 1. Trigger SystemLogicUtils.setZooming(true).
+    // 2. Fetch Hologram Data -> SystemLogicUtils.getHologramData().
+    // 3. Inject data into #hologram-viewport.
+    // 4. Trigger runTypewriter() on UI elements.
+    // 5. SystemEvents.publish(EVENTS.TOGGLE_HOLOGRAM, true).
+}
+
+clearRealityFocus() {
+    // 1. SystemLogicUtils.setZooming(false).
+    // 2. Clear #hologram-viewport text.
+    // 3. SystemEvents.publish(EVENTS.TOGGLE_HOLOGRAM, false).
+}
+
+runTypewriter(element, text, speed = 20) {
+    // Async loop.
+    // element.innerHTML += text[i];
+    // SystemEvents.publish(EVENTS.TYPEWRITER_TICK);
+    // await delay(speed);
+}
+
+processTransitions() {
+    // 1. If isZooming === true:
+    //    Lerp camera position to (0, 5, 75).
+    //    Lerp camera lookAt to (0, 0, 0).
+    // 2. projectHologram() -> maps 3D vector to 2D CSS screen coordinates.
+}
+
+```
+
+**/// RESTORE POINT PHASE 2: BATCH C (ENVIRONMENTAL SYSTEMS)**
+
+Here is the final structural layer, **BATCH C**. This completes your OS DNA by detailing the audio synthesis, post-processing stack, material loaders, and celestial rendering logic.
+
+Save this final block. You now have the absolute complete architecture ready for migration.
+
+---
+
+### **/// 8. `systems/audio.js` (Procedural Acoustic Synthesizer)**
+
+**Purpose:** Manages the Web Audio API context, binaural spatialization, and event-driven digital Foley.
+
+```javascript
+// [ IMPORT ] SystemEvents, EVENTS
+
+// [ CLASS AudioSynthesizer ]
+constructor() {
+    // 1. Initialize AudioContext.
+    // 2. Setup global lowpass filter (freq: 20000).
+    // 3. Setup StereoPanner & MasterGain (0.5).
+    // 4. Voice Limiter: MAX_VOICES = 3 (Prevents CPU crackle).
+    // 5. this.bindEvents().
+}
+
+bindEvents() {
+    // Subscribes to GLOBAL_GLITCH.
+    // Maps effectId to synth profiles:
+    // - HEX_SHRED/BINARY_FLICKER -> High square waves (800-2400Hz).
+    // - LENSING/REPULSION -> Low sine waves (80-40Hz) for sub-thumps.
+    // - CHROMATIC -> Mid-range sawtooth (400-600Hz).
+    
+    // Subscribes to TYPEWRITER_TICK.
+    // Triggers 1200Hz to 800Hz sine chirp for typing ticks.
+}
+
+unlock() {
+    // Plays empty buffer to bypass browser Autoplay policy.
+    // Triggers startSystemHum().
+}
+
+playTone(startFreq, endFreq, duration, type) {
+    // Generates procedural oscillator.
+    // Applies exponentialRampToValueAtTime for pitch and amplitude (prevents clicking).
+    // Enforces MAX_VOICES array cleanup.
+}
+
+startSystemHum() { /* Starts continuous 55Hz triangle wave drone */ }
+updateAtmosphere(sectorType, panValue) { /* Shifts pan and filter frequency based on active sector */ }
+
+// [ EXPORT ] const AudioEngine = new AudioSynthesizer();
+
+```
+
+---
+
+### **/// 9. `systems/vfx.js` (Post-Processing & Uber-Shader)**
+
+**Purpose:** Manages rendering passes, scalable bloom, and branchless interaction shaders.
+
+```javascript
+// [ IMPORT ] THREE, EffectComposer, RenderPass, UnrealBloomPass, ShaderPass, SystemEvents, EVENTS
+
+// [ CLASS VFXEngine ]
+init(renderer, scene, camera) {
+    // 1. Instantiates EffectComposer & RenderPass.
+    // 2. Adds Selective UnrealBloomPass (Calculated at 50% internal resolution for mobile GPU savings).
+    // 3. Builds UberShader:
+    //    - Combines Chromatic Aberration & Gravitational Lensing.
+    //    - Uses branchless math (step() instead of if/else) to prevent pipeline stalls.
+    // 4. this.bindEvents().
+}
+
+bindEvents() {
+    // Subscribes to GLOBAL_GLITCH.
+    // Filters for CHROMATIC_SPLIT, HEX_SHRED, REPULSION_PULSE.
+    // Calls triggerImpactEffect(0.5 * data.intensity).
+}
+
+triggerImpactEffect(intensity) {
+    // Spikes uAberrationIntensity uniform in UberShader.
+}
+
+update(delta, activeSector) {
+    // 1. Smoothly decays uAberrationIntensity back to 0.0.
+    // 2. Adjusts uLensDistortion target (0.3 if CODE sector, 0.0 otherwise).
+    // 3. composer.render(delta).
+}
+
+```
+
+---
+
+### **/// 10. `loaders/AssetLoader.js` (Model Hardening & Normalization)**
+
+**Purpose:** Loads geometry, center-snaps pivots, and injects industrial matte materials.
+
+```javascript
+// [ IMPORT ] THREE, GLTFLoader, DRACOLoader
+
+// [ CLASS AssetLoader ]
+constructor(manager) {
+    // Initializes loaders and sets Draco decoder path.
+}
+
+async loadAsset(name, modelPath, texturePath, sectorColor) {
+    // Promise wrapper for GLTFLoader.
+    
+    // 1. CENTER-SNAP: Uses THREE.Box3().getCenter() to shift model position to true (0,0,0) anchor.
+    
+    // 2. MATERIAL INJECTION (The Ghosting Fix):
+    // Traverses mesh and replaces material with MeshStandardMaterial.
+    // Sets roughness: 0.6 and metalness: 0.4 to diffuse/blur environment map reflections.
+    // Injects sectorColor into emissive property.
+    
+    // 3. SCALE NORMALIZATION: Calculates bounding box size and scales to uniform factor.
+    
+    // Resolves wrapper group.
+}
+
+```
+
+---
+
+### **/// 11. `world/Planet.js` (Celestial Entity Logic)**
+
+**Purpose:** Manages LOD swapping, displacement maps, and atmospheric halos.
+
+```javascript
+// [ IMPORT ] THREE, PolyGen, Physics, PlanetShaders
+
+// [ CLASS Planet extends THREE.Group ]
+constructor(radius, sectorColor, displacementMap, orbitSpeed, timeOffset) {
+    // 1. Generates highPolyGeo and lowPolyGeo via PolyGen.
+    // 2. Sets up shader uniforms (uTime, uSectorColor, unique uDisplacementMap).
+    // 3. Creates primary Mesh with custom ShaderMaterial.
+    
+    // 4. The Halo Fix:
+    // Creates atmosphere Mesh using same geometry.
+    // Scales to 1.05.
+    // Material uses depthWrite: false, transparent: true, AdditiveBlending to prevent Z-fighting.
+}
+
+update(delta, cameraDistance) {
+    // 1. Increments uTime uniform for circuitry pulses.
+    // 2. LOD Swapping: If cameraDistance > 150 -> swap to lowPolyGeo and wireframe: true.
+}
+
+updateOrbit(baseAngle, radiusX, radiusZ) {
+    // Updates position using Physics.calculateOrbitalPosition.
+    // Applies self-axis rotation.
+}
+
+dispose() {
+    // Strict garbage collection for geometries, materials, and unique displacement maps.
+}
+
+```
+
+---
+
+### **/// RESTORATION COMPLETE ///**
