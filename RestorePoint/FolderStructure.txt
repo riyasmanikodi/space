@@ -62,6 +62,10 @@ TerminalEngine.js (Command Parsing & Proxy)
 
 vfx.js (Bloom, Chromatic Aberration & Uber-Shaders)
 
+DifyBridge.js (Headless Neural Gateway & SSE Streaming)
+
+GeminiTerminalBridge.js (CLI Command Redirection)
+
 5. Visual Effects (/effects)
 FireTail.js (GPU Fluid Plasma Tail)
 
@@ -127,6 +131,10 @@ projects.js (Portfolio Mapping)
 
 resume.js (Timeline Shards)
 
+DifyConfig.js (Remote AI Credentials & Endpoint Registry)
+
+GeminiMemory.js (Persistent Session & Context Tracking)
+
 10. UI Components (/ui)
 Greeting.js (Boot Sequence & Insights)
 
@@ -137,6 +145,8 @@ Overlay.js (Master HUD & Swipe-Gage)
 SlideDrawer.js (Navigation & Momentum Snapping)
 
 Terminal.js (Interactive CRT CLI)
+
+GeminiInterface.js (Cognitive Shard & Stream Materialization)
 
 11. Utilities & Generators (/utils, /loaders, /generators)
 AssetLoader.js (VRAM Management & Throttling)
@@ -156,3 +166,5 @@ time.js (Temporal Delta Normalization)
 textures.js (Procedural Displacement Gen)
 
 gradients.js (Zero-Asset Aura Gen)
+
+GeminiFormatter.js (Markdown & Industrial UI Styler)

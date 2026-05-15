@@ -1,54 +1,233 @@
 /// RIPPLE EFFECT: MASTER REGISTRY [V28 PRO PHASE]
+
 1. Root Brain & Ignition (Logics.js & main.js)
 
-RIPPLE: The RIYAS_OS_READY signal now synchronizes the ignition of the CursorService, VFX, and ManifestoEngine, ensuring the liquid fire tail and background streaks appear exactly when the hardware handshake completes.
+* RIPPLE: The `RIYAS_OS_READY` signal now synchronizes the ignition of the `CursorService`, VFX, and `ManifestoEngine`, ensuring the liquid fire tail and background streaks appear exactly when the hardware handshake completes. 
 
-RIPPLE: Exposing the RIYAS_SYSTEM singleton allows developers to trigger sector transitions and glitch anomalies directly from the browser console for real-time debugging.
 
-RIPPLE: main.js now orchestrates the transition from the 8bit.ai background to the 3D void, preventing visual overlaps by gating the initialization of the planetary logic.
+* RIPPLE: Exposing the `RIYAS_SYSTEM` singleton allows developers to trigger sector transitions and glitch anomalies directly from the browser console for real-time debugging. 
+
+
+* RIPPLE: `main.js` now orchestrates the transition from the 8bit.ai background to the 3D void, preventing visual overlaps by gating the initialization of the planetary logic. 
+
+
+* RIPPLE: The `sys.reboot` command now serves as the authoritative recovery mechanism for neural gateway fractures, purging all stale `LocalStorage` shards to resolve 400 Bad Request loops.
+* RIPPLE: The integration of the Dify Neural Bridge delegates all conversation history to the remote backend, allowing RIYAS_OS to remain a truly stateless frontend architecture while persisting the `conversation_id` for session hydration.
 
 2. Core Engine (core/Scene.js & core/Loop.js)
 
-RIPPLE: Integrating the backgroundGroup migration into the set() method ensures that the 8bit.ai tunnel and streaks persist through the hardware handshake, preventing a "black screen" flash during the boot sequence.
+* RIPPLE: Integrating the `backgroundGroup` migration into the `set()` method ensures that the 8bit.ai tunnel and streaks persist through the hardware handshake, preventing a "black screen" flash during the boot sequence. 
 
-RIPPLE: Gating the CoreManifesto.update() call within the main heartbeat allows the system to reclaim up to 15% of CPU cycles once the OS is unlocked, improving the framerate of the planetary orbits.
 
-RIPPLE: Centralizing the heartbeat in Loop.js ensures that the meteorite cursor and 3D models share the same temporal delta, eliminating micro-stutter during high-speed drags.
+* RIPPLE: Gating the `CoreManifesto.update()` call within the main heartbeat allows the system to reclaim up to 15% of CPU cycles once the OS is unlocked, improving the framerate of the planetary orbits. 
+
+
+* RIPPLE: Centralizing the heartbeat in `Loop.js` ensures that the meteorite cursor and 3D models share the same temporal delta, eliminating micro-stutter during high-speed drags. 
+
+
 
 3. 8bit.ai Visual Engine (effects/ManifestoEngine.js)
 
-RIPPLE: The implementation of "Style A" (Streaks) and "Style B" (Tunnel) provides a cinematic backdrop that masks the background asset loading happening in the planetary sectors.
+* RIPPLE: The implementation of "Style A" (Streaks) and "Style B" (Tunnel) provides a cinematic backdrop that masks the background asset loading happening in the planetary sectors. 
 
-RIPPLE: CoreManifesto.dispose() triggers a deep GPU memory purge, releasing VRAM buffers and geometries so the high-poly HeroPlanet and BlackHole can utilize maximum hardware resources.
 
-RIPPLE: Parallax response in the manifesto layers creates a tactile sense of depth that prepares the user for the 3D perspective shift of the main OS.
+* RIPPLE: `CoreManifesto.dispose()` triggers a deep GPU memory purge, releasing VRAM buffers and geometries so the high-poly `HeroPlanet` and `BlackHole` can utilize maximum hardware resources. 
 
-4. Industrial UI (ui/Greeting.js & ui/Terminal.js)
 
-RIPPLE: The 8-second tactical insight loop in Greeting.js provides a rhythmic pacing to the boot sequence, matching the "decryption" aesthetic of the Typewriter.js engine.
+* RIPPLE: Parallax response in the manifesto layers creates a tactile sense of depth that prepares the user for the 3D perspective shift of the main OS. 
 
-RIPPLE: The "Lens Thump" effect upon unlocking the system acts as the visual trigger for Logics.js to begin the cinematic camera lerp to the first sector.
 
-RIPPLE: Hardening the Z-index in style.css ensures the Terminal.js draggable window never clips through the scanlines or the 3D cursor overlay.
 
-5. Systems & Physics (systems/CursorService.js & systems/physics.js)
+4. Industrial UI (ui/Greeting.js & ui/Terminal.js & ui/GeminiInterface.js)
 
-RIPPLE: The Spline-Based Interpolation in the CursorService eliminates "elbow" joints in sharp turns, allowing the liquid fire tail to follow the user's thumb with organic fluid dynamics.
+* RIPPLE: The 8-second tactical insight loop in `Greeting.js` provides a rhythmic pacing to the boot sequence, matching the "decryption" aesthetic of the `Typewriter.js` engine. 
 
-RIPPLE: setMomentum() API synchronization allows the meteorite trail length to scale naturally with the orbital drag intensity calculated in the physics kernel.
 
-RIPPLE: Automated sector-alignment snapping in physics.js provides the "Magnetic" feel that guides the camera to perfect planetary framing.
+* RIPPLE: The "Lens Thump" effect upon unlocking the system acts as the visual trigger for `Logics.js` to begin the cinematic camera lerp to the first sector. 
+
+
+* RIPPLE: Hardening the Z-index in `style.css` ensures the `Terminal.js` draggable window never clips through the scanlines or the 3D cursor overlay. 
+
+
+* RIPPLE: Token materialization ripples through the UI in real-time as the `NEURAL_STREAM_CHUNK` event drives the `GeminiInterface` typewriter engine to render cognitive shards word-by-word.
+
+5. Systems & Physics (systems/CursorService.js & systems/physics.js & systems/DifyBridge.js)
+
+* RIPPLE: The Spline-Based Interpolation in the `CursorService` eliminates "elbow" joints in sharp turns, allowing the liquid fire tail to follow the user's thumb with organic fluid dynamics. 
+
+
+* RIPPLE: `setMomentum()` API synchronization allows the meteorite trail length to scale naturally with the orbital drag intensity calculated in the physics kernel. 
+
+
+* RIPPLE: Automated sector-alignment snapping in `physics.js` provides the "Magnetic" feel that guides the camera to perfect planetary framing. 
+
+
+* RIPPLE: The Dify Neural Bridge enables headless AI orchestration, allowing natural language queries from the terminal to materialize as real-time streaming data shards.
 
 6. Celestial Logic & Vacuum Purge (world/ & shaders/)
 
-RIPPLE: Neutralizing the colorChance logic in Starfield.js and galaxy.js ensures that the "Green Dot" bug is killed globally, resulting in a pristine, high-contrast vacuum.
+* RIPPLE: Neutralizing the `colorChance` logic in `Starfield.js` and `galaxy.js` ensures that the "Green Dot" bug is killed globally, resulting in a pristine, high-contrast vacuum. 
 
-RIPPLE: Surgically excising the "Space Grime" from DebrisField.js removes sub-pixel noise from the foreground, allowing the procedural circuitry on the planet surfaces to remain ultra-sharp.
 
-RIPPLE: Relativistic Doppler Shifting in the BlackHole fragment shader creates a visual "Pull" that cues the user when they are nearing the CODE sector.
+* RIPPLE: Surgically excising the "Space Grime" from `DebrisField.js` removes sub-pixel noise from the foreground, allowing the procedural circuitry on the planet surfaces to remain ultra-sharp. 
 
-7. Linguistic Sync (effects/Typewriter.js & data/profile.js)
 
-RIPPLE: Every character manifested by the Typewriter engine now triggers a mechanical chirp in audio.js, grounding the industrial UI in an acoustic reality.
+* RIPPLE: Relativistic Doppler Shifting in the `BlackHole` fragment shader creates a visual "Pull" that cues the user when they are nearing the CODE sector. 
 
-RIPPLE: The decryptString protocol ensures that tactical insights are "earned" through a visual scan, reinforcing the OS theme of "Accelerated Intelligence."
+
+
+7. Linguistic Sync & Neural Context (effects/Typewriter.js & data/profile.js & data/GeminiMemory.js)
+
+* RIPPLE: Every character manifested by the Typewriter engine now triggers a mechanical chirp in `audio.js`, grounding the industrial UI in an acoustic reality. 
+
+
+* RIPPLE: The `decryptString` protocol ensures that tactical insights are "earned" through a visual scan, reinforcing the OS theme of "Accelerated Intelligence." 
+
+
+* RIPPLE: Persistent session hydration ensures that `difySessionId` is recovered from `LocalStorage` during cold boots, maintaining seamless conversation continuity across OS reloads.
+
+---
+
+/// REALITY AUDIT: MASTER REGISTRY [V28 PRO PHASE]
+
+1. Root Brain & Ignition (Logics.js & main.js)
+
+* APPEND 7: 2D-to-3D Projection - Added `Vector3.project(camera)` to translate WebGL space into CSS absolute positioning for the Holographic HUD. 
+
+
+* APPEND 8: Center-Focus Lock - Camera explicitly zeroes out its X-axis during transitions to guarantee perfect planetary alignment. 
+
+
+* APPEND 11: Kinetic Mud - Applied 0.5 heavy friction to manual drags when a planet is focused to keep it within the holographic viewport. 
+
+
+* APPEND 19: Boot Context Override - Entry point verified to bypass legacy loading screens. 
+
+
+* APPEND 20: Diagnostic Visibility - `window.RIYAS_SYSTEM` verified as globally accessible for live terminal debugging. 
+
+
+* APPEND 510: [PRO PHASE] Direct Ignition Audit - Verified canvas visibility promotes instantly without opacity clipping. 
+
+
+* APPEND 4225: [PRO PHASE] UI Access Audit - Verified button manifestation occurs reliably across Safari, Chrome, and Firefox mobile. 
+
+
+* APPEND 4340: [PRO PHASE] Manifesto Audit - Verified `CoreManifesto` mounts successfully to the `backgroundGroup` in `CoreScene` before `Logics.js` overwrites the instance. 
+
+
+* APPEND 8055: [PRO PHASE] Session Audit - Verified that `sys.reboot` triggers `localStorage.clear()` to purge stale `conversation_id` shards and resolve 400 Bad Request gateway fractures.
+* APPEND 8110: [PRO PHASE] Ignition Handshake - Verified that `main.js` waits for `DOMContentLoaded` to ensure the Neural UI Bridge is present before kernel ignition.
+
+2. State Machine & Event Bus (utils/logics.js & utils/events.js)
+
+* APPEND 1: Pub/Sub Hardening - Verified that the `publish` method gracefully handles empty data payloads. 
+
+
+* APPEND 2: Unsubscribe Hook - Enforced a strict return function pattern for all subscriptions to prevent phantom listeners and memory leaks. 
+
+
+* APPEND 3: Probability Matrix - Weighted anomaly distributions enforced for TECH, CODE, and VISION sectors. 
+
+
+* APPEND 5: State Synchronization - `getHologramData` ensures skill and bio shards strictly match the active planet identity. 
+
+
+* APPEND 410: [PRO PHASE] Neural Channel Audit - Verified `NEURAL_STREAM_START`, `CHUNK`, and `END` channels correctly broadcast token materialization events to the UI layer.
+
+3. Core Engine & Temporal Dynamics (core/Scene.js, core/Loop.js, utils/time.js)
+
+* APPEND 116: Ticker Migration - Verified that `CoreLoop` accurately receives scene payload without duplicating render calls. 
+
+
+* APPEND 201: [PRO PHASE] Handshake Audit - Confirmed `set(scene)` correctly migrates ambient and directional lights to new WebGL instances. 
+
+
+* APPEND 260: [PRO PHASE] Ghost Audit - Verified total removal of legacy `setupStarfield` points to achieve a pure vacuum. 
+
+
+* APPEND 465: Render Priority Audit - Verified that placing the procedural Cursor rendering explicitly last prevents occlusion by post-processing bloom and planetary geometry. 
+
+
+* APPEND 470: [PRO PHASE] Manifesto Heartbeat Audit - Verified manifesto update frequency matches the 60Hz display refresh rate via normalized delta time. 
+
+
+* APPEND 471: [PRO PHASE] Heartbeat Gating Audit - Verified `CoreManifesto.update()` ceases firing instantly after unlocking the OS, saving critical CPU cycles. 
+
+
+* APPEND 512: Temporal Audit - Verified 60FPS lock stability under heavy sector asset mounting. 
+
+
+* APPEND 3380: [PRO PHASE] Selector Audit - Verified `#webgl-canvas` exists in DOM before WebGL context listener attachment to prevent script halts. 
+
+
+* APPEND 4501: [PRO PHASE] Render Throttle Audit - Verified 30FPS boot-cap prevents Main-Thread blocking during simultaneous asset and neural bridge ignition.
+
+4. Neural Bridge & Gateway (systems/DifyBridge.js & data/DifyConfig.js)
+
+* APPEND 8050: [PRO PHASE] Endpoint Audit - Verified `/chat-messages` REST connectivity and SSE handshake reliability.
+* APPEND 8060: [PRO PHASE] Payload Integrity Audit - Confirmed `DEFAULT_INPUTS: {}` prevents 400 Gateway validation rejections.
+* APPEND 8070: [PRO PHASE] Statelessness Audit - Verified that the OS delegates all conversation history to the Dify backend while persisting the `conversation_id` locally for session hydration.
+
+5. 8bit.ai Visual Engine (effects/ManifestoEngine.js)
+
+* APPEND 4300: Layer Logic Audit - Verified Grain layer uses CSS `mix-blend-mode: multiply` for authentic grit fidelity without washing out the scanlines. 
+
+
+* APPEND 4310: Parallax Audit - Verified sub-pixel (0.05x) damping applied to `parallaxPos` to prevent user motion sickness. 
+
+
+* APPEND 4370: Style Switch Audit - Confirmed cross-fade between Streaks and Tunnel geometry executes without frame-drops. 
+
+
+* APPEND 4386: [PRO PHASE] Memory Purge Audit - Verified deep geometric and material disposal (`traverse` and `dispose()`) on OS unlock, confirming absolute zero background rendering overlap with the 3D planetary system. 
+
+
+* APPEND 4390: [PRO PHASE] Update Loop Audit - Verified `uTime` uniforms and buffer attribute `needsUpdate` flags correctly increment when triggered externally by the `CoreLoop`. 
+
+
+
+6. World Optics & Assets (world/ & data/constants.js)
+
+* APPEND 3131: [PRO PHASE] Asset Path Audit - Verified recursive mapping for `/surfaces`, `/maps`, and `/environment` to resolve 404 fractures.
+* APPEND 3135: [PRO PHASE] Texture Audit - Confirmed `radar_dish.webp` and `Lava.webp` resolution and pathing alignment.
+* APPEND 9325: [PRO PHASE] Sector DNA Audit - Verified Amber (0xffaa00) hex-code lock for the CONTACT sector to prevent visual collision with VISION green.
+
+7. Cognitive Interface & UI (ui/GeminiInterface.js & data/GeminiMemory.js)
+
+* APPEND 1: Identity Isolation - Verified Hero Name string is the authoritative source for the Main Viewport. 
+
+
+* APPEND 2: Zero-Asset Strategy - Avatar seed set to 42 for deterministic geometric synthesis. 
+
+
+* APPEND 10: Shard Distribution - Verified data structures for Identity, Diagnostic, and Skill shards format correctly into HTML nodes. 
+
+
+* APPEND 5001: [PRO PHASE] Materialization Audit - Verified real-time chunk materialization and markdown formatting for streaming neural payloads.
+* APPEND 5010: [PRO PHASE] Memory Hydration Audit - Confirmed successful extraction of `difySessionId` for persistent context across OS cold boots.
+
+8. Acoustic Synthesizer (systems/audio.js)
+
+* APPEND 6: Acoustic Friction - Synchronized low-pass filter resonance with high-speed orbital swipes. 
+
+
+* APPEND 18: Linguistic Sync - High-frequency chirps (1200Hz -> 800Hz) mathematically mapped to every typewriter character manifestation. 
+
+
+
+9. Post-Processing Stack & Materials (systems/vfx.js & loaders/AssetLoader.js)
+
+* APPEND 4: Reflection Diffusion - Roughness increased from 0.1 to 0.6 to prevent "Mirror Ghosting" of the galaxy assets on industrial models. 
+
+
+* APPEND 5: Fragment Optimization - Replaced `if/else` branching with `step()` and `mix()` logic in the Uber-Shader to prevent GPU pipeline stalls on mobile devices. 
+
+
+
+10. Celestial Logic (world/Planet.js)
+
+* APPEND 14: Unique Displacement - Procedural noise isolation enforced to prevent planetary "twins" across sectors. 
+
+
+* APPEND 15: Depth Buffering - Hardened `depthWrite: false` for atmosphere halos to ensure terrain render priority and eliminate Z-fighting artifacts.

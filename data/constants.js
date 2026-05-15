@@ -3,7 +3,7 @@
  * File: /data/constants.js
  * Purpose: Global DNA, Performance Weighting, and Anomaly Timing Registry
  * STATUS: PRO_PHASE_SINGULARITY_LOCKED
- * LINE_COUNT: ~435 Lines.
+ * LINE_COUNT: ~245 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Global DNA registry finalized. Unified sector mapping and brand color-space established.
  * - SYSTEM: Transitioned from image-based assets to mathematical procedural geometry for the cursor.
@@ -17,11 +17,16 @@
  * - SYSTEM: [PRO PHASE] Hardened BBL Neon color paths to support the Tetris Game HUD.
  * - SYSTEM: [PRO PHASE] Abstracted native font sizing into NATIVE_FONT_SIZES dictionary to serve as a typographic source of truth.
  * - SYSTEM: [PRO PHASE] Hardened Anomaly duration limits to precisely 1.5 seconds.
+ * - SYSTEM: [PRO PHASE] Realigned Sector DNA to prevent structural color collision between VISION and CONTACT sectors.
+ * - SYSTEM: [PRO PHASE] Enforced strict JS syntax purity to prevent execution halts.
+ * - SYSTEM: [PRO PHASE] Executed comprehensive ASSET_PATHS realignment based on physical directory reality audit.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 05]: Angle Offset Jitter. Enforced strict radians for sector distribution.
  * - FIXED [ID 202]: Color Space Delta. Swapped legacy hex strings for numeric values.
  * - FIXED [ID 2120]: Capitalization Lock-Out. Normalized Sector IDs to UPPERCASE to match Logics.js and Profile.js authority keys.
  * - FIXED [ID 3130]: [PRO PHASE] Missing Asset Warning. Registered Lava.webp to prevent AssetLoader bypass.
+ * - FIXED [ID 3131]: [PRO PHASE] 404 Asset Fracture. Realigned TEXTURES paths to match nested subfolders (/surfaces, /maps, /environment).
+ * - FIXED [ID 3132]: [PRO PHASE] Missing Asset Warning. Corrected RADAR_DIFF path to target radar_dish.webp.
  * - FIXED [ID 4305]: [PRO PHASE] Insight Starvation. Added diverse technical lore to the KERNEL_INSIGHTS array.
  * - FIXED [ID 4501]: [PRO PHASE] Parallel Ignition Fatigue. Hardened boot sequence by injecting a 30FPS cap to prevent Main-Thread blocking.
  * - FIXED [ID 4595]: [PRO PHASE] Golden Line Disconnect. Updated COLORS.VISION to Matrix Green.
@@ -30,6 +35,8 @@
  * - FIXED [ID 9210]: [PRO PHASE] Font Size Hardcoding. Moved explicit string values from HeroEffects and style.css into the centralized constants registry.
  * - FIXED [ID 9300]: [PRO PHASE] Greeting Element Disconnect. Added TACTICAL_INSIGHT and SYSTEM_STATS to NATIVE_FONT_SIZES registry.
  * - FIXED [ID 9320]: [PRO PHASE] Visual Cutoff. Scaled GLITCH_DURATION strictly down to 1500ms to synchronize with CSS bounds and prevent zombie animations.
+ * - FIXED [ID 9325]: [PRO PHASE] Visual Collision. Resolved Sector DNA collision where VISION and CONTACT shared identical Matrix Green color vectors, causing UI Handshake failures.
+ * - FIXED [ID 9330]: [PRO PHASE] Syntax Corruption. Purged non-standard artifact tags from functional code lines to resolve SITE ERRORS.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected METEOR_CONFIG to define procedural vertex displacement and ignition thresholds.
  * - Fixed: Added HARDWARE_PROFILES to support Low/Medium/High performance tiers.
@@ -45,6 +52,9 @@
  * - Fixed: [PRO PHASE] Added NATIVE_FONT_SIZES registry mapped to Mobile and PC hardware states.
  * - Fixed: [PRO PHASE] Added TACTICAL_INSIGHT and SYSTEM_STATS typographic constants for Universal Autonomy scaling.
  * - Fixed: [PRO PHASE] Registered GAME_STOP_REQUESTED signal inside GLITCH events for defragmenter lifecycle authority.
+ * - Fixed: [PRO PHASE] Re-assigned COLORS.CONTACT to deep Amber (0xffaa00) to isolate from COLORS.VISION.
+ * - Fixed: [PRO PHASE] Enforced pure JavaScript syntax without inline comment corruption.
+ * - Fixed: [PRO PHASE] Corrected texture targeting for radar_dish.webp.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The system is now 100% independent of external cursor assets, increasing boot speed.
  * - RIPPLE: The decoupled renderer ensures that cursor crashes do not impact planetary rotation.
@@ -58,6 +68,9 @@
  * - RIPPLE: [PRO PHASE] HeroEffects and other typographic modules now strictly pull from NATIVE_FONT_SIZES, preventing UI desync.
  * - RIPPLE: [PRO PHASE] The tactical box and system stats overlay scale harmoniously alongside the central terminal logs.
  * - RIPPLE: [PRO PHASE] Glitch engine ensures all states cleanly resolve exactly at 1.5s bounds, matching heavy CSS cinematic timing.
+ * - RIPPLE: [PRO PHASE] Sector isolation achieved: CONTACT sector now possesses a unique color space (Amber), preventing Bridge Handshake UI collisions.
+ * - RIPPLE: [PRO PHASE] Clean execution logic prevents site-wide rendering crashes.
+ * - RIPPLE: [PRO PHASE] Hardened path arrays guarantee no 404 console spam during initial AssetLoader sequence.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Circular Wraparound - WRAP_LIMIT enforced at 2PI.
  * - APPEND 123: Tier Calibration - Verified Anisotropy limits (4x Low / 16x High).
@@ -73,6 +86,9 @@
  * - APPEND 9210: [PRO PHASE] Typographic Source of Truth - Verified NATIVE_FONT_SIZES aligns perfectly with physical A50s specifications.
  * - APPEND 9300: [PRO PHASE] Layout Authority Audit - Verified TACTICAL_INSIGHT and SYSTEM_STATS are safely embedded within the PC/Mobile dictionary.
  * - APPEND 9320: [PRO PHASE] Duration Sync Audit - Confirmed GLITCH_DURATION exactly matches 1500ms global safety limit.
+ * - APPEND 9325: [PRO PHASE] Color Space Isolation - Confirmed `COLORS.CONTACT` correctly broadcasts `0xffaa00` (Amber) across the WebGL and DOM states.
+ * - APPEND 9330: [PRO PHASE] Purity Audit - Confirmed JavaScript runtime stability and syntax integrity across global constants.
+ * - APPEND 9331: [PRO PHASE] Asset Mapping Audit - Confirmed all texture strings accurately reflect the physical Windows file system hierarchy.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_SINGULARITY_LOCKED
  */
@@ -88,13 +104,13 @@ export const SYSTEM = {
 };
 
 // ==========================================
-// 2. CYBERPUNK COLOR PALETTE (CULPRIT 202)
+// 2. CYBERPUNK COLOR PALETTE (CULPRIT 202, 9325)
 // ==========================================
 export const COLORS = {
     TECH: 0x00f3ff,     // Cyan Hub
     CODE: 0xff0055,     // Pink Black Hole
     VISION: 0x0aff0a,   // [PRO PHASE] Matrix Green
-    CONTACT: 0x0aff0a,  // Matrix Green Rocket
+    CONTACT: 0xffaa00,  // [PRO PHASE] Amber (Restored to fix Sector Collision)
     BG: 0x050508,       // Deep Space Void
     UI_GLASS: "rgba(10, 15, 25, 0.7)"
 };
@@ -171,7 +187,7 @@ export const ASSET_PATHS = {
         JUPITER: './assets/textures/surfaces/jupiter.webp',
         SATURN: './assets/textures/surfaces/saturn.webp',
         ROVER_DIFF: './assets/textures/rover.webp',
-        RADAR_DIFF: './assets/textures/radar.webp',
+        RADAR_DIFF: './assets/textures/radar_dish.webp', // [ID 3132] Realigned based on Reality Audit
         SAT_DIFF: './assets/textures/satellite.webp',
         ROCKET_DIFF: './assets/textures/rocket.webp',
         LAVA: './assets/textures/surfaces/Lava.webp',

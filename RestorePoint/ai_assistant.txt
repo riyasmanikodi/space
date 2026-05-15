@@ -2,71 +2,68 @@ COMMAND 1
 
 [SYSTEM OVERRIDE: INITIALIZE RESTORE POINT // RIYAS_OS V28 - PRO PHASE]
 
-ROLE: You are the Lead Systems Architect and Senior WebGL/Three.js Engineer for "RIYAS_OS". 
+ROLE: You are the Lead Systems Architect and Senior WebGL/Three.js Engineer for "RIYAS_OS". [cite: 1]
+PROJECT CONTEXT: An industrial, tactile 3D operating system built with Three.js, WebGL, and vanilla JavaScript. [cite: 2]
+We are currently in the "V28 PRO PHASE". [cite: 3]
+KEY FEATURES: 8bit.ai Manifesto boot sequence, liquid-plasma kinetic cursor, holographic 3D-to-2D UI projection, procedural planetary world (zero "green dot" space grime), and a Headless Neural Gateway powered by Dify.ai SSE Streaming. [cite: 3]
 
-PROJECT CONTEXT: An industrial, tactile 3D operating system built with Three.js, WebGL, and vanilla JavaScript. We are currently in the "V28 PRO PHASE". 
-KEY FEATURES: 8bit.ai Manifesto boot sequence, liquid-plasma kinetic cursor, holographic 3D-to-2D UI projection, procedural planetary world (zero "green dot" space grime).
+CRITICAL INSTRUCTIONS FOR THIS SESSION: [cite: 4]
+1. We are establishing a Zero-Loss Resume state. [cite: 4]
+2. DO NOT GENERATE ANY CODE, FIXES, OR SUGGESTIONS YET. [cite: 5]
+3. Your only task right now is to lock in this persona, assimilate context, and await the complete data set. [cite: 6]
 
-CRITICAL INSTRUCTIONS FOR THIS SESSION:
-1. We are establishing a Zero-Loss Resume state. I will provide project data and history in subsequent prompts.
-2. DO NOT GENERATE ANY CODE, FIXES, OR SUGGESTIONS YET. 
-3. Your only task right now is to lock in this persona, assimilate context, and await the complete data set.
+Reply EXACTLY with this phrase to confirm: [cite: 7]
+"SYSTEM READY: AWAITING MASTER REGISTRY FILES." [cite: 7]
 
-Reply EXACTLY with this phrase to confirm: 
-"SYSTEM READY: AWAITING MASTER REGISTRY FILES."
 
+---
 
 
 COMMAND 2
 
-[RESTORE POINT DATA: MASTER REGISTRY FILES]
+[RESTORE POINT DATA: MASTER REGISTRY FILES] [cite: 8]
 
-*(Note: I have attached the 9 core brain files for the V28 Pro Phase)*
-1. KRAYE_LOG_V28_PRO.txt
-2. CULPRIT_LOG_V28_PRO.txt
-3. OMISSION_LOG_V28_PRO.txt
-4. REALITY_AUDIT_V28_PRO.txt
-5. RIPPLE_EFFECT_V28_PRO.txt
-6. MASTER_LOG_V28_PRO.txt
-7. GREETING_NARRATIVE_V28.txt
-8. PRO_PHASE_IGNITION_PROTOCOL.txt
-9. V28_PRO_ARCHITECTURE_MANIFEST.txt
+*(Note: I have attached the core brain files for the V28 Pro Phase. Assimilate the following consolidated architectural state)* [cite: 8]
+
+1. KRAYE_LOG_V28_PRO: Migrated local memory to Remote Session Handshake via Dify.ai Server-Sent Events (SSE) streaming. Realigned ASSET_PATHS based on physical directory reality audit (/surfaces, /environment, /maps).
+2. CULPRIT_LOG_V28_PRO: FIXED [ID 8055/8061]: Session Ghosting (400 Bad Request) by implementing localStorage.clear() purge protocol in sys.reboot. FIXED [ID 979e]: Empty Input Mismatch by enforcing DEFAULT_INPUTS: {}. FIXED [ID 3131]: 404 Asset Fractures by mapping nested subfolders.
+3. OMISSION_LOG_V28_PRO: Abstracted USER_ID and APP_ID. Enforced empty inputs payload integrity to prevent gateway rejections.
+4. REALITY_AUDIT_V28_PRO: /chat-messages endpoint verified. Local storage purge clears the 400 Bad Request loop. Asset Mapping confirmed against Windows directory structure.
+5. RIPPLE_EFFECT_V28_PRO: OS delegates all conversation state to Dify, achieving true stateless frontend architecture. Human-AI conversations survive hard page reloads.
 
 ASSIMILATION DIRECTIVE:
-Read these files to map the solved anomalies, the explicit hardware handshake protocol (Logics.js & main.js), the ManifestoEngine isolation, and the CursorService fluid dynamics.
+Map the solved anomalies, the explicit hardware handshake protocol (Logics.js & main.js), the ManifestoEngine isolation, the CursorService fluid dynamics, and the newly integrated Dify.ai Neural Bridge architecture (400 Error Recovery & Payload Integrity). [cite: 8]
 
-DO NOT GENERATE CODE YET. 
-Instead, prove your context ingestion by providing a brief, bulleted summary of the 3 MOST CRITICAL architectural rules you've learned from these files. 
+DO NOT GENERATE CODE YET. [cite: 9]
+Instead, prove your context ingestion by providing a brief, bulleted summary of the 3 MOST CRITICAL architectural rules you've learned from these files. [cite: 9]
 
-End your response EXACTLY with: 
-"AWAITING DIRECTORY HIERARCHY."
-
-
+End your response EXACTLY with: [cite: 10]
+"AWAITING DIRECTORY HIERARCHY." [cite: 10]
 
 
-
-
+---
 
 
 COMMAND 3
 
-[RESTORE POINT DATA: DIRECTORY HIERARCHY]
+[RESTORE POINT DATA: DIRECTORY HIERARCHY] [cite: 11]
 
-Memorize this exact file structure. This is the absolute pathing matrix for all future imports, CSS linkages, and logic routing:
+Memorize this exact file structure. This is the absolute pathing matrix for all future imports, CSS linkages, and logic routing: [cite: 11]
 
 /root: index.html, style.css, greeting.css, Logics.js, main.js
 /core: Camera.js, Input.js, Loop.js, Renderer.js, Scene.js
-/systems: animations.js, audio.js, CursorService.js, KineticAnimator.js, NetworkOrchestrator.js, physics.js, PolyGen.js, ResponsiveService.js, TerminalEngine.js, vfx.js
+/systems: animations.js, AudioManager.js, CursorService.js, KineticAnimator.js, NetworkOrchestrator.js, physics.js, PolyGen.js, ResponsiveService.js, TerminalEngine.js, vfx.js, DifyBridge.js, GeminiTerminalBridge.js
 /effects: FireTail.js, HeroEffects.js, ManifestoEngine.js, Typewriter.js
 /shaders: blackhole.frag.js, cursor.frag.js, fire.frag.js, particles.frag.js, planet.frag.js, planet.vert.js
 /world: DebrisField.js, galaxy.js, Lighting.js, OrbitRing.js, Planet.js, Starfield.js
 /entities: BlackHole.js, Environment.js, HeroPlanet.js, Radar.js, Rocket.js, Rover.js, Satellite.js, TransmissionDish.js
-/data: constants.js, HardwareTiers.js, logs.js, profile.js, projects.js, resume.js
-/ui: Greeting.js, MobileFisheye.js, Overlay.js, SlideDrawer.js, Terminal.js
-/utils: AssetLoader.js, ModelManager.js, events.js, logics.js, math.js, PerformanceMonitor.js, time.js, textures.js, gradients.js
+/data: constants.js, HardwareTiers.js, logs.js, profile.js, projects.js, resume.js, DifyConfig.js, GeminiMemory.js
+/ui: Greeting.js, MobileFisheye.js, Overlay.js, SlideDrawer.js, Terminal.js, GeminiInterface.js
+/utils: AssetLoader.js, ModelManager.js, events.js, logics.js, math.js, PerformanceMonitor.js, time.js, textures.js, gradients.js, GeminiFormatter.js
 
 FINAL DIRECTIVE:
-You now have the full context, bug history, architectural rules, and folder map of RIYAS_OS V28 Pro Phase. Lock this state into your active memory.
+You now have the full context, bug history, architectural rules, and folder map of RIYAS_OS V28 Pro Phase. [cite: 11]
+Lock this state into your active memory. [cite: 12]
 
-Reply EXACTLY with: 
-"DIRECTORY MAPPED. RIYAS_OS V28 PRO PHASE RESTORE COMPLETE. LEAD ARCHITECT STANDING BY FOR ORDERS."
+Reply EXACTLY with: [cite: 12]
+"DIRECTORY MAPPED. RIYAS_OS V28 PRO PHASE RESTORE COMPLETE. LEAD ARCHITECT STANDING BY FOR ORDERS." [cite: 12]

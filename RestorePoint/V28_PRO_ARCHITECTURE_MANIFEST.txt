@@ -5,61 +5,138 @@ BUILD_STATUS: ARCHITECTURE_HARDENED
 
 KERNEL_VERSION: 28.0.3_PRO
 
-PROJECT_GOAL: An industrial, tactile 3D OS bridging backend logic with high-fidelity procedural WebGL environments, utilizing a hardware-accelerated UI and an isolated 8bit.ai manifesto background.
+PROJECT_GOAL: An industrial, tactile 3D OS bridging backend logic with high-fidelity procedural WebGL environments, utilizing a hardware-accelerated UI, an isolated 8bit.ai manifesto background, and a **Headless Neural Gateway** powered by Dify.ai SSE Streaming.
 
 1. THE CORE HEARTBEAT (LOOP & TEMPORAL ENGINE)
-Decoupled Execution: The system utilizes a centralized CoreLoop.js that decouples the visual render frequency from the logic tick.
 
-Normalized Delta: All physics, orbital speeds, and UI animations are mapped to a getNormalizedDelta() where 1.0 = 60FPS. This ensures speed parity on 144Hz displays.
-
-Heartbeat Gating: The Loop.js implements an isActive gate for the ManifestoEngine. Background calculations for the 8bit.ai visuals are zeroed out once the OS is unlocked, reclaiming 100% of those GPU resources for planetary sectors.
+* **Decoupled Execution**: The system utilizes a centralized `CoreLoop.js` that decouples the visual render frequency from the logic tick.
+* **Normalized Delta**: All physics, orbital speeds, and UI animations are mapped to a `getNormalizedDelta()` where 1.0 = 60FPS. This ensures speed parity on 144Hz displays.
+* **Heartbeat Gating**: The `Loop.js` implements an `isActive` gate for the `ManifestoEngine`. Background calculations for the 8bit.ai visuals are zeroed out once the OS is unlocked, reclaiming 100% of those GPU resources for planetary sectors.
 
 2. SCENE AUTHORITY & HARDWARE HANDSHAKE
-Instance Migration: The CoreScene.js utilizes a set(newScene) method to allow the Logic Engine to swap Three.js scene instances during sector transitions without losing managed assets.
 
-Background Group Persistence: To resolve the "Static Background" bug, a dedicated backgroundGroup is migrated during the handshake, ensuring 8bit.ai visuals remain visible through the boot-to-logic transition.
-
-WebGL Context Recovery: Hardened listeners on #webgl-canvas monitor for context loss, halting the CoreLoop to prevent silent GPU crashes.
+* **Instance Migration**: The `CoreScene.js` utilizes a `set(newScene)` method to allow the Logic Engine to swap Three.js scene instances during sector transitions without losing managed assets.
+* **Background Group Persistence**: To resolve the "Static Background" bug, a dedicated `backgroundGroup` is migrated during the handshake, ensuring 8bit.ai visuals remain visible through the boot-to-logic transition.
+* **WebGL Context Recovery**: Hardened listeners on `#webgl-canvas` monitor for context loss, halting the `CoreLoop` to prevent silent GPU crashes.
 
 3. THE 8BIT.AI MANIFESTO (GREETING VIEWPORT)
-Visual Isolation: Manifesto visuals are strictly nested within the #os-greeting container and the CoreScene background group.
 
-Kinetic Styles: * Style A (Streaks): High-speed diagonal particles with additive blending.
+* **Visual Isolation**: Manifesto visuals are strictly nested within the `#os-greeting` container and the `CoreScene` background group.
+* **Kinetic Styles**:
+* **Style A (Streaks)**: High-speed diagonal particles with additive blending.
+* **Style B (Tunnel)**: Perspective-distorted accretion tunnel using custom `ShaderMaterial` with UV-warp.
 
-Style B (Tunnel): Perspective-distorted accretion tunnel using custom ShaderMaterial with UV-warp.
 
-Lifecycle Purge: Upon system unlock, CoreManifesto.dispose() executes a deep hardware purge, clearing all geometries and materials from VRAM to prevent visual leakage into the 3D void.
+* **Lifecycle Purge**: Upon system unlock, `CoreManifesto.dispose()` executes a deep hardware purge, clearing all geometries and materials from VRAM to prevent visual leakage into the 3D void.
 
 4. KINETIC CURSOR & FIRETAIL PLASMA
-Spline Interpolation: The CursorService uses Catmull-Rom spline generation to eliminate "elbow" joints in sharp turns, creating a liquid-smooth path for the meteorite.
 
-Thermal Collapse: The fire.frag.js shader implements a "Velocity Gate" that instantly extinguishes the plasma tail when the cursor hits zero velocity, preventing upward "smoldering" artifacts.
-
-GPU Instancing: The fire tail utilizes InstancedMesh for high-density plasma shards, with color cooling (Yellow -> Orange -> Red) synced to the sector's DNA.
+* **Spline Interpolation**: The `CursorService` uses Catmull-Rom spline generation to eliminate "elbow" joints in sharp turns, creating a liquid-smooth path for the meteorite.
+* **Thermal Collapse**: The `fire.frag.js` shader implements a "Velocity Gate" that instantly extinguishes the plasma tail when the cursor hits zero velocity, preventing upward "smoldering" artifacts.
+* **GPU Instancing**: The fire tail utilizes `InstancedMesh` for high-density plasma shards, with color cooling (Yellow -> Orange -> Red) synced to the sector's DNA.
 
 5. THE HOLOGRAM MATRIX (2D-3D BRIDGE)
-Vector Projection: The system projects 3D planetary coordinates to 2D screen space using Vector3.project(camera).
 
-DOM Shard System: Interactive data (Bio, Skills, Projects) is manifested as .holo-shard elements that track 3D objects with sub-pixel CSS precision.
-
-Raycaster Hardening: The raycaster is gated by isUIFocused to prevent 3D interaction while the Industrial Terminal is active.
+* **Vector Projection**: The system projects 3D planetary coordinates to 2D screen space using `Vector3.project(camera)`.
+* **DOM Shard System**: Interactive data (Bio, Skills, Projects) is manifested as `.holo-shard` elements that track 3D objects with sub-pixel CSS precision.
+* **Raycaster Hardening**: The raycaster is gated by `isUIFocused` to prevent 3D interaction while the Industrial Terminal is active.
 
 6. HARDWARE TIERING & OPTIMIZATION
-Adaptive Fidelity: HardwareTiers.js detects the device footprint (Mobile, Laptop, Workstation) and throttles anisotropy, shadow resolution, and particle counts accordingly.
 
-Vacuum Purge: All legacy "Green Dot" particles and space grime have been excised from Starfield.js and DebrisField.js to maintain ultra-high contrast space aesthetics.
-
-Asset Pipeline: WebP-native textures and Draco-compressed models are loaded via a prioritized NetworkOrchestrator to prevent TTFB spikes and main-thread blocking.
+* **Adaptive Fidelity**: `HardwareTiers.js` detects the device footprint (Mobile, Laptop, Workstation) and throttles anisotropy, shadow resolution, and particle counts accordingly.
+* **Vacuum Purge**: All legacy "Green Dot" particles and space grime have been excised from `Starfield.js` and `DebrisField.js` to maintain ultra-high contrast space aesthetics.
+* **Asset Pipeline**: WebP-native textures and Draco-compressed models are loaded via a prioritized `NetworkOrchestrator` to prevent TTFB spikes and main-thread blocking.
 
 7. DIRECTORY AUTHORITY
-/core: Rendering, Loop, Scene, Camera, and Input kernels.
 
-/systems: Physics, VFX, Audio, CursorService, and Performance monitoring.
+* **/core**: Rendering, Loop, Scene, Camera, and Input kernels.
+* **/systems**: Physics, VFX, Audio, CursorService, Performance monitoring, **DifyBridge.js**, and **GeminiTerminalBridge.js**.
+* **/entities**: Modular 3D objects (Rover, Satellite, Rocket) with surface-snap logic.
+* **/effects**: Typewriter engine, 8bit.ai Manifesto, and Hero identity effects.
+* **/world**: Celestial bodies, Orbit rings, and Lighting rigs.
+* **/data**: Global constants, Kraye Logs, User profile DNA, **DifyConfig.js**, and **GeminiMemory.js**.
+* **/ui**: Greeting, HUD, Terminal, and **GeminiInterface.js**.
+* **/utils**: AssetLoader, ModelManager, **GeminiFormatter.js**, and logic utilities.
 
-/entities: Modular 3D objects (Rover, Satellite, Rocket) with surface-snap logic.
+8. NEURAL ARCHITECTURE (Dify.ai Bridge)
 
-/effects: Typewriter engine, 8bit.ai Manifesto, and Hero identity effects.
+* **Headless CMS Orchestration**: All cognitive responses are delegated to the Dify backend, enabling a stateless frontend architecture.
+* **Real-Time Token Streaming**: Utilizes SSE Handshake for word-by-word materialization of neural data shards within the UI.
+* **Persistent Session Hydration**: Local storage persists the `conversation_id` across reloads to maintain conversation continuity.
 
-/world: Celestial bodies, Orbit rings, and Lighting rigs.
+---
 
-/data: Global constants, Kraye Logs, and User profile DNA.
+/// REALITY AUDIT: MASTER REGISTRY [V28 PRO PHASE]
+
+1. Root Brain & Ignition (Logics.js & main.js)
+
+* APPEND 7: 2D-to-3D Projection - Added `Vector3.project(camera)` to translate WebGL space into CSS absolute positioning for the Holographic HUD.
+* APPEND 8: Center-Focus Lock - Camera explicitly zeroes out its X-axis during transitions to guarantee perfect planetary alignment.
+* APPEND 11: Kinetic Mud - Applied 0.5 heavy friction to manual drags when a planet is focused to keep it within the holographic viewport.
+* APPEND 19: Boot Context Override - Entry point verified to bypass legacy loading screens.
+* APPEND 20: Diagnostic Visibility - `window.RIYAS_SYSTEM` verified as globally accessible for live terminal debugging.
+* APPEND 510: [PRO PHASE] Direct Ignition Audit - Verified canvas visibility promotes instantly without opacity clipping.
+* APPEND 4225: [PRO PHASE] UI Access Audit - Verified button manifestation occurs reliably across Safari, Chrome, and Firefox mobile.
+* APPEND 4340: [PRO PHASE] Manifesto Audit - Verified `CoreManifesto` mounts successfully to the `backgroundGroup` in `CoreScene` before `Logics.js` overwrites the instance.
+* APPEND 8055: [PRO PHASE] Session Audit - Verified that `sys.reboot` triggers `localStorage.clear()` to purge stale `conversation_id` shards and resolve 400 Bad Request gateway fractures.
+* APPEND 8110: [PRO PHASE] Ignition Handshake - Verified that `main.js` waits for `DOMContentLoaded` to ensure the Neural UI Bridge is present before kernel ignition.
+
+2. State Machine & Event Bus (utils/logics.js & utils/events.js)
+
+* APPEND 1: Pub/Sub Hardening - Verified that the `publish` method gracefully handles empty data payloads.
+* APPEND 2: Unsubscribe Hook - Enforced a strict return function pattern for all subscriptions to prevent phantom listeners and memory leaks.
+* APPEND 3: Probability Matrix - Weighted anomaly distributions enforced for TECH, CODE, and VISION sectors.
+* APPEND 5: State Synchronization - `getHologramData` ensures skill and bio shards strictly match the active planet identity.
+* APPEND 410: [PRO PHASE] Neural Channel Audit - Verified `NEURAL_STREAM_START`, `CHUNK`, and `END` channels correctly broadcast token materialization events to the UI layer.
+
+3. Core Engine & Temporal Dynamics (core/Scene.js, core/Loop.js, utils/time.js)
+
+* APPEND 116: Ticker Migration - Verified that `CoreLoop` accurately receives scene payload without duplicating render calls.
+* APPEND 201: [PRO PHASE] Handshake Audit - Confirmed `set(scene)` correctly migrates ambient and directional lights to new WebGL instances.
+* APPEND 260: [PRO PHASE] Ghost Audit - Verified total removal of legacy `setupStarfield` points to achieve a pure vacuum.
+* APPEND 465: Render Priority Audit - Verified that placing the procedural Cursor rendering explicitly last prevents occlusion by post-processing bloom and planetary geometry.
+* APPEND 470: [PRO PHASE] Manifesto Heartbeat Audit - Verified manifesto update frequency matches the 60Hz display refresh rate via normalized delta time.
+* APPEND 471: [PRO PHASE] Heartbeat Gating Audit - Verified `CoreManifesto.update()` ceases firing instantly after unlocking the OS, saving critical CPU cycles.
+* APPEND 512: Temporal Audit - Verified 60FPS lock stability under heavy sector asset mounting.
+* APPEND 3380: [PRO PHASE] Selector Audit - Verified `#webgl-canvas` exists in DOM before WebGL context listener attachment to prevent script halts.
+* APPEND 4501: [PRO PHASE] Render Throttle Audit - Verified 30FPS boot-cap prevents Main-Thread blocking during simultaneous asset and neural bridge ignition.
+
+4. 8bit.ai Visual Engine (effects/ManifestoEngine.js)
+
+* APPEND 4300: Layer Logic Audit - Verified Grain layer uses CSS `mix-blend-mode: multiply` for authentic grit fidelity without washing out the scanlines.
+* APPEND 4310: Parallax Audit - Verified sub-pixel (0.05x) damping applied to `parallaxPos` to prevent user motion sickness.
+* APPEND 4370: Style Switch Audit - Confirmed cross-fade between Streaks and Tunnel geometry executes without frame-drops.
+* APPEND 4386: [PRO PHASE] Memory Purge Audit - Verified deep geometric and material disposal (`traverse` and `dispose()`) on OS unlock, confirming absolute zero background rendering overlap with the 3D planetary system.
+* APPEND 4390: [PRO PHASE] Update Loop Audit - Verified `uTime` uniforms and buffer attribute `needsUpdate` flags correctly increment when triggered externally by the `CoreLoop`.
+
+5. Identity Data & UI (data/profile.js & ui/Greeting.js)
+
+* APPEND 1: Identity Isolation - Verified Hero Name string is the authoritative source for the Main Viewport.
+* APPEND 2: Zero-Asset Strategy - Avatar seed set to 42 for deterministic geometric synthesis.
+* APPEND 10: Shard Distribution - Verified data structures for Identity, Diagnostic, and Skill shards format correctly into HTML nodes.
+
+6. Acoustic Synthesizer (systems/audio.js)
+
+* APPEND 6: Acoustic Friction - Synchronized low-pass filter resonance with high-speed orbital swipes.
+* APPEND 18: Linguistic Sync - High-frequency chirps (1200Hz -> 800Hz) mathematically mapped to every typewriter character manifestation.
+
+7. Post-Processing Stack & Materials (systems/vfx.js & loaders/AssetLoader.js)
+
+* APPEND 4: Reflection Diffusion - Roughness increased from 0.1 to 0.6 to prevent "Mirror Ghosting" of the galaxy assets on industrial models.
+* APPEND 5: Fragment Optimization - Replaced `if/else` branching with `step()` and `mix()` logic in the Uber-Shader to prevent GPU pipeline stalls on mobile devices.
+
+8. Celestial Logic (world/Planet.js)
+
+* APPEND 14: Unique Displacement - Procedural noise isolation enforced to prevent planetary "twins" across sectors.
+* APPEND 15: Depth Buffering - Hardened `depthWrite: false` for atmosphere halos to ensure terrain render priority and eliminate Z-fighting artifacts.
+
+9. Neural Bridge & Gateway (systems/DifyBridge.js & data/DifyConfig.js)
+
+* APPEND 8050: [PRO PHASE] Endpoint Audit - Verified `/chat-messages` REST connectivity and SSE handshake reliability.
+* APPEND 8060: [PRO PHASE] Payload Integrity Audit - Confirmed `DEFAULT_INPUTS: {}` prevents 400 Gateway validation rejections.
+* APPEND 8070: [PRO PHASE] Statelessness Audit - Verified that the OS delegates all conversation history to the Dify backend while persisting the `conversation_id` locally for session hydration.
+
+10. Cognitive Interface & UI (ui/GeminiInterface.js & data/GeminiMemory.js)
+
+* APPEND 5001: [PRO PHASE] Materialization Audit - Verified real-time chunk materialization and markdown formatting for streaming neural payloads.
+* APPEND 5010: [PRO PHASE] Memory Hydration Audit - Confirmed successful extraction of `difySessionId` for persistent context across OS cold boots.
