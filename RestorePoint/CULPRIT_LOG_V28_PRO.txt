@@ -1,0 +1,70 @@
+/// CULBRIT LOG: MASTER REGISTRY [V28 PRO PHASE]
+1. Ignition & Root Logic (main.js & Logics.js)
+
+FIXED [ID 404]: Import Pathing. Added relative path indicators to correctly target Logics.js and other root-level dependencies, resolving "Module Not Found" errors.
+
+FIXED [ID 1409]: Handshake Deadlock. Enforced a single entry point for Three.js initialization to prevent duplicate engine instances from fighting over the canvas.
+
+FIXED [ID 3385]: Kernel Reference Race. Injected a hardened singleton check to ensure the cursorService can find the RIYAS_SYSTEM pointer even during the first-frame initialization.
+
+FIXED [ID 3386]: Frozen Interaction. Manually toggled systemActive state during the boot sequence to ensure the interaction gate opens immediately upon "Enter System."
+
+FIXED [ID 4215]: Boot Race Condition. Moved ignition logic inside the DOMContentLoaded listener to ensure the UI bridge exists before the logic engine starts orbital calculations.
+
+FIXED [ID 4340]: Invisible Entrance. Corrected button display states to ensure the "Enter System" prompt manifests visibly regardless of CSS hidden attributes.
+
+FIXED [ID 4341]: Scene Authority Race. Synchronized CoreManifesto ignition with the RIYAS_OS_READY signal to prevent Logics.js from clearing the background group during its own hardware handshake.
+
+2. Core Engine & Viewport (core/Scene.js, core/Loop.js, core/Renderer.js)
+
+FIXED [ID 2106]: Duplicate Ticker Deadlock. Centralized the global clock inside Loop.js to prevent desync between physics updates and visual rendering.
+
+FIXED [ID 2107]: Handshake Error. Rewrote the set() method in Scene.js to ensure managed lights and the backgroundGroup are migrated to new scene instances during sector swaps.
+
+FIXED [ID 2108]: Handshake Reference Lock. Ensured the Renderer.js post-processing composer updates its internal camera pointer when the camera rig is re-seated.
+
+FIXED [ID 3380]: Canvas ID Mismatch. Swapped all legacy references from #stage to #webgl-canvas to align with the finalized index.html structure and resolve null-pointer crashes.
+
+FIXED [ID 4385]: Animation Freeze. Decoupled the CoreManifesto.update() call to be triggered by the main Loop.js tick, resolving the "Static Background" bug.
+
+FIXED [ID 4386]: Background Leakage. Hardened the dispose() method in the visual engine to explicitly purge WebGL geometries and materials, preventing 8bit.ai visuals from persisting in the main OS.
+
+3. 8bit.ai Visual Engine (effects/ManifestoEngine.js)
+
+FIXED [ID 4300]: Static Background. Injected dynamic noise-shifting into the grain and scanline layers to simulate signal interference.
+
+FIXED [ID 4305]: Rigid Layers. Implemented separate parallax multipliers for the Grain vs. Scanline layers to create a sense of industrial depth.
+
+FIXED [ID 4320]: Performance Drag. Transitioned noise-offset updates to requestAnimationFrame to bypass main-thread CSS lag.
+
+FIXED [ID 4350]: Tunnel Seam Jitter. Synchronized geometry UV wrapping with the global time-step to eliminate visual line breaks in the Accretion Tunnel.
+
+FIXED [ID 4365]: Streak Visibility. Calibrated particle additive blending to match the high-contrast 8bit.ai "Accelerated Intelligence" aesthetic.
+
+4. Industrial Navigation (core/Input.js & ui/Terminal.js)
+
+FIXED [ID 1410]: Wheel Drift. Injected wheel-end detection to notify the brain when kinetic momentum should snap to the nearest sector.
+
+FIXED [ID 1414]: Input Hijacking. Prevented keyboard events from leaking to the 3D world while the Terminal is focused, stopping accidental orbital rotations.
+
+FIXED [ID 2162]: Mobile Normalization. Updated touch handlers to access e.touches[0] correctly, fixing coordinate desync on iOS/Android devices.
+
+FIXED [ID 1420]: Drag Deadlock. Resolved Z-index collisions between the draggable terminal and the 3D stage.
+
+5. World Optics & Vacuum Purge (world/ & systems/vfx.js)
+
+FIXED [ID 1601]: Washed Out Textures. Recalibrated lighting intensity and fog falloff to preserve the depth of the industrial NASA bump maps.
+
+FIXED [ID 2655]: Green Dot Artifacts. Neutralized color-chance logic in the Starfield and Galaxy modules, forcing all stars to pure white to prevent bloom-induced cyan noise.
+
+FIXED [ID 2657]: Foreground Noise. Hard-deleted the initSpaceGrime() function and its update loop from DebrisField.js to clear the vacuum.
+
+FIXED [ID 2659]: Debris Physics Freeze. Restored black asteroid update hooks to reactivate Newtonian drift without re-introducing green dot particles.
+
+6. Linguistic Sync (effects/Typewriter.js & ui/Greeting.js)
+
+FIXED [ID 4205]: Callback Signature Mismatch. Restored second-argument callback support in the typeString() method to allow audio/UI triggers.
+
+FIXED [ID 4310]: Static Insights. Replaced instant text manifestation with a 60Hz scrambling lock-on for tactical insights.
+
+FIXED [ID 4320]: Overlapping Shards. Enforced strict session termination for the insight cycle to prevent multiple strings from printing over each other.

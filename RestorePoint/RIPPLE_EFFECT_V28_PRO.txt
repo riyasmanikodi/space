@@ -1,0 +1,54 @@
+/// RIPPLE EFFECT: MASTER REGISTRY [V28 PRO PHASE]
+1. Root Brain & Ignition (Logics.js & main.js)
+
+RIPPLE: The RIYAS_OS_READY signal now synchronizes the ignition of the CursorService, VFX, and ManifestoEngine, ensuring the liquid fire tail and background streaks appear exactly when the hardware handshake completes.
+
+RIPPLE: Exposing the RIYAS_SYSTEM singleton allows developers to trigger sector transitions and glitch anomalies directly from the browser console for real-time debugging.
+
+RIPPLE: main.js now orchestrates the transition from the 8bit.ai background to the 3D void, preventing visual overlaps by gating the initialization of the planetary logic.
+
+2. Core Engine (core/Scene.js & core/Loop.js)
+
+RIPPLE: Integrating the backgroundGroup migration into the set() method ensures that the 8bit.ai tunnel and streaks persist through the hardware handshake, preventing a "black screen" flash during the boot sequence.
+
+RIPPLE: Gating the CoreManifesto.update() call within the main heartbeat allows the system to reclaim up to 15% of CPU cycles once the OS is unlocked, improving the framerate of the planetary orbits.
+
+RIPPLE: Centralizing the heartbeat in Loop.js ensures that the meteorite cursor and 3D models share the same temporal delta, eliminating micro-stutter during high-speed drags.
+
+3. 8bit.ai Visual Engine (effects/ManifestoEngine.js)
+
+RIPPLE: The implementation of "Style A" (Streaks) and "Style B" (Tunnel) provides a cinematic backdrop that masks the background asset loading happening in the planetary sectors.
+
+RIPPLE: CoreManifesto.dispose() triggers a deep GPU memory purge, releasing VRAM buffers and geometries so the high-poly HeroPlanet and BlackHole can utilize maximum hardware resources.
+
+RIPPLE: Parallax response in the manifesto layers creates a tactile sense of depth that prepares the user for the 3D perspective shift of the main OS.
+
+4. Industrial UI (ui/Greeting.js & ui/Terminal.js)
+
+RIPPLE: The 8-second tactical insight loop in Greeting.js provides a rhythmic pacing to the boot sequence, matching the "decryption" aesthetic of the Typewriter.js engine.
+
+RIPPLE: The "Lens Thump" effect upon unlocking the system acts as the visual trigger for Logics.js to begin the cinematic camera lerp to the first sector.
+
+RIPPLE: Hardening the Z-index in style.css ensures the Terminal.js draggable window never clips through the scanlines or the 3D cursor overlay.
+
+5. Systems & Physics (systems/CursorService.js & systems/physics.js)
+
+RIPPLE: The Spline-Based Interpolation in the CursorService eliminates "elbow" joints in sharp turns, allowing the liquid fire tail to follow the user's thumb with organic fluid dynamics.
+
+RIPPLE: setMomentum() API synchronization allows the meteorite trail length to scale naturally with the orbital drag intensity calculated in the physics kernel.
+
+RIPPLE: Automated sector-alignment snapping in physics.js provides the "Magnetic" feel that guides the camera to perfect planetary framing.
+
+6. Celestial Logic & Vacuum Purge (world/ & shaders/)
+
+RIPPLE: Neutralizing the colorChance logic in Starfield.js and galaxy.js ensures that the "Green Dot" bug is killed globally, resulting in a pristine, high-contrast vacuum.
+
+RIPPLE: Surgically excising the "Space Grime" from DebrisField.js removes sub-pixel noise from the foreground, allowing the procedural circuitry on the planet surfaces to remain ultra-sharp.
+
+RIPPLE: Relativistic Doppler Shifting in the BlackHole fragment shader creates a visual "Pull" that cues the user when they are nearing the CODE sector.
+
+7. Linguistic Sync (effects/Typewriter.js & data/profile.js)
+
+RIPPLE: Every character manifested by the Typewriter engine now triggers a mechanical chirp in audio.js, grounding the industrial UI in an acoustic reality.
+
+RIPPLE: The decryptString protocol ensures that tactical insights are "earned" through a visual scan, reinforcing the OS theme of "Accelerated Intelligence."

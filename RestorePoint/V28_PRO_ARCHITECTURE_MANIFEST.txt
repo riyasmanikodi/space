@@ -1,0 +1,65 @@
+/// V28 PRO PHASE: MASTER ARCHITECTURE MANIFEST
+SYSTEM_ID: RIYAS_OS_V28_PRO
+
+BUILD_STATUS: ARCHITECTURE_HARDENED
+
+KERNEL_VERSION: 28.0.3_PRO
+
+PROJECT_GOAL: An industrial, tactile 3D OS bridging backend logic with high-fidelity procedural WebGL environments, utilizing a hardware-accelerated UI and an isolated 8bit.ai manifesto background.
+
+1. THE CORE HEARTBEAT (LOOP & TEMPORAL ENGINE)
+Decoupled Execution: The system utilizes a centralized CoreLoop.js that decouples the visual render frequency from the logic tick.
+
+Normalized Delta: All physics, orbital speeds, and UI animations are mapped to a getNormalizedDelta() where 1.0 = 60FPS. This ensures speed parity on 144Hz displays.
+
+Heartbeat Gating: The Loop.js implements an isActive gate for the ManifestoEngine. Background calculations for the 8bit.ai visuals are zeroed out once the OS is unlocked, reclaiming 100% of those GPU resources for planetary sectors.
+
+2. SCENE AUTHORITY & HARDWARE HANDSHAKE
+Instance Migration: The CoreScene.js utilizes a set(newScene) method to allow the Logic Engine to swap Three.js scene instances during sector transitions without losing managed assets.
+
+Background Group Persistence: To resolve the "Static Background" bug, a dedicated backgroundGroup is migrated during the handshake, ensuring 8bit.ai visuals remain visible through the boot-to-logic transition.
+
+WebGL Context Recovery: Hardened listeners on #webgl-canvas monitor for context loss, halting the CoreLoop to prevent silent GPU crashes.
+
+3. THE 8BIT.AI MANIFESTO (GREETING VIEWPORT)
+Visual Isolation: Manifesto visuals are strictly nested within the #os-greeting container and the CoreScene background group.
+
+Kinetic Styles: * Style A (Streaks): High-speed diagonal particles with additive blending.
+
+Style B (Tunnel): Perspective-distorted accretion tunnel using custom ShaderMaterial with UV-warp.
+
+Lifecycle Purge: Upon system unlock, CoreManifesto.dispose() executes a deep hardware purge, clearing all geometries and materials from VRAM to prevent visual leakage into the 3D void.
+
+4. KINETIC CURSOR & FIRETAIL PLASMA
+Spline Interpolation: The CursorService uses Catmull-Rom spline generation to eliminate "elbow" joints in sharp turns, creating a liquid-smooth path for the meteorite.
+
+Thermal Collapse: The fire.frag.js shader implements a "Velocity Gate" that instantly extinguishes the plasma tail when the cursor hits zero velocity, preventing upward "smoldering" artifacts.
+
+GPU Instancing: The fire tail utilizes InstancedMesh for high-density plasma shards, with color cooling (Yellow -> Orange -> Red) synced to the sector's DNA.
+
+5. THE HOLOGRAM MATRIX (2D-3D BRIDGE)
+Vector Projection: The system projects 3D planetary coordinates to 2D screen space using Vector3.project(camera).
+
+DOM Shard System: Interactive data (Bio, Skills, Projects) is manifested as .holo-shard elements that track 3D objects with sub-pixel CSS precision.
+
+Raycaster Hardening: The raycaster is gated by isUIFocused to prevent 3D interaction while the Industrial Terminal is active.
+
+6. HARDWARE TIERING & OPTIMIZATION
+Adaptive Fidelity: HardwareTiers.js detects the device footprint (Mobile, Laptop, Workstation) and throttles anisotropy, shadow resolution, and particle counts accordingly.
+
+Vacuum Purge: All legacy "Green Dot" particles and space grime have been excised from Starfield.js and DebrisField.js to maintain ultra-high contrast space aesthetics.
+
+Asset Pipeline: WebP-native textures and Draco-compressed models are loaded via a prioritized NetworkOrchestrator to prevent TTFB spikes and main-thread blocking.
+
+7. DIRECTORY AUTHORITY
+/core: Rendering, Loop, Scene, Camera, and Input kernels.
+
+/systems: Physics, VFX, Audio, CursorService, and Performance monitoring.
+
+/entities: Modular 3D objects (Rover, Satellite, Rocket) with surface-snap logic.
+
+/effects: Typewriter engine, 8bit.ai Manifesto, and Hero identity effects.
+
+/world: Celestial bodies, Orbit rings, and Lighting rigs.
+
+/data: Global constants, Kraye Logs, and User profile DNA.

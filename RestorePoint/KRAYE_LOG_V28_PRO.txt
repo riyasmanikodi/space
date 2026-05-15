@@ -1,0 +1,122 @@
+/// KRAYE LOG: MASTER SYSTEM REGISTRY [V28 PRO PHASE]
+1. Root Brain (Logics.js & main.js)
+
+SYSTEM: Holographic Projection Engine active. Replaced static glass terminal with 3D-tracked data shards.
+
+SYSTEM: Viewport Centering fixed. Camera now targets a true center-front vector instead of chasing rotating meshes.
+
+SYSTEM: [PRO PHASE] Bootstrapped the system singleton 'RIYAS_SYSTEM' for global runtime diagnostics.
+
+SYSTEM: [PRO PHASE] Synchronized kernel ignition with DOMContentLoaded to prevent race conditions.
+
+SYSTEM: [PRO PHASE] Restored UI Handshake via Greeting.js instantiation.
+
+SYSTEM: [PRO PHASE] Orchestrated 8bit.ai ManifestoEngine ignition for industrial background visuals.
+
+SYSTEM: [PRO PHASE] Integrated event-driven ignition (RIYAS_OS_READY) to resolve scene authority race conditions between main.js and Logics.js.
+
+2. State Machine (utils/logics.js & core/Loop.js)
+
+SYSTEM: Holographic Shard state management online.
+
+SYSTEM: Integrated isZooming lock to prevent orbital drift during cinematic focus.
+
+SYSTEM: [PRO PHASE] Centralized execution loop with Integrated Cursor Priority to resolve viewport visibility conflicts.
+
+SYSTEM: [PRO PHASE] Integrated 8bit.ai ManifestoEngine into the core heartbeat to drive Viewport 1 animations.
+
+SYSTEM: [PRO PHASE] Enforced Heartbeat Gating for ManifestoEngine (isActive check) to isolate background calculations to the Greeting layer and save CPU cycles.
+
+3. Central Nervous System (utils/events.js & core/Scene.js)
+
+SYSTEM: Event bus hardened for Ripple Impact system.
+
+SYSTEM: Integrated GLOBAL_GLITCH channel for contextual anomaly broadcasting.
+
+SYSTEM: Integrated TOGGLE_HOLOGRAM channel for contextual shard manifestation and orbital tracking.
+
+SYSTEM: [PRO PHASE] Surgically excised legacy ghost starfield to eliminate foreground sub-pixel noise.
+
+SYSTEM: [PRO PHASE] Synchronized DOM selector #webgl-canvas with the V28 kernel to resolve initialization deadlocks.
+
+SYSTEM: [PRO PHASE] Integrated backgroundGroup for 8bit.ai visual layering and isolated greeting effects, ensuring migration during the LogicEngine hardware handshake.
+
+4. Global DNA (data/constants.js)
+
+SYSTEM: Global DNA registry finalized. Unified sector mapping and brand color-space established.
+
+SYSTEM: Glitch DNA pool integrated into the master registry for weighted interaction response.
+
+SYSTEM: Integrated Holographic UI offsets and explicit camera zoom radius constants.
+
+SYSTEM: [PRO PHASE] Registered MANIFESTO_CONFIG for looping 8bit.ai visual styles (Streaks & Tunnel).
+
+SYSTEM: [PRO PHASE] Registered KERNEL_INSIGHTS tactical registry for Call of Duty style boot sequence.
+
+5. UI Layer & Hologram Matrix (style.css & greeting.css)
+
+SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
+
+SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
+
+SYSTEM: Implemented Mobile Kinetic "Lower-Third Carousel" layout to prevent viewport trapping.
+
+SYSTEM: Transitioned cursor architecture from CSS/DOM image mapping to a decoupled WebGL overlay layer.
+
+SYSTEM: Expanded Visual DNA framework to support the randomized Glitch Dispatcher.
+
+SYSTEM: [PRO PHASE] Injected Structural Layers for 8bit.ai Background Manifesto (Grain, Scanlines, Glitch).
+
+SYSTEM: [PRO PHASE] Isolated 8bit.ai visual layers exclusively to the greeting viewport to prevent main UI noise.
+
+6. Manifesto Engine (effects/ManifestoEngine.js) [NEW PRO PHASE]
+
+SYSTEM: [PRO PHASE] Abstracted 8bit.ai visual logic into a standalone ManifestoEngine for multi-mode background looping.
+
+SYSTEM: [PRO PHASE] Implemented "Style A" - Linear Kinetic Streaks (Diagonal high-speed particles).
+
+SYSTEM: [PRO PHASE] Implemented "Style B" - Warped Accretion Tunnel (Perspective-distorted light tubes).
+
+SYSTEM: [PRO PHASE] Hooked GlobalInput for sub-pixel parallax on industrial signal layers.
+
+SYSTEM: [PRO PHASE] Injected "Cathode Shiver" procedural jitter to simulate vintage hardware.
+
+SYSTEM: [PRO PHASE] Hardened isolation protocols (dispose()) to explicitly traverse and purge all WebGL geometries/materials from GPU memory upon OS entry.
+
+7. Identity Engine (effects/HeroEffects.js)
+
+SYSTEM: Hero Name effect engine active. Managing three-tier visual stack.
+
+SYSTEM: Integrated dynamic text-shadow displacement for the industrial "V28" look.
+
+SYSTEM: Ripple Impact handshake established via GLOBAL_GLITCH dispatcher.
+
+8. Identity Data (data/profile.js)
+
+SYSTEM: Core identity registry active. Centralizing identity DNA for the OS.
+
+SYSTEM: Identity DNA synchronized with Holographic Projection matrix for shard distribution.
+
+9. Acoustic Synthesizer (systems/audio.js)
+
+SYSTEM: Audio synthesizer synchronized with the GLOBAL_GLITCH dispatcher.
+
+SYSTEM: Procedural soundscape expanded to include tactile interaction-driven anomalies.
+
+10. Post-Processing Stack (systems/vfx.js)
+
+SYSTEM: Post-processing stack synchronized with the GLOBAL_GLITCH dispatcher.
+
+SYSTEM: Unified Post-FX pipeline established for interaction-driven aberration pulses.
+
+11. Material Hardening (loaders/AssetLoader.js)
+
+SYSTEM: Material pipeline recalibrated to neutralize environmental reflections.
+
+SYSTEM: Swapped mirror-like finish for industrial matte to fix Earth Structure ghosting.
+
+12. Celestial Logic (world/Planet.js)
+
+SYSTEM: Base celestial logic active. Managing multi-tiered LOD and atmospheric Fresnel halos.
+
+SYSTEM: Integrated unique displacement mapping to prevent planetary cloning.

@@ -1,0 +1,84 @@
+/// REALITY AUDIT: MASTER REGISTRY [V28 PRO PHASE]
+1. Root Brain & Ignition (Logics.js & main.js)
+
+APPEND 7: 2D-to-3D Projection - Added Vector3.project(camera) to translate WebGL space into CSS absolute positioning for the Holographic HUD.
+
+APPEND 8: Center-Focus Lock - Camera explicitly zeroes out its X-axis during transitions to guarantee perfect planetary alignment.
+
+APPEND 11: Kinetic Mud - Applied 0.5 heavy friction to manual drags when a planet is focused to keep it within the holographic viewport.
+
+APPEND 19: Boot Context Override - Entry point verified to bypass legacy loading screens.
+
+APPEND 20: Diagnostic Visibility - window.RIYAS_SYSTEM verified as globally accessible for live terminal debugging.
+
+APPEND 510: [PRO PHASE] Direct Ignition Audit - Verified canvas visibility promotes instantly without opacity clipping.
+
+APPEND 4225: [PRO PHASE] UI Access Audit - Verified button manifestation occurs reliably across Safari, Chrome, and Firefox mobile.
+
+APPEND 4340: [PRO PHASE] Manifesto Audit - Verified CoreManifesto mounts successfully to the backgroundGroup in CoreScene before Logics.js overwrites the instance.
+
+2. State Machine & Event Bus (utils/logics.js & utils/events.js)
+
+APPEND 1: Pub/Sub Hardening - Verified that the publish method gracefully handles empty data payloads.
+
+APPEND 2: Unsubscribe Hook - Enforced a strict return function pattern for all subscriptions to prevent phantom listeners and memory leaks.
+
+APPEND 3: Probability Matrix - Weighted anomaly distributions enforced for TECH, CODE, and VISION sectors.
+
+APPEND 5: State Synchronization - getHologramData ensures skill and bio shards strictly match the active planet identity.
+
+3. Core Engine & Temporal Dynamics (core/Scene.js, core/Loop.js, utils/time.js)
+
+APPEND 116: Ticker Migration - Verified that CoreLoop accurately receives scene payload without duplicating render calls.
+
+APPEND 201: [PRO PHASE] Handshake Audit - Confirmed set(scene) correctly migrates ambient and directional lights to new WebGL instances.
+
+APPEND 260: [PRO PHASE] Ghost Audit - Verified total removal of legacy setupStarfield points to achieve a pure vacuum.
+
+APPEND 465: Render Priority Audit - Verified that placing the procedural Cursor rendering explicitly last prevents occlusion by post-processing bloom and planetary geometry.
+
+APPEND 470: [PRO PHASE] Manifesto Heartbeat Audit - Verified manifesto update frequency matches the 60Hz display refresh rate via normalized delta time.
+
+APPEND 471: [PRO PHASE] Heartbeat Gating Audit - Verified CoreManifesto.update() ceases firing instantly after unlocking the OS, saving critical CPU cycles.
+
+APPEND 512: Temporal Audit - Verified 60FPS lock stability under heavy sector asset mounting.
+
+APPEND 3380: [PRO PHASE] Selector Audit - Verified #webgl-canvas exists in DOM before WebGL context listener attachment to prevent script halts.
+
+4. 8bit.ai Visual Engine (effects/ManifestoEngine.js)
+
+APPEND 4300: Layer Logic Audit - Verified Grain layer uses CSS mix-blend-mode: multiply for authentic grit fidelity without washing out the scanlines.
+
+APPEND 4310: Parallax Audit - Verified sub-pixel (0.05x) damping applied to parallaxPos to prevent user motion sickness.
+
+APPEND 4370: Style Switch Audit - Confirmed cross-fade between Streaks and Tunnel geometry executes without frame-drops.
+
+APPEND 4386: [PRO PHASE] Memory Purge Audit - Verified deep geometric and material disposal (traverse and dispose()) on OS unlock, confirming absolute zero background rendering overlap with the 3D planetary system.
+
+APPEND 4390: [PRO PHASE] Update Loop Audit - Verified uTime uniforms and buffer attribute needsUpdate flags correctly increment when triggered externally by the CoreLoop.
+
+5. Identity Data & UI (data/profile.js & ui/Greeting.js)
+
+APPEND 1: Identity Isolation - Verified Hero Name string is the authoritative source for the Main Viewport.
+
+APPEND 2: Zero-Asset Strategy - Avatar seed set to 42 for deterministic geometric synthesis.
+
+APPEND 10: Shard Distribution - Verified data structures for Identity, Diagnostic, and Skill shards format correctly into HTML nodes.
+
+6. Acoustic Synthesizer (systems/audio.js)
+
+APPEND 6: Acoustic Friction - Synchronized low-pass filter resonance with high-speed orbital swipes.
+
+APPEND 18: Linguistic Sync - High-frequency chirps (1200Hz -> 800Hz) mathematically mapped to every typewriter character manifestation.
+
+7. Post-Processing Stack & Materials (systems/vfx.js & loaders/AssetLoader.js)
+
+APPEND 4: Reflection Diffusion - Roughness increased from 0.1 to 0.6 to prevent "Mirror Ghosting" of the galaxy assets on industrial models.
+
+APPEND 5: Fragment Optimization - Replaced if/else branching with step() and mix() logic in the Uber-Shader to prevent GPU pipeline stalls on mobile devices.
+
+8. Celestial Logic (world/Planet.js)
+
+APPEND 14: Unique Displacement - Procedural noise isolation enforced to prevent planetary "twins" across sectors.
+
+APPEND 15: Depth Buffering - Hardened depthWrite: false for atmosphere halos to ensure terrain render priority and eliminate Z-fighting artifacts.

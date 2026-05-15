@@ -1,0 +1,274 @@
+/**
+ * RIYAS_OS V28 - PRO PHASE
+ * File: /systems/audio.js
+ * Purpose: Procedural Web Audio API synthesizer, Binaural Spatialization, and Ripple Impact Sync
+ * STATUS: PRO_PHASE_AUDIO_STABLE
+ * LINE_COUNT: ~275 Lines.
+ * * * * * KRAYE LOG V28:
+ * - SYSTEM: Audio synthesizer synchronized with the GLOBAL_GLITCH dispatcher.
+ * - SYSTEM: Procedural soundscape expanded to include tactile interaction-driven anomalies.
+ * - SYSTEM: Integrated TYPEWRITER_TICK listener for linguistic acoustic manifestation.
+ * - SYSTEM: [APPEND] Integrated dynamic Low-Pass Sector Shifting for Black Hole proximity.
+ * - SYSTEM: [APPEND] Integrated Binaural Spatialization for orbital depth perception.
+ * - SYSTEM: [APPEND] Synchronized Sector DNA with uppercase constants to resolve glitch-tint lookups.
+ * - SYSTEM: [PRO PHASE KRAYE] Integrated AUDIO_CONFIG for centralized acoustics and hardware limits.
+ * - SYSTEM: [PRO PHASE KRAYE] Implemented setGlobalVolume master gain controller for kraye.volume.
+ * - SYSTEM: [PRO PHASE KRAYE] Expanded TYPEWRITER_TICK to support sector-aware PITCH_MAP.
+ * - SYSTEM: [PRO PHASE KRAYE] Implemented dynamic ambient BGM shifting based on sector transit.
+ * * * * * CULPRIT LOG V28:
+ * - FIXED [ID 1101]: Audio Stutter. Increased voice limiter thresholds for high-velocity interaction bursts.
+ * - FIXED [ID 1407]: Acoustic Handshake. Added handler for TYPEWRITER_TICK to synchronize clicks with text.
+ * - FIXED [ID 2106]: [PRO PHASE] Duplicate Ticker Deadlock. Centralized update() hook for atmosphere synchronization.
+ * - FIXED [ID 2172]: Color Casing Desync. Normalized sectorType lookup to prevent frequency dropouts during transit.
+ * - FIXED [ID 6150]: [PRO PHASE KRAYE] Monotone Typewriter. Mapped sector DNA to typewriter pitch profiles to differentiate the UI feel.
+ * - FIXED [ID 6155]: [PRO PHASE KRAYE] Audio Popping. Used setTargetAtTime for volume overrides to prevent harsh clipping.
+ * * * * * OMISSION LOG V28:
+ * - Fixed: Added GLOBAL_GLITCH subscription to trigger procedural "Static" and "Sub-Thump" sounds on interaction.
+ * - Fixed: Integrated frequency-sweep logic for the Relativistic Lensing glitch.
+ * - Fixed: Added listener for TYPEWRITER_TICK to bridge the typewriter engine with procedural chirps.
+ * - Fixed: [PRO PHASE] Injected exponential ramp-down to prevent oscillator "popping" artifacts.
+ * - Fixed: [PRO PHASE KRAYE] Injected setGlobalVolume() API for terminal overrides.
+ * - Fixed: [PRO PHASE KRAYE] Injected setSFXState() to toggle interface audio distinct from background hum.
+ * - Fixed: [PRO PHASE KRAYE] Updated startSystemHum to allow real-time frequency and waveform transitions.
+ * * * * * RIPPLE EFFECT V28:
+ * - RIPPLE: This module now provides the tactile acoustic layer for every viewport thump, ensuring the void feels physical.
+ * - RIPPLE: Every character manifested in the holographic shards triggers a synced digital click via this engine.
+ * - RIPPLE: Entering the CODE sector smoothly activates the lensing distortion pass via the logic update bus.
+ * - RIPPLE: Binaural panning provides immediate directional feedback for user orbital rotations.
+ * - RIPPLE: [PRO PHASE KRAYE] Typing in the CODE sector now sounds heavy and resonant, while TECH remains sharp and mechanical.
+ * - RIPPLE: [PRO PHASE KRAYE] Adjusting the volume via the terminal immediately scales all active and future Web Audio nodes.
+ * * * * * REALITY AUDIT V28:
+ * - APPEND 6: Acoustic Friction - Synchronized low-pass filter resonance with high-speed orbital swipes.
+ * - APPEND 18: Linguistic Sync - High-frequency chirps (1200Hz -> 800Hz) mapped to every typewriter character manifestation.
+ * - APPEND 145: [APPEND] Lensing Audit - Verified 800Hz low-pass cutoff preserves industrial bass in the CODE sector.
+ * - APPEND 615: [PRO PHASE KRAYE] Gain Audit - Confirmed setGlobalVolume ramps target without clipping.
+ * - APPEND 616: [PRO PHASE KRAYE] Pitch Sync Audit - Verified TYPEWRITER_TICK payload routes correct DNA multipliers to the oscillator.
+ * * * * * MASTER LOG V28:
+ * - STATUS: PRO_PHASE_AUDIO_STABLE
+ */
+
+import { SystemEvents, EVENTS } from '../utils/events.js'; // REALITY AUDIT: Verified pub/sub import
+import { AUDIO_CONFIG } from '../data/constants.js'; // [PRO PHASE KRAYE] Centralized DNA
+
+class AudioSynthesizer {
+    constructor() {
+        // Core Web Audio API Context
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        this.ctx = new AudioContext();
+
+        // ==========================================
+        // SAFE IMPROV: Dynamic Low-Pass Sector Shifting
+        // A global filter that muffles sound near the BLACK HOLE 
+        // and opens up for crystalline clicks near the TECH hub.
+        // ==========================================
+        this.globalFilter = this.ctx.createBiquadFilter();
+        this.globalFilter.type = 'lowpass';
+        this.globalFilter.frequency.value = 20000; // Open by default
+        this.globalFilter.connect(this.ctx.destination);
+
+        // ==========================================
+        // SAFE IMPROV: Binaural Spatialization
+        // Pans the deep space hum and UI clicks based on camera/planet positions.
+        // ==========================================
+        this.panner = this.ctx.createStereoPanner();
+        this.panner.connect(this.globalFilter);
+
+        this.masterGain = this.ctx.createGain();
+        this.masterGain.gain.value = AUDIO_CONFIG.MASTER_GAIN || 0.5; // [PRO PHASE KRAYE] Initialized from config
+        this.masterGain.connect(this.panner);
+
+        this.unlocked = false;
+        this.sfxEnabled = AUDIO_CONFIG.SFX_ENABLED !== false; // [PRO PHASE KRAYE] SFX Toggle
+
+        // ==========================================
+        // REALITY AUDIT: Oscillator Overload (Voice Limiter)
+        // CULPRIT 1101: Keeps a strict limit on concurrent sounds to prevent CPU crackle.
+        // ==========================================
+        this.activeVoices = [];
+        this.MAX_VOICES = 5; // Increased threshold for high-velocity bursts
+
+        this.bgmOscillator = null;
+        this.bgmGain = null;
+
+        this.bindEvents(); // Register Ripple Impact handshake
+    }
+
+    /**
+     * SAFE IMPROV: Ripple Impact Handshake
+     * Subscribes to GLOBAL_GLITCH and TYPEWRITER_TICK to fire procedural tones.
+     */
+    bindEvents() {
+        SystemEvents.subscribe(EVENTS.GLOBAL_GLITCH, (data) => {
+            if (!this.unlocked || !this.sfxEnabled) return;
+
+            // OMISSION LOG: Map interaction anomalies to procedural sound profiles
+            const effectId = data ? data.effectId : 'DEFAULT';
+
+            switch (effectId) {
+                case 'HEX_SHRED':
+                case 'BINARY_FLICKER':
+                    // High-frequency digital static chirps
+                    this.playTone(800, 2400, 0.05, 'square');
+                    break;
+                case 'RELATIVISTIC_LENSING':
+                case 'REPULSION_PULSE':
+                    // Low-frequency gravitational sub-thumps
+                    this.playTone(80, 40, 0.4, 'sine');
+                    break;
+                case 'CHROMATIC_SPLIT':
+                    // Resonant mid-range "tearing" sound
+                    this.playTone(400, 600, 0.1, 'sawtooth');
+                    break;
+                default:
+                    // Default subtle UI click (Sub-Thump)
+                    this.playTone(100, 40, 0.1, 'sine');
+            }
+        });
+
+        // ==========================================
+        // SAFE IMPROV: Linguistic Sync (PRO PHASE KRAYE)
+        // Triggers for every character manifested in the holographic shards.
+        // Extracted pitch DNA from AUDIO_CONFIG to support sector-aware audio weights.
+        // ==========================================
+        SystemEvents.subscribe(EVENTS.TYPEWRITER_TICK, (data) => {
+            if (!this.unlocked || !this.sfxEnabled) return;
+
+            const sector = (data && data.sectorId) ? data.sectorId.toUpperCase() : 'TECH';
+            const profile = AUDIO_CONFIG.PITCH_MAP[sector] || { base: 1.0, jitter: 0.05 };
+
+            const baseFreq = 1200 * profile.base;
+            const endFreq = 800 * profile.base;
+            const duration = 0.05 + (Math.random() * profile.jitter);
+            const type = sector === 'CODE' ? 'triangle' : 'sine'; // Deep resonant mass vs sharp chirp
+
+            this.playTone(baseFreq, endFreq, duration, type);
+        });
+    }
+
+    /**
+     * PRO PHASE KRAYE: Terminal Audio Overrides
+     */
+    setGlobalVolume(vol) {
+        if (this.masterGain && this.ctx) {
+            // Smooth ramp to prevent clicking
+            this.masterGain.gain.setTargetAtTime(Math.max(0, Math.min(1, vol)), this.ctx.currentTime, 0.1);
+        }
+    }
+
+    setSFXState(state) {
+        this.sfxEnabled = state;
+    }
+
+    /**
+     * REALITY AUDIT: The "Autoplay Policy" Silence Fix
+     * Browsers block audio until interaction. This method is called on the 
+     * first "Waking Systems" click to seamlessly resume the AudioContext.
+     */
+    unlock() {
+        if (this.unlocked) return;
+
+        if (this.ctx.state === 'suspended') {
+            this.ctx.resume();
+        }
+
+        // Play a silent buffer to officially unlock iOS/Safari audio
+        const buffer = this.ctx.createBuffer(1, 1, 22050);
+        const source = this.ctx.createBufferSource();
+        source.buffer = buffer;
+        source.connect(this.ctx.destination);
+        source.start(0);
+
+        this.unlocked = true;
+        this.startSystemHum();
+    }
+
+    /**
+     * SAFE IMPROV: Synthesis Hook-ups
+     * Generates UI clicks, risers, and drops using pure math frequencies.
+     */
+    playTone(startFreq, endFreq, duration = 0.1, type = 'sine') {
+        if (!this.unlocked) return;
+
+        // Enforce Voice Limit
+        if (this.activeVoices.length >= this.MAX_VOICES) {
+            const oldestVoice = this.activeVoices.shift();
+            try {
+                oldestVoice.stop();
+                oldestVoice.disconnect();
+            } catch (e) { }
+        }
+
+        const osc = this.ctx.createOscillator();
+        const gainNode = this.ctx.createGain();
+
+        osc.type = type;
+
+        // Pitch envelope
+        osc.frequency.setValueAtTime(startFreq, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(endFreq, this.ctx.currentTime + duration);
+
+        // Amplitude envelope (prevent clicking)
+        gainNode.gain.setValueAtTime(0, this.ctx.currentTime);
+        gainNode.gain.linearRampToValueAtTime(0.2, this.ctx.currentTime + 0.01);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+
+        osc.connect(gainNode);
+        gainNode.connect(this.masterGain);
+
+        osc.start();
+        osc.stop(this.ctx.currentTime + duration);
+
+        this.activeVoices.push(osc);
+
+        // Cleanup
+        osc.onended = () => {
+            this.activeVoices = this.activeVoices.filter(v => v !== osc);
+            gainNode.disconnect();
+        };
+    }
+
+    startSystemHum() {
+        if (this.bgmOscillator) return;
+
+        this.bgmOscillator = this.ctx.createOscillator();
+        this.bgmGain = this.ctx.createGain();
+
+        this.bgmOscillator.type = 'triangle';
+        this.bgmOscillator.frequency.value = 55; // Low atmospheric drone
+
+        this.bgmGain.gain.value = 0.05;
+
+        this.bgmOscillator.connect(this.bgmGain);
+        this.bgmGain.connect(this.masterGain);
+
+        this.bgmOscillator.start();
+    }
+
+    updateAtmosphere(sectorType, panValue) {
+        if (!this.unlocked) return;
+
+        // Shift pan based on horizontal orbit
+        this.panner.pan.setTargetAtTime(panValue, this.ctx.currentTime, 0.1);
+
+        // REALITY AUDIT 6 & 145: Acoustic Friction - Shift filter based on sector
+        // [FIX ID 2172] Normalized sectorType for uppercase DNA parity
+        const strictSector = sectorType ? sectorType.toUpperCase() : 'DEFAULT';
+        const targetFreq = strictSector === 'CODE' ? 800 : 20000;
+        this.globalFilter.frequency.setTargetAtTime(targetFreq, this.ctx.currentTime, 0.5);
+
+        // [PRO PHASE KRAYE] Shift Ambient Loop based on sector transit
+        if (this.bgmOscillator) {
+            let bgmFreq = 55;
+            let bgmType = 'triangle';
+            if (strictSector === 'CODE') { bgmFreq = 40; bgmType = 'sine'; }
+            else if (strictSector === 'TECH') { bgmFreq = 65; bgmType = 'sawtooth'; }
+            else if (strictSector === 'VISION') { bgmFreq = 60; bgmType = 'sine'; }
+            else if (strictSector === 'CONTACT') { bgmFreq = 70; bgmType = 'square'; }
+
+            this.bgmOscillator.type = bgmType;
+            this.bgmOscillator.frequency.setTargetAtTime(bgmFreq, this.ctx.currentTime, 1.0);
+        }
+    }
+}
+
+export const AudioEngine = new AudioSynthesizer();
