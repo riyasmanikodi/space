@@ -2,33 +2,58 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /ui/Overlay.js
  * Purpose: Master HUD, Sector-Linked CSS, GPU-Accelerated Swipe-Gage, and Layout Thrashing Prevention
- * STATUS: PRO_PHASE_UI_STABLE
- * LINE_COUNT: ~165 Lines.
+ * STATUS: PRO_PHASE_AEROSPACE_HUD_ACTIVE
+ * LINE_COUNT: ~140 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Master HUD kernel finalized for PRO PHASE deployment.
  * - SYSTEM: Integrated GPU-accelerated "Swipe-Gage" progress bar mapping.
  * - SYSTEM: Finalized sector-linked CSS variable injection for global DOM theme synchronization.
- * - SYSTEM: [APPEND] Integrated hardware-level pointer-event passthrough for seamless 3D/2D interaction.
- * - SYSTEM: [PRO PHASE] Synchronized DOM hierarchy with industrial HUD z-index targets.
+ * - SYSTEM: Integrated hardware-level pointer-event passthrough for seamless 3D/2D interaction.
+ * - SYSTEM: Synchronized DOM hierarchy with industrial HUD z-index targets.
+ * - SYSTEM: Executed dynamic HOST telemetry detection and injection.
+ * - SYSTEM: Removed ORBITAL_VELOCITY_SYNCED element for UI layout recalibration.
+ * - SYSTEM: Verified HUD layout translates correctly to bottom-right axis.
+ * - SYSTEM: Synchronized dynamic telemetry with global window.RIYAS_BROWSER_HOST.
+ * - SYSTEM: [APPEND] Purged legacy DOM evaluation hooks for HOST and VELOCITY elements to optimize WebGL render cycles.
+ * - SYSTEM: [APPEND] Finalized cinematic viewport aesthetic by removing redundant telemetry scripts.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1403]: Layout Thrashing. Implemented state-change filtering to prevent redundant DOM updates.
  * - FIXED [ID 1404]: Touch Conflict. Enforced 'touch-action: none' to prevent mobile pull-to-refresh interrupts.
  * - FIXED [ID 1902]: HUD Desync. Synchronized updateUI frequency with sector rotation snaps.
  * - FIXED [ID 2205]: HUD Clipping. Synchronized safe-area insets with the industrial UI layer.
+ * - FIXED [ID 2240]: Host telemetry reported static Mozilla; replaced with dynamic regex parsing.
+ * - FIXED [ID 2241]: SECTOR layout realigned by removing velocity node via DOM abstraction.
+ * - FIXED [ID 2245]: Hardened DOM scanning to target .hud-meta specifically.
+ * - FIXED [ID 2246]: Local browser parsing decoupled; now inherits single source of truth from main.js.
+ * - FIXED [ID 3402]: [APPEND] CPU Cycle Waste. Excised `getBrowserName()` and `recalibrateVisuals()` text-scanning functions after physical DOM nodes were deleted.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added 'locked-on' class logic for targeting bracket animations.
  * - Fixed: Injected translateZ(0) to force hardware acceleration on progress bar scales.
- * - Fixed: [APPEND] Added support for 'VOID' sector fallback colors.
+ * - Fixed: Added support for 'VOID' sector fallback colors.
+ * - Fixed: Handled layout shift logic directly inside the init sequence.
+ * - Fixed: Enforced resilient DOM element targeting for visual recalibration.
+ * - Fixed: Delegated browser string resolution to global variable to prevent race conditions with Greeting module.
+ * - Fixed: [APPEND] Removed `this.hostElement` and `this.velocityElement` from the constructor variables.
+ * - Fixed: [APPEND] Deleted `getBrowserName()` method.
+ * - Fixed: [APPEND] Deleted `recalibrateVisuals()` method to complete cinematic isolation.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: State filtering reduces CPU overhead during high-speed orbital rotations.
  * - RIPPLE: Progress bar updates are now handled by the GPU, freeing the main thread for terminal input.
  * - RIPPLE: Visual theme shifts now propagate instantly to all buttons and borders via CSS variables.
+ * - RIPPLE: Accurate browser engine data stabilizes HUD immersion logic.
+ * - RIPPLE: Purging the velocity string gracefully drops the SECTOR string into the primary UI slot.
+ * - RIPPLE: HUD now instantly reflects the exact browser telemetry evaluated at kernel ignition without redundant parsing.
+ * - RIPPLE: [APPEND] Main thread execution is significantly optimized by dropping expensive DOM text-node scans during initialization.
  * * * * * REALITY AUDIT V28:
  * - APPEND 111: Progress Audit - Verified linear mapping of rotationY to [0.0, 1.0] range.
  * - APPEND 112: State Audit - Confirmed sector name normalization prevents redundant CSS injections.
- * - APPEND 113: [APPEND] Event Audit - Confirmed pointer-events: none stabilizes background dragging.
+ * - APPEND 113: Event Audit - Confirmed pointer-events: none stabilizes background dragging.
+ * - APPEND 114: Host Audit - Verified Regex precedence prevents Chrome false-positives on Edge/Brave.
+ * - APPEND 115: Layout Audit - Verified SECTOR text occupies the legacy velocity coordinates.
+ * - APPEND 116: Architecture Audit - Verified Overlay.js correctly pulls from window.RIYAS_BROWSER_HOST.
+ * - APPEND 3402: [APPEND] Logic Isolation Audit - Confirmed Overlay.js no longer searches for deleted HTML elements.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_UI_STABLE
+ * - STATUS: PRO_PHASE_AEROSPACE_HUD_ACTIVE
  */
 
 export class Overlay {

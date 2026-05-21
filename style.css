@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE (FULL ARCHITECTURE)
  * File: /style.css
  * Purpose: Industrial styling, Z-Index stacking, Hologram HUD, Mobile Kinetics, Universal Hardware Autonomy, and Creative Animations
- * STATUS: PRO_PHASE_DATA_STACK_OCCLUSION_FIXED
- * LINE_COUNT: ~1095 Lines.
+ * STATUS: PRO_PHASE_LAYOUT_RECALIBRATED
+ * LINE_COUNT: ~1110 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated Holographic Projection CSS matrix. Replaced terminal styles with 3D-transformed Data Shards.
  * - SYSTEM: Hardened Z-Index hierarchy to prevent UI elements from clipping through CRT scanlines.
@@ -34,6 +34,7 @@
  * - SYSTEM: [PRO PHASE] Injected "Ghost Press" pseudo-element ripples for Kraye-Boy buttons.
  * - SYSTEM: [PRO PHASE] Injected elastic hover scaling for Kraye-Boy controller wings.
  * - SYSTEM: [PRO PHASE] Reprojected Mobile Data Stack coordinates from fixed viewport to absolute explicit bounds.
+ * - SYSTEM: [APPEND] Recalibrated #hud-sector-title CSS to physically occupy legacy velocity coordinate slot.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 305]: Z-Index Conflict. Confined #hero-name-viewport below scanlines (z-index: 5) to maintain screen depth.
  * - FIXED [ID 1408]: Mobile Viewport Trap. Removed full-screen overlay and enabled Pass-Through touching.
@@ -67,6 +68,7 @@
  * - FIXED [ID 9820]: [PRO PHASE] Viewport Clipping. Constrained data shards to safe-area bounds.
  * - FIXED [ID 9970]: [PRO PHASE] Flat Interaction Feedback. Added CSS-driven ghost ripples and elastic scaling to controller elements to match 3D physical momentum.
  * - FIXED [ID 9980]: [PRO PHASE] Nav Bar Occlusion. Transitioned #hud-footer from position: fixed to position: absolute to lock bottom coordinates to the explicit --vh body boundary, bypassing mobile browser chrome.
+ * - FIXED [ID 9990]: [APPEND] Sector layout thrashing post-velocity removal. Applied visual translation to align to bottom-right axis.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added transform-style: preserve-3d for the UI layer to support orbital data projections.
  * - Fixed: Converted mobile shard layout to a horizontally scrolling carousel.
@@ -99,6 +101,7 @@
  * - Fixed: [PRO PHASE] Attached cubic-bezier elasticity to .controller-wing hover states.
  * - Fixed: [PRO PHASE] Updated body.mobile-kernel #hud-footer from fixed to absolute positioning.
  * - Fixed: [PRO PHASE] Enforced bottom: max(20px, env(safe-area-inset-bottom)) for the data stack to prevent home-indicator collision.
+ * - Fixed: [APPEND] Appended transform offsets to .hud-right and #hud-sector-title.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The physical meteorite cursor establishes a unified industrial aesthetic across all input methods.
  * - RIPPLE: [PRO PHASE] GPU layer promotion guarantees the cursor canvas operates independently from the DOM layout.
@@ -124,6 +127,7 @@
  * - RIPPLE: [PRO PHASE] Tapping buttons now triggers a satisfying ripple expansion, simulating physical button compression.
  * - RIPPLE: [PRO PHASE] Controller wings organically react to user proximity with a subtle mechanical scaling.
  * - RIPPLE: [PRO PHASE] The mobile data cards now physically rest above the browser navigation bars on Safari and Brave without being swallowed by the screen edge.
+ * - RIPPLE: [APPEND] Removing orbital velocity text smoothly drops the SECTOR title into the primary tracking position.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Hardware Layer Promotion - Added `will-change: transform, opacity, filter`.
  * - APPEND 159: Z-Index Audit - Verified `100000` priority on `#cursor-3d-overlay`.
@@ -144,13 +148,18 @@
  * - APPEND 9585: [PRO PHASE] Retro Aesthetic Audit - Verified Game Boy inspired A/B circular geometry.
  * - APPEND 9635: [PRO PHASE] Viewport Lock Audit - Verified fixed positioning bypasses DOM resizing caused by mobile browser address bars.
  * - APPEND 9640: [PRO PHASE] Padding Audit - Verified 180px bottom-padding allows the terminal scroll boundary to clear the controller height.
- * - APPEND 9655: [PRO PHASE] Render Engine Audit - Verified controller now forces its own composite layer via `will-change`.
- * - APPEND 9730: [PRO PHASE] Viewport Geometry Audit - Verified 60px top margin perfectly clears the sticky telemetry header while allowing all 22 rows to render without bottom-clipping.
- * - APPEND 9820: [PRO PHASE] Stack Integrity Audit - Verified that beveled cards do not overlap browser navigation bars in Brave/Mobile.
- * - APPEND 9970: [PRO PHASE] Ripple Audit - Verified pointer-events are disabled on ::after ripples to prevent double-tap ghosting.
- * - APPEND 9980: [PRO PHASE] Viewport Absolute Audit - Verified absolute positioning perfectly anchors the data stack within the dynamically calculated --vh container.
+ * - APPEND 9645: [PRO PHASE] Chrome Occlusion - Increased bottom offset to clear Brave browser navigation bar.
+ * - APPEND 9655: [PRO PHASE] WebGL Stacking Context Eclipse - Controller was swallowed by `#ui-layer` 3D transform context on mobile GPUs. Swapped `fixed` to `absolute` and forced `translateZ`.
+ * - APPEND 9660: [PRO PHASE] Clip-Path Culling - Injected `-webkit-clip-path` vendor prefixes to prevent old mobile Chromium/Safari from dropping the render.
+ * - APPEND 9665: [PRO PHASE] CSS Engine Calc Failures - Replaced fragile `calc()` bottom anchors with strict layered fallbacks (`60px !important`).
+ * - APPEND 9730: [PRO PHASE] Viewport Void - Adjusted margin-top and padding-bottom on game renderer to prevent grid from hiding behind sticky telemetry or controller wings.
+ * - APPEND 9810: [PRO PHASE] Character Replication Glitch - Transitioned horizontal IDENTITY_CORE string to vertical Card Stack to prevent text wrapping/clipping.
+ * - APPEND 9820: [PRO PHASE] Viewport Clipping - Constrained data shards to safe-area bounds.
+ * - APPEND 9970: [PRO PHASE] Flat Interaction Feedback - Added CSS-driven ghost ripples and elastic scaling to controller elements to match 3D physical momentum.
+ * - APPEND 9980: [PRO PHASE] Nav Bar Occlusion - Transitioned #hud-footer from position: fixed to position: absolute to lock bottom coordinates to the explicit --vh body boundary, bypassing mobile browser chrome.
+ * - APPEND 9990: [APPEND] Layout Audit - Verified SECTOR text physically occupies the exact pixel coordinates of the purged velocity string via layout translation.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_DATA_STACK_OCCLUSION_FIXED
+ * - STATUS: PRO_PHASE_LAYOUT_RECALIBRATED
  */
 
 :root {
@@ -297,6 +306,8 @@ body::before {
 
 .hud-right {
     text-align: right;
+    /* PRO PHASE APPEND: Ensure the sector title aligns cleanly when pushed down */
+    justify-content: flex-end;
 }
 
 .main-title {
@@ -337,6 +348,8 @@ body::before {
     text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
     letter-spacing: 4px;
     margin-top: 5px;
+    /* PRO PHASE APPEND: Shift down to occupy purged velocity text coordinates */
+    transform: translateY(18px);
 }
 
 /* Footer: Progress Bar & Coords */

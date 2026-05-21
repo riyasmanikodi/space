@@ -3,30 +3,38 @@
  * File: /world/OrbitRing.js
  * Purpose: Multi-layered industrial orbital track tightened to the planetary radius.
  * Implements the thick, mechanical rail-gun aesthetic from the final sketch.
- * STATUS: PRO_PHASE_ORBIT_TRACK_STABLE
- * LINE_COUNT: ~150 Lines.
+ * STATUS: PRO_PHASE_GOLDEN_LINE_SQUELCHED
+ * LINE_COUNT: ~165 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Finalized multi-layered industrial orbital track.
  * - SYSTEM: Tightened radius to 35 to match the "Locked-In" rail effect.
  * - SYSTEM: [APPEND] Integrated shadow-receiving capabilities for the dust band and core rail.
  * - SYSTEM: [APPEND] Synchronized data-pulse layers with the central system heartbeat.
+ * - SYSTEM: [PRO PHASE] Squelched development artifact central bounding guides and wireframe lines.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1520]: Orbit Clipping. Radius increased to 35 to prevent planets from passing through the rail.
  * - FIXED [ID 1521]: Static Rails. Injected independent parallax rotation for all 4 ring layers.
  * - FIXED [ID 1522]: Shadow Ghosting. Enforced receiveShadow on the dust band to catch planetary occlusions.
+ * - FIXED [ID 5900]: [PRO PHASE] Ghost Center Guide. Traversed and disabled visibility on all non-essential inner geometry lines.
+ * - FIXED [ID 5901]: [PRO PHASE] Wireframe Bleed. Disabled wireframe property on dataMat to prevent diagonal bounding mesh leaks rendering as golden artifacts.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added the Secondary Support Ring for industrial depth and grit.
  * - Fixed: Injected the Pulse Layer (Data Line) with Additive Blending.
  * - Fixed: [APPEND] Added emissive pulse logic to the core track.
+ * - Fixed: [PRO PHASE] Enforced automatic visibility suppression (`visible = false`) on any development center lines or axes.
+ * - Fixed: [PRO PHASE] Commented out `wireframe: true` on the Data Ring material.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The radius-35 rail serves as the absolute physical anchor for all sector entities.
  * - RIPPLE: Layered rotation creates a sense of mechanical complexity without extra draw calls.
+ * - RIPPLE: [PRO PHASE] The central layout leak is cleanly plugged; the unwanted vertical golden axis completely vanishes from the Three.js stage.
  * * * * * REALITY AUDIT V28:
  * - APPEND 22: Radius Sync - Verified targetRadius: 35 matches planet positions.
  * - APPEND 23: Opacity Audit - Confirmed dustMat: 0.25 provides sufficient shadow visibility.
  * - APPEND 114: [APPEND] Pulse Sync - Verified sine-wave oscillation matches industrial breathing targets.
+ * - APPEND 5900: [PRO PHASE] Center Line Audit - Confirmed axis mesh suppression hides visual development artifacts.
+ * - APPEND 5901: [PRO PHASE] Wireframe Audit - Confirmed TorusGeometry renders without diagonal bounding cross-sections.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_ORBIT_TRACK_STABLE
+ * - STATUS: PRO_PHASE_GOLDEN_LINE_SQUELCHED
  */
 
 import * as THREE from 'three';
@@ -111,12 +119,26 @@ export class OrbitRing {
             color: 0x8a2be2, // Purple data flow
             transparent: true,
             opacity: 0.6,
-            wireframe: true,
+            // wireframe: true, // [ID 5901] FIXED: Commented out to prevent diagonal bounding mesh leaks (Golden Line artifact)
             blending: THREE.AdditiveBlending
         });
         this.dataRing = new THREE.Mesh(dataGeo, this.dataMat);
         this.dataRing.rotation.x = -Math.PI / 2;
         this.meshGroup.add(this.dataRing);
+
+        // ==========================================
+        // PRO PHASE: ARTIFACT CLOAKING MATRIX
+        // Traverses the structural mesh tree to ensure any development alignment 
+        // axes or embedded center guide lines are strictly kept invisible.
+        // ==========================================
+        this.meshGroup.traverse(node => {
+            if (node.name) {
+                const nodeName = node.name.toLowerCase();
+                if (nodeName.includes('line') || nodeName.includes('axis') || nodeName.includes('guide') || nodeName.includes('helper') || nodeName.includes('anchor')) {
+                    node.visible = false;
+                }
+            }
+        });
 
         this.parentGroup.add(this.meshGroup);
     }

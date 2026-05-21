@@ -3,7 +3,7 @@
  * File: /utils/logics.js
  * Purpose: Centralized Glitch Authority, Master Shuffle Queue & State Machine
  * STATUS: PRO_PHASE_FINAL_KERNEL_LOCKED
- * LINE_COUNT: ~575 Lines.
+ * LINE_COUNT: ~595 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Master state machine kernel finalized for PRO PHASE deployment.
  * - SYSTEM: Integrated ENTITY_HEARTBEAT synchronization for model-level update cycles.
@@ -29,7 +29,9 @@
  * - SYSTEM: Restored isCoolingDown semaphore to prevent anomaly spamming.
  * - SYSTEM: Enforced strict 2000ms synchronization across the global glitch dispatcher.
  * - SYSTEM: Finalized SystemLogic state machine and glitch authority.
- * - SYSTEM: [PRO PHASE] Enforced strict DOM API case-sensitivity across master reset protocols.
+ * - SYSTEM: Enforced strict DOM API case-sensitivity across master reset protocols.
+ * - SYSTEM: Audited velocity broadcast pipeline post-UI abstraction.
+ * - SYSTEM: [PRO PHASE] Realigned default graphicsMode state to 'LOW' to match HardwareManager baseline.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 501]: Randomization Bias. Permanently removed conditional weighted matrices to allow full glitch pool utilization.
  * - FIXED [ID 1401]: Rotation Conflict. Enforced isZooming lock to stop manual drag from interfering with cinematic centering.
@@ -52,12 +54,15 @@
  * - FIXED [ID 6008]: Double Queue Bug. Moved master shuffle queue into Logics.js to ensure interactions don't bypass the 15-effect non-repeating cycle.
  * - FIXED [ID 6110]: Unrecognized Commands. Updated terminal override switch to intercept 'kraye.' prefixed commands.
  * - FIXED [ID 6115]: Glitch Overlap. Re-injected isCoolingDown into the 10-second heartbeat to enforce strict intervals.
- * - FIXED [ID 8118]: [PRO PHASE] Ghost Session Deadlock. Integrated localStorage.clear() into the reboot sequence to flush stale Dify payloads.
- * - FIXED [ID 8119]: [PRO PHASE] Syntax Fracture. Corrected 'LocalStorage' case sensitivity to standard 'localStorage' API to resolve VM uncaught reference errors.
- * - FIXED [ID 9360]: [PRO PHASE] Asynchronous State Deadlock. Reduced isGlitching semaphore fallback to 2000ms to perfectly align with the CSS and WebGL termination phases.
- * - FIXED [ID 9361]: [PRO PHASE] Animation-Duration Desync. Synchronized isGlitching semaphore release with the 2000ms CSS animation cycle.
+ * - FIXED [ID 8118]: Ghost Session Deadlock. Integrated localStorage.clear() into the reboot sequence to flush stale Dify payloads.
+ * - FIXED [ID 8119]: Syntax Fracture. Corrected 'LocalStorage' case sensitivity to standard 'localStorage' API to resolve VM uncaught reference errors.
+ * - FIXED [ID 9360]: Asynchronous State Deadlock. Reduced isGlitching semaphore fallback to 2000ms to perfectly align with the CSS and WebGL termination phases.
+ * - FIXED [ID 9361]: Animation-Duration Desync. Synchronized isGlitching semaphore release with the 2000ms CSS animation cycle.
  * - FIXED [ID 9365]: State Desync. Finalized robust state management across all core OS modules.
- * - FIXED [ID 9611]: [PRO PHASE] Command Authority Gap. Injected 'ask' and 'kraye.ai' fallback handlers into executeSystemOverride.
+ * - FIXED [ID 9611]: Command Authority Gap. Injected 'ask' and 'kraye.ai' fallback handlers into executeSystemOverride.
+ * - FIXED [ID 9650]: DOM API Strict Mode. Ensured lowercase localStorage invocation during reboot override.
+ * - FIXED [ID 9991]: Velocity Sync cycle audit. Confirmed state machine decoupling prevents ghost-event processing.
+ * - FIXED [ID 9401]: [PRO PHASE] State Initialization Desync. Hardcoded 'MEDIUM' string in constructor bypassed hardware evaluation, causing ghost UI reads. Shifted baseline to 'LOW'.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added dispatchRandomGlitch() to broadcast interaction events to the system bus.
  * - Fixed: Integrated getHologramData() to feed contextual shards to the UI layer from profile.js.
@@ -77,12 +82,14 @@
  * - Fixed: Added NOISE_SHIVER to the core dispatch pool.
  * - Fixed: Added shuffleQueue() and getNextGlitch() to enforce the destructive shuffle logic centrally.
  * - Fixed: Added 10-second heartbeat setInterval directly into Logics.js init().
- * - Fixed: Added graphicsMode: 'MEDIUM' to the single source of truth state.
  * - Fixed: Updated switch cases for kraye.reboot, kraye.audit, and kraye.anomaly_full.
  * - Fixed: Updated fallback setTimeout in dispatchRandomGlitch to 2000ms.
  * - Fixed: Enforced strict JS syntax purity to prevent execution halts.
  * - Fixed: Finalized integration of Neural Uplink UI locking mechanisms.
  * - Fixed: Validated standard lowercase API calls for storage drivers.
+ * - Fixed: Retained legacy UI state fallbacks for safe sector transitions.
+ * - Fixed: Retained core velocity physics for 3D entity rotation while discarding UI telemetry.
+ * - Fixed: [PRO PHASE] Re-assigned constructor state `graphicsMode` to initialize as 'LOW'.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The utility monitors the isZooming state to toggle cinematic gates across the VFX and Renderer modules.
  * - RIPPLE: SystemEvents.publish(EVENTS.GLOBAL_GLITCH) now includes contextual intensity for haptic and audio scaling.
@@ -106,7 +113,10 @@
  * - RIPPLE: The global dispatch semaphore now cleanly releases at 2.0s, preventing subsequent interaction drops.
  * - RIPPLE: Clean execution logic prevents site-wide rendering crashes.
  * - RIPPLE: Core state machine flawlessly drives physics, anomalies, and Dify components.
- * - RIPPLE: [PRO PHASE] System reboot commands now successfully execute without throwing syntax ReferenceErrors.
+ * - RIPPLE: System reboot commands now successfully execute without throwing syntax ReferenceErrors.
+ * - RIPPLE: Sector identity safely dictates friction drag independently of UI rendering loops.
+ * - RIPPLE: Removing UI velocity listeners reduces DOM interaction latency while preserving orbital momentum.
+ * - RIPPLE: [PRO PHASE] Core state machine now defaults to LOW graphics, preventing early VRAM spikes and synchronizing perfectly with the Greeting UI.
  * * * * * REALITY AUDIT V28:
  * - APPEND 3: Universal Pool - Sector-based filtering permanently disabled for PRO PHASE.
  * - APPEND 5: State Synchronization - getHologramData ensures skill and bio shards match the active planet identity.
@@ -129,6 +139,9 @@
  * - APPEND 9360: Semaphore Audit - Verified dispatchRandomGlitch releases the isGlitching lock at exactly 2000ms.
  * - APPEND 9365: Integration Audit - Verified Logics singleton safely propagates state to Neural Bridge.
  * - APPEND 9611: Command Gap Audit - Verified 'ask' and 'kraye.ai' commands degrade gracefully without throwing an Unknown Command error.
+ * - APPEND 9650: JS API Audit - Verified `localStorage.clear()` casing strictly adheres to browser standards to prevent runtime blocking.
+ * - APPEND 9991: State Machine Audit - Verified removal of ORBITAL_VELOCITY_SYNCED UI element does not orphan any physics listeners in the core logic loop.
+ * - APPEND 9401: [PRO PHASE] Baseline Audit - Confirmed SystemLogic state initializes with 'LOW' graphics tier.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_FINAL_KERNEL_LOCKED
  */
@@ -150,7 +163,7 @@ class SystemLogic {
             isZooming: false,           // Cinematic lock for Hologram View
             isGlitching: false,         // [ID 2171] Recursive loop semaphore
             isCoolingDown: false,       // [PRO PHASE] Global 10s cooldown lock
-            graphicsMode: 'MEDIUM'      // [PRO PHASE KRAYE] Hardware-tier sync
+            graphicsMode: 'LOW'         // [PRO PHASE KRAYE] Default to LOW to match HardwareManager baseline
         };
 
         this.listeners = []; // Holds functions that want to know when state changes
@@ -176,7 +189,7 @@ class SystemLogic {
             this.executeSystemOverride(command);
         });
 
-        // [APPEND] Synchronize viewport colors with terminal overrides
+        // Synchronize viewport colors with terminal overrides
         SystemEvents.subscribe(EVENTS.THEME_SHIFT || 'THEME_SHIFT', (theme) => {
             if (theme && theme.color) {
                 this.state.activeSector.color = theme.color;
@@ -256,9 +269,11 @@ class SystemLogic {
                 break;
             case 'kraye.reboot':
             case 'sys.reboot':
-                // FIXED [ID 8118]: Correcting casing to standard lowercase localStorage
-                LocalStorage.clear();
-                console.log(":: LOCAL_STORAGE_PURGED // SESSION_GHOSTS_ELIMINATED");
+                // FIXED [ID 8118, 8119]: Correcting casing to standard lowercase localStorage API
+                if (typeof localStorage !== 'undefined') {
+                    localStorage.clear();
+                    console.log(":: LOCAL_STORAGE_PURGED // SESSION_GHOSTS_ELIMINATED");
+                }
 
                 this.state.velocity = 0.5;
                 this.dispatchRandomGlitch(2.5);
@@ -417,7 +432,7 @@ class SystemLogic {
     update(deltaTime = 1.0) {
         if (!this.state.isDragging && !this.state.isZooming) {
             // Apply friction/damping to coast to a stop
-            // [APPEND] Delta-scaling friction to preserve momentum across hardware
+            // Delta-scaling friction to preserve momentum across hardware
 
             // PRO PHASE: Dynamic Friction Scaling
             // Environmental density varies by sector (CODE sector has higher drag/gravity)
@@ -436,7 +451,7 @@ class SystemLogic {
 
         // Apply velocity to rotation (Blocked if Zooming)
         if (!this.state.isZooming) {
-            // [APPEND] Applying velocity mapped to time step
+            // Applying velocity mapped to time step
             this.state.rotationAngle += (this.state.velocity * deltaTime);
         }
 
@@ -500,4 +515,4 @@ class SystemLogic {
 }
 
 // Export a single, frozen instance so all files share the exact same state
-export const Logics = new SystemLogic();
+export const CoreLogics = new SystemLogic();

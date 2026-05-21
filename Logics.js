@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE (OPTION A & SINGULARITY)
  * File: /Logics.js
  * Purpose: Central System Brain, Hologram Projection, Mobile Kinetics, Asset Mounting & Adaptive Kernel Handshake
- * STATUS: PRO_PHASE_RULE_STRICT_LOCKED
- * LINE_COUNT: ~500 Lines.
+ * STATUS: PRO_PHASE_KINETIC_SPEED_LOCKED
+ * LINE_COUNT: ~525 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Linked "Enter System" interaction to Audio Hardware Unlock.
  * - SYSTEM: Magnetic Wheel protocol integrated for kinetic scroll snapping.
@@ -21,6 +21,7 @@
  * - SYSTEM: [PRO PHASE] Replaced mobile-only button with Universal Industrial Terminal Trigger logic for cross-platform access.
  * - SYSTEM: [PRO PHASE] Decoupled ADMIN_ACCESS_GRANTED from the Universal Trigger to restore clean toggle logic.
  * - SYSTEM: [PRO PHASE] Exposed resize API to global window listener for dynamic viewport scaling.
+ * - SYSTEM: [PRO PHASE] Amplified orbital rotation snap and drag speeds for hyper-responsive cinematic momentum.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static innerHTML injection with a character-by-character typewriter loop.
  * - FIXED [ID 1412]: Orbital Stutter. Scaled anomaly intensity by rotation velocity to simulate physical camera strain.
@@ -42,6 +43,7 @@
  * - FIXED [ID 9495]: [PRO PHASE] Ambient Rotation Fix. Restored logic to allow constant orbital drift while in idle states, passing `normalizedDelta` to child systems.
  * - FIXED [ID 9540]: [PRO PHASE] Toggle Collision. Removed ADMIN_ACCESS_GRANTED broadcast from Universal Trigger to prevent overriding the DRAWER_TOGGLED close sequence.
  * - FIXED [ID 9610]: [PRO PHASE] Viewport Desync. Aliased handleResize to resize() to satisfy main.js global event listener.
+ * - FIXED [ID 9801]: [PRO PHASE] Sluggish Orbit. Increased snap interpolation and manual drag multipliers to establish heavy, aggressive spin physics.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected Typewriter-synced events into activateSector() to populate shards dynamically.
  * - Fixed: Delegated `mountAssets` payload to `ModelManager` to reduce file complexity.
@@ -59,6 +61,9 @@
  * - Fixed: [PRO PHASE] Re-implemented continuous ambient drift logic powered by `normalizedDelta`.
  * - Fixed: [PRO PHASE] Stripped 'ADMIN_ACCESS_GRANTED' publish from btnTerminalTrigger pointerdown listener.
  * - Fixed: [PRO PHASE] Exposed public resize() method on the LogicsEngine singleton.
+ * - Fixed: [PRO PHASE] Scaled snap homing speed interpolation from 0.1 to 0.25.
+ * - Fixed: [PRO PHASE] Amplified manual drag velocity injection multiplier to 2.5x.
+ * - Fixed: [PRO PHASE] Increased ambient auto-rotate drift speed to 0.004.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: Swiping down on mobile clears the activeClickedSector, dismissing the holograms and unlocking orbit physics.
  * - RIPPLE: High-speed swiping now directly controls the intensity of the GLOBAL_GLITCH dispatcher.
@@ -72,6 +77,7 @@
  * - RIPPLE: [PRO PHASE] The universe maintains a smooth continuous rotation when idle, breathing life into the 3D void.
  * - RIPPLE: [PRO PHASE] Clicking the Universal Terminal trigger cleanly toggles the drawer open and closed without forcing recursive configuration menus.
  * - RIPPLE: [PRO PHASE] Resizing the Cognitive Shard now cleanly updates the underlying WebGL aspect ratio without tearing.
+ * - RIPPLE: [PRO PHASE] Planetary voids now react violently to swipe gestures and snap to the center instantly, simulating massive mechanical torque.
  * * * * * REALITY AUDIT V28:
  * - APPEND 16: Typewriter Synchronization - Enforced 20ms character delay to match industrial "Data-Stream" aesthetic.
  * - APPEND 48: ModelManager Integration - Safely decoupled mounting protocols to specialized hardware pipeline.
@@ -89,8 +95,9 @@
  * - APPEND 9495: [PRO PHASE] Ambient Rotation Audit - Verified `normalizedDelta` drives the idle rotation state without causing jitter on focus snap.
  * - APPEND 9540: [PRO PHASE] Toggle Parity Audit - Verified that clicking the Universal Trigger while the terminal is open safely closes the window without re-opening it.
  * - APPEND 9800: [PRO PHASE] Resize API Audit - Verified LogicsEngine correctly consumes global window resize events from main.js.
+ * - APPEND 9801: [PRO PHASE] Velocity Scale Audit - Confirmed new sensitivity multipliers provide Hollywood-style cinematic locking without breaking WRAP_LIMIT constraints.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
+ * - STATUS: PRO_PHASE_KINETIC_SPEED_LOCKED
  */
 
 import * as THREE from 'three';
@@ -111,7 +118,7 @@ import { Terminal } from './ui/Terminal.js';
 import { CursorService } from './systems/CursorService.js';
 import { HardwareManager } from './systems/HardwareManager.js';
 
-import { Logics as SystemLogicUtils } from './utils/logics.js';
+import { CoreLogics as SystemLogicUtils } from './utils/logics.js';
 import { SystemEvents, EVENTS } from './utils/events.js';
 import { CoreLoop } from './core/Loop.js';
 import { COLORS, SYSTEM } from './data/constants.js';
@@ -373,7 +380,8 @@ class LogicsEngine {
                 this.clearRealityFocus();
             }
 
-            this.rotationVelocity += e.detail.velocityX;
+            // [PRO PHASE] Increased rotational drag velocity multiplier for heavy spin
+            this.rotationVelocity += e.detail.velocityX * 2.5;
 
             if (this.cursorService && typeof this.cursorService.setMomentum === 'function') {
                 this.cursorService.setMomentum(this.rotationVelocity);
@@ -922,7 +930,7 @@ KRAYE_OS // V28 COMMAND_REGISTRY
                 let target = this.targetRotation;
                 while (target - current > Math.PI) target -= Math.PI * 2;
                 while (target - current < -Math.PI) target += Math.PI * 2;
-                this.universeGroup.rotation.y += (target - current) * 0.1;
+                this.universeGroup.rotation.y += (target - current) * 0.25; // [PRO PHASE] Increased snap interpolation
                 if (Math.abs(target - current) < 0.001) this.isSnapping = false;
             } else {
                 this.rotationVelocity *= 0.90;
@@ -933,7 +941,7 @@ KRAYE_OS // V28 COMMAND_REGISTRY
                     this.snapToAngle(snap);
                 } else if (this.rotationVelocity === 0 && !this.activeClickedSector) {
                     // [PRO PHASE] ID 9495: Fixed ambient orbital constant application
-                    this.universeGroup.rotation.y += 0.001 * normalizedDelta;
+                    this.universeGroup.rotation.y += 0.004 * normalizedDelta; // [PRO PHASE] Increased auto-rotate speed
                 } else {
                     this.universeGroup.rotation.y += this.rotationVelocity;
                 }
