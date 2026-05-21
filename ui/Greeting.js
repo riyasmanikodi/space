@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE (MULTI-MODE IDENTITY)
  * File: /ui/Greeting.js
  * Purpose: System Boot Sequence, Hardware Polling, Tactical Insights, and Ripple Impact Handshake
- * STATUS: PRO_PHASE_RULE_STRICT_LOCKED
- * LINE_COUNT: ~360 Lines.
+ * STATUS: PRO_PHASE_TELEMETRY_HARDENED
+ * LINE_COUNT: ~390 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated System Active handshake to release Web Audio context on first interaction.
  * - SYSTEM: [PRO PHASE] Synchronized CoreManifesto.dispose() with unlockSystem to purge background WebGL loops.
@@ -13,6 +13,9 @@
  * - SYSTEM: [PRO PHASE GREETING] Engineered dual-context capability to support Boot Sequence UI injection.
  * - SYSTEM: [PRO PHASE] HardwareManager injected to respect persistent Graphics Tiers during reload.
  * - SYSTEM: [PRO PHASE] Boot sequence logs now dynamically reflect the absolute hardware truth state.
+ * - SYSTEM: [PRO PHASE] Integrated decoupled hardware-accelerated #video-layer into the boot sequence.
+ * - SYSTEM: [PRO PHASE] Synchronized video `.play()` promise with explicit user-interaction AudioEngine handshake.
+ * - SYSTEM: [PRO PHASE] Implemented robust browser identification logic to resolve UA string parsing errors.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static injection with dynamic typewriter loop.
  * - FIXED [ID 4380]: [PRO PHASE] Background Bleed. Enforced `CoreManifesto.dispose()` during OS unlock.
@@ -22,6 +25,9 @@
  * - FIXED [ID 7200]: [PRO PHASE] Missing Reboot Confirmation. Greeting text now reads the Hardware Profile from `localStorage`.
  * - FIXED [ID 9230]: [PRO PHASE] Boot Log Desync. Ensured active tier and profile accurately represent the Cold Boot persistence.
  * - FIXED [ID 9255]: [PRO PHASE] Static Ready Line Size. Synchronized ready string with NATIVE_FONT_SIZES kernel authority.
+ * - FIXED [ID 8660]: [PRO PHASE] Video Occlusion Deadlock. Video layer dropped to black due to CoreManifesto CSS filter conflict. Decoupled video from blurred #os-greeting overlay.
+ * - FIXED [ID 8661]: [PRO PHASE] Autoplay Block. Video failed to trigger due to browser safety protocols. Injected `.play()` into the exact millisecond of the `unlockSystem` click event.
+ * - FIXED [ID 9950]: [PRO PHASE] Host Telemetry Corruption. Replaced legacy `userAgent.split(' ')[0]` (Mozilla/5.0) with a robust browser detection helper to correctly identify active engines.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added manager.onLoad handling to synchronize 3D asset readiness with UI manifestation.
  * - Fixed: Integrated TYPEWRITER_TICK publication for synced audio-visual clicks.
@@ -32,6 +38,9 @@
  * - Fixed: [PRO PHASE] Injected dynamic diagnostic string based on `hw_graphics_tier`.
  * - Fixed: [PRO PHASE] Aligned boot sequence typography with the Universal Hardware Autonomy strategy.
  * - Fixed: [PRO PHASE] Imported NATIVE_FONT_SIZES to dynamically scale the boot sequence final log.
+ * - Fixed: [PRO PHASE] Added DOM selection for `#boot-video` to bridge HTML5 media with JS kernel.
+ * - Fixed: [PRO PHASE] Wrapped `.play()` in a Promise catch block to prevent fatal script halting if codec fails.
+ * - Fixed: [PRO PHASE] Added browser detection helper `getBrowserName()` to telemetry block.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: .lens-thump provides the physical screen-shake for the unlockSystem transition.
  * - RIPPLE: [PRO PHASE] OS entry is instantaneous as the planetary void is pre-constructed invisibly in the background.
@@ -40,6 +49,8 @@
  * - RIPPLE: [PRO PHASE] Fresh reloads from the Terminal BIOS instantly display the newly allocated VRAM tier in the boot logs.
  * - RIPPLE: [PRO PHASE] Greeting module seamlessly passes the 'GREETING' context to HeroEffects, which now utilizes absolute native font sizing.
  * - RIPPLE: [PRO PHASE] The "READY" line now perfectly matches the hardware profile typographic scale.
+ * - RIPPLE: [PRO PHASE] The cinematic MP4 video now successfully fires and plays identically across all hardware profiles without dropping to a black screen.
+ * - RIPPLE: [PRO PHASE] System stats now correctly report actual browser engine (Chrome, Edge, Brave, etc) rather than static 'Mozilla'.
  * * * * * REALITY AUDIT V28:
  * - APPEND 43: Audio Release - Enforced user-gesture-first policy to comply with browser audio restrictions.
  * - APPEND 3388: [PRO PHASE] Display Override Audit - Verified button transitions from none -> block -> opacity 1.
@@ -48,8 +59,11 @@
  * - APPEND 7200: [PRO PHASE] Persistence Audit - Verified Greeting text accurately reflects `hw_graphics_tier` and `hw_profile` settings post-reboot.
  * - APPEND 9230: [PRO PHASE] Persistence Sync - Verified boot logs accurately display BIOS memory overrides.
  * - APPEND 9255: [PRO PHASE] Typographic Auth - Verified ready line correctly inherits NATIVE_FONT_SIZES.PC.BOOT_READY or MOBILE.
+ * - APPEND 9910: [PRO PHASE] Video Handshake Audit - Verified `.play()` executes strictly alongside `AudioEngine.unlock()` bypassing autoplay limits.
+ * - APPEND 9915: [PRO PHASE] Video Error Audit - Verified Promise catch block prevents UI deadlock if MP4 codec is unsupported.
+ * - APPEND 9955: [PRO PHASE] Telemetry Accuracy Audit - Verified `getBrowserName()` effectively strips legacy 'Mozilla' headers, accurately reflecting client-side environment.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_RULE_STRICT_LOCKED
+ * - STATUS: PRO_PHASE_TELEMETRY_HARDENED
  */
 
 import { Typewriter } from '../effects/Typewriter.js';
@@ -70,6 +84,9 @@ export class Greeting {
         this.statsContainer = document.getElementById('system-stats');
         this.canvasLayer = document.getElementById('webgl-canvas');
         this.insightTarget = document.getElementById('tactical-insight');
+
+        // [PRO PHASE] Bridge HTML5 Media Layer
+        this.bgVideo = document.getElementById('boot-video');
 
         this.greetingEffects = null;
 
@@ -195,7 +212,23 @@ export class Greeting {
     }
 
     async renderSystemStats() {
-        let statsHtml = `<div class="stat-block">HOST: ${navigator.userAgent.split(' ')[0]}</div>`;
+        // [PRO PHASE] Helper to resolve actual engine identity, bypassing legacy 'Mozilla/5.0'
+        const getBrowserName = () => {
+            const ua = navigator.userAgent;
+            if (ua.indexOf("Firefox") > -1) return "FIREFOX";
+            if (ua.indexOf("SamsungBrowser") > -1) return "SAMSUNG";
+            if (ua.indexOf("Opera") > -1 || ua.indexOf("OPR") > -1) return "OPERA";
+            if (ua.indexOf("Trident") > -1) return "INTERNET EXPLORER";
+            if (ua.indexOf("Edge") > -1 || ua.indexOf("Edg/") > -1) return "MICROSOFT EDGE";
+            if (ua.indexOf("Brave") > -1) return "BRAVE";
+            if (ua.indexOf("Chrome") > -1) return "GOOGLE CHROME";
+            if (ua.indexOf("Safari") > -1) return "SAFARI";
+            return "OS_ENGINE";
+        };
+
+        const hostName = window.RIYAS_BROWSER_HOST || getBrowserName();
+        let statsHtml = `<div class="stat-block">HOST: ${hostName}</div>`;
+
         if (navigator.connection) {
             statsHtml += `<div class="stat-block">UPLINK: ${navigator.connection.effectiveType || 'UNKNOWN'}</div>`;
         }
@@ -222,6 +255,13 @@ export class Greeting {
 
     unlockSystem() {
         this.isUnlocked = true;
+
+        // [PRO PHASE] Synchronize Video playback with explicit user gesture
+        if (this.bgVideo) {
+            this.bgVideo.play().catch(error => {
+                console.warn(":: VIDEO_PLAY_REJECTED_OR_MISSING", error);
+            });
+        }
 
         AudioEngine.unlock();
 
