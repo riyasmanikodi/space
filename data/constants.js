@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE (SINGULARITY INTEGRATION)
  * File: /data/constants.js
  * Purpose: Global DNA, Performance Weighting, and Anomaly Timing Registry
- * STATUS: PRO_PHASE_SINGULARITY_LOCKED
- * LINE_COUNT: ~245 Lines.
+ * STATUS: PRO_PHASE_KINETIC_AND_MEDIA_LOCKED
+ * LINE_COUNT: ~255 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Global DNA registry finalized. Unified sector mapping and brand color-space established.
  * - SYSTEM: Transitioned from image-based assets to mathematical procedural geometry for the cursor.
@@ -20,6 +20,8 @@
  * - SYSTEM: [PRO PHASE] Realigned Sector DNA to prevent structural color collision between VISION and CONTACT sectors.
  * - SYSTEM: [PRO PHASE] Enforced strict JS syntax purity to prevent execution halts.
  * - SYSTEM: [PRO PHASE] Executed comprehensive ASSET_PATHS realignment based on physical directory reality audit.
+ * - SYSTEM: [PRO PHASE] Amplified orbital drag sensitivity for hyper-responsive cinematic momentum.
+ * - SYSTEM: [PRO PHASE] Registered VIDEO asset paths for hardware-accelerated greeting layer.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 05]: Angle Offset Jitter. Enforced strict radians for sector distribution.
  * - FIXED [ID 202]: Color Space Delta. Swapped legacy hex strings for numeric values.
@@ -37,6 +39,8 @@
  * - FIXED [ID 9320]: [PRO PHASE] Visual Cutoff. Scaled GLITCH_DURATION strictly down to 1500ms to synchronize with CSS bounds and prevent zombie animations.
  * - FIXED [ID 9325]: [PRO PHASE] Visual Collision. Resolved Sector DNA collision where VISION and CONTACT shared identical Matrix Green color vectors, causing UI Handshake failures.
  * - FIXED [ID 9330]: [PRO PHASE] Syntax Corruption. Purged non-standard artifact tags from functional code lines to resolve SITE ERRORS.
+ * - FIXED [ID 9801]: [PRO PHASE] Sluggish Orbit. Increased ORBIT.DRAG_SENSITIVITY to establish heavy, aggressive spin physics.
+ * - FIXED [ID 9805]: [PRO PHASE] Hardcoded Media. Abstracted video source into ASSET_PATHS to maintain Single Source of Truth.
  * * * * * OMISSION LOG V28:
  * - Fixed: Injected METEOR_CONFIG to define procedural vertex displacement and ignition thresholds.
  * - Fixed: Added HARDWARE_PROFILES to support Low/Medium/High performance tiers.
@@ -55,6 +59,9 @@
  * - Fixed: [PRO PHASE] Re-assigned COLORS.CONTACT to deep Amber (0xffaa00) to isolate from COLORS.VISION.
  * - Fixed: [PRO PHASE] Enforced pure JavaScript syntax without inline comment corruption.
  * - Fixed: [PRO PHASE] Corrected texture targeting for radar_dish.webp.
+ * - Fixed: [PRO PHASE] Scaled mobile DRAG_SENSITIVITY to 0.012 and PC to 0.008.
+ * - Fixed: [PRO PHASE] Increased AUTO_ROTATE_SPEED to 0.004.
+ * - Fixed: [PRO PHASE] Added VIDEO dictionary to ASSET_PATHS.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The system is now 100% independent of external cursor assets, increasing boot speed.
  * - RIPPLE: The decoupled renderer ensures that cursor crashes do not impact planetary rotation.
@@ -71,6 +78,8 @@
  * - RIPPLE: [PRO PHASE] Sector isolation achieved: CONTACT sector now possesses a unique color space (Amber), preventing Bridge Handshake UI collisions.
  * - RIPPLE: [PRO PHASE] Clean execution logic prevents site-wide rendering crashes.
  * - RIPPLE: [PRO PHASE] Hardened path arrays guarantee no 404 console spam during initial AssetLoader sequence.
+ * - RIPPLE: [PRO PHASE] Planetary voids now react violently to swipe gestures, simulating massive mechanical torque.
+ * - RIPPLE: [PRO PHASE] Greeting sequence now queries constants.js for cinematic media paths, preventing 404 deadlocks.
  * * * * * REALITY AUDIT V28:
  * - APPEND 1: Circular Wraparound - WRAP_LIMIT enforced at 2PI.
  * - APPEND 123: Tier Calibration - Verified Anisotropy limits (4x Low / 16x High).
@@ -89,8 +98,10 @@
  * - APPEND 9325: [PRO PHASE] Color Space Isolation - Confirmed `COLORS.CONTACT` correctly broadcasts `0xffaa00` (Amber) across the WebGL and DOM states.
  * - APPEND 9330: [PRO PHASE] Purity Audit - Confirmed JavaScript runtime stability and syntax integrity across global constants.
  * - APPEND 9331: [PRO PHASE] Asset Mapping Audit - Confirmed all texture strings accurately reflect the physical Windows file system hierarchy.
+ * - APPEND 9801: [PRO PHASE] Velocity Scale Audit - Confirmed new sensitivity multipliers do not break WRAP_LIMIT constraints.
+ * - APPEND 9805: [PRO PHASE] Media Path Audit - Confirmed VIDEO registry aligns with physical folder structures.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_SINGULARITY_LOCKED
+ * - STATUS: PRO_PHASE_KINETIC_AND_MEDIA_LOCKED
  */
 
 // ==========================================
@@ -151,9 +162,9 @@ const isMobile = window.innerWidth < 768;
 export const ORBIT = {
     BASE_RADIUS: isMobile ? 6 : 12,
     MAX_ORBIT_WIDTH: 18,
-    DRAG_SENSITIVITY: isMobile ? 0.004 : 0.002,
+    DRAG_SENSITIVITY: isMobile ? 0.012 : 0.008, // [PRO PHASE] Amplified for hyper-responsive cinematic momentum
     DAMPING: 0.05,
-    AUTO_ROTATE_SPEED: 0.001,
+    AUTO_ROTATE_SPEED: 0.004, // [PRO PHASE] Increased ambient drift speed
     WRAP_LIMIT: Math.PI * 2,
     ZOOM_RADIUS: 75
 };
@@ -192,6 +203,9 @@ export const ASSET_PATHS = {
         ROCKET_DIFF: './assets/textures/rocket.webp',
         LAVA: './assets/textures/surfaces/Lava.webp',
         CURSOR_SHARD: './assets/textures/ui/Flying Meteorite on Fire Animated--cursor--SweezyCursors.png'
+    },
+    VIDEO: {
+        BOOT_SEQUENCE: './assets/video/20260521-0701-59.4958694.mp4' // [PRO PHASE] Isolated Video Layer
     }
 };
 

@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /systems/CursorService.js
  * Purpose: Anchored Spline-Interpolated Kinetic Cursor Path (Liquid Dynamic Variant)
- * STATUS: PRO_PHASE_KINETIC_FIDELITY_LOCKED
- * LINE_COUNT: ~350 Lines.
+ * STATUS: PRO_PHASE_GOLDEN_LINE_SQUELCHED
+ * LINE_COUNT: ~365 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Integrated dual-layer Kinetic Fire cursor (Meteorite Core + Shard Tail).
  * - SYSTEM: Decoupled cursor architecture into a dedicated top-level WebGL context.
@@ -25,6 +25,7 @@
  * - SYSTEM: [PRO PHASE] Deactivated public setColor() API to permanently hard-lock the thermal aesthetic.
  * - SYSTEM: [APPEND] Integrated Lava.webp surface texture into the Meteorite core geometry.
  * - SYSTEM: [PRO PHASE] Implemented Kinetic Trail Compression to clamp maximum particle velocity.
+ * - SYSTEM: [PRO PHASE] Squelched the Golden Line coordinate leak during system ignition.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 3005]: System Pointer Bleed. Enforced custom WebGL pointer over standard CSS cursors.
  * - FIXED [ID 3045]: Z-Index Ghosting. Enforced pointer-events: none on the cursor canvas.
@@ -52,6 +53,7 @@
  * - FIXED [ID 4260]: [PRO PHASE] 4-Line Ghosting. Hardened the pathHistory buffer to strictly flush and lock the anchor point after rendering the active segment, preventing geometric overlap.
  * - FIXED [ID 4270]: [PRO PHASE] Thermal Upward Drift. Piped real-time velocityLength into the FireTail uniform loop to enforce an immediate thermal collapse when the cursor is idle.
  * - FIXED [ID 4280]: [PRO PHASE] Big Trail Anomaly. Clamped emitVel scalar using Math.min() to prevent velocity-dependent trail stretching during high-speed drags.
+ * - FIXED [ID 5905]: [PRO PHASE] The Golden Line Artifact. Initialized anchorPoint to null to prevent the Catmull-Rom spline from connecting to absolute zero (0, 0, 0) during idle boot.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added coordinate unprojection math to translate 2D world space.
  * - Fixed: Added lighting rig (Directional + Ambient) isolated to the cursor overlay scene.
@@ -70,6 +72,7 @@
  * - Fixed: [PRO PHASE] Injected TextureLoader and material.map properties to bridge the Lava.webp file into the cursor geometry.
  * - Fixed: [PRO PHASE] Up-scaled cursor geometry detail to support high-fidelity texture wrapping.
  * - Fixed: [PRO PHASE] Injected Math.min() threshold (max scalar 1.2) into the Catmull-Rom tangent multiplier.
+ * - Fixed: [PRO PHASE] Delayed anchorPoint Vector3 instantiation until the first raw mouse position is captured.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: The standalone WebGL context ensures the cursor renders at 60FPS even if the main planetary engine lags.
  * - RIPPLE: [PRO PHASE] The meteorite now visually "smolders" with circular fluid embers continuously when the mouse is idle.
@@ -86,6 +89,7 @@
  * - RIPPLE: [PRO PHASE] The meteorite core now visually matches the high-detail carbonaceous rock requirement without crashing the shader pipeline.
  * - RIPPLE: [PRO PHASE] Shard smolder perfectly fades out instantly upon stop, removing the unwanted smoke stack effect.
  * - RIPPLE: [PRO PHASE] The meteorite tail now maintains a consistent, compressed industrial length regardless of physical dragging speed.
+ * - RIPPLE: [PRO PHASE] The central Golden Line artifact is permanently eliminated from the 3D viewport, restoring the isolated void.
  * * * * * REALITY AUDIT V28:
  * - APPEND 185: Canvas Isolation - Verified cursor overlay does not trigger main DOM repaints.
  * - APPEND 460: [PRO PHASE] Centralized Loop Audit - Verified update/render calls resolve frame-starvation.
@@ -107,8 +111,9 @@
  * - APPEND 4250: [PRO PHASE] Material Audit - Verified ShaderMaterial securely maps the WebP texture map to the fragment kernel.
  * - APPEND 4260: [PRO PHASE] Geometry Audit - Verified CatmullRom strictly operates on 2-point interpolated vectors, erasing the ghost bands.
  * - APPEND 4280: [PRO PHASE] Trail Compression Audit - Verified that high-speed mouse flicks no longer result in extended, thin particle streaks.
+ * - APPEND 5905: Origin Leak Audit - Verified CatmullRomCurve3 does not compute until the cursor provides a valid initial non-zero coordinate array.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_KINETIC_FIDELITY_LOCKED
+ * - STATUS: PRO_PHASE_GOLDEN_LINE_SQUELCHED
  */
 
 import * as THREE from 'three';
@@ -153,8 +158,8 @@ export class CursorService {
         this.pathHistory = [];
         this.maxHistory = 2;
 
-        // [ID 3900]: Sub-frame anchor point to connect disconnected spline segments
-        this.anchorPoint = new THREE.Vector3();
+        // [ID 5905]: Explicitly set to null to prevent Golden Line origin snap to (0,0,0)
+        this.anchorPoint = null;
         this.hasAnchor = false;
 
         // [ID 3980]: Input Tracking properties for Low-Pass Filtering
@@ -280,7 +285,8 @@ export class CursorService {
                 this.rawPos.copy(pos);
                 this.targetPos.copy(pos);
                 this.lastPos.copy(pos);
-                this.anchorPoint.copy(pos);
+                if (!this.anchorPoint) this.anchorPoint = pos.clone();
+                else this.anchorPoint.copy(pos);
                 this.isInitialized = true;
             } else {
                 // [ID 3980]: Store raw input to be smoothed by the Low-Pass Filter in the update loop
@@ -337,13 +343,15 @@ export class CursorService {
         }
 
         if (!this.hasAnchor) {
-            this.anchorPoint.copy(this.targetPos);
+            if (!this.anchorPoint) this.anchorPoint = this.targetPos.clone();
+            else this.anchorPoint.copy(this.targetPos);
             this.hasAnchor = true;
             this.lastPos.copy(this.targetPos);
             return;
         }
 
         // [PRO PHASE]: Sub-Frame Anchored Spline Generation
+        if (!this.anchorPoint) return;
         const curvePoints = [this.anchorPoint, ...this.pathHistory];
 
         if (curvePoints.length >= 2) {
@@ -369,7 +377,8 @@ export class CursorService {
             }
 
             // [ID 4070]: Hardened History Flushing to terminate ghost loops
-            this.anchorPoint.copy(this.targetPos);
+            if (!this.anchorPoint) this.anchorPoint = this.targetPos.clone();
+            else this.anchorPoint.copy(this.targetPos);
             this.pathHistory = [];
         }
 

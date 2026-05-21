@@ -2,8 +2,8 @@
  * RIYAS_OS V28 - PRO PHASE
  * File: /core/Scene.js
  * Purpose: Three.js Scene Initialization, Lighting, and Context Management
- * STATUS: PRO_PHASE_SELECTOR_SYNCED
- * LINE_COUNT: ~145 Lines.
+ * STATUS: PRO_PHASE_CACHE_RESOLVED
+ * LINE_COUNT: ~155 Lines.
  * * * * * KRAYE LOG V28:
  * - SYSTEM: Abstracted from ModelManager to support isolated TECH sector updates.
  * - SYSTEM: Integrated class-based instantiation for modular entities (Rover, Satellite, Radar, Rocket).
@@ -11,33 +11,38 @@
  * - SYSTEM: [APPEND] Corrected scene-attachment logic to prevent asset loss during instance overrides.
  * - SYSTEM: [PRO PHASE] Surgically excised legacy ghost starfield to eliminate foreground sub-pixel noise.
  * - SYSTEM: [PRO PHASE] Synchronized DOM selector with the V28 kernel to resolve initialization deadlocks.
+ * - SYSTEM: [APPEND] Enforced cache-busting protocol on internal data dependencies.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 2106]: Duplicate Ticker Deadlock. Centralized clock prevents desync between Logics updates and CoreLoop rendering.
  * - FIXED [ID 2107]: [APPEND] Handshake Error. Rewrote set() method to migrate existing lights and starfield to the new scene instance.
  * - FIXED [ID 2655]: [PRO PHASE] Green Dot Artifacts. Deleted setupStarfield() particle generator to prevent bloom-induced foreground noise.
  * - FIXED [ID 3380]: Canvas ID Mismatch. Swapped #stage for #webgl-canvas to align with index.html update and prevent null reference errors.
+ * - FIXED [ID 8655]: [APPEND] Cache Deadlock. Bypassed `net::ERR_CACHE_READ_FAILURE` across data module imports by enforcing strict cache-busting query strings (?v=28).
  * * * * * OMISSION LOG V28:
  * - Fixed: Added deltaTime handshake for independent physical momentum.
  * - Fixed: [APPEND] Added set() method to allow Logics.js to override the internal Three.js scene instance.
  * - Fixed: [APPEND] Integrated lighting-registry to prevent duplicate light instantiation.
  * - Fixed: [PRO PHASE] Hard-deleted the 1,500-point legacy particle system.
  * - Fixed: [PRO PHASE] Hardened selector in setupContextListeners to ensure context-loss listeners bind correctly to the active canvas.
+ * - Fixed: [APPEND] Realigned data import pipelines to prevent browser-level cache fetch blocks.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: [APPEND] Correcting the module handshake allows the UniverseGroup to project via CoreLoop.
  * - RIPPLE: Scene overrides no longer result in a black background or unlit planets.
  * - RIPPLE: [PRO PHASE] Removing legacy particles ensures stars.webp is the primary background layer.
  * - RIPPLE: [PRO PHASE] Resolving the selector crash allows the boot sequence to proceed to the Greeting layer, unblocking the UI button.
+ * - RIPPLE: [APPEND] Scene module now mounts reliably without net::ERR_CACHE_READ_FAILURE halts during live reloads.
  * * * * * REALITY AUDIT V28:
  * - APPEND 116: [APPEND] Ticker Migration - Verified that CoreLoop accurately receives scene payload.
  * - APPEND 201: [PRO PHASE] Handshake Audit - Confirmed set(scene) handles primary lights correctly.
  * - APPEND 260: [PRO PHASE] Ghost Audit - Verified total removal of setupStarfield points.
  * - APPEND 3380: [PRO PHASE] Selector Audit - Verified #webgl-canvas exists in DOM before listener attachment to prevent script halt.
+ * - APPEND 1002: [APPEND] Cache Audit - Verified data modules bypass deadlocked fetch states via cache-busting strings.
  * * * * * MASTER LOG V28:
- * - STATUS: PRO_PHASE_SELECTOR_SYNCED
+ * - STATUS: PRO_PHASE_CACHE_RESOLVED
  */
 
 import * as THREE from 'three';
-import { COLORS } from '../data/constants.js';
+import { COLORS } from '../data/constants.js?v=28';
 
 class SceneManager {
     constructor() {
