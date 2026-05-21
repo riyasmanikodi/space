@@ -16,6 +16,7 @@
  * - SYSTEM: [PRO PHASE] Integrated decoupled hardware-accelerated #video-layer into the boot sequence.
  * - SYSTEM: [PRO PHASE] Synchronized video `.play()` promise with explicit user-interaction AudioEngine handshake.
  * - SYSTEM: [PRO PHASE] Implemented robust browser identification logic to resolve UA string parsing errors.
+ * - SYSTEM: [PRO PHASE] Integrated asynchronous Brave Browser API detection.
  * * * * * CULPRIT LOG V28:
  * - FIXED [ID 1406]: Linguistic Paralysis. Replaced static injection with dynamic typewriter loop.
  * - FIXED [ID 4380]: [PRO PHASE] Background Bleed. Enforced `CoreManifesto.dispose()` during OS unlock.
@@ -28,6 +29,7 @@
  * - FIXED [ID 8660]: [PRO PHASE] Video Occlusion Deadlock. Video layer dropped to black due to CoreManifesto CSS filter conflict. Decoupled video from blurred #os-greeting overlay.
  * - FIXED [ID 8661]: [PRO PHASE] Autoplay Block. Video failed to trigger due to browser safety protocols. Injected `.play()` into the exact millisecond of the `unlockSystem` click event.
  * - FIXED [ID 9950]: [PRO PHASE] Host Telemetry Corruption. Replaced legacy `userAgent.split(' ')[0]` (Mozilla/5.0) with a robust browser detection helper to correctly identify active engines.
+ * - FIXED [ID 9951]: [PRO PHASE] Brave telemetry collision. Chromium engines were falsely reporting as 'GOOGLE CHROME'. Upgraded detection to async API check.
  * * * * * OMISSION LOG V28:
  * - Fixed: Added manager.onLoad handling to synchronize 3D asset readiness with UI manifestation.
  * - Fixed: Integrated TYPEWRITER_TICK publication for synced audio-visual clicks.
@@ -41,6 +43,7 @@
  * - Fixed: [PRO PHASE] Added DOM selection for `#boot-video` to bridge HTML5 media with JS kernel.
  * - Fixed: [PRO PHASE] Wrapped `.play()` in a Promise catch block to prevent fatal script halting if codec fails.
  * - Fixed: [PRO PHASE] Added browser detection helper `getBrowserName()` to telemetry block.
+ * - Fixed: Refactored getBrowserName to async to accommodate Brave detection API.
  * * * * * RIPPLE EFFECT V28:
  * - RIPPLE: .lens-thump provides the physical screen-shake for the unlockSystem transition.
  * - RIPPLE: [PRO PHASE] OS entry is instantaneous as the planetary void is pre-constructed invisibly in the background.
@@ -62,6 +65,7 @@
  * - APPEND 9910: [PRO PHASE] Video Handshake Audit - Verified `.play()` executes strictly alongside `AudioEngine.unlock()` bypassing autoplay limits.
  * - APPEND 9915: [PRO PHASE] Video Error Audit - Verified Promise catch block prevents UI deadlock if MP4 codec is unsupported.
  * - APPEND 9955: [PRO PHASE] Telemetry Accuracy Audit - Verified `getBrowserName()` effectively strips legacy 'Mozilla' headers, accurately reflecting client-side environment.
+ * - APPEND 9956: [PRO PHASE] Brave Audit - Verified host name correctly identifies Brave Browser via async API handshake.
  * * * * * MASTER LOG V28:
  * - STATUS: PRO_PHASE_TELEMETRY_HARDENED
  */
@@ -212,21 +216,23 @@ export class Greeting {
     }
 
     async renderSystemStats() {
-        // [PRO PHASE] Helper to resolve actual engine identity, bypassing legacy 'Mozilla/5.0'
-        const getBrowserName = () => {
+        // [PRO PHASE] Async helper to resolve actual engine identity, bypassing legacy 'Mozilla/5.0'
+        const getBrowserName = async () => {
+            // [ID 9951]: Brave specific API check
+            if (navigator.brave && await navigator.brave.isBrave()) return "BRAVE";
+
             const ua = navigator.userAgent;
             if (ua.indexOf("Firefox") > -1) return "FIREFOX";
             if (ua.indexOf("SamsungBrowser") > -1) return "SAMSUNG";
             if (ua.indexOf("Opera") > -1 || ua.indexOf("OPR") > -1) return "OPERA";
             if (ua.indexOf("Trident") > -1) return "INTERNET EXPLORER";
             if (ua.indexOf("Edge") > -1 || ua.indexOf("Edg/") > -1) return "MICROSOFT EDGE";
-            if (ua.indexOf("Brave") > -1) return "BRAVE";
             if (ua.indexOf("Chrome") > -1) return "GOOGLE CHROME";
             if (ua.indexOf("Safari") > -1) return "SAFARI";
             return "OS_ENGINE";
         };
 
-        const hostName = window.RIYAS_BROWSER_HOST || getBrowserName();
+        const hostName = window.RIYAS_BROWSER_HOST || await getBrowserName();
         let statsHtml = `<div class="stat-block">HOST: ${hostName}</div>`;
 
         if (navigator.connection) {
