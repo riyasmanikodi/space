@@ -331,7 +331,7 @@ class NeuralInterfaceManager {
                 </div>
                 <div class="neural-input-wrap">
                     <span style="color:var(--neural-core); margin-right:10px;">[QUERY]></span>
-                    <input type="text" id="neural-input" autocomplete="off" spellcheck="false" placeholder="Awaiting Input...">
+                    <input type="text" id="neural-input" autocomplete="off" spellcheck="false" placeholder="Enter Your Question Here...">
                 </div>
             </div>
         `;
