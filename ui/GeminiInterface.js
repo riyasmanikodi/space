@@ -327,7 +327,7 @@ class NeuralInterfaceManager {
                     </div>
                 </div>
                 <div id="neural-output" class="neural-output">
-                    <div class="neural-msg ai">SYSTEM_ONLINE. STREAMING_UPLINK_ESTABLISHED.</div>
+                    <div class="neural-msg ai">The Singularity of Knowledge: One Query, Every Possible Answer.</div>
                 </div>
                 <div class="neural-input-wrap">
                     <span style="color:var(--neural-core); margin-right:10px;">[QUERY]></span>
