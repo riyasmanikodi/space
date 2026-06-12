@@ -320,7 +320,7 @@ class NeuralInterfaceManager {
         const shardHTML = `
             <div id="neural-shard-container">
                 <div class="neural-header">
-                    <span>COGNITIVE_CORE // DIFY_GATEWAY_ACTIVE</span>
+                    <span> CHATBOT // INFO ASSISTANT </span>
                     <div class="neural-header-controls">
                         <span id="neural-maximize" class="neural-maximize">[+]</span>
                         <span id="neural-close" class="neural-close">×</span>
