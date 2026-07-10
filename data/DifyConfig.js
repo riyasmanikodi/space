@@ -45,7 +45,7 @@ export const DIFY_CONFIG = {
     // CORE CONNECTION (DIFY REGISTRY)
     // ---------------------------------------------------------
     // UPDATED [ID 8135]: Injecting new validated Secret Key
-    API_KEY: "app-ZHMIm1QAMjrLg2ffKxfOBmdN",
+    API_KEY: "app-sTN55WmemK3MMsNMznFO9GL0",
     BASE_URL: "https://api.dify.ai/v1",
     APP_ID: "KRAYE_AI_GATEWAY",
 
